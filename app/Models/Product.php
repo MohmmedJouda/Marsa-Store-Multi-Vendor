@@ -20,7 +20,6 @@ class Product extends Model
         'description',
         'price',
         'status',
-        'quantity',
         'is_active',
         'is_featured',
         'discount',
@@ -38,9 +37,12 @@ class Product extends Model
         return $this->belongsTo(Store::class);
     }
 
-    public function images()
-    {
+    public function images() {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function mainImage() {
+        return $this->hasOne(ProductImage::class)->where('is_main', 1); 
     }
 
 
@@ -51,6 +53,19 @@ class Product extends Model
 
     public function variants()
     {
-        return $this->hasMany(ProductVariants::class);
+        return $this->hasMany(ProductVariant::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(ProductComment::class);
+    }
+
+
+    public function ratings()
+    {
+        return $this->hasMany(ProductRating::class);
+    }
+
+
 }

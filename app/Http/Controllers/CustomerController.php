@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Product;
+use App\Models\CartItem;
+use App\Models\Category;
 use App\Models\customer;
+use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -12,12 +18,138 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $latest = Product::with('store.user','subcategory')->latest()->take(7)->get();
+        $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
+        ->where('status', 'open')->get();
+
+        $totalPrice = 0;
+        $categories = Category::with('subcategories')->get();
+
+        foreach ($carts as $cart) {
+            foreach ($cart->items as $item) {
+                $totalPrice += $item->qty * $item->product->price;
+            }
+        }
+        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories'));
     }
 
+    public function product_index(Request $request)
+    {
+        $query = Product::query();
+
+        // إذا تم تمرير Subcategory
+        if ($request->has('subcategory')) {
+            $query->where('subcategory_id', $request->subcategory);
+        }
+
+        // جلب المنتجات مع Pagination
+        $products = $query->paginate(12);
+        $categories = Category::with('subcategories')->get();
+         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
+        ->where('status', 'open')->get();
+
+        $totalPrice = 0;
+        foreach ($carts as $cart) {
+            foreach ($cart->items as $item) {
+                $totalPrice += $item->qty * $item->product->price;
+            }
+        }
+        return view('users.customer.products', compact('products','carts','totalPrice','categories'));
+    }
+
+    public function products_cat_index($id){
+
+    $category = Category::findOrFail($id);
+    // الوصول للاسم
+    $name = $category->name;
+
+    // استخرج IDs لكل subcategories الخاصة بالكاتيجوري
+    $subIds = $category->subcategories()->pluck('id');
+
+    $categories = Category::with('subcategories')->get();
+    // اختار منتجات بشكل عشوائي من كل الـ subcategories
+    $products = Product::whereIn('subcategory_id', $subIds)
+                       ->inRandomOrder()
+                       ->take(12) // عدد المنتجات اللي بدك تعرضه
+                       ->get();
+
+        $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
+        ->where('status', 'open')->get();
+
+        $totalPrice = 0;
+        foreach ($carts as $cart) {
+            foreach ($cart->items as $item) {
+                $totalPrice += $item->qty * $item->product->price;
+            }
+        }
+    return view('users.customer.category_products', compact('category', 'products','carts','totalPrice','name','categories'));
+    }
+
+
+    
+    public function product_show($id){
+    
+        $product = Product::with('store.user','subcategory','images','mainImage','variants.attributeValues.attribute','attributes.values')->findOrFail($id);
+        $relevantProducts = Product::with('store.user','subcategory')
+            ->where('subcategory_id', $product->subcategory_id) // نفس التصنيف
+            ->where('id', '!=', $product->id) // استبعاد المنتج الحالي نفسه
+            ->inRandomOrder()->take(7)->get();
+        $categories = Category::with('subcategories')->get();
+        $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
+        ->where('status', 'open')->get();
+
+        $totalPrice = 0;
+        foreach ($carts as $cart) {
+            foreach ($cart->items as $item) {
+                $totalPrice += $item->qty * $item->product->price;
+            }
+        }
+
+
+
+        return view('users.customer.product',compact('product','relevantProducts','carts','totalPrice','categories'));
+
+    }
+
+
+   public function stores(Request $request)
+    {
+        $stores = Store::with('user')->get();
+
+         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
+        ->where('status', 'open')->get();
+
+        $categories = Category::with('subcategories')->get();
+        $totalPrice = 0;
+        foreach ($carts as $cart) {
+            foreach ($cart->items as $item) {
+                $totalPrice += $item->qty * $item->product->price;
+            }
+        }
+        return view('users.customer.stores',compact('stores','carts','totalPrice','categories'));
+    }
     /**
      * Show the form for creating a new resource.
      */
+
+    public function store($id)
+    {
+        $store = Store::with('user','products.subcategory')->findOrFail($id);
+        $products =  Product::with('store.user','subcategory')->latest()->get();
+        $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
+        ->where('status', 'open')->get();
+        
+        $totalPrice = 0;
+        $categories = Category::with('subcategories')->get();
+
+        foreach ($carts as $cart) {
+            foreach ($cart->items as $item) {
+                $totalPrice += $item->qty * $item->product->price;
+            }
+        }
+        return view('users.customer.store',compact('store','products','carts','totalPrice','categories'));
+    }
+    
     public function create()
     {
         //
@@ -26,10 +158,7 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+
 
     /**
      * Display the specified resource.

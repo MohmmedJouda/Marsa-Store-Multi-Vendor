@@ -44,4 +44,5 @@ class order extends Model
     {
         return $this->belongsTo(Address::class);
     }
+
 }

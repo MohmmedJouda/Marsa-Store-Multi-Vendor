@@ -187,7 +187,8 @@
 
                                     @foreach ($variant->combination as $key => $value)
                                         <p><strong>{{ $key }}</strong>: {{ $value }}</p>
-                                    @endforeach
+                                    @endforeach 
+
 
                                     <div class="form-group mb-2">
                                         <label>Price</label>

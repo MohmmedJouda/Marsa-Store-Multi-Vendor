@@ -1,15 +1,22 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ModeratorController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SocialAuthController;
-use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\VendorAuthController;
-use App\Models\Subcategory;
 use App\Models\User;
-use Illuminate\Support\Facades\Request;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ModeratorController;
+use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\VendorAuthController;
+use App\Http\Controllers\StoreRatingController;
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\StoreCommentController;
+use App\Http\Controllers\ProductRatingController;
+use App\Http\Controllers\ProductCommentController;
 
 
 
@@ -31,11 +38,41 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
     'role:customer'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('users.customer.dashboard');
-    })->name('dashboard');
+])->prefix('customer')->name('customer.')->group(function () {
+    Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page'); 
+    Route::get('/product/{id}', [CustomerController::class, 'product_show'])->name('product.show'); 
+    Route::get('/products-customer', [CustomerController::class, 'product_index'])->name('products.index'); 
+    Route::get('/categories/{id}/products', [CustomerController::class, 'products_cat_index'])->name('category_products.index');
+
+    Route::get('/stores', [CustomerController::class, 'stores'])->name('stores.index'); 
+    Route::get('/store/{id}', [CustomerController::class, 'store'])->name('stores.show'); 
+    Route::get('/cart',        [CartItemController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add',   [CartItemController::class, 'add'])->name('cart.add');
+    Route::patch('/cart/{id}', [CartItemController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/{id}',[CartItemController::class, 'remove'])->name('cart.remove');
+    // routes/web.php
+    Route::delete('/cart/remove-multiple', [CartItemController::class, 'removeMultiple'])
+    ->name('cart.removeMultiple');
+    Route::delete('/cart',     [CartItemController::class, 'clear'])->name('cart.clear');
+
+    Route::post('/product/{id}/rate',  [ProductRatingController::class, 'rateProduct'])->middleware('auth')->name('product.rate');
+    Route::post('/store/{id}/rate', [StoreRatingController::class, 'rateStore'])->middleware('auth')->name('store.rate');
+
+
+    Route::post('/stores/{store}/comments', [StoreCommentController::class, 'store'])->name('stores.comments.store');
+    Route::post('/products/{product}/comments', [ProductCommentController::class, 'store'])->name('products.comments.store');
+
+    Route::get('/checkout', [CheckoutController::class, 'showCheckout'])
+    ->middleware('auth')->name('checkout.show');
+    Route::post('/checkout/process', [CheckoutController::class, 'processCheckout'])
+        ->middleware('auth')->name('checkout.process');
+    Route::get('checkout/success/{order}', [CheckoutController::class, 'checkoutSuccess'])
+        ->name('checkout.success');
+
+    Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])->name('stripe.webhook');
+
 });
+
 //
 
 

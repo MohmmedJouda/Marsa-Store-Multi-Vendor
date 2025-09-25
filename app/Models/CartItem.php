@@ -13,8 +13,11 @@ class CartItem extends Model
         'cart_id',
         'product_id',
         'product_variant_id',
-        'quantity',
+        'name',
+        'qty',
         'price',
+        'options',
+        'created_at'
     ];
 
     // السلة المالكة
@@ -32,6 +35,6 @@ class CartItem extends Model
     //  المتغير (لون/حجم)
     public function variant()
     {
-        return $this->belongsTo(ProductVariants::class, 'product_variant_id');
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
 }

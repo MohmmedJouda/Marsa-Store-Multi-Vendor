@@ -20,4 +20,18 @@ class Store extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+        public function storeRating()
+    {
+        return $this->hasMany(storeRating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(StoreComment::class);
+    }
+
+
+
+
 }

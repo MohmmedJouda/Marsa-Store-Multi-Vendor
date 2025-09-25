@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Store;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,25 +11,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-    $this->call([
-        ParentCategorySeeder::class,
-        SubCategorySeeder::class,
-    ]);
-
-        // User::factory(10)->create();
-        $vendors = User::factory()->count(10)->create([
-            'role' => 'vendor',
+        // أولاً، إنشاء الفئات
+        $this->call([
+            CategoriesSeeder::class,
         ]);
-        foreach ($vendors as $vendor) {
-            Store::factory()->create([
-                'user_id' => $vendor->id,
-            ]);
 
-            // User::factory()->create([
-            //     'name' => 'Test User',
-            //     'email' => 'test@example.com',
-            // ]);
+        // ثم، إنشاء 10 مستخدمين (vendors)
+        $vendors = \App\Models\User::factory()->count(10)->create([
+            'role' => 'vendor', // تعيين role للمستخدمين كـ "vendor"
+        ]);
+
+        // بعد إنشاء المستخدمين، قم بإنشاء متجر لكل مستخدم
+        foreach ($vendors as $vendor) {
+            \App\Models\Store::factory()->create([
+                'user_id' => $vendor->id,  // ربط المتجر بالمستخدم
+            ]);
         }
+
+        // أخيرًا، قم بتشغيل Seeder المنتجات بعد المتاجر
+        $this->call(ProductSeeder::class);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\ProductVariants;
+use \App\Models\ProductVariant;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductAttribute;
@@ -25,7 +25,7 @@ class ProductController extends Controller
     {
         $storeId = Auth::user()->store->id;
         $products = Product::where('store_id', $storeId)->latest()->get();
-        return view('users.vendor.product.products', compact('products'));
+        return view('users.vendor.Product.products', compact('products'));
     }
 
     public function create(Request $request)
@@ -36,7 +36,7 @@ class ProductController extends Controller
 
         $attributes = ProductAttribute::all();
         $categories = Category::all();
-        return view('users.vendor.product.create', compact('categories', 'attributes'));
+        return view('users.vendor.Product.create', compact('categories', 'attributes'));
     }
 
     /**
@@ -176,7 +176,7 @@ class ProductController extends Controller
                         $imagePath = $variant['image']->store('variant_images', 'public');
                     }
 
-                    $variantModel = ProductVariants::create([
+                    $variantModel = ProductVariant::create([
                         'product_id' => $product->id,
                         'combination' => $combination,
                         'price' => $variant['price'],
@@ -243,7 +243,7 @@ class ProductController extends Controller
     {
         // يمكن تفعيل الكود التالي إذا أردت عرض صفحة المنتج
         $products = Product::where('slug', $slug)->firstOrFail();
-        return view('users.vendor.product.show', compact('products'));
+        return view('users.vendor.Product.show', compact('products'));
         // return $product;
     }
 
@@ -258,7 +258,7 @@ class ProductController extends Controller
 
         $product = Product::with(['attributes.values', 'subcategory.category'])->findOrFail($id);
         $categories = Category::with('subcategories')->get();
-        return view('users.vendor.product.edit', compact('product', 'categories'));
+        return view('users.vendor.Product.edit', compact('product', 'categories'));
         // return response()->json([
         //     'id' => $product->id,
         //     'name' => $product->name,
@@ -404,11 +404,11 @@ class ProductController extends Controller
             // حذف المتغيرات القديمة التي لم يتم إرسالها
             $sentIds = collect($request->variants)->pluck('id')->filter();
 
-            if ($sentIds->isEmpty() && ProductVariants::where('product_id', $product->id)->exists()) {
+            if ($sentIds->isEmpty() && ProductVariant::where('product_id', $product->id)->exists()) {
                 return response()->json(['message' => 'No variant IDs were sent, cannot safely delete.'], 400);
             }
 
-            ProductVariants::where('product_id', $product->id)
+            ProductVariant::where('product_id', $product->id)
                 ->whereNotIn('id', $sentIds)
                 ->delete();
 
@@ -425,7 +425,7 @@ class ProductController extends Controller
                     $variantImagePath = null; // سيتم تحديده لاحقًا
 
                     // أولًا: جلب الـ variant model إن كان موجودًا
-                    $variantModel = isset($variant['id']) ? ProductVariants::find($variant['id']) : null;
+                    $variantModel = isset($variant['id']) ? ProductVariant::find($variant['id']) : null;
 
                     // ثم نحاول تحديد الصورة
                     $variantImagePath = null;
@@ -456,7 +456,7 @@ class ProductController extends Controller
                         $variantModel->update($updateData);
                     } else {
                         // إنشاء
-                        $variantModel = ProductVariants::create([
+                        $variantModel = ProductVariant::create([
                             'product_id' => $product->id,
                             'combination' => $combination,
                             'price' => $variant['price'],
@@ -617,7 +617,7 @@ class ProductController extends Controller
                 ->paginate();
         }
 
-        return view('users.vendor.product.trashed', compact('products', 'id'));
+        return view('users.vendor.Product.trashed', compact('products', 'id'));
     }
 
 

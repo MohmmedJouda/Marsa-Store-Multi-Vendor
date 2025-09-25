@@ -1,0 +1,175 @@
+// تعريف المتغيرات الأساسية
+let cartCount = 0;
+let favCount = 0;
+const favorites = new Set();
+const cartItems = [];
+
+// تحديث عدادات الواجهة
+function updateCounts() {
+  document.getElementById('cart-count').textContent = cartItems.length;
+  document.getElementById('fav-count').textContent = favorites.size;
+}
+
+// عرض السلة
+function renderCart() {
+  const panel = document.querySelector('.cart-panel .cart-items');
+  panel.innerHTML = '';
+  cartItems.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <img src="${item.image}" alt="صورة">
+      <div class="cart-info">
+        <h4 class="cart-title">${item.title}</h4>
+        <div class="price">$${item.price}</div>
+        <div class="seller">${item.seller}</div>
+        <button class="remove-from-cart" data-id="${item.id}"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    `;
+    panel.appendChild(div);
+  });
+}
+
+// عرض المفضلة
+function renderFavorites() {
+  const favPanel = document.querySelector('.fav-panel .fav-items');
+  favPanel.innerHTML = '';
+  favorites.forEach(id => {
+    const product = document.querySelector(`.product-card[data-id='${id}']`);
+    const image = product.querySelector('img').src;
+    const title = product.querySelector('.title').textContent;
+    const price = product.querySelector('.price').textContent;
+    const seller = product.querySelector('.seller span').textContent;
+
+    const isInCart = cartItems.some(item => item.id === id);
+
+    const div = document.createElement('div');
+    div.className = 'fav-item';
+    div.innerHTML = `
+      <img src="${image}" alt="صورة">
+      <div class="fav-info">
+        <h4 class="cart-title">${title}</h4>
+        <div class="price">${price}</div>
+        <div class="seller">${seller}</div>
+        <div class="actions">
+          <button class="remove-from-fav" data-id="${id}"><i class="fa-solid fa-trash"></i></button>
+          <button class="toggle-cart" data-id="${id}" style="color: ${isInCart ? 'green' : 'inherit'}">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </button>
+        </div>
+      </div>
+    `;
+    favPanel.appendChild(div);
+  });
+}
+
+// إضافة من قائمة المفضلة إلى السلة أو إزالة منها
+function handleFavCartToggle(id) {
+  const product = document.querySelector(`.product-card[data-id='${id}']`);
+  const image = product.querySelector('img').src;
+  const title = product.querySelector('.title').textContent;
+  const price = product.querySelector('.price').textContent.replace('$','');
+  const seller = product.querySelector('.seller span').textContent;
+
+  const index = cartItems.findIndex(item => item.id === id);
+  if (index !== -1) {
+    cartItems.splice(index, 1);
+  } else {
+    cartItems.push({ id, image, title, price: parseFloat(price), seller });
+  }
+  updateCounts();
+  renderCart();
+  renderFavorites();
+}
+
+// زر المفضلة
+document.querySelectorAll('.btn-fav').forEach(icon => {
+  icon.addEventListener('click', () => {
+    const card = icon.closest('.product-card');
+    const id = card.dataset.id;
+
+    if (favorites.has(id)) {
+      favorites.delete(id);
+      icon.classList.remove('active');
+      favCount--;
+    } else {
+      favorites.add(id);
+      icon.classList.add('active');
+      favCount++;
+    }
+
+    updateCounts();
+    renderFavorites();
+  });
+});
+
+// زر السلة في واجهة المنتج
+document.querySelectorAll('.cart').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.product-card');
+    const id = card.dataset.id;
+    const image = card.querySelector('img').src;
+    const title = card.querySelector('.title').textContent;
+    const price = card.querySelector('.price').textContent.replace('$', '');
+    const seller = card.querySelector('.seller span').textContent;
+
+    cartItems.push({ id, image, title, price: parseFloat(price), seller });
+    updateCounts();
+    renderCart();
+  });
+});
+
+// تفويض للأزرار الديناميكية (الحذف + النقل من المفضلة)
+document.addEventListener('click', e => {
+  if (e.target.closest('.remove-from-cart')) {
+    const id = e.target.closest('.remove-from-cart').dataset.id;
+    const index = cartItems.findIndex(item => item.id === id);
+    if (index !== -1) cartItems.splice(index, 1);
+    updateCounts();
+    renderCart();
+    renderFavorites();
+  }
+
+  if (e.target.closest('.remove-from-fav')) {
+    const id = e.target.closest('.remove-from-fav').dataset.id;
+    favorites.delete(id);
+    updateCounts();
+    renderFavorites();
+  }
+
+  if (e.target.closest('.toggle-cart')) {
+    const id = e.target.closest('.toggle-cart').dataset.id;
+    handleFavCartToggle(id);
+  }
+});
+
+// إخفاء/إظهار واجهات المفضلة والسلة حسب التمويه
+const cartPanel = document.querySelector('.cart-panel');
+const cartIcon = document.getElementById('cart-icon');
+cartIcon.addEventListener('mouseenter', () => cartPanel.style.display = 'block');
+cartIcon.addEventListener('mouseleave', () => cartPanel.style.display = 'none');
+
+const favPanel = document.querySelector('.fav-panel');
+const favIcon = document.getElementById('fav-icon');
+favIcon.addEventListener('mouseenter', () => favPanel.style.display = 'block');
+favIcon.addEventListener('mouseleave', () => favPanel.style.display = 'none');
+
+
+
+  function timeAgo(dateString) {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diff = Math.floor((now - date) / 1000); // الثواني
+
+    if (diff < 60) return "الآن";
+    if (diff < 3600) return `منذ ${Math.floor(diff / 60)} دقيقة`;
+    if (diff < 86400) return `منذ ${Math.floor(diff / 3600)} ساعة`;
+    if (diff < 2592000) return `منذ ${Math.floor(diff / 86400)} يوم`;
+    if (diff < 31104000) return `منذ ${Math.floor(diff / 2592000)} شهر`;
+    return `منذ ${Math.floor(diff / 31104000)} سنة`;
+  }
+
+  document.querySelectorAll('.published-time').forEach(el => {
+    const time = el.getAttribute('data-time');
+    el.textContent = timeAgo(time);
+  });
