@@ -140,8 +140,8 @@
         <p>مرساتك الآمنة لمشترياتك - التسوق الآمن مع أريحية الشراء</p>
         @guest
             <div class="hero-buttons">
-                <button class="hero-button" onclick="window.location.href='/login.html'"> أنشئ حساب </button>
-                <button class="hero-button" onclick="openModal()">تسجيل دخول</button>
+                <button class="hero-button" onclick="openModal2()">أنشئ حساب</button>
+                <button class=" hero-button" onclick="openModal()">تسجيل دخول</button>
             </div>
         @endguest
 
@@ -748,12 +748,12 @@
                         <div class="col-lg-9 col-md-8 col-12">
                             <div class="footer-newsletter">
                                 <h4 class="title" style="  float: none !important;
-  text-align: center !important;
-  margin-left: -450px;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: -55px;
-  ">
+                                    text-align: center !important;
+                                    margin-left: -450px;
+                                    margin-right: auto;
+                                    margin-top: 30px;
+                                    margin-bottom: -55px;
+                                    ">
                                     اشترك في نشرتنا الإخبارية
                                     <span>واحصل على أحدث المعلومات والتخفيضات والعروض</span>
                                 </h4>
@@ -888,17 +888,46 @@
             <button class="close-btn" onclick="closeModal()">✖</button>
             <div class="modal-content">
                 <h2>تسجيل الدخول</h2>
-                <form>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
                     <label for="email">البريد الإلكتروني</label>
-                    <input id="email" placeholder="example@email.com" required="" type="email" />
+                    <input id="email" name="email" placeholder="example@email.com" required="" type="email" />
                     <label for="password">كلمة المرور</label>
-                    <input id="password" placeholder="••••••••" required="" type="password" />
+                    <input id="password" name="password" placeholder="••••••••" required="" type="password" />
                     <button class="submit-btn" type="submit">دخول</button>
                     <p class="link"><a href="#">نسيت كلمة المرور؟</a></p>
                     <div class="or-divider">أو</div>
                     <button class="google-btn">
                         <img alt="Google Logo" src="https://www.svgrepo.com/show/475656/google-color.svg" />
-                        التسجيل عبر Google
+                        <a href="{{ url('/auth/google') }}">تسجيل الدخول عبر google</a>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- register -->
+    <div class="modal-overlay" id="customModal2">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal2()">✖</button>
+            <div class="modal-content">
+                <h2>تسجيل حساب جديد</h2>
+                <form>
+                    <label for="name"> الاسم</label>
+                    <input id="name" name="name" required="" type="text" />
+                    <label for="email">البريد الإلكتروني</label>
+                    <input id="email" name="email" placeholder="example@email.com" required="" type="email" />
+                    <label for="password">كلمة المرور</label>
+                    <input id="password" name="password" " required="" placeholder=" ••••••••" type=" password" />
+                    <label for="password_confirmation">تأكيد كلمة المرور</label>
+                    <input id="password_confirmation" name="password_confirmation" placeholder="••••••••" required=""
+                        type="password" />
+                    <button class="submit-btn" type="submit">دخول</button>
+                    <p class="link"><a href="#">نسيت كلمة المرور؟</a></p>
+                    <div class="or-divider">أو</div>
+                    <button class="google-btn">
+                        <img alt="Google Logo" src="https://www.svgrepo.com/show/475656/google-color.svg" />
+                        <a href="{{ url('/auth/google') }}">التسجيل عبر Google </a>
                     </button>
                 </form>
             </div>

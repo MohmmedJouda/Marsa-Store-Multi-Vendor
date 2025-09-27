@@ -1,153 +1,183 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
-        <x-validation-errors class="mb-4" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>نموذج التسجيل والدخول</title>
 
-        @session('status')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ $value }}
-            </div>
-        @endsession
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
 
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+    <!-- Google Font: Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
 
-            <!-- زر Google -->
-            <div class="flex flex-col space-y-3 mt-4">
-                <a href="{{ url('/auth/google') }}" class="flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-300 rounded-md px-4 py-2 shadow hover:bg-gray-100">
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google Logo">
-                    <span>تسجيل الدخول بواسطة Google</span>
-                </a>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ asset('assets2/css/loginstyle.css') }}">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 
-                <!-- زر Facebook -->
-                <a href="{{ url('/auth/facebook') }}" class="flex items-center justify-center gap-2 bg-blue-600 text-white rounded-md px-4 py-2 shadow hover:bg-blue-700">
-                    <img src="https://www.svgrepo.com/show/475645/facebook-color.svg" class="w-5 h-5 bg-white rounded-full p-0.5" alt="Facebook Logo">
-                    <span>تسجيل الدخول بواسطة Facebook</span>
-                </a>
 
-                <div class="text-center mt-4">
-                    <p class="text-sm text-gray-600">
-                        {{ __('Not registered yet?') }}
-                        <a href="#" id="show-register-options" class="text-blue-600 hover:text-blue-700">{{ __('Register here') }}</a>
-                    </p>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo+Play:wght@600&family=Cairo:wght@200..1000&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="overlay"></div>
+    <div class="login-wrap">
+        <div class="login-html">
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">تسجيل
+                الدخول</label>
+            <input id="tab-3" type="radio" name="tab" class="sign-third">
+            <label for="tab-3" class="tab">مشترٍ جديد</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"><a
+                    href="{{ route('vendor.register') }}">بائع جديد </a> </label>
+
+
+            <div class="login-form">
+                <!-- نموذج تسجيل الدخول -->
+                <div class="sign-in-htm">
+
+                    <div class="group text-center">
+                        <a href="#">
+                            <img src="{{ asset('assets2/images/logo/logo.svg') }}" alt="">
+
+                        </a>
+                    </div>
+
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="group">
+                            <label for="signin-id" class="label">البريد الالكتروني</label>
+                            <input id="signin-id" name="email" type="email" class="input" required>
+                        </div>
+                        <div class="group">
+                            <label for="signin-code" class="label">كلمة المرور</label>
+                            <input id="signin-code" name="password" type="password" class="input" required>
+                        </div>
+
+
+                        <div class="hr"></div>
+                        <button type="submit" class="submit-btn">دخول</button>
+                    </form>
+                    <p class="link"><a href="#">نسيت كلمة المرور؟</a></p>
+                    <button class="google-btn">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo">
+                        <a href="{{ url('/auth/google') }}"> التسجيل عبر Google </a>
+                    </button>
                 </div>
-            </div>
 
-        </form>
+                <!-- نموذج التسجيل -->
+                <div class="sign-up-htm">
+                    <form id="registerForm">
+                        <div class="group" action="{{ route('vendor.register') }}" method="POST"
+                            enctype="multipart/form-data" class="p-6">
+                            @csrf
 
-        <!-- Modal for Register options -->
-        <div id="register-modal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div class="modal-content bg-white p-6 rounded-lg shadow-lg w-1/3">
-                <h3 class="text-lg font-semibold mb-4 text-center">اختر نوع التسجيل</h3>
-                <div class="flex justify-center space-x-4 mt-3">
-                    <!-- تسجيل كزبون -->
-                    <a href="{{ route('register') }}" class="flex items-center justify-center gap-2 bg-green-600 text-white rounded-md px-4 py-2 shadow hover:bg-green-700">
-                        <span>تسجيل كزبون</span>
-                    </a>
+                            <div class="group">
+                                <label class="label">اسم البائع كامل</label>
+                                <input type="text" name="name" class="input" placeholder="أدخل اسمك الكامل" required>
+                            </div>
+                            <div class="group">
+                                <label for="email" class="label">البريد الالكتروني</label>
+                                <input id="email" name="email" type="email" class="input" required>
+                            </div>
+                            <div class="group">
+                                <label for="reg-phone" class="label">كلمة المرور</label>
+                                <input id="reg-phone" type="password" class="input" required>
+                            </div>
+                            <div class="group">
+                                <label for="reg-phone" class="label">تأكيد كلمة المرور</label>
+                                <input id="reg-phone" type="password" class="input" required>
+                            </div>
 
-                    <!-- تسجيل كتاجر -->
-                    <a href="{{ route('vendor.register') }}" class="flex items-center justify-center gap-2 bg-yellow-600 text-white rounded-md px-4 py-2 shadow hover:bg-yellow-700">
-                        <span>تسجيل كتاجر</span>
-                    </a>
+                            <div class="group">
+                                <label class="label" style="text-align: center; color: hwb(26 31% 3%);"> اسم الدكان |
+                                    فريد
+                                    من نوعه و يحمل
+                                    هويتك التجارية و بصمتك السوقية الخاصة بك </label>
+                                <input type="text" class="input" required>
+                            </div>
+                            <div class="group">
+                                <input type="submit" class="button" value="أنشئ الحساب">
+                            </div>
+                        </div>
+
+
+                    </form>
                 </div>
-                <button id="close-modal" class="mt-4 text-center w-full bg-gray-300 text-gray-700 py-2 rounded-lg">إغلاق</button>
+
+
+
+
+                <!-- الواجهة الثالثة (منسوخة من sign-up-htm) -->
+                <div class="sign-third-htm">
+                    <form id="thirdForm" method="POST" action="{{ route('register') }}">
+                        @csrf
+                        <div class="group">
+                            <label for="name" class="label"> الاسم</label>
+                            <input id="name" name="name" type="text" class="input" autofocus required>
+                        </div>
+                        <div class="group">
+                            <label for="email" class="label">البريد الالكتروني</label>
+                            <input id="email" name="email" type="email" class="input" required>
+                        </div>
+                        <div class="group">
+                            <label for="password" class="label">كلمة المرور</label>
+                            <input id="password" name="password" type="password" class="input" required>
+                        </div>
+                        <div class="group">
+                            <label for="password_confirmation" class="label">تأكيد كلمة المرور</label>
+                            <input id="password_confirmation" name="password_confirmation" type="password" class="input"
+                                required>
+                        </div>
+                        <div class="group">
+                            <input type="submit" class="button" value="أنشئ الحساب">
+                        </div>
+                    </form>
+
+                    <button class="google-btn ">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo">
+                        <a href="{{ url('/auth/google') }}"> التسجيل عبر Google </a>
+                    </button>
+
+                </div>
+
+
+
+
             </div>
         </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'success',
+                title: 'تم تقديم الطلب',
+                text: 'سيتم التواصل معك عبر SMS في حال قبول أو رفض الطلب',
+                confirmButtonText: 'حسنًا'
+            });
+        });
+    </script>
+</body>
 
-        <style>
-            /* Hide the modal by default */
-.modal.hidden {
-    display: none;
-}
-
-/* Basic styling for modal */
-.modal-content {
-    max-width: 500px;
-    width: 100%;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-}
-
-.modal-content {
-    max-width: 500px;
-    width: 80%;
-    margin: auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-button {
-    cursor: pointer;
-}
-
-.bg-gray-300 {
-    background-color: #d1d5db;
-}
-
-.bg-opacity-50 {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-        </style>
-
-        <script>
-            document.getElementById('show-register-options').addEventListener('click', function(e) {
-    e.preventDefault();  // Prevent default link action
-    document.getElementById('register-modal').classList.remove('hidden');  // Show the modal
-});
-
-document.getElementById('close-modal').addEventListener('click', function() {
-    document.getElementById('register-modal').classList.add('hidden');  // Close the modal
-});
-
-        </script>
-
-    </x-authentication-card>
-</x-guest-layout>
+</html>

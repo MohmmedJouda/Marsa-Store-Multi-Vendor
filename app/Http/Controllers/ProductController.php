@@ -176,6 +176,7 @@ class ProductController extends Controller
                         $imagePath = $variant['image']->store('variant_images', 'public');
                     }
 
+                    if($variant['quantity'] > 0){
                     $variantModel = ProductVariant::create([
                         'product_id' => $product->id,
                         'combination' => $combination,
@@ -184,7 +185,7 @@ class ProductController extends Controller
                         'sku' => $sku,
                         'image' => $imagePath,
                     ]);
-
+}
                     foreach ($combination as $attributeName => $valueName) {
                         $attribute = ProductAttribute::where('product_id', $product->id)
                             ->where('name', $attributeName)->first();

@@ -793,7 +793,7 @@ form.inline {
 .modal-content label {
     font-size: 14px;
     color: #abaaaa;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
 }
 
 .modal-content input {

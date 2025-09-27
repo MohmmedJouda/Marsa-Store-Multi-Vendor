@@ -238,6 +238,12 @@ function closeModal() {
   document.getElementById("customModal").style.display = "none";
 }
 
+function openModal2() {
+  document.getElementById("customModal2").style.display = "block";
+}
+function closeModal2() {
+  document.getElementById("customModal2").style.display = "none";
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   const buyButtons = document.querySelectorAll("button, a");

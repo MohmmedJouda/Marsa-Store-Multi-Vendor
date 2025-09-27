@@ -438,190 +438,207 @@
                     <div class="checkout-steps-form-style-1">
                         <form id="payment-form">
                             @csrf
+                                <input type="hidden" name="qty" id="qtyInput" value="{{ $qty }}">
+
                             <ul id="accordionExample">
-                                <!-- ================= Personal Details ================= -->
-                                <li>
-                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                        aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
-                                    <section class="checkout-steps-form-content collapse show" id="collapseThree"
-                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="single-form form-default">
-                                                    <label>User Name</label>
-                                                    <div class="row">
-                                                        <div class="col-md-6 form-input form">
-                                                            <input type="text" placeholder="First Name">
-                                                        </div>
-                                                        <div class="col-md-6 form-input form">
-                                                            <input type="text" placeholder="Last Name">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Email Address</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" placeholder="Email Address">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Phone Number</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" placeholder="Phone Number">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="single-form form-default">
-                                                    <label>Mailing Address</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" placeholder="Mailing Address">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>City</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" placeholder="City">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Post Code</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" placeholder="Post Code">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Country</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" placeholder="Country">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Region/State</label>
-                                                    <div class="select-items">
-                                                        <select class="form-control">
-                                                            <option value="0">select</option>
-                                                            <option value="1">select option 01</option>
-                                                            <option value="2">select option 02</option>
-                                                            <option value="3">select option 03</option>
-                                                            <option value="4">select option 04</option>
-                                                            <option value="5">select option 05</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="single-checkbox checkbox-style-3">
-                                                    <input type="checkbox" id="checkbox-3">
-                                                    <label for="checkbox-3"><span></span></label>
-                                                    <p>My delivery and mailing addresses are the same.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="single-form button">
-                                                    <button class="btn" data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseFour" aria-expanded="false"
-                                                        aria-controls="collapseFour">next
-                                                        step</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </li>
-                                <!-- ================= Shipping Option ================= -->
+
+
+                                 <!-- ================= Shipping Option ================= -->
                                 <li>
                                     <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                        aria-expanded="false" aria-controls="collapseFour">Shipping Plan</h6>
-                                    <section class="checkout-steps-form-content collapse" id="collapseFour"
-                                        aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                        aria-expanded="false" aria-controls="collapseFour">خطة الشحن</h6>
+                                    <section class="checkout-steps-form-content collapse show" id="collapseFour"
+                                        aria-labelledby="headingFour" data-bs-parent="#accordionExample" dir="rtl">
                                         <div class="row">
-
-
-
-
-
-
-
-
                                             <div class="col-md-12">
                                                 <div class="checkout-payment-option">
                                                     <div class="shipping-header">
-                                                        <h6 class="heading-6 font-weight-400 payment-title">Select
-                                                            Delivery Option</h6>
+                                                        <h6 class="heading-6 font-weight-400 payment-title">اختر خيار
+                                                            التوصيل</h6>
                                                         <h6><a href="#"
-                                                                style="font-size:14px; color: rgb(0, 81, 255);">اعرف
-                                                                أكثر عن خطط
-                                                                الشحن</a></h6>
-                                                    </div>
+                                                                style="font-size:11px; color: rgb(0, 81, 255);text-decoration: underline;">اعرف أكثر عن خطط الشحن</a></h6>
+                    </div>
 
-                                                    <div class=" payment-option-wrapper">
-                                                        <div class="single-payment-option">
-                                                            <input type="radio" id="shipping_standard"
-                                                                name="shipping_method" value="standard"
-                                                                data-price="10.50" {{ $selectedShipping == 'standard' ? 'checked' : '' }}>
-                                                            <label for="shipping_standard">
-                                                                <p>Standard Shipping</p>
-                                                                <span class="price">$10.00</span>
-                                                            </label>
+                    <div class="payment-option-wrapper">
+
+                        <div class="single-payment-option">
+                            <input type="radio" id="shipping_free"
+                                name="shipping_method" value="free" data-price="0.00"
+                                {{ $selectedShipping == 'free' ? 'checked' : '' }}>
+                            <label for="shipping_free">
+                                <p>الشحن المجاني</p>
+                                <span class="price">$0.00</span>
+                            </label>
+                        </div>
+
+                        <div class="single-payment-option">
+                            <input type="radio" id="shipping_standard"
+                                name="shipping_method" value="standard" data-price="10.00"
+                                {{ $selectedShipping == 'standard' ? 'checked' : '' }}>
+                            <label for="shipping_standard">
+                                <p>الشحن العادي</p>
+                                <span class="price">10.00$</span>
+                            </label>
+                        </div>
+
+                        <div class="single-payment-option">
+                            <input type="radio" id="shipping_express"
+                                name="shipping_method" value="express" data-price="20.00"
+                                {{ $selectedShipping == 'express' ? 'checked' : '' }}>
+                            <label for="shipping_express">
+                                <p>الشحن السريع</p>
+                                <span class="price">20.00$</span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="steps-form-btn button" style="text-align: right;">
+                    <button href="javascript:void(0)" class="btn" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseFour" aria-expanded="false"
+                                                        aria-controls="collapseFour">حفظ والمتابعة</button>
+                    {{-- <button href="javascript:void(0)" class="btn btn-alt">حفظ والمتابعة</button> --}}
+                </div>
+            </div>
+        </div>
+    </section>
+</li>
+
+
+
+                                <!-- ================= Personal Details ================= -->
+                                <li>
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                        aria-expanded="false" aria-controls="collapseThree">تفاصيلك الشخصية</h6>
+                                    <section class="checkout-steps-form-content collapse " id="collapseThree"
+                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample" dir="rtl">
+                                        <div class="row">
+                                            <p style="text-align: right;color:rgb(221, 29, 54);margin-top:10px;text-decoration:underline; font-weight: bold;">يرجى تحديد خطة الشحن قبل  اكمال تعبئة البيانات</p>                                            
+                                            <div class="col-md-12">
+                                                <div class="single-form form-default" style="text-align: right">
+                                                    <div class="row">
+                                                        <div class="col-md-6 form-input form">
+                                                            <label style="text-align: right">الاسم الأول</label>
+                                                            <input type="text" name="first_name">
                                                         </div>
-                                                        <div class="single-payment-option">
-                                                            <input type="radio" id="shipping_express"
-                                                                name="shipping_method" value="express"
-                                                                data-price="20.00" {{ $selectedShipping == 'express' ? 'checked' : '' }}>
-                                                            <label for="shipping_express">
-                                                                <p>Express Shipping</p>
-                                                                <span class="price">$20.00</span>
-                                                            </label>
+                                                        <div class="col-md-6 form-input form">
+                                                            <label style="text-align: right">الاسم الأخير</label>
+                                                            <input type="text" name="last_name">
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default" style="text-align: right">
+                                                    <label style="text-align: right">البريد الإلكتروني</label>
+                                                    <div class="form-input form" style="text-align: right">
+                                                        <input style="text-align: left" type="text" name="email">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default" style="text-align: right">
+                                                    <label style="text-align: right">رقم الهاتف</label>
+                                                    <div class="form-input form">
+                                                        <input style="text-align: left" type="text" name="phone_number" placeholder="/05">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- <div class="col-md-12">
+                                                <div class="single-form form-default" style="text-align: right">
+                                                    <label style="text-align: right">عنوان المراسلة</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="">
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+                                            <p style="text-align: right;color:rgb(221, 29, 54);margin-top:10px;text-decoration:underline; font-weight: bold;">يرجى ادخال المعلومات الخاصة بالعنوان الذي تريد استلام الطلب منه</p>
+                                            {{-- <div class="col-md-6">
+                                                <div class="single-form form-default" style="text-align: right">
+                                                    <label style="text-align: right">الدولة</label>
+                                                    <div class="form-input form">
+                                                        <input type="text">
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default" style="text-align: right">
+                                                    <label style="text-align: right">المحافظة / المنطقة</label>
+                                                    <div class="select-items">
+                                                        <select class="form-control" name="state" required>
+                                                            <option value="0">اختر</option>
+                                                            <option value="1">قطاع غزة</option>
+                                                            <option value="2">الضفة الغربية</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default" style="text-align: right">
+                                                    <label style="text-align: right">المدينة</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="city">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default" style="text-align: right">
+                                                    <label style="text-align: right">العنوان بالتفصيل داخل المدينة</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="address" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             <div class="col-md-6">
+                                                <div class="single-form form-default" style="text-align: right">
+                                                    <label style="text-align: right">الرمز البريدي</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="postal_code">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- <div class="col-md-12">
+                                                <div class="single-checkbox checkbox-style-3" style="text-align: right">
+                                                    <input type="checkbox" id="checkbox-3">
+                                                    <label for="checkbox-3"><span></span></label>
+                                                    <p>عنواني للتوصيل والمراسلة هو نفسه.</p>
+                                                </div>
+                                            </div> --}}
                                             <div class="col-md-12">
-                                                <div class="steps-form-btn button">
-
-                                                    <button href="javascript:void(0)" class="btn btn-alt">Save &
-                                                        Continue</button>
+                                                <div class="single-form button" style="text-align: right">
+                                                    <button class="btn" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseFour" aria-expanded="false"
+                                                        aria-controls="collapseFour">الخطوة التالية</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </section>
                                 </li>
 
+                               
                                 <li>
-                                    <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
-                                        aria-expanded="false" aria-controls="collapsefive">Payment Info</h6>
+                                    <h6 class="title collapsed " data-bs-toggle="collapse" data-bs-target="#collapsefive"
+                                        aria-expanded="false" aria-controls="collapsefive">معلومات الدفع</h6>
                                     <section class="checkout-steps-form-content collapse" id="collapsefive"
                                         aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                                         <div class="row">
                                             <div class="col-12">
-                                                <div class="checkout-payment-form">
-                                                    <div class="single-form form-default">
-                                                        <label>Cardholder Name</label>
+                                                <div class="checkout-payment-form" style="text-align: right;">
+                                                    <div class="single-form form-default" >
+                                                        <label>اسم حامل البطاقة</label>
                                                         <div class="form-input form">
-                                                            <input type="text" placeholder="Cardholder Name">
+                                                            <input type="text" >
                                                         </div>
                                                     </div>
                                                     <div class="single-form form-default">
-                                                        <label>Card Number</label>
+                                                        <label>رقم البطاقة</label>
                                                         <div class="form-input form">
-                                                            <input id="credit-input" type="text"
+                                                             <input id="credit-input" type="text"
                                                                 placeholder="0000 0000 0000 0000">
                                                             <img src="{{ asset('assets2/images/payment/card.png') }}"
-                                                                alt="card">
+                                                                alt="card">       
                                                         </div>
                                                     </div>
                                                     <div class="payment-card-info">
@@ -645,7 +662,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="single-form form-default button">
-                                                        <button class="btn">pay now</button>
+                                                        <button class="btn">دفع الان</button>
                                                     </div>
                                                 </div>
                                             </div>

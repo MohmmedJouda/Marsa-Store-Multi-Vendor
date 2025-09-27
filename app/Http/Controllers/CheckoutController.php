@@ -16,7 +16,7 @@ class CheckoutController extends Controller
     public function showCheckout(Request $request)
     {
         $variantId = $request->query('variant_id');
-        $qty = $request->query('qty', 1);
+        $qty = $request->query('qty');
 
         $variant = ProductVariant::with('product.store','attributeValues.attribute')->findOrFail($variantId);
 
@@ -30,10 +30,23 @@ class CheckoutController extends Controller
         $discountAmount = ($subtotalPrice * $discountPercent) / 100;
         $totalPriceAfterDiscount = $subtotalPrice - $discountAmount;
 
-        // الشحن والضرائب (تستطيع تعديله حسب طريقة الشحن)
-        $shippingMethod = $request->shipping_method ?? 'standard';
-        $shippingAmount = $shippingMethod === 'express' ? 20 : 10;
-        $selectedShipping = $request->input('shipping_method', 'standard'); // default to standard
+       // الشحن والضرائب
+$shippingMethod = $request->shipping_method ?? 'standard';
+
+// حساب السعر حسب طريقة الشحن
+if ($shippingMethod === 'express') {
+    $shippingAmount = 20;
+} elseif ($shippingMethod === 'standard') {
+    $shippingAmount = 10;
+} elseif ($shippingMethod === 'free') {
+    $shippingAmount = 0;
+} else {
+    $shippingAmount = 10; // fallback
+}
+
+// لتحديد الخيار المحدد مسبقاً في الواجهة
+$selectedShipping = $request->input('shipping_method', 'standard'); // default to standard
+
 
         $taxAmount = 5;      // مثال ثابت
 

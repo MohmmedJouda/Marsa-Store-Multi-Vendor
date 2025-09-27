@@ -21,9 +21,8 @@ use App\Http\Controllers\ProductCommentController;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page'); 
+
 Route::get('/layout', function () {
     return view('layout');
 });
@@ -39,13 +38,7 @@ Route::middleware([
     'verified',
     'role:customer'
 ])->prefix('customer')->name('customer.')->group(function () {
-    Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page'); 
-    Route::get('/product/{id}', [CustomerController::class, 'product_show'])->name('product.show'); 
-    Route::get('/products-customer', [CustomerController::class, 'product_index'])->name('products.index'); 
-    Route::get('/categories/{id}/products', [CustomerController::class, 'products_cat_index'])->name('category_products.index');
-
-    Route::get('/stores', [CustomerController::class, 'stores'])->name('stores.index'); 
-    Route::get('/store/{id}', [CustomerController::class, 'store'])->name('stores.show'); 
+    
     Route::get('/cart',        [CartItemController::class, 'index'])->name('cart.index');
     Route::post('/cart/add',   [CartItemController::class, 'add'])->name('cart.add');
     Route::patch('/cart/{id}', [CartItemController::class, 'update'])->name('cart.update');
@@ -73,7 +66,15 @@ Route::middleware([
 
 });
 
-//
+Route::prefix('customer')->name('customer.')->group(function () {
+    Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page'); 
+
+Route::get('/product/{id}', [CustomerController::class, 'product_show'])->name('product.show'); 
+    Route::get('/products-customer', [CustomerController::class, 'product_index'])->name('products.index'); 
+    Route::get('/categories/{id}/products', [CustomerController::class, 'products_cat_index'])->name('category_products.index');
+    Route::get('/stores', [CustomerController::class, 'stores'])->name('stores.index'); 
+    Route::get('/store/{id}', [CustomerController::class, 'store'])->name('stores.show'); 
+});
 
 
 // Routes for vendor

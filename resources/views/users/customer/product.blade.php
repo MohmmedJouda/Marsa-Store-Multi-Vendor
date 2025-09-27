@@ -597,14 +597,14 @@
             </div>
 
             <div class="product-options">
-                <div class="quantity-control">
+                {{-- <div class="quantity-control">
                     <label for="quantity">الكمية:</label>
                     <div class="quantity-box">
                         <button class="qty-btn" onclick="decreaseQty()">−</button>
                         <input type="number" id="quantity" value="1" min="1">
                         <button class="qty-btn" onclick="increaseQty()">+</button>
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- <div class="option-group">
                     <label>اللون:</label>

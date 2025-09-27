@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
 
 </head>
+
 <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
@@ -82,11 +84,14 @@
                     <div class="mb-4">
                         <label for="document_file" class="block text-gray-700 mb-2">رفع السجل التجاري</label>
                         <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-                            <input type="file" id="document_file" name="document_file" required
-                                class="hidden" accept=".pdf,.jpg,.png">
+                            <input type="file" id="document_file" name="document_file" required class="hidden"
+                                accept=".pdf,.jpg,.png">
                             <div id="file-upload-area" class="cursor-pointer">
-                                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                    </path>
                                 </svg>
                                 <p class="mt-1 text-sm text-gray-600">اسحب وأسقط الملف هنا أو انقر للاختيار</p>
                                 <p class="text-xs text-gray-500">PDF, JPG, PNG (حجم أقصى 2MB)</p>
@@ -107,7 +112,8 @@
                                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300">
                         </div>
                         <label for="terms" class="mr-2 text-sm text-gray-700">
-                            أوافق على <a href="#" class="text-blue-600 hover:underline">الشروط والأحكام</a> و <a href="#" class="text-blue-600 hover:underline">سياسة الخصوصية</a>
+                            أوافق على <a href="#" class="text-blue-600 hover:underline">الشروط والأحكام</a> و <a
+                                href="#" class="text-blue-600 hover:underline">سياسة الخصوصية</a>
                         </label>
                     </div>
                     @error('terms')
@@ -116,17 +122,18 @@
                 </div>
 
                 <!-- زر التسجيل -->
-                <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150">
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150">
                     تسجيل الحساب
                 </button>
 
                 <!-- رابط تسجيل الدخول -->
                 <div class="mt-4 text-center">
-                    <p class="text-gray-600">لديك حساب بالفعل؟ <a href="{{ route('login') }}" class="text-blue-600 hover:underline">سجل الدخول</a></p>
+                    <p class="text-gray-600">لديك حساب بالفعل؟ <a href="{{ route('login') }}"
+                            class="text-blue-600 hover:underline">سجل الدخول</a></p>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-
