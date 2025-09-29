@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Product;
+use App\Models\Address;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -31,27 +32,27 @@ class CheckoutController extends Controller
         $totalPriceAfterDiscount = $subtotalPrice - $discountAmount;
 
        // الشحن والضرائب
-$shippingMethod = $request->shipping_method ?? 'standard';
+        $shippingMethod = $request->shipping_method ?? 'standard';
 
-// حساب السعر حسب طريقة الشحن
-if ($shippingMethod === 'express') {
-    $shippingAmount = 20;
-} elseif ($shippingMethod === 'standard') {
-    $shippingAmount = 10;
-} elseif ($shippingMethod === 'free') {
-    $shippingAmount = 0;
-} else {
-    $shippingAmount = 10; // fallback
-}
+        // حساب السعر حسب طريقة الشحن
+        if ($shippingMethod === 'express') {
+            $shippingAmount = 10;
+        } elseif ($shippingMethod === 'standard') {
+            $shippingAmount = 5;
+        } elseif ($shippingMethod === 'free') {
+            $shippingAmount = 0;
+        } else {
+            $shippingAmount = 5; // fallback
+        }
 
-// لتحديد الخيار المحدد مسبقاً في الواجهة
-$selectedShipping = $request->input('shipping_method', 'standard'); // default to standard
-
+        // لتحديد الخيار المحدد مسبقاً في الواجهة
+        $selectedShipping = $request->input('shipping_method', 'standard'); // default to standard
 
         $taxAmount = 5;      // مثال ثابت
 
+        $addresses = Address::where('user_id', Auth::id())->get();
         return view('users.customer.checkout', compact(
-            'variant', 'qty', 'subtotalPrice', 'discountAmount', 'totalPriceAfterDiscount', 'shippingAmount', 'taxAmount', 'selectedShipping'
+            'variant', 'qty', 'subtotalPrice', 'discountAmount', 'totalPriceAfterDiscount', 'shippingAmount', 'taxAmount', 'selectedShipping','addresses'
         ));
     }
 
@@ -99,7 +100,7 @@ $selectedShipping = $request->input('shipping_method', 'standard'); // default t
             $discount += ($item['price'] * $item['quantity'] * $productDiscount) / 100;
         }
 
-        $shippingAmount = $request->shipping_method === 'express' ? 20 : 10;
+        $shippingAmount = $request->shipping_method === 'express' ? 10 : 5;
         $taxAmount = $subtotal * 0.05; // 5% ضريبة
 
         $total = $subtotal + $shippingAmount + $taxAmount - $discount;
@@ -141,4 +142,16 @@ $selectedShipping = $request->input('shipping_method', 'standard'); // default t
 
         return response()->json(['clientSecret' => $pi->client_secret]);
     }
+
+    public function store(Request $request)
+    {
+        
+    }
+
+     public function update(Request $request, Address $address)
+    {
+
+    
+    }
+
 }

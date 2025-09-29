@@ -16,10 +16,11 @@ return new class extends Migration
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
         $table->foreignId('address_id')->nullable()->constrained('addresses')->onDelete('set null');
         $table->string('payment_method');
-        $table->string('status')->default('pending');
-        $table->integer('shipping_amount')->default(0);
-        $table->integer('tax_amount')->default(0);
-        $table->decimal('total_amount', 10, 2);
+        $table->enum('status',['pending','shipping','shipped','delivered','cancelled','refunded'])->default('pending');
+        $table->enum('shipping_plan',['free','standard','express'])->default('standard');
+        $table->integer('shipping_amount')->default('5');
+        $table->integer('tax_amount')->default( 5);
+        $table->decimal('total_amount', 10, 2)->nullable();
         $table->string('currency')->default('usd');
         $table->string('payment_intent_id')->nullable();
         $table->json('meta')->nullable();

@@ -18,11 +18,10 @@ return new class extends Migration
         $table->string('last_name');
         $table->string('email');
         $table->string('phone');
-        $table->string('address');
+        $table->enum('state',['gaza','westbank'])->nullable();
         $table->string('city');
-        $table->string('state')->nullable();
+        $table->string('address');
         $table->string('postal_code')->nullable();
-        $table->string('country');
         $table->timestamps();
     });
 

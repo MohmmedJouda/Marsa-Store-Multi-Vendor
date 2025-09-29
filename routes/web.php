@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AddressesController;
+use App\Http\Controllers\StripeController;
 use App\Models\User;
+use App\Models\Stripe;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
@@ -62,7 +65,10 @@ Route::middleware([
     Route::get('checkout/success/{order}', [CheckoutController::class, 'checkoutSuccess'])
         ->name('checkout.success');
 
-    Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])->name('stripe.webhook');
+    Route::post('/address/store', [AddressesController::class, 'store'])->name('address.store');
+    Route::put('/address/{address}', [AddressesController::class, 'update'])->name('address.update');
+    Route::get('/payment/{order}', [StripeController::class, 'index'])->name('payment.index');
+    Route::post('/stripe/webhook', [StripeController::class, 'handle'])->name('stripe.webhook');
 
 });
 

@@ -11,12 +11,16 @@ class order extends Model
 
     protected $fillable = [
         'user_id',
-        'store_id',
-        'total_price',
-        'shipping_address',
-        'status',
+        'address_id',
         'payment_method',
-        'payment_status',
+        'status',
+        'shipping_plan',
+        'shipping_amount',
+        'tax_amount',
+        'total_amount',
+        'currency',
+        'payment_intent_id',
+        'meta',
     ];
 
     //  العميل

@@ -138,7 +138,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">checkout</h1>
+                        <h1 class="page-title">صفحة الدفع</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
@@ -148,16 +148,292 @@
                         <li>checkout</li>
                     </ul>
                 </div>
+
             </div>
         </div>
     </div>
     <!-- End Breadcrumbs -->
 
+    <!--====== Checkout Form Steps Part Start ======-->
+
+    {{-- <section class="checkout-wrapper section" lang="en" dir="rtl">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="checkout-steps-form-style-1">
+
+                        <!-- ✅ Form مخصص للدفع مع Stripe -->
+                        <form id="payment-form">
+                            @csrf
+                            <ul id="accordionExample">
+                                <!-- ================= Personal Details ================= -->
+                                <li>
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                        aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
+                                    <section class="checkout-steps-form-content collapse show" id="collapseThree">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="single-form form-default">
+                                                    <label>User Name</label>
+                                                    <div class="row">
+                                                        <div class="col-md-6 form-input form">
+                                                            <input type="text" name="first_name"
+                                                                placeholder="First Name" required>
+                                                        </div>
+                                                        <div class="col-md-6 form-input form">
+                                                            <input type="text" name="last_name" placeholder="Last Name"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>Email Address</label>
+                                                    <div class="form-input form">
+                                                        <input type="email" name="email" placeholder="Email Address"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>Phone Number</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="phone" placeholder="Phone Number"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="single-form form-default">
+                                                    <label>Mailing Address</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="address" placeholder="Mailing Address"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>City</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="city" placeholder="City" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>Post Code</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="postal_code" placeholder="Post Code">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>Country</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="country" placeholder="Country"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label>Region/State</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="state" placeholder="Region/State">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+
+                                <!-- ================= Shipping Option ================= -->
+                                <li>
+                                    <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                        aria-expanded="false" aria-controls="collapseFour">Shipping Address</h6>
+                                    <section class="checkout-steps-form-content collapse" id="collapseFour">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="checkout-payment-option">
+                                                    <h6 class="heading-6 font-weight-400 payment-title">Select Delivery
+                                                        Option</h6>
+                                                    <div class="payment-option-wrapper">
+                                                        <div class="single-payment-option">
+                                                            <input type="radio" name="shipping_method" value="standard"
+                                                                checked data-price="10.50">
+                                                            <label>
+                                                                <p>Standard Shipping</p>
+                                                                <span class="price">$10.50</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="single-payment-option">
+                                                            <input type="radio" name="shipping_method" value="express"
+                                                                data-price="20.00">
+                                                            <label>
+                                                                <p>Express Shipping</p>
+                                                                <span class="price">$20.00</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+
+                                <!-- ================= Payment Info ================= -->
+                                <li>
+                                    <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
+                                        aria-expanded="false" aria-controls="collapsefive">Payment Info</h6>
+                                    <section class="checkout-steps-form-content collapse" id="collapsefive">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="checkout-payment-form">
+                                                    <!-- ✅ Stripe Card Element -->
+                                                    <label>Credit or Debit Card</label>
+                                                    <div id="card-element" class="form-input form"></div>
+                                                    <div id="card-errors" role="alert"
+                                                        style="color:red;margin-top:5px;"></div>
+                                                    <div class="single-form form-default button mt-3">
+                                                        <button type="submit" class="btn" id="submit-button">Pay
+                                                            Now</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                            </ul>
+
+                            <!-- قيم مخفية -->
+                            <input type="hidden" name="variant_id" value="{{ request('variant_id') }}">
+                            <input type="hidden" name="quantity" value="{{ request('qty', 1) }}">
+                        </form>
+
+                    </div>
+                </div>
+
+                <!-- ================= Sidebar ================= -->
+                <div class="col-lg-4">
+                    <div class="checkout-sidebar">
+                        <div class="checkout-sidebar-price-table mt-30">
+                            <h4 class="title">{{ $variant->product->name }}</h4>
+                            <div class="sub-total-price">
+                                <div class="total-price">
+                                    <p>
+                                        @foreach ($variant->attributeValues as $value)
+                                        {{ $value->attribute->name }}: {{ $value->value }} <br>
+                                        @endforeach
+                                    </p>
+                                    <p class="price">التشكيلة </p>
+                                </div>
+                                <div class="total-price shipping">
+                                    <p class="value">${{ $variant->price }}</p>
+                                    <p class="price" style="font-size: 13px">السعر للوحدة</p>
+                                </div>
+
+                                <div class="total-price shipping">
+                                    <p class="value">{{ $qty }}</p>
+                                    <p class="price" style="font-size: 13px">الكمية المطلوبة</p>
+                                </div>
+
+                                <div class="total-price shipping">
+                                    <p class="value" id="shipping-amount">${{ $shippingAmount }}</p>
+                                    <p class="price" style="font-size: 13px"> تكاليف الشحن</p>
+                                </div>
+
+                                <div class="total-price shipping">
+                                    <p class="value">${{ $taxAmount }}</p>
+                                    <p class="price" style="font-size: 13px">الضرائب</p>
+                                </div>
+
+                                @if($discountAmount > 0)
+                                <div class="total-price shipping">
+                                    <p class="value">${{ $discountAmount }}</p>
+                                    <p class="price" style="font-size: 13px">الخصم</p>
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="total-payable">
+                                <div class="payable-price">
+                                    <p class="value" style="color:rgb(17, 206, 0); font-weight: bold;font-size: 1.3rem">
+                                        ${{ $totalPriceAfterDiscount + $shippingAmount + $taxAmount }}
+                                    </p>
+                                    <p class="price" style="color:rgb(17, 206, 0); font-size: 1.3rem">المجموع</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stripe.js -->
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+            const stripe = Stripe('{{ config("services.stripe.key") }}');
+            const elements = stripe.elements();
+            const cardElement = elements.create('card');
+            cardElement.mount('#card-element');
+
+            const form = document.getElementById('payment-form');
+            const submitButton = document.getElementById('submit-button');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                submitButton.disabled = true;
+
+                // إرسال البيانات لإنشاء PaymentIntent
+                const response = await fetch("{{ route('customer.checkout.process') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        variant_id: form.querySelector('[name="variant_id"]').value,
+                        quantity: form.querySelector('[name="quantity"]').value,
+                        shipping_method: form.querySelector('[name="shipping_method"]:checked').value,
+                        email: form.querySelector('[name="email"]').value
+                    })
+                });
+
+                const data = await response.json();
+                const clientSecret = data.clientSecret;
+
+                // تنفيذ الدفع
+                const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+                    payment_method: {
+                        card: cardElement,
+                        billing_details: {
+                            name: form.querySelector('[name="first_name"]').value + ' ' + form.querySelector('[name="last_name"]').value,
+                            email: form.querySelector('[name="email"]').value
+                        }
+                    }
+                });
+
+                if (error) {
+                    document.getElementById('card-errors').textContent = error.message;
+                    submitButton.disabled = false;
+                } else if (paymentIntent.status === 'succeeded') {
+                    window.location.href = "/checkout/success/" + paymentIntent.metadata.order_id;
+                }
+            });
+        </script>
+    </section> --}}
+
+
 
 
     {{-- ======================================================= --}}
 
-    <section class="checkout-wrapper section" style="text-align: right; direction: rtl;" lang="en" dir="rtl">
+    <section class="checkout-wrapper section" lang="en" dir="rtl">
 
         <div class="container">
             @if(session('success'))
@@ -182,205 +458,115 @@
                 </div>
             @endif
             <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="checkout-steps-form-style-1">
+                {{-- <h6>معلومات الدفع</h6> --}}
 
-                        <section>
-    <div class="container">
-        <div class="card shadow-sm mb-4" style="border-radius: 12px; direction: rtl;">
-            <div class="card-body">
-                <form method="POST" action="{{ route('customer.address.store') }}">
-                    @csrf
-
-                    <!-- ================= Shipping Option ================= -->
-                                                    <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="checkout-payment-option">
-                                            <div class="shipping-header">
-                                                <h6 class="heading-6 font-weight-400 payment-title">اختر خيار
-                                                    التوصيل</h6>
-                                                <h6><a href="#"
-                                                        style="font-size:11px; color: rgb(0, 81, 255);text-decoration: underline;">اعرف
-                                                        أكثر عن خطط الشحن</a></h6>
-                                            </div>
-
-                                            <div class="payment-option-wrapper">
-
-                                                <div class="single-payment-option">
-                                                    <input type="radio" id="shipping_free" name="shipping_method"
-                                                        value="free" data-price="0.00" {{ $selectedShipping == 'free' ? 'checked' : '' }}>
-                                                    <label for="shipping_free">
-
-                                                                                                                   <p>الشحن المجاني</p>
-                                                        <span class="price">$0</span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="single-payment-option">
-                                                    <input type="radio" id="shipping_standard" name="shipping_method"
-                                                        value="standard" data-price="5" {{ $selectedShipping == 'standard' ? 'checked' : '' }}>
-                                                    <label for="shipping_standard">
-                                                        <p>الشحن العادي</p>
-
-                                                                                                                   <span class="price">5$</span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="single-payment-option">
-                                                    <input type="radio" id="shipping_express" name="shipping_method"
-                                                        value="express" data-price="10" {{ $selectedShipping == 'express' ? 'checked' : '' }}>
-                                                    <label for="shipping_express">
-                                                        <p>الشحن السريع</p>
-                                                        <span class="price">10$</span>
-
-                                                                                                               </label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="steps-form-btn button" style="text-align: right;">
-
-                                        </div>
-                                        <input type="hidden" name="variant_id" value="{{ request('variant_id') }}">
-                                        <input type="hidden" name="qty" id="qtyInput" value="{{ request('qty', 1) }}">
-                                    </div>
-                                </div>
-
-
-                    <!-- ================= Personal Details ================= -->
-                    <div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 mb-3">
-                                <label>الاسم الأول</label>
-                                <input type="text" name="first_name" class="form-control">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label>الاسم الأخير</label>
-                                <input type="text" name="last_name" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 mb-3">
-                                <label>البريد الإلكتروني</label>
-                                <input type="email" name="email" class="form-control" style="text-align: left;">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label>رقم الهاتف</label>
-                                <input type="number" name="phone_number" class="form-control" placeholder="/05" style="text-align: left;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ================= Address Details ================= -->
-                    <div class="mb-4">
-                        <p class="text-danger fw-bold text-decoration-underline mb-3" style="text-align: right;">
-                            يرجى ادخال المعلومات الخاصة بالعنوان الذي تريد استلام الطلب منه
-                        </p>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 mb-3">
-                                <label>المحافظة / المنطقة</label>
-                                <select class="form-control" name="state" required>
-                                    <option value="0">اختر</option>
-                                    <option value="gaza">قطاع غزة</option>
-                                    <option value="westbank">الضفة الغربية</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label>المدينة</label>
-                                <input type="text" name="city" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 mb-3">
-                                <label>العنوان بالتفصيل داخل المدينة</label>
-                                <input type="text" name="address" class="form-control">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label>الرمز البريدي</label>
-                                <input type="number" name="postal_code" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-primary">الخطوة التالية</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-                        
-                    </div>
-                </div>
                 <div class="col-lg-4">
                     <div class="checkout-sidebar">
                         <div class="checkout-sidebar-price-table mt-30">
-                            <h4 class=" title">{{ $variant->product->name }}</h4>
+                            @php
+                                $item = $items->first(); // أخذ أول عنصر فقط
+                                $discount += ($item['price'] * $item['quantity'] * $productDiscount) / 100;
+                            @endphp
+                            <h4 class="title">{{ $item->variant->product->name }}</h4>
                             <div class="sub-total-price">
                                 <div class="total-price">
-                                <p class="price">التشكيلة </p>
-
                                     <p>
-                                        @foreach ($variant->attributeValues as $value)
+                                        @foreach ($item->variant->attributeValues as $value)
                                             {{ $value->attribute->name }}: {{ $value->value }} <br>
                                         @endforeach
-                                </p>
+                                    </p>
+                                    <p class="price">التشكيلة </p>
                                 </div>
                                 <div class="total-price shipping">
+                                    <p class="value">${{ $item->variant->price }}</p>
                                     <p class="price" style="font-size: 13px">السعر للوحدة</p>
-
-                                    <p class=" value">${{ $variant->price }}</p>
                                 </div>
 
                                 <div class="total-price shipping">
+                                    <p class="value">{{  $item->quantity }}</p>
                                     <p class="price" style="font-size: 13px">الكمية المطلوبة</p>
-
-                                    <p class="value">{{ $qty }}</p>
                                 </div>
 
                                 <div class="total-price shipping">
+                                    <p class="value" id="shipping-amount">${{  $order->shipping_amount }}</p>
                                     <p class="price" style="font-size: 13px"> تكاليف الشحن</p>
-
-                                    <p class="value" id="shipping-amount">${{ $shippingAmount }}</p>
                                 </div>
 
                                 <div class="total-price shipping">
+                                    <p class="value">${{  $taxAmount }}</p>
                                     <p class="price" style="font-size: 13px">الضرائب</p>
-
-                                    <p class=" value">${{ $taxAmount }}</p>
                                 </div>
-                                @if($discountAmount > 0)
-                                    <div class="total-price shipping">
-                                        <p class="price" style="font-size: 13px">الخصم</p>
 
-                                        <p class=" value">${{ $discountAmount }}</p>
+                                @if($discount > 0)
+                                    <div class="total-price shipping">
+                                        <p class="value">${{  $discount }}</p>
+                                        <p class="price" style="font-size: 13px">الخصم</p>
                                     </div>
                                 @endif
                             </div>
 
                             <div class="total-payable">
                                 <div class="payable-price">
-                                    <p class="price" style="color:rgb(17, 206, 0); font-size: 1.3rem">المجموع</p>
-
                                     <p class="value" style="color:rgb(17, 206, 0); font-weight: bold;font-size: 1.3rem">
-                                        ${{ $totalPriceAfterDiscount + $shippingAmount + $taxAmount }}
+                                        ${{ $total }}
                                     </p>
+                                    <p class="price" style="color:rgb(17, 206, 0); font-size: 1.3rem">المجموع</p>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-8">
+                    <div class="checkout-steps-form-style-1">
+                        <section>
+                            <div class="container" style="text-align: right">
+                                <div class="card shadow-sm mb-4" style="border-radius: 12px; direction: rtl;">
+                                    <div class="card-body">
+                                        <div class="single-form form-default">
+                                            <label>اسم حامل البطاقة</label>
+                                            <div class="form-input form">
+                                                <input type="text">
+                                            </div>
+                                        </div>
+                                        <div class="single-form form-default">
+                                            <label>رقم البطاقة</label>
+                                            <div class="form-input form">
+                                                <input id="credit-input" type="text" placeholder="0000 0000 0000 0000">
+                                                <img src="{{ asset('assets2/images/payment/card.png') }}" alt="card">
+                                            </div>
+                                        </div>
+                                        <div class="payment-card-info">
+                                            <div class="single-form form-default mm-yy">
+                                                <label>Expiration</label>
+                                                <div class="expiration d-flex">
+                                                    <div class="form-input form">
+                                                        <input type="text" placeholder="MM">
+                                                    </div>
+                                                    <div class="form-input form">
+                                                        <input type="text" placeholder="YYYY">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="single-form form-default">
+                                                <label>CVC/CVV <span><i class="mdi mdi-alert-circle"></i></span></label>
+                                                <div class="form-input form">
+                                                    <input type="text" placeholder="***">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="single-form form-default button">
+                                            <button class="btn">دفع الان</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -399,7 +585,7 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="footer-logo" style="margin-top: 10px;">
                                 <a href="index.html">
-                                    <img src=" {{ asset('assets2/images/logo/logo.svg') }}" alt="#">
+                                    <img src="{{ asset('assets2/images/logo/logo.svg') }}" alt="#">
                                 </a>
                             </div>
                         </div>
@@ -622,7 +808,7 @@
     <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets2/js/glightbox.min.js')}}"></script>
     <script src="{{asset('assets2/js/main.js')}}"></script>
-    <script src=" {{asset('assets2/js/jsmain.js')}}"></script>
+    <script src="{{asset('assets2/js/jsmain.js')}}"></script>
     <script src="{{asset('assets2/js/js/tiny-slider.js')}}"></script>
     <script src="https://js.stripe.com/v3/"></script>
 
@@ -718,64 +904,6 @@
                 }
             }
         });
-
-
-
-
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const saveContinueBtn = document.querySelector('button.btn.btn-alt') || document.querySelector('a.btn.btn-alt');
-            const shippingOptions = document.querySelectorAll('input[name="shipping_method"]');
-            const shippingAmountElement = document.getElementById("shipping-amount");
-
-            function updateShippingAmount() {
-                const selectedOption = document.querySelector('input[name="shipping_method"]:checked');
-                if (!selectedOption) return;
-                const price = selectedOption.getAttribute("data-price");
-                shippingAmountElement.textContent = `$${parseFloat(price).toFixed(2)}`;
-            }
-
-            function updateRadioBorders() {
-                shippingOptions.forEach(option => {
-                    const container = option.closest('.single-payment-option');
-                    if (!container) return;
-                    if (option.checked) {
-                        container.classList.add('selected-shipping');
-                    } else {
-                        container.classList.remove('selected-shipping');
-                    }
-                });
-            }
-
-            // عند تغيير أي خيار
-            shippingOptions.forEach(option => {
-                option.addEventListener("change", function () {
-                    updateShippingAmount();
-                    updateRadioBorders();
-                });
-            });
-
-            // عند الضغط على زر Save & Continue
-            if (saveContinueBtn) {
-                saveContinueBtn.addEventListener('click', function () {
-                    const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
-                    if (!selectedShipping) return;
-                    console.log("تم اختيار الشحن:", selectedShipping.value);
-                    console.log("السعر:", selectedShipping.getAttribute('data-price'));
-                    updateRadioBorders();
-                });
-            }
-
-            const defaultOption = document.querySelector('input[name="shipping_method"]:checked')
-                || document.querySelector('input[name="shipping_method"]');
-            if (defaultOption) defaultOption.checked = true;
-
-            // تحديث عند تحميل الصفحة أول مرة2
-            updateShippingAmount();
-            updateRadioBorders();
-        });
-
 
     </script>
 

@@ -33,6 +33,6 @@ class OrderItem extends Model
     // 🔗 المتغير (لون/حجم)
     public function variant()
     {
-        return $this->belongsTo(ProductVariants::class, 'product_variant_id');
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
 }
