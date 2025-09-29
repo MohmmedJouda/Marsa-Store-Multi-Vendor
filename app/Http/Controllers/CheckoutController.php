@@ -112,9 +112,7 @@ class CheckoutController extends Controller
             'total_amount' => $total,
             'shipping_amount' => $shippingAmount,
             'tax_amount' => $taxAmount,
-            'payment_method' => $request->shipping_method,
             'currency' => 'usd',
-            'meta' => json_encode($items),
         ]);
 
         foreach ($items as $item) {

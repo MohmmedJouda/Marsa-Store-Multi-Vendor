@@ -437,7 +437,45 @@
                 <button class="arrow-btn slideRight left">❯</button>
                 <button class="arrow-btn slideLeft right">❮</button>
                 <div class="slider-container">
-                    <div class="product-card" data-id="1">
+                    @foreach ($mostOrdereds as $mostOrdered)
+
+                        <div class="product-card" data-id="1">
+                            <a href="{{ route('customer.product.show', $mostOrdered->id) }}">
+                                <img alt="منتج"
+                                    src="{{asset('storage/' . $mostOrdered->images()->where('is_main', true)->first()->image_path)}}"
+                                    onclick="window.location.href='/product_details.html'" />
+                            </a>
+
+                            <div class="title"> {{ $mostOrdered->name }}</div>
+                            <span class="category">{{ $mostOrdered->subcategory->name }}</span>
+                            <div class="price" data-symbol="$">${{ $mostOrdered->price }}</div>
+                            <div class="rating">★★★★★</div>
+                            <div class="seller">المتجر:
+                                <span>
+                                    <a href="{{ route('customer.stores.show', $mostOrdered->store->id) }}">{{ $mostOrdered->store->name }}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="seller">البائع: <span><a href="#">{{ $mostOrdered->store->user->name }}
+                                    </a></span> </div>
+                            <div class="actions">
+                                <button class="btn-cart"> <a style="color:white"
+                                        href="{{ route('customer.product.show', $mostOrdered->id) }}">
+                                        شراء الان </a></button>
+                                {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
+                                <form action="{{ route('customer.cart.add') }}" method="POST" class="inline">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $mostOrdered->id }}">
+                                    <input type="hidden" name="qty" value="1">
+                                    <i class="fa-solid fa-cart-shopping" onclick="this.closest('form').submit()"></i>
+                                </form>
+                            </div>
+                            <div class="published-time" data-time="2025-07-30T10:30:00Z"> {{ $mostOrdered->created_at }}
+                            </div>
+                        </div>
+
+                    @endforeach
+                    {{-- <div class="product-card" data-id="2">
                         <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
                         <div class="title">سماعات بلوتوث</div>
                         <span class="category">Camera</span>
@@ -446,12 +484,12 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
                     </div>
-                    <div class="product-card" data-id="2">
+                    {{-- <div class="product-card" data-id="1">
                         <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
                         <div class="title">سماعات بلوتوث</div>
                         <span class="category">Camera</span>
@@ -460,12 +498,12 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
-                    <div class="product-card" data-id="1">
+                    </div> --}}
+                    {{-- <div class="product-card" data-id="1">
                         <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
                         <div class="title">سماعات بلوتوث</div>
                         <span class="category">Camera</span>
@@ -474,12 +512,12 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
-                    <div class="product-card" data-id="1">
+                    </div> --}}
+                    {{-- <div class="product-card" data-id="1">
                         <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
                         <div class="title">سماعات بلوتوث</div>
                         <span class="category">Camera</span>
@@ -488,12 +526,12 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
-                    <div class="product-card" data-id="1">
+                    </div> --}}
+                    {{-- <div class="product-card" data-id="3">
                         <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
                         <div class="title">سماعات بلوتوث</div>
                         <span class="category">Camera</span>
@@ -502,12 +540,12 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
-                    <div class="product-card" data-id="3">
+                    </div> --}}
+                    {{-- <div class="product-card" data-id="4">
                         <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
                         <div class="title">سماعات بلوتوث</div>
                         <span class="category">Camera</span>
@@ -516,25 +554,11 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
-                    <div class="product-card" data-id="4">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
@@ -1112,29 +1136,31 @@
         // updateFavCount();
     </script>
     <!-- Dropdown عام (ضعه مرة واحدة في الـ layout قبل </body>) -->
-    <div id="userDropdown" class="user-dropdown" role="menu" aria-hidden="true">
-        <div class="user-header d-flex align-items-center px-3 py-2 mb-2">
-            <i class="fa-solid fa-user fa-lg me-2"></i>
-            <span class="username">{{ $username ?? 'Guest' }}</span>
+    @auth
+        <div id="userDropdown" class="user-dropdown" role="menu" aria-hidden="true">
+            <div class="user-header d-flex align-items-center px-3 py-2 mb-2">
+                <i class="fa-solid fa-user fa-lg me-2"></i>
+                <span class="username">{{ $username ?? 'Guest' }}</span>
+            </div>
+
+            <hr class="dropdown-divider" style="margin:0; border-color: rgba(255,255,255,0.1)">
+            <a class="user-item" href="#">
+                <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
+            </a>
+
+            <a class="user-item" href="#">
+                <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
+            </a>
+
+            <form method="POST" action="{{ route('logout') }}" class="m-0">
+                @csrf
+                <button type="submit" class="user-item text-danger"
+                    style="border:none; background:transparent; width:100%; text-align:right;">
+                    <i class="fa-solid fa-right-from-bracket"></i>&nbsp;خروج
+                </button>
+            </form>
         </div>
-
-        <hr class="dropdown-divider" style="margin:0; border-color: rgba(255,255,255,0.1)">
-        <a class="user-item" href="#">
-            <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
-        </a>
-
-        <a class="user-item" href="#">
-            <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
-        </a>
-
-        <form method="POST" action="{{ route('logout') }}" class="m-0">
-            @csrf
-            <button type="submit" class="user-item text-danger"
-                style="border:none; background:transparent; width:100%; text-align:right;">
-                <i class="fa-solid fa-right-from-bracket"></i>&nbsp;خروج
-            </button>
-        </form>
-    </div>
+    @endauth
 
 </body>
 

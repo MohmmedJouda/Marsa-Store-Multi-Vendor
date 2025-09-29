@@ -67,5 +67,12 @@ class Product extends Model
         return $this->hasMany(ProductRating::class);
     }
 
+        // Product.php
+public function orderItems()
+{
+    return $this->hasMany(OrderItem::class); // كل OrderItem مرتبط بمنتج واحد عبر product_id
+}
+
+
 
 }

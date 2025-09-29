@@ -19,6 +19,13 @@ class CustomerController extends Controller
     public function index()
     {
         $latest = Product::where('status','active')->with('store.user','subcategory')->latest()->take(7)->get();
+$mostOrdereds = Product::where('status', 'active')
+    ->with('store.user', 'subcategory', 'images') // جلب العلاقات
+    ->withCount('orderItems')                     // يحسب عدد مرات الطلب
+    ->orderByDesc('order_items_count')           // ترتيب حسب الأكثر طلبًا
+    ->take(7)                                     // أعلى 7 منتجات
+    ->get();
+
         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
 
@@ -31,8 +38,12 @@ class CustomerController extends Controller
             }
         }
 
-    $username = Auth::user()->name; // يفترض أن العمود في جدول users اسمه 'name'
-        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories','username'));
+    if (Auth::check()) {
+    $username = Auth::user()->name;
+} else {
+    $username = 'Guest'; // أو أي قيمة افتراضية
+}
+        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories','username','mostOrdereds'));
     }
 
     public function product_index(Request $request)
