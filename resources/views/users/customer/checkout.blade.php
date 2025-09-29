@@ -636,20 +636,20 @@
 
 
     <script>
-        function updateCartCount() {
-            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-            document.getElementById('cart-count').textContent = cartItems.length || 0;
-        }
+        // function updateCartCount() {
+        //     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        //     document.getElementById('cart-count').textContent = cartItems.length || 0;
+        // }
 
-        function updateFavCount() {
-            const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-            document.getElementById('fav-count').textContent = favItems.length || 0;
-        }
+        // function updateFavCount() {
+        //     const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
+        //     document.getElementById('fav-count').textContent = favItems.length || 0;
+        // }
 
-        function updateAllCounts() {
-            updateCartCount();
-            updateFavCount();
-        }
+        // function updateAllCounts() {
+        //     updateCartCount();
+        //     updateFavCount();
+        // }
 
         // نفذ عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', updateAllCounts);

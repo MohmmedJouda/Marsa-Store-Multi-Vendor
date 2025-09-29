@@ -479,6 +479,7 @@
                                 </div>
                                 <div class="total-price shipping">
                                     <p class="value">${{ $item->variant->price }}</p>
+                                    <input type="hidden" name="price" value="{{ $item->variant->price }}">
                                     <p class="price" style="font-size: 13px">السعر للوحدة</p>
                                 </div>
 
@@ -497,12 +498,13 @@
                                     <p class="price" style="font-size: 13px">الضرائب</p>
                                 </div>
 
-                                @if($discount > 0)
+                                @if($productDiscount > 0)
                                     <div class="total-price shipping">
-                                        <p class="value">${{  $discount }}</p>
+                                        <p class="value">${{ $productDiscount }}</p>
                                         <p class="price" style="font-size: 13px">الخصم</p>
                                     </div>
                                 @endif
+
                             </div>
 
                             <div class="total-payable">
@@ -518,7 +520,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-8">
+                {{-- <div class="col-lg-8">
                     <div class="checkout-steps-form-style-1">
                         <section>
                             <div class="container" style="text-align: right">
@@ -557,7 +559,7 @@
                                             </div>
                                         </div>
                                         <div class="single-form form-default button">
-                                            <button class="btn">دفع الان</button>
+                                            <button id="submit-button" class="btn">دفع الان</button>
                                         </div>
                                     </div>
                                 </div>
@@ -565,7 +567,63 @@
                         </section>
 
                     </div>
+                </div> --}}
+
+                <div class="col-lg-8">
+                    <div class="checkout-steps-form-style-1">
+                        <section>
+                            <div class="container" style="text-align: right">
+                                <div class="card shadow-sm mb-4" style="border-radius: 12px; direction: rtl;">
+                                    <div class="card-body">
+                                        <form id="payment-form">
+
+                                            <!-- اسم حامل البطاقة -->
+                                            <div class="single-form form-default">
+                                                <label>اسم حامل البطاقة</label>
+                                                <div class="form-input form">
+                                                    <input type="text" name="first_name" placeholder="الاسم الأول">
+                                                    <input type="text" name="last_name" placeholder="الاسم الأخير">
+                                                </div>
+                                            </div>
+
+                                            <!-- البريد الإلكتروني -->
+                                            <div class="single-form form-default">
+                                                <label>البريد الإلكتروني</label>
+                                                <div class="form-input form">
+                                                    <input type="email" name="email" placeholder="example@email.com">
+                                                </div>
+                                            </div>
+
+                                            <!-- Stripe Card Element -->
+                                            <div class="single-form form-default">
+                                                <label>تفاصيل البطاقة</label>
+                                                <div id="card-element" class="form-input form"></div>
+                                                {{-- <div id="card-errors" role="alert"
+                                                    style="color:red; margin-top:5px;"> --}}
+                                                </div>
+                                            </div>
+
+                                            <!-- بيانات الطلب (hidden inputs) -->
+                                            <input type="hidden" name="variant_id" value="1">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="shipping_method" value="standard">
+
+                                            <!-- زر الدفع -->
+                                            <div class="single-form form-default button">
+                                                <a
+                                                    href="{{ route('customer.checkout.success', ['order' => $order->id]) }}">
+                                                    <button id="submit-button" class="btn">دفع الآن</button>
+                                                </a>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
+
 
             </div>
         </div>
@@ -822,89 +880,87 @@
 
 
     <script>
-        function updateCartCount() {
-            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-            document.getElementById('cart-count').textContent = cartItems.length || 0;
-        }
+        // function updateCartCount() {
+        //     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        //     document.getElementById('cart-count').textContent = cartItems.length || 0;
+        // }
 
-        function updateFavCount() {
-            const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-            document.getElementById('fav-count').textContent = favItems.length || 0;
-        }
+        // function updateFavCount() {
+        //     const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
+        //     document.getElementById('fav-count').textContent = favItems.length || 0;
+        // }
 
-        function updateAllCounts() {
-            updateCartCount();
-            updateFavCount();
-        }
+        // function updateAllCounts() {
+        //     updateCartCount();
+        //     updateFavCount();
+        // }
 
-        // نفذ عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', updateAllCounts);
-
-
-
-        // استدعِ هذه الوظيفة عند إضافة/إزالة أي منتج للسلة أو المفضلة
-        // مثال:
-        // بعد إضافة منتج:
-        // localStorage.setItem('cart', JSON.stringify(cartItems));
-        // updateCartCount();
-
-        // بعد إزالة من المفضلة:
-        // localStorage.setItem('favorites', JSON.stringify(favItems));
-        // updateFavCount();
-
-
-        const stripe = Stripe('{{ config("services.stripe.key") }}'); // مفتاح public
+        const stripe = Stripe("{{ config('services.stripe.key') }}"); // public key من .env
         const elements = stripe.elements();
-        const cardElement = elements.create('card');
-        cardElement.mount('#card-element');
+        const cardElement = elements.create("card");
+        cardElement.mount("#card-element");
 
-        const form = document.getElementById('payment-form');
-        const submitButton = document.getElementById('submit-button');
+        const form = document.getElementById("payment-form");
+        const submitButton = document.getElementById("submit-button");
 
-        form.addEventListener('submit', async (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
             submitButton.disabled = true;
 
-            // 1️⃣ نطلب client_secret من السيرفر
-            const response = await fetch("{{ route('customer.checkout.process') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({
-                    variant_id: form.querySelector('[name="variant_id"]').value,
-                    quantity: form.querySelector('[name="quantity"]').value,
-                    shipping_method: form.querySelector('[name="shipping_method"]').value,
-                    email: form.querySelector('[name="email"]').value
-                })
-            });
+            // قيم من الحقول
+            const firstName = form.querySelector("[name='first_name']").value;
+            const lastName = form.querySelector("[name='last_name']").value;
+            const email = form.querySelector("[name='email']").value;
+            const variantId = form.querySelector("[name='variant_id']").value;
+            const quantity = form.querySelector("[name='quantity']").value;
+            const shippingMethod = form.querySelector("[name='shipping_method']").value;
 
-            const data = await response.json();
-            const clientSecret = data.clientSecret;
+            try {
+                // 1️⃣ اطلب client_secret من السيرفر
+                const response = await fetch("{{ route('customer.checkout.process') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        variant_id: variantId,
+                        quantity: quantity,
+                        shipping_method: shippingMethod,
+                        email: email
+                    })
+                });
 
-            // 2️⃣ تنفيذ الدفع
-            const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: {
-                    card: cardElement,
-                    billing_details: {
-                        name: form.querySelector('[name="first_name"]').value + ' ' + form.querySelector('[name="last_name"]').value,
-                        email: form.querySelector('[name="email"]').value
-                    }
+                const data = await response.json();
+                console.log("Server response:", data);
+
+                if (!data.clientSecret) {
+                    throw new Error("لم يتم إرجاع clientSecret من السيرفر");
                 }
-            });
 
-            if (error) {
-                document.getElementById('card-errors').textContent = error.message;
-                submitButton.disabled = false;
-            } else {
-                if (paymentIntent.status === 'succeeded') {
-                    // الدفع تم بنجاح، إعادة التوجيه إلى صفحة النجاح
+                // 2️⃣ نفذ الدفع
+                const { paymentIntent, error } = await stripe.confirmCardPayment(data.clientSecret, {
+                    payment_method: {
+                        card: cardElement,
+                        billing_details: {
+                            name: firstName + " " + lastName,
+                            email: email
+                        }
+                    }
+                });
+
+                if (error) {
+                    document.getElementById("card-errors").textContent = error.message;
+                    submitButton.disabled = false;
+                } else if (paymentIntent.status === "succeeded") {
                     window.location.href = "/checkout/success/" + paymentIntent.metadata.order_id;
                 }
+            } catch (err) {
+                console.error(err);
+                document.getElementById("card-errors").textContent = err.message;
+                submitButton.disabled = false;
             }
         });
-
     </script>
 
 </body>

@@ -347,3 +347,8 @@ document.getElementById("select-all")?.addEventListener("change", function () {
     alert(`سيتم شراء المنتجات التالية:\n${productNames.join('\n')}`);
     // هنا أضف منطق إرسال الطلب أو إفراغ السلة أو غيره
   });
+
+
+
+
+  

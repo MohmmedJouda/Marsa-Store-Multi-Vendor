@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Address;
+    use App\Models\OrderItem;
     use Illuminate\Http\Request;
     use App\Models\ProductVariant;
     use App\Models\Order;
@@ -59,6 +60,7 @@
                 if ($request->filled('variant_id')) {
                 $variant = ProductVariant::with('product')->findOrFail($request->variant_id);
                 $qty = $request->input('qty', 1);
+                $unitPrice = $request->input('price', 1);
 
                 $items[] = [
                     'product_id' => $variant->product->id,
@@ -94,10 +96,7 @@
 
         // لتحديد الخيار المحدد مسبقاً في الواجهة
         $taxAmount = 5;      // مثال ثابت
-
-  
-            $totalAmount = $subtotal + $shippingAmount + $taxAmount - $discount;
-
+        $totalAmount = $subtotal + $shippingAmount + $taxAmount - $discount;
 
         $order = Order::create([
             'user_id'        => Auth::id(),
@@ -116,9 +115,9 @@
             'product_id'        => $item['product_id'],
             'product_variant_id'=> $item['variant_id'],
             'quantity'          => $item['quantity'],
-            'unit_price'        => variant->price,
+            'unit_price'        => $item['price'],
         ]);
-    }
+        }
 
             return redirect()->route('customer.payment.index',$order->id)->with('success', 'تم حفظ العنوان بنجاح');
         }

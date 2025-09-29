@@ -15,7 +15,7 @@ class OrderItem extends Model
         'product_id',
         'product_variant_id',
         'quantity',
-        'price',
+        'unit_price',
     ];
 
     // 🔗 الطلب

@@ -18,7 +18,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $latest = Product::with('store.user','subcategory')->latest()->take(7)->get();
+        $latest = Product::where('status','active')->with('store.user','subcategory')->latest()->take(7)->get();
         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
 
@@ -30,7 +30,9 @@ class CustomerController extends Controller
                 $totalPrice += $item->qty * $item->product->price;
             }
         }
-        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories'));
+
+    $username = Auth::user()->name; // يفترض أن العمود في جدول users اسمه 'name'
+        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories','username'));
     }
 
     public function product_index(Request $request)

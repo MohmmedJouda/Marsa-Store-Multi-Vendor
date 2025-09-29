@@ -37,7 +37,7 @@
                 data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav-list">
-                    <li class="logoheader"><a href="index.html"><img class="apple-logo"
+                    <li class="logoheader"><a href="{{ route('customer.main-page') }}"><img class="apple-logo"
                                 src="{{asset('img/logo.svg')}}" /></a></li>
                     <li><a href="#">السوق العام</a>
                         <div class="dropdown-menu">
@@ -104,20 +104,10 @@
         @endguest
 
         @auth
-            <div class="centardiv">
+            <!-- أيقونة المستخدم -->
+            <div class="centardiv" id="userIcon" role="button" aria-haspopup="true" aria-expanded="false"
+                title="قائمة المستخدم">
                 <i class="fa-solid fa-user"></i>
-            </div>
-            <div id="userMenu" class="user-menu">
-                <ul>
-                    <li>
-                        <a href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            class="menu-link px-5">Sign Out</a>
-                        <form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
             </div>
         @endauth
 
@@ -129,7 +119,6 @@
             <i class="fa-solid fa-cart-shopping" id="cart-icon">
                 <span class="badge" id="cart-count">{{ $carts->count() }}</span>
             </i>
-
 
         </div>
     </div>
@@ -189,7 +178,7 @@
                                 <button class="btn-cart"> <a style="color:white"
                                         href="{{ route('customer.product.show', $product->id) }}">
                                         شراء الان </a></button>
-                                <i class="fa-solid fa-heart btn-fav"></i>
+                                {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                                 <form action="{{ route('customer.cart.add') }}" method="POST" class="inline">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -309,31 +298,38 @@
                 </div>
                 <div class="row">
                     @foreach($categories as $category)
-                        <div class="col-lg-4 col-md-6 col-12">
+                        <div class="col-lg-4 col-md-6 col-12 mb-4">
                             <!-- Start Single Category -->
-                            <div class="single-category">
-                                <h3 class="heading">{{ $category->name }}</h3>
+                            <div class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden">
 
-                                <ul>
-                                    @foreach($category->subcategories as $sub)
-                                        <li>
-                                            <a href="{{ route('customer.products.index', ['subcategory' => $sub->id]) }}"
-                                                style="color:white;">
-                                                {{ $sub->name }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-
-                                <div class="images">
-                                    <img alt="#" src="{{ asset('storage/' . $category->image) }}" />
+                                <!-- صورة القسم -->
+                                <div class="position-relative">
+                                    <img src="{{ asset('storage/' . $category->image) }}" class="card-img-top img-fluid"
+                                        alt="{{ $category->name }}" style="height:220px; object-fit:cover;">
+                                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-25"></div>
+                                    <h3 class="position-absolute bottom-0 start-0 text-white p-3 m-0">
+                                        {{ $category->name }}
+                                    </h3>
                                 </div>
+
+                                <!-- روابط الفئات الفرعية -->
+                                <div class="card-body d-flex flex-wrap gap-2 bg-dark">
+                                    @foreach($category->subcategories as $sub)
+                                        <a href="{{ route('customer.products.index', ['subcategory' => $sub->id]) }}"
+                                            class="btn btn-sm btn-light rounded-pill">
+                                            {{ $sub->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
+
+
+
                             </div>
                             <!-- End Single Category -->
-
                         </div>
                     @endforeach
                 </div>
+
 
                 {{-- <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Category -->
@@ -450,7 +446,7 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
@@ -464,7 +460,7 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
@@ -478,7 +474,7 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
@@ -492,7 +488,7 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
@@ -506,7 +502,7 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
@@ -520,7 +516,7 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
@@ -534,7 +530,7 @@
                         <div class="seller">البائع: <span>Mr mustafa</span> </div>
                         <div class="actions">
                             <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
+                            {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                             <i class="fa-solid fa-cart-shopping cart"></i>
                         </div>
                         <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
@@ -1015,16 +1011,92 @@
     <script>
 
 
+        document.addEventListener('DOMContentLoaded', function () {
+            const userIcon = document.getElementById('userIcon');
+            const dropdown = document.getElementById('userDropdown');
 
-        function updateFavCount() {
-            const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-            document.getElementById('fav-count').textContent = favItems.length || 0;
-        }
+            if (!userIcon || !dropdown) {
+                console.warn('userIcon or userDropdown element not found. تأكد من وجود العنصرين ومعرفاتهما id="userIcon" و id="userDropdown".');
+                return;
+            }
 
-        function updateAllCounts() {
-            updateCartCount();
-            updateFavCount();
-        }
+            // تأكد أن الـ dropdown طفل مباشر للـ body حتى لا يتأثر بـ overflow/transform من والدين آخرين
+            if (dropdown.parentElement !== document.body) {
+                document.body.appendChild(dropdown);
+            }
+
+            // إعدادات أولية
+            dropdown.style.position = 'absolute';
+            dropdown.style.display = 'none';
+            dropdown.style.zIndex = 9999;
+
+            function positionDropdown() {
+                // نظهر مؤقتاً مخفياً لقياس الأبعاد بدون فلاش
+                dropdown.style.display = 'block';
+                dropdown.style.visibility = 'hidden';
+                dropdown.classList.add('open'); // يضيف أي ستايل عرض لو حاطه
+                const iconRect = userIcon.getBoundingClientRect();
+                const ddRect = dropdown.getBoundingClientRect();
+                const gap = 8; // مسافة بين الأيقونة والقائمة
+
+                // محاذاة يمين القائمة مع يمين الأيقونة (مناسب للـ RTL)
+                let left = window.scrollX + iconRect.right - ddRect.width;
+                let top = window.scrollY + iconRect.bottom + gap;
+
+                const margin = 8;
+                if (left < margin) left = margin;
+                if (left + ddRect.width > window.innerWidth - margin) left = window.innerWidth - ddRect.width - margin;
+
+                // إذا ما فيه مساحة تحت، اعرض فوق الأيقونة
+                if (top + ddRect.height > window.scrollY + window.innerHeight - margin) {
+                    top = window.scrollY + iconRect.top - ddRect.height - gap;
+                }
+
+                dropdown.style.left = Math.round(left) + 'px';
+                dropdown.style.top = Math.round(top) + 'px';
+
+                // أظهر بشكل نهائي
+                dropdown.style.visibility = 'visible';
+            }
+
+            function openDropdown() {
+                positionDropdown();
+                dropdown.classList.add('open');
+                userIcon.setAttribute('aria-expanded', 'true');
+                dropdown.setAttribute('aria-hidden', 'false');
+
+                window.addEventListener('resize', positionDropdown);
+                window.addEventListener('scroll', positionDropdown, true);
+            }
+
+            function closeDropdown() {
+                dropdown.classList.remove('open');
+                dropdown.style.display = 'none';
+                userIcon.setAttribute('aria-expanded', 'false');
+                dropdown.setAttribute('aria-hidden', 'true');
+
+                window.removeEventListener('resize', positionDropdown);
+                window.removeEventListener('scroll', positionDropdown, true);
+            }
+
+            userIcon.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (dropdown.classList.contains('open')) closeDropdown();
+                else openDropdown();
+            });
+
+            // غلق عند النقر خارج القائمة أو عند الضغط على Esc
+            document.addEventListener('click', function (e) {
+                if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeDropdown();
+            });
+
+        });
 
         // نفذ عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', updateAllCounts);
@@ -1039,6 +1111,31 @@
         // localStorage.setItem('favorites', JSON.stringify(favItems));
         // updateFavCount();
     </script>
+    <!-- Dropdown عام (ضعه مرة واحدة في الـ layout قبل </body>) -->
+    <div id="userDropdown" class="user-dropdown" role="menu" aria-hidden="true">
+        <div class="user-header d-flex align-items-center px-3 py-2 mb-2">
+            <i class="fa-solid fa-user fa-lg me-2"></i>
+            <span class="username">{{ $username ?? 'Guest' }}</span>
+        </div>
+
+        <hr class="dropdown-divider" style="margin:0; border-color: rgba(255,255,255,0.1)">
+        <a class="user-item" href="#">
+            <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
+        </a>
+
+        <a class="user-item" href="#">
+            <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
+        </a>
+
+        <form method="POST" action="{{ route('logout') }}" class="m-0">
+            @csrf
+            <button type="submit" class="user-item text-danger"
+                style="border:none; background:transparent; width:100%; text-align:right;">
+                <i class="fa-solid fa-right-from-bracket"></i>&nbsp;خروج
+            </button>
+        </form>
+    </div>
+
 </body>
 
 </html>

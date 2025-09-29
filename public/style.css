@@ -292,16 +292,54 @@ form.inline {
 }
 
 
-.badge {
-    position: absolute;
-    top: 10px;
-    left: 6px;
-    background-color: red;
-    color: white;
-    font-size: 10px;
-    border-radius: 50%;
-    padding: 2px 6px;
+.centardiv{
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#0f1724;
+  color:#fff;
+  font-size:18px;
 }
+
+/* Dropdown منفصل عن الـ flow */
+.user-dropdown{
+  position: absolute;
+  min-width: 190px;
+  padding: 6px 0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.6);
+  background: linear-gradient(180deg,#0f172a,#071025);
+  color: #fff;
+  direction: rtl;
+  display: none;   /* نتحكم بالعرض بالـ JS */
+  z-index: 9999;
+  font-family: inherit;
+}
+
+.user-dropdown.open { display: block; animation: dropdownFade .12s ease; }
+
+.user-item{
+  display:block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #e6eef8;
+  font-size: 14px;
+}
+
+.user-item:hover{
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+}
+
+@keyframes dropdownFade{
+  from { transform: translateY(-6px); opacity: 0;}
+  to   { transform: translateY(0); opacity: 1;}
+}
+
 
 
 .hero-banner {
@@ -1171,7 +1209,7 @@ form.inline {
     font-weight: bold;
     font-size: 16px;
 }
-
+/* 
 .fav-info h4 {
     color: #97fee6;
 
@@ -1242,8 +1280,8 @@ form.inline {
 
 .fav-controls {
     display: flex;
-    /* flex-direction: column; */
-    align-items: center;
+    /* flex-direction: column; 
+     align-items: center;
     gap: 5px;
 }
 
@@ -1262,7 +1300,7 @@ form.inline {
     background-color: #0f0;
     color: #000;
     font-weight: bold;
-}
+} */ */
 
 .move-to-cart {
     cursor: pointer;
@@ -1282,7 +1320,7 @@ form.inline {
     /* أخضر إذا المنتج في السلة */
 }
 
-
+/* 
 .fav-controls i.remove-fav {
     color: red;
     cursor: pointer;
@@ -1305,7 +1343,7 @@ form.inline {
 
 .fav-footer .clear-fav:hover {
     background-color: #666;
-}
+} */
 
 
 /* One Click Scrool Top Button*/

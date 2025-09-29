@@ -748,7 +748,7 @@
                                     </a></span> </div>
                             <div class="actions">
                                 <button class="btn-cart">شراء الآن</button>
-                                <i class="fa-solid fa-heart btn-fav"></i>
+                                {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                                 <form action="{{ route('customer.cart.add') }}" method="POST" class="inline">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">

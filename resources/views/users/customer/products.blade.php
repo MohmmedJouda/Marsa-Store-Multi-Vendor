@@ -226,7 +226,7 @@
                                 <button class="btn-cart"> <a style="color:white"
                                         href="{{ route('customer.product.show', $product->id) }}">
                                         شراء الان </a></button>
-                                <i class="fa-solid fa-heart btn-fav"></i>
+                                {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
                                 <form action="{{ route('customer.cart.add') }}" method="POST" class="inline">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -542,19 +542,15 @@
 
 
     <script>
+        // function updateFavCount() {
+        //     const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
+        //     document.getElementById('fav-count').textContent = favItems.length || 0;
+        // }
 
-
-
-
-        function updateFavCount() {
-            const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-            document.getElementById('fav-count').textContent = favItems.length || 0;
-        }
-
-        function updateAllCounts() {
-            updateCartCount();
-            updateFavCount();
-        }
+        // function updateAllCounts() {
+        //     updateCartCount();
+        //     updateFavCount();
+        // }
 
         // نفذ عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', updateAllCounts);

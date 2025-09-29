@@ -60,14 +60,14 @@ Route::middleware([
 
     Route::get('/checkout', [CheckoutController::class, 'showCheckout'])
     ->middleware('auth')->name('checkout.show');
-    Route::post('/checkout/process', [CheckoutController::class, 'processCheckout'])
-        ->middleware('auth')->name('checkout.process');
-    Route::get('checkout/success/{order}', [CheckoutController::class, 'checkoutSuccess'])
-        ->name('checkout.success');
 
     Route::post('/address/store', [AddressesController::class, 'store'])->name('address.store');
     Route::put('/address/{address}', [AddressesController::class, 'update'])->name('address.update');
-    Route::get('/payment/{order}', [StripeController::class, 'index'])->name('payment.index');
+    Route::get('/checkout/{order}', [StripeController::class, 'index'])->name('payment.index');
+    Route::post('/checkout/process', [StripeController::class, 'process'])
+        ->middleware('auth')->name('checkout.process');
+    Route::get('checkout/success/{order}', [StripeController::class, 'checkoutSuccess'])
+        ->name('checkout.success');
     Route::post('/stripe/webhook', [StripeController::class, 'handle'])->name('stripe.webhook');
 
 });
