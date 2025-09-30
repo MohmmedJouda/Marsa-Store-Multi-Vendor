@@ -24,10 +24,10 @@
                             <div class="d-flex align-items-center position-relative my-1">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                 <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"
-                                            rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none">
+                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+                                            transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
                                         <path
                                             d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
                                             fill="currentColor" />
@@ -64,10 +64,10 @@
                                     data-bs-target="#kt_vendors_export_modal">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                     <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.3" x="12.75" y="4.25" width="12" height="2"
-                                                rx="1" transform="rotate(90 12.75 4.25)" fill="currentColor" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                            fill="none">
+                                            <rect opacity="0.3" x="12.75" y="4.25" width="12" height="2" rx="1"
+                                                transform="rotate(90 12.75 4.25)" fill="currentColor" />
                                             <path
                                                 d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z"
                                                 fill="currentColor" />
@@ -78,12 +78,13 @@
                                     </span>
                                     <!--end::Svg Icon-->Export</button>
                                 <!--begin::Menu toggle-->
-                                <a href="{{ route('moderator.vendor.trashed') }}"class="btn btn-sm btn-flex btn-light btn-active-danger fw-bolder"
+                                <a href="{{ route('moderator.vendor.trashed') }}"
+                                    class="btn btn-sm btn-flex btn-light btn-active-danger fw-bolder"
                                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
                                     <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                            fill="none">
                                             <path
                                                 d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
                                                 fill="currentColor"></path>
@@ -176,9 +177,8 @@
                                         <span class="svg-icon svg-icon-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
-                                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                                    rx="1" transform="rotate(-45 6 17.3137)"
-                                                    fill="currentColor" />
+                                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
                                                 <rect x="7.41422" y="6" width="16" height="2" rx="1"
                                                     transform="rotate(45 7.41422 6)" fill="currentColor" />
                                             </svg>
@@ -191,12 +191,11 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body py-10 px-lg-17">
                                     <!--begin::Scroll-->
-                                    <div class="scroll-y me-n7 pe-7" id="kt_modal_add_vendor_scroll"
-                                        data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                                    <div class="scroll-y me-n7 pe-7" id="kt_modal_add_vendor_scroll" data-kt-scroll="true"
+                                        data-kt-scroll-activate="{default: false, lg: true}"
                                         data-kt-scroll-max-height="auto"
                                         data-kt-scroll-dependencies="#kt_modal_add_vendor_header"
-                                        data-kt-scroll-wrappers="#kt_modal_add_vendor_scroll"
-                                        data-kt-scroll-offset="300px">
+                                        data-kt-scroll-wrappers="#kt_modal_add_vendor_scroll" data-kt-scroll-offset="300px">
                                         <!--begin::Input group-->
                                         <div class="fv-row mb-7">
                                             <!--begin::Label-->
@@ -274,8 +273,8 @@
                                                     <label class="required fs-6 fw-bold mb-2">Phone Number</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input class="form-control form-control-solid"
-                                                        placeholder="+972******" name="phone" />
+                                                    <input class="form-control form-control-solid" placeholder="+972******"
+                                                        name="phone" />
                                                     <!--end::Input-->
                                                 </div>
                                                 <!--end::Col-->
@@ -369,9 +368,8 @@
                                         <span class="svg-icon svg-icon-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
-                                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                                    rx="1" transform="rotate(-45 6 17.3137)"
-                                                    fill="currentColor" />
+                                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
                                                 <rect x="7.41422" y="6" width="16" height="2" rx="1"
                                                     transform="rotate(45 7.41422 6)" fill="currentColor" />
                                             </svg>
@@ -384,8 +382,8 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body py-10 px-lg-17">
                                     <!--begin::Scroll-->
-                                    <div class="scroll-y me-n7 pe-7" id="kt_modal_edit_vendor_scroll"
-                                        data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                                    <div class="scroll-y me-n7 pe-7" id="kt_modal_edit_vendor_scroll" data-kt-scroll="true"
+                                        data-kt-scroll-activate="{default: false, lg: true}"
                                         data-kt-scroll-max-height="auto"
                                         data-kt-scroll-dependencies="#kt_modal_edit_vendor_header"
                                         data-kt-scroll-wrappers="#kt_modal_edit_vendor_scroll"
@@ -413,8 +411,8 @@
 
                                         <!--begin::Billing toggle-->
                                         <div class="fw-bolder fs-3 rotate collapsible mb-7" data-bs-toggle="collapse"
-                                            href="#kt_modal_edit_vendor_billing_info" role="button"
-                                            aria-expanded="false" aria-controls="kt_vendor_view_details">Store Information
+                                            href="#kt_modal_edit_vendor_billing_info" role="button" aria-expanded="false"
+                                            aria-controls="kt_vendor_view_details">Store Information
                                             <span class="ms-2 rotate-180">
                                                 <span class="svg-icon svg-icon-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -450,9 +448,8 @@
                                             <div class="row g-9 mb-7">
                                                 <div class="col-md-6 fv-row">
                                                     <label class="required fs-6 fw-bold mb-2">Phone Number</label>
-                                                    <input class="form-control form-control-solid"
-                                                        placeholder="+972******" name="phone" id="edit_phone"
-                                                        value=" " />
+                                                    <input class="form-control form-control-solid" placeholder="+972******"
+                                                        name="phone" id="edit_phone" value=" " />
                                                 </div>
                                                 <div class="col-md-6 fv-row">
                                                     <label class="required fs-6 fw-bold mb-2">Address</label>
@@ -519,10 +516,10 @@
                                 <div id="kt_vendors_export_close" class="btn btn-icon btn-sm btn-active-icon-primary">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                     <span class="svg-icon svg-icon-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                                rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                            fill="none">
+                                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                                transform="rotate(-45 6 17.3137)" fill="currentColor" />
                                             <rect x="7.41422" y="6" width="16" height="2" rx="1"
                                                 transform="rotate(45 7.41422 6)" fill="currentColor" />
                                         </svg>
@@ -571,24 +568,21 @@
                                         <!--begin::Radio group-->
                                         <div class="d-flex flex-column">
                                             <!--begin::Radio button-->
-                                            <label
-                                                class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                                <input class="form-check-input" type="checkbox" value="1"
-                                                    checked="checked" name="payment_type" />
+                                            <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
+                                                <input class="form-check-input" type="checkbox" value="1" checked="checked"
+                                                    name="payment_type" />
                                                 <span class="form-check-label text-gray-600 fw-bold">All</span>
                                             </label>
                                             <!--end::Radio button-->
                                             <!--begin::Radio button-->
-                                            <label
-                                                class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                                <input class="form-check-input" type="checkbox" value="2"
-                                                    checked="checked" name="payment_type" />
+                                            <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
+                                                <input class="form-check-input" type="checkbox" value="2" checked="checked"
+                                                    name="payment_type" />
                                                 <span class="form-check-label text-gray-600 fw-bold">Visa</span>
                                             </label>
                                             <!--end::Radio button-->
                                             <!--begin::Radio button-->
-                                            <label
-                                                class="form-check form-check-custom form-check-sm form-check-solid mb-3">
+                                            <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
                                                 <input class="form-check-input" type="checkbox" value="3"
                                                     name="payment_type" />
                                                 <span class="form-check-label text-gray-600 fw-bold">Mastercard</span>

@@ -34,7 +34,12 @@ class CartItemController extends Controller
         $totalQty   = $items->sum('qty');
         $totalPrice = $items->sum(fn($it) => $it->qty * $it->price);
 
-        return view('users.customer.cart', compact('items','totalQty','totalPrice','categories'));
+        if (Auth::check()) {
+            $username = Auth::user()->name;
+        } else {
+            $username = 'Guest'; // أو أي قيمة افتراضية
+        }
+        return view('users.customer.cart', compact('items','totalQty','totalPrice','categories','username'));
     }
 
     public function add(Request $request)

@@ -32,7 +32,12 @@ class CategoryController extends Controller
             $query->whereBelongsTo($store);
         })->get();
 
-        return view('users.vendor.category.categories', compact('categories', 'subcategories'));
+        if (Auth::check()) {
+            $username = Auth::user()->name;
+        } else {
+            $username = 'Guest'; // أو أي قيمة افتراضية
+        }
+        return view('users.vendor.category.categories', compact('categories', 'subcategories','username'));
     }
 
 

@@ -43,18 +43,6 @@
                     <!--end::Card title-->
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                        <div class="w-100 mw-150px">
-                            <!--begin::Select2-->
-                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                                data-placeholder="Status" data-kt-ecommerce-product-filter="status">
-                                <option></option>
-                                <option value="all">All</option>
-                                <option value="published">Published</option>
-                                <option value="scheduled">Scheduled</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                            <!--end::Select2-->
-                        </div>
                         <!--begin::Add product-->
                         <a href="{{ route('vendor.products.trashed') }}" class="btn btn-danger">Trashed</a>
                         <!--end::Add product-->
@@ -213,8 +201,8 @@
 
                                         <div
                                             class="badge
-                                                                @if ($product->status == 'active') badge-light-success
-                                                                @elseif($product->status == 'inactive') badge-light-danger @endif ">
+                                                                        @if ($product->status == 'active') badge-light-success
+                                                                        @elseif($product->status == 'inactive') badge-light-danger @endif ">
                                             {{ $product->status }}
                                         </div>
                                         <!--end::Badges-->

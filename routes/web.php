@@ -30,6 +30,18 @@ Route::get('/layout', function () {
     return view('layout');
 });
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
+
 Route::get('/vendor/register', [VendorAuthController::class, 'showRegistrationForm'])->name('vendor.register');
 Route::post('/vendor/register', [VendorAuthController::class, 'register']);
 
@@ -70,6 +82,10 @@ Route::middleware([
         ->name('checkout.success');
     Route::post('/stripe/webhook', [StripeController::class, 'handle'])->name('stripe.webhook');
 
+    Route::get('/contact-us/',function(){
+        return view('users.customer.contact');
+    })->name('contact');
+
 });
 
 Route::prefix('customer')->name('customer.')->group(function () {
@@ -80,6 +96,10 @@ Route::get('/product/{id}', [CustomerController::class, 'product_show'])->name('
     Route::get('/categories/{id}/products', [CustomerController::class, 'products_cat_index'])->name('category_products.index');
     Route::get('/stores', [CustomerController::class, 'stores'])->name('stores.index'); 
     Route::get('/store/{id}', [CustomerController::class, 'store'])->name('stores.show'); 
+
+    Route::get('/faq/',function(){
+        return view('users.customer.faq');
+    })->name('faq');
 });
 
 
@@ -160,7 +180,6 @@ Route::middleware([
     })->name('dashboard');
 });
 //
-
 
 
 

@@ -51,10 +51,18 @@ class CheckoutController extends Controller
         $taxAmount = 5;      // مثال ثابت
 
         $addresses = Address::where('user_id', Auth::id())->get();
+
+        if (Auth::check()) {
+            $username = Auth::user()->name;
+        } else {
+            $username = 'Guest'; // أو أي قيمة افتراضية
+        }
+
         return view('users.customer.checkout', compact(
-            'variant', 'qty', 'subtotalPrice', 'discountAmount', 'totalPriceAfterDiscount', 'shippingAmount', 'taxAmount', 'selectedShipping','addresses'
+            'variant', 'qty', 'subtotalPrice', 'discountAmount', 'totalPriceAfterDiscount', 'shippingAmount', 'taxAmount', 'selectedShipping','addresses','username'
         ));
     }
+
 
     // إنشاء PaymentIntent
     public function createPaymentIntent(Request $request): JsonResponse

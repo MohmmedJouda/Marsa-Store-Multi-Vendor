@@ -60,13 +60,6 @@
                             @endforeach
                         </div>
                     </li>
-                    <li><a href="#">البائعين</a>
-                        <div class="dropdown-menu">
-                            <a href="merchant.html">الأكثر مبيعًا</a>
-                            <a href="merchant.html">الأعلى تقييماَ</a>
-                            <a href="merchant.html">جدد</a>
-                        </div>
-                    </li>
                     <!-- <li><a href="#">الدعم الفني</a></li> -->
                     <li><a href="#howus">من نحن</a></li>
                     <li class="search-bar">
@@ -113,11 +106,11 @@
 
         <div class="right">
             <i class="fa-solid fa-heart" id="fav-icon">
-                <span class="badge" id="fav-count">0</span>
+                <span class="badge" id="fav-count"></span>
             </i>
 
             <i class="fa-solid fa-cart-shopping" id="cart-icon">
-                <span class="badge" id="cart-count">{{ $carts->count() }}</span>
+                <span class="badge" id="cart-count"></span>
             </i>
 
         </div>
@@ -165,7 +158,19 @@
                             <div class="title"> {{ $product->name }}</div>
                             <span class="category">{{ $product->subcategory->name }}</span>
                             <div class="price" data-symbol="$">${{ $product->price }}</div>
-                            <div class="rating">★★★★★</div>
+                            @php
+                                $averageRate = $product->ratings->avg('rate');
+                            @endphp
+
+                            <div class="product-rating">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
+                                        &#9733;
+                                    </span>
+                                @endfor
+                            </div>
+
+
                             <div class="seller">المتجر:
                                 <span>
                                     <a href="{{ route('customer.stores.show', $product->store->id) }}">{{ $product->store->name }}
@@ -449,7 +454,18 @@
                             <div class="title"> {{ $mostOrdered->name }}</div>
                             <span class="category">{{ $mostOrdered->subcategory->name }}</span>
                             <div class="price" data-symbol="$">${{ $mostOrdered->price }}</div>
-                            <div class="rating">★★★★★</div>
+
+                            @php
+                                $averageRate = $mostOrdered->ratings->avg('rate'); // ✅ لكل منتج
+                            @endphp
+
+                            <div class="product-rating" style="display:flex; justify-content:center; gap:2px;">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
+                                        &#9733;
+                                    </span>
+                                @endfor
+                            </div>
                             <div class="seller">المتجر:
                                 <span>
                                     <a href="{{ route('customer.stores.show', $mostOrdered->store->id) }}">{{ $mostOrdered->store->name }}
@@ -841,8 +857,8 @@
                                 <h3>معلومات</h3>
                                 <ul>
                                     <li><a href="about-us.html">من نحن</a></li>
-                                    <li><a href="contact.html">تواصل معنا</a></li>
-                                    <li><a href="faq.html">أسئلة شائعة</a></li>
+                                    <li><a href="{{ route('customer.contact') }}">تواصل معنا</a></li>
+                                    <li><a href="{{ route('customer.faq') }}">أسئلة شائعة</a></li>
                                 </ul>
                             </div>
                             <!-- End Single Widget -->
@@ -876,7 +892,7 @@
                         <div class="col-lg-4 col-12">
                             <div class="payment-gateway">
                                 <span>We Accept:</span>
-                                <img alt="#" src="{{asset('assets2/images/footer/credit-cards-footer.png')}}" />
+                                <img alt="#" src="{{asset(path: 'assets2/images/footer/credit-cards-footer.png')}}" />
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
@@ -1123,7 +1139,7 @@
         });
 
         // نفذ عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', updateAllCounts);
+        // document.addEventListener('DOMContentLoaded', updateAllCounts);
 
         // استدعِ هذه الوظيفة عند إضافة/إزالة أي منتج للسلة أو المفضلة
         // مثال:
@@ -1144,7 +1160,7 @@
             </div>
 
             <hr class="dropdown-divider" style="margin:0; border-color: rgba(255,255,255,0.1)">
-            <a class="user-item" href="#">
+            <a class="user-item" href="{{ route('profile.show') }}">
                 <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
             </a>
 

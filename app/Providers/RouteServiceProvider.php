@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
 
             // التوجيه حسب دور المستخدم
             return match ($user->role) {
-                'vendor' => redirect()->route('vendor.dashboard'),
+                'vendor' => redirect()->route('vendor.categories.index'),
                 'customer' => redirect()->route('customer.main-page'),
                 'moderator' => redirect()->route('moderator.dashboard'),
                 'super_admin' => redirect()->route('admin.dashboard'),

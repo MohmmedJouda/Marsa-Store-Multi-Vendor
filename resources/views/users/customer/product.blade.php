@@ -430,14 +430,7 @@
                         @endforeach
                     </div>
                 </li>
-                <li><a href="#">البائعين</a>
-                    <div class="dropdown-menu">
-                        <a href="#">الأكثر مبيعًا</a>
-                        <a href="#">الأعلى تقييماَ</a>
-                        <a href="#">جدد</a>
 
-                    </div>
-                </li>
                 <!-- <li><a href="#">الدعم الفني</a></li> -->
                 <li><a href="#">من نحن</a></li>
 
@@ -473,9 +466,19 @@
             <span class="site-name">مرساة | تسوق آمن مع اريحية الشراء المضمون</span>
         </div>
 
-        <div class="centardiv" onclick="openModal()">
-            <i class="fa-solid fa-user"></i>
-        </div>
+        @guest
+            <div class="centardiv" onclick="openModal()">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        @endguest
+
+        @auth
+            <!-- أيقونة المستخدم -->
+            <div class="centardiv" id="userIcon" role="button" aria-haspopup="true" aria-expanded="false"
+                title="قائمة المستخدم">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        @endauth
 
         <div class="right">
             <i class="fa-solid fa-heart" id="fav-icon">
@@ -567,9 +570,9 @@
                 </div>
             </div>
             <div id="seller-extra-info" class="extra-info-box" style="display:none;">
-                <p><i class="fab fa-whatsapp"></i> <strong>واتساب:</strong> 0591234567</p>
-                <p><i class="fab fa-facebook"></i> <strong>فيسبوك:</strong> <a href="https://facebook.com/seller"
-                        target="_blank">facebook.com/seller</a></p>
+                <p><i class="fab fa-whatsapp"></i> <strong>واتساب:</strong> {{ $product->store->phone }}</p>
+                {{-- <p><i class="fab fa-facebook"></i> <strong>فيسبوك:</strong> <a href="https://facebook.com/seller"
+                        target="_blank">facebook.com/seller</a></p> --}}
             </div>
         </div>
 
@@ -597,35 +600,6 @@
             </div>
 
             <div class="product-options">
-                {{-- <div class="quantity-control">
-                    <label for="quantity">الكمية:</label>
-                    <div class="quantity-box">
-                        <button class="qty-btn" onclick="decreaseQty()">−</button>
-                        <input type="number" id="quantity" value="1" min="1">
-                        <button class="qty-btn" onclick="increaseQty()">+</button>
-                    </div>
-                </div> --}}
-
-                {{-- <div class="option-group">
-                    <label>اللون:</label>
-                    <div class="color-options">
-                        <span class="color-dot" style="background-color: #000;" title="أسود" data-color="أسود"></span>
-                        <span class="color-dot" style="background-color: #fff; border: 1px solid #ccc;" title="أبيض"
-                            data-color="أبيض"></span>
-                        <span class="color-dot" style="background-color: #007BFF;" title="أزرق"
-                            data-color="أزرق"></span>
-                    </div>
-
-                    <!-- عرض اللون المختار -->
-                    <p class="selected-color-label" style="display: none; margin-top: 10px; color: #4caf50;">
-                        اللون المختار: <strong id="selected-color-name"></strong>
-                    </p>
-
-                    <!-- حقل مخفي لحفظ اللون المختار -->
-                    <input type="hidden" name="selectedColor" id="selectedColor">
-                </div> --}}
-
-
                 <h4 style="color: white;" class="my-4"> التشكيلة الخاصة بالمنتج:</h4>
                 <div class="row">
                     @foreach ($product->variants as $variant)
@@ -677,11 +651,16 @@
         <!-- قائمة التعليقات السابقة -->
         <ul class="comments-list" id="comments-list">
             @foreach($product->comments as $comment)
-                <li>
-                    <strong>{{ $comment->user->name }}:</strong> {{ $comment->comment }}
+                <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
 
+                    <!-- التعليق على أقصى اليمين -->
+                    <span style="text-align: right;">
+                        <strong>{{ $comment->user->name }}:</strong> {{ $comment->comment }}
+                    </span>
+
+                    <!-- التقييم على أقصى اليسار -->
                     @if($comment->rating)
-                        <div class="stars-container" style="display:flex; flex-direction:row-reverse;">
+                        <div class="stars-container" style="display:flex; gap: 2px;">
                             @for($i = 1; $i <= 5; $i++)
                                 <span class="stars" style="color: {{ $i <= $comment->rating->rate ? 'gold' : '#ccc' }}">
                                     &#9733;
@@ -689,11 +668,10 @@
                             @endfor
                         </div>
                     @endif
+
                 </li>
             @endforeach
         </ul>
-
-
 
 
         <div class="comment-box">
@@ -740,7 +718,16 @@
                             <div class="title"> {{ $product->name }}</div>
                             <span class="category">{{ $product->subcategory->name }}</span>
                             <div class="price" data-symbol="$">${{ $product->price }}</div>
-                            <div class="rating">★★★★★</div>
+                            <div class="product-rating"
+                                style="display:flex; justify-content:center; gap: 2px; margin: 5px 0;">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span class="stars" style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
+                                        &#9733;
+                                    </span>
+                                @endfor
+                            </div>
+
+
                             <div class="seller">المتجر: <span><a
                                         href="{{ route('customer.stores.show', $product->store->id) }}">{{ $product->store->name }}
                                     </a></span> </div>
@@ -762,132 +749,11 @@
                         </div>
                     @endforeach
 
-
-                    {{-- <div class="product-card" data-id="2">
-                        <img src="{{asset('img/Group 2.png')}}" alt="منتج">
-
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                    </div>
-
-                    <div class="product-card" data-id="1">
-                        <img src="{{asset('img/Group 2.png')}}" alt="منتج">
-
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                    </div>
-
-                    <div class="product-card" data-id="1">
-                        <img src="{{asset('img/Group 2.png')}}" alt="منتج">
-
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                    </div>
-
-                    <div class="product-card" data-id="1">
-                        <img src="{{asset('img/Group 2.png')}}" alt="منتج">
-
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                    </div>
-
-
-                    <div class="product-card" data-id="3">
-                        <img src="{{asset('img/Group 2.png')}}" alt="منتج">
-
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                    </div>
-
-
-                    <div class="product-card" data-id="4">
-                        <img src="{{asset('img/Group 2.png')}}" alt="منتج">
-
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                    </div>
-                    --}}
-
                 </div>
             </div>
 
         </div>
     </div>
-
-
-
 
     <script>
         const colorDots = document.querySelectorAll('.color-dot');
@@ -929,8 +795,6 @@
     </script>
 
 
-
-
     <script>
         function addComment() {
             const comment = document.getElementById("comment-input").value;
@@ -946,47 +810,10 @@
         }
     </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- ========================= scroll-top ========================= -->
     <a href="#" class="scroll-top">
         <i class="lni lni-chevron-up"></i>
     </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <!-- Start Footer Area -->
     <footer class="footer">
@@ -1006,12 +833,12 @@
                         <div class="col-lg-9 col-md-8 col-12">
                             <div class="footer-newsletter">
                                 <h4 class="title" style="  float: none !important;
-  text-align: center !important;
-  margin-left: -450px;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: -55px;
-  ">
+                                    text-align: center !important;
+                                    margin-left: -450px;
+                                    margin-right: auto;
+                                    margin-top: 30px;
+                                    margin-bottom: -55px;
+                                    ">
                                     اشترك في نشرتنا الإخبارية
                                     <span>واحصل على أحدث المعلومات والتخفيضات والعروض</span>
                                 </h4>
@@ -1079,10 +906,8 @@
                                 <h3>معلومات</h3>
                                 <ul>
                                     <li><a href="about-us.html">من نحن</a></li>
-                                    <li><a href="contact.html">تواصل معنا</a></li>
-
-
-                                    <li><a href="faq.html">أسئلة شائعة</a></li>
+                                    <li><a href="{{ route('customer.contact') }}">تواصل معنا</a></li>
+                                    <li><a href="{{ route('customer.faq') }}">أسئلة شائعة</a></li>
                                 </ul>
                             </div>
                             <!-- End Single Widget -->
@@ -1346,10 +1171,122 @@
                 this.value = qty;
             });
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userIcon = document.getElementById('userIcon');
+            const dropdown = document.getElementById('userDropdown');
+
+            if (!userIcon || !dropdown) {
+                console.warn('userIcon or userDropdown element not found. تأكد من وجود العنصرين ومعرفاتهما id="userIcon" و id="userDropdown".');
+                return;
+            }
+
+            // تأكد أن الـ dropdown طفل مباشر للـ body حتى لا يتأثر بـ overflow/transform من والدين آخرين
+            if (dropdown.parentElement !== document.body) {
+                document.body.appendChild(dropdown);
+            }
+
+            // إعدادات أولية
+            dropdown.style.position = 'absolute';
+            dropdown.style.display = 'none';
+            dropdown.style.zIndex = 9999;
+
+            function positionDropdown() {
+                // نظهر مؤقتاً مخفياً لقياس الأبعاد بدون فلاش
+                dropdown.style.display = 'block';
+                dropdown.style.visibility = 'hidden';
+                dropdown.classList.add('open'); // يضيف أي ستايل عرض لو حاطه
+                const iconRect = userIcon.getBoundingClientRect();
+                const ddRect = dropdown.getBoundingClientRect();
+                const gap = 8; // مسافة بين الأيقونة والقائمة
+
+                // محاذاة يمين القائمة مع يمين الأيقونة (مناسب للـ RTL)
+                let left = window.scrollX + iconRect.right - ddRect.width;
+                let top = window.scrollY + iconRect.bottom + gap;
+
+                const margin = 8;
+                if (left < margin) left = margin;
+                if (left + ddRect.width > window.innerWidth - margin) left = window.innerWidth - ddRect.width - margin;
+
+                // إذا ما فيه مساحة تحت، اعرض فوق الأيقونة
+                if (top + ddRect.height > window.scrollY + window.innerHeight - margin) {
+                    top = window.scrollY + iconRect.top - ddRect.height - gap;
+                }
+
+                dropdown.style.left = Math.round(left) + 'px';
+                dropdown.style.top = Math.round(top) + 'px';
+
+                // أظهر بشكل نهائي
+                dropdown.style.visibility = 'visible';
+            }
+
+            function openDropdown() {
+                positionDropdown();
+                dropdown.classList.add('open');
+                userIcon.setAttribute('aria-expanded', 'true');
+                dropdown.setAttribute('aria-hidden', 'false');
+
+                window.addEventListener('resize', positionDropdown);
+                window.addEventListener('scroll', positionDropdown, true);
+            }
+
+            function closeDropdown() {
+                dropdown.classList.remove('open');
+                dropdown.style.display = 'none';
+                userIcon.setAttribute('aria-expanded', 'false');
+                dropdown.setAttribute('aria-hidden', 'true');
+
+                window.removeEventListener('resize', positionDropdown);
+                window.removeEventListener('scroll', positionDropdown, true);
+            }
+
+            userIcon.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (dropdown.classList.contains('open')) closeDropdown();
+                else openDropdown();
+            });
+
+            // غلق عند النقر خارج القائمة أو عند الضغط على Esc
+            document.addEventListener('click', function (e) {
+                if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeDropdown();
+            });
+
+        });
+
     </script>
 
 
+    @auth
+        <div id="userDropdown" class="user-dropdown" role="menu" aria-hidden="true">
+            <div class="user-header d-flex align-items-center px-3 py-2 mb-2">
+                <i class="fa-solid fa-user fa-lg me-2"></i>
+                <span class="username">{{ $username ?? 'Guest' }}</span>
+            </div>
 
+            <hr class="dropdown-divider" style="margin:0; border-color: rgba(255,255,255,0.1)">
+            <a class="user-item" href="{{ route('profile.show') }}">
+                <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
+            </a>
+
+            <a class="user-item" href="#">
+                <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
+            </a>
+
+            <form method="POST" action="{{ route('logout') }}" class="m-0">
+                @csrf
+                <button type="submit" class="user-item text-danger"
+                    style="border:none; background:transparent; width:100%; text-align:right;">
+                    <i class="fa-solid fa-right-from-bracket"></i>&nbsp;خروج
+                </button>
+            </form>
+        </div>
+    @endauth
 
 </body>
 

@@ -13,10 +13,14 @@ class ProductCommentController extends Controller
             'comment' => 'required|string|max:1000',
         ]);
 
+        $clean_input = strip_tags($request->input('comment'));  // إزالة أكواد HTML و JS
+        $clean_input = htmlspecialchars($clean_input, ENT_QUOTES, 'UTF-8');
+        
         $product->comments()->create([
             'user_id' => auth()->id(),
-            'comment' => $request->comment,
+            'comment' => $clean_input,
         ]);
+
 
         return back()->with('success', 'تم إضافة التعليق بنجاح');
     }

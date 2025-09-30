@@ -18,13 +18,13 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $latest = Product::where('status','active')->with('store.user','subcategory')->latest()->take(7)->get();
-$mostOrdereds = Product::where('status', 'active')
-    ->with('store.user', 'subcategory', 'images') // جلب العلاقات
-    ->withCount('orderItems')                     // يحسب عدد مرات الطلب
-    ->orderByDesc('order_items_count')           // ترتيب حسب الأكثر طلبًا
-    ->take(7)                                     // أعلى 7 منتجات
-    ->get();
+        $latest = Product::where('status','active')->with('store.user','subcategory','ratings')->latest()->take(7)->get();
+        $mostOrdereds = Product::where('status', 'active')
+        ->with('store.user', 'subcategory', 'images','ratings') // جلب العلاقات
+        ->withCount('orderItems')                     // يحسب عدد مرات الطلب
+        ->orderByDesc('order_items_count')           // ترتيب حسب الأكثر طلبًا
+        ->take(7)                                     // أعلى 7 منتجات
+        ->get();
 
         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
@@ -39,10 +39,10 @@ $mostOrdereds = Product::where('status', 'active')
         }
 
     if (Auth::check()) {
-    $username = Auth::user()->name;
-} else {
-    $username = 'Guest'; // أو أي قيمة افتراضية
-}
+        $username = Auth::user()->name;
+    } else {
+        $username = 'Guest'; // أو أي قيمة افتراضية
+    }
         return view('users.customer.main-page',compact('latest','carts','totalPrice','categories','username','mostOrdereds'));
     }
 
@@ -60,6 +60,7 @@ $mostOrdereds = Product::where('status', 'active')
         $categories = Category::with('subcategories')->get();
          $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
+        // $averageRate = $products->ratings->avg('rate'); // قيمة بين 1 و 5
 
         $totalPrice = 0;
         foreach ($carts as $cart) {
@@ -67,7 +68,13 @@ $mostOrdereds = Product::where('status', 'active')
                 $totalPrice += $item->qty * $item->product->price;
             }
         }
-        return view('users.customer.products', compact('products','carts','totalPrice','categories'));
+
+        if (Auth::check()) {
+            $username = Auth::user()->name;
+        } else {
+            $username = 'Guest'; // أو أي قيمة افتراضية
+        }
+        return view('users.customer.products', compact('products','carts','totalPrice','categories','username'));
     }
 
     public function products_cat_index($id){
@@ -95,14 +102,20 @@ $mostOrdereds = Product::where('status', 'active')
                 $totalPrice += $item->qty * $item->product->price;
             }
         }
-    return view('users.customer.category_products', compact('category', 'products','carts','totalPrice','name','categories'));
+
+        if (Auth::check()) {
+            $username = Auth::user()->name;
+        } else {
+            $username = 'Guest'; // أو أي قيمة افتراضية
+        }
+    return view('users.customer.category_products', compact('category', 'products','carts','totalPrice','name','categories','username'));
     }
 
 
     
     public function product_show($id){
     
-        $product = Product::with('store.user','subcategory','images','mainImage','variants.attributeValues.attribute','attributes.values')->findOrFail($id);
+        $product = Product::with('store.user','subcategory','images','mainImage','variants.attributeValues.attribute','attributes.values','store','ratings')->findOrFail($id);
         $relevantProducts = Product::with('store.user','subcategory')
             ->where('subcategory_id', $product->subcategory_id) // نفس التصنيف
             ->where('id', '!=', $product->id) // استبعاد المنتج الحالي نفسه
@@ -110,6 +123,7 @@ $mostOrdereds = Product::where('status', 'active')
         $categories = Category::with('subcategories')->get();
         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
+        $averageRate = $product->ratings->avg('rate'); // قيمة بين 1 و 5
 
         $totalPrice = 0;
         foreach ($carts as $cart) {
@@ -118,9 +132,13 @@ $mostOrdereds = Product::where('status', 'active')
             }
         }
 
+        if (Auth::check()) {
+            $username = Auth::user()->name;
+        } else {
+            $username = 'Guest'; // أو أي قيمة افتراضية
+        }
 
-
-        return view('users.customer.product',compact('product','relevantProducts','carts','totalPrice','categories'));
+        return view('users.customer.product',compact('product','relevantProducts','carts','totalPrice','categories','username','averageRate'));
 
     }
 
@@ -139,7 +157,13 @@ $mostOrdereds = Product::where('status', 'active')
                 $totalPrice += $item->qty * $item->product->price;
             }
         }
-        return view('users.customer.stores',compact('stores','carts','totalPrice','categories'));
+
+        if (Auth::check()) {
+            $username = Auth::user()->name;
+        } else {
+            $username = 'Guest'; // أو أي قيمة افتراضية
+        }
+        return view('users.customer.stores',compact('stores','carts','totalPrice','categories','username'));
     }
     /**
      * Show the form for creating a new resource.
@@ -148,19 +172,26 @@ $mostOrdereds = Product::where('status', 'active')
     public function store($id)
     {
         $store = Store::with('user','products.subcategory')->findOrFail($id);
-        $products =  Product::with('store.user','subcategory')->latest()->get();
+        $products =  Product::with('store.user','subcategory','ratings')->latest()->get();
         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
         
         $totalPrice = 0;
         $categories = Category::with('subcategories')->get();
+        $averageRate = $products->ratings->avg('rate'); // قيمة بين 1 و 5
 
         foreach ($carts as $cart) {
             foreach ($cart->items as $item) {
                 $totalPrice += $item->qty * $item->product->price;
             }
         }
-        return view('users.customer.store',compact('store','products','carts','totalPrice','categories'));
+
+            if (Auth::check()) {
+        $username = Auth::user()->name;
+    } else {
+        $username = 'Guest'; // أو أي قيمة افتراضية
+    }
+        return view('users.customer.store',compact('store','products','carts','totalPrice','categories','username','averageRate'));
     }
     
     public function create()

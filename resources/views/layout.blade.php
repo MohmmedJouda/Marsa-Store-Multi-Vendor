@@ -36,7 +36,8 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Fonts-->
     <!--begin::Page Vendor Stylesheets(used by this page)-->
     <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/plugins/custom/vis-timeline/vis-timeline.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/plugins/custom/vis-timeline/vis-timeline.bundle.css')}}" rel="stylesheet"
+        type="text/css" />
     <!--end::Page Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
@@ -97,477 +98,467 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Menu-->
                         <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
                             id="#kt_aside_menu" data-kt-menu="true" data-kt-menu-expand="false">
-                                @if(auth()->user()->role == 'moderator')
-                                        <a href="{{route('moderator.dashboard')}}">
-                                    @elseif (auth()->user()->role == 'vendor')
-                                        <a href="{{route('vendor.dashboard')}}">
-                                    @else
+                            @if(auth()->user()->role == 'moderator')
+                                <a href="{{route('moderator.dashboard')}}">
+                            @elseif (auth()->user()->role == 'vendor')
+                                    <a href="{{route('vendor.dashboard')}}">
+                                @else
                                         <a href="#">
-                                @endif
-                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                    <span class="menu-link">
-                                        <span class="menu-icon">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                            <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor"></rect>
-                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor"></rect>
-                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor"></rect>
-                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor"></rect>
-                                                </svg>
+                                    @endif
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <span class="menu-link">
+                                                <span class="menu-icon">
+                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                                    <span class="svg-icon svg-icon-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
+                                                            <rect x="2" y="2" width="9" height="9" rx="2"
+                                                                fill="currentColor"></rect>
+                                                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                                                fill="currentColor"></rect>
+                                                            <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                                                rx="2" fill="currentColor"></rect>
+                                                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                                                fill="currentColor"></rect>
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                                <span class="menu-title">Dashboards</span>
                                             </span>
-                                            <!--end::Svg Icon-->
-                                        </span>
-                                            <span class="menu-title">Dashboards</span>
-                                    </span>
-                                </div>
-                            </a>
-                            <div class="menu-item">
-                                <div class="menu-content pt-8 pb-2">
-                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Apps</span>
-                                </div>
-                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="menu-item">
+                                        <div class="menu-content pt-8 pb-2">
+                                            <span class="menu-section text-muted text-uppercase fs-8 ls-1">Apps</span>
+                                        </div>
+                                    </div>
 
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <span class="menu-link">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path opacity="0.3"
-                                                    d="M18.041 22.041C18.5932 22.041 19.041 21.5932 19.041 21.041C19.041 20.4887 18.5932 20.041 18.041 20.041C17.4887 20.041 17.041 20.4887 17.041 21.041C17.041 21.5932 17.4887 22.041 18.041 22.041Z"
-                                                    fill="currentColor" />
-                                                <path opacity="0.3"
-                                                    d="M6.04095 22.041C6.59324 22.041 7.04095 21.5932 7.04095 21.041C7.04095 20.4887 6.59324 20.041 6.04095 20.041C5.48867 20.041 5.04095 20.4887 5.04095 21.041C5.04095 21.5932 5.48867 22.041 6.04095 22.041Z"
-                                                    fill="currentColor" />
-                                                <path opacity="0.3"
-                                                    d="M7.04095 16.041L19.1409 15.1409C19.7409 15.1409 20.141 14.7409 20.341 14.1409L21.7409 8.34094C21.9409 7.64094 21.4409 7.04095 20.7409 7.04095H5.44095L7.04095 16.041Z"
-                                                    fill="currentColor" />
-                                                <path
-                                                    d="M19.041 20.041H5.04096C4.74096 20.041 4.34095 19.841 4.14095 19.541C3.94095 19.241 3.94095 18.841 4.14095 18.541L6.04096 14.841L4.14095 4.64095L2.54096 3.84096C2.04096 3.64096 1.84095 3.04097 2.14095 2.54097C2.34095 2.04097 2.94096 1.84095 3.44096 2.14095L5.44096 3.14095C5.74096 3.24095 5.94096 3.54096 5.94096 3.84096L7.94096 14.841C7.94096 15.041 7.94095 15.241 7.84095 15.441L6.54096 18.041H19.041C19.641 18.041 20.041 18.441 20.041 19.041C20.041 19.641 19.641 20.041 19.041 20.041Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">eCommerce</span>
-                                    <span class="menu-arrow"></span>
-                                </span>
-                                <div class="menu-sub menu-sub-accordion">
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                         <span class="menu-link">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <path opacity="0.3"
+                                                            d="M18.041 22.041C18.5932 22.041 19.041 21.5932 19.041 21.041C19.041 20.4887 18.5932 20.041 18.041 20.041C17.4887 20.041 17.041 20.4887 17.041 21.041C17.041 21.5932 17.4887 22.041 18.041 22.041Z"
+                                                            fill="currentColor" />
+                                                        <path opacity="0.3"
+                                                            d="M6.04095 22.041C6.59324 22.041 7.04095 21.5932 7.04095 21.041C7.04095 20.4887 6.59324 20.041 6.04095 20.041C5.48867 20.041 5.04095 20.4887 5.04095 21.041C5.04095 21.5932 5.48867 22.041 6.04095 22.041Z"
+                                                            fill="currentColor" />
+                                                        <path opacity="0.3"
+                                                            d="M7.04095 16.041L19.1409 15.1409C19.7409 15.1409 20.141 14.7409 20.341 14.1409L21.7409 8.34094C21.9409 7.64094 21.4409 7.04095 20.7409 7.04095H5.44095L7.04095 16.041Z"
+                                                            fill="currentColor" />
+                                                        <path
+                                                            d="M19.041 20.041H5.04096C4.74096 20.041 4.34095 19.841 4.14095 19.541C3.94095 19.241 3.94095 18.841 4.14095 18.541L6.04096 14.841L4.14095 4.64095L2.54096 3.84096C2.04096 3.64096 1.84095 3.04097 2.14095 2.54097C2.34095 2.04097 2.94096 1.84095 3.44096 2.14095L5.44096 3.14095C5.74096 3.24095 5.94096 3.54096 5.94096 3.84096L7.94096 14.841C7.94096 15.041 7.94095 15.241 7.84095 15.441L6.54096 18.041H19.041C19.641 18.041 20.041 18.441 20.041 19.041C20.041 19.641 19.641 20.041 19.041 20.041Z"
+                                                            fill="currentColor" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
                                             </span>
-                                            <span class="menu-title">Catalog</span>
+                                            <span class="menu-title">eCommerce</span>
                                             <span class="menu-arrow"></span>
                                         </span>
                                         <div class="menu-sub menu-sub-accordion">
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/catalog/products.html">
+                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                                <span class="menu-link">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Products</span>
-                                                </a>
+                                                    <span class="menu-title">Catalog</span>
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+                                                <div class="menu-sub menu-sub-accordion">
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/catalog/products.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Products</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/catalog/categories.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Categories</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/catalog/add-product.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Add Product</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Edit Product</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/catalog/add-category.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Add Category</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Edit Category</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/catalog/categories.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Categories</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/catalog/add-product.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Add Product</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Edit Product</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/catalog/add-category.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Add Category</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Edit Category</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                        <span class="menu-link">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Sales</span>
-                                            <span class="menu-arrow"></span>
-                                        </span>
-                                        <div class="menu-sub menu-sub-accordion">
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/sales/listing.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Orders Listing</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/sales/details.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Order Details</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/sales/add-order.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Add Order</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/sales/edit-order.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Edit Order</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                        <span class="menu-link">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Customers</span>
-                                            <span class="menu-arrow"></span>
-                                        </span>
-                                        <div class="menu-sub menu-sub-accordion">
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/customers/listing.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Customer Listing</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/customers/details.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Customer Details</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                        <span class="menu-link">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Reports</span>
-                                            <span class="menu-arrow"></span>
-                                        </span>
-                                        <div class="menu-sub menu-sub-accordion">
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/reports/view.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Products Viewed</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/reports/sales.html">
+                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                                <span class="menu-link">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
                                                     <span class="menu-title">Sales</span>
-                                                </a>
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+                                                <div class="menu-sub menu-sub-accordion">
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/sales/listing.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Orders Listing</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/sales/details.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Order Details</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/sales/add-order.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Add Order</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/sales/edit-order.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Edit Order</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/reports/returns.html">
+                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                                <span class="menu-link">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Returns</span>
-                                                </a>
+                                                    <span class="menu-title">Customers</span>
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+                                                <div class="menu-sub menu-sub-accordion">
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/customers/listing.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Customer Listing</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/customers/details.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Customer Details</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/reports/customer-orders.html">
+                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                                <span class="menu-link">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Customer Orders</span>
-                                                </a>
+                                                    <span class="menu-title">Reports</span>
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+                                                <div class="menu-sub menu-sub-accordion">
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/reports/view.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Products Viewed</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/reports/sales.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Sales</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/reports/returns.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Returns</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/reports/customer-orders.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Customer Orders</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/ecommerce/reports/shipping.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Shipping</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="menu-item">
                                                 <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/reports/shipping.html">
+                                                    href="../../demo1/dist/apps/ecommerce/settings.html">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Shipping</span>
+                                                    <span class="menu-title">Settings</span>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link" href="../../demo1/dist/apps/ecommerce/settings.html">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Settings</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
-                                <span class="menu-link">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen051.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path opacity="0.3"
-                                                    d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
-                                                    fill="currentColor" />
-                                                <path
-                                                    d="M14.854 11.321C14.7568 11.2282 14.6388 11.1818 14.4998 11.1818H14.3333V10.2272C14.3333 9.61741 14.1041 9.09378 13.6458 8.65628C13.1875 8.21876 12.639 8 12 8C11.361 8 10.8124 8.21876 10.3541 8.65626C9.89574 9.09378 9.66663 9.61739 9.66663 10.2272V11.1818H9.49999C9.36115 11.1818 9.24306 11.2282 9.14583 11.321C9.0486 11.4138 9 11.5265 9 11.6591V14.5227C9 14.6553 9.04862 14.768 9.14583 14.8609C9.24306 14.9536 9.36115 15 9.49999 15H14.5C14.6389 15 14.7569 14.9536 14.8542 14.8609C14.9513 14.768 15 14.6553 15 14.5227V11.6591C15.0001 11.5265 14.9513 11.4138 14.854 11.321ZM13.3333 11.1818H10.6666V10.2272C10.6666 9.87594 10.7969 9.57597 11.0573 9.32743C11.3177 9.07886 11.6319 8.9546 12 8.9546C12.3681 8.9546 12.6823 9.07884 12.9427 9.32743C13.2031 9.57595 13.3333 9.87594 13.3333 10.2272V11.1818Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">User Management</span>
-                                    <span class="menu-arrow"></span>
-                                </span>
-                                <div class="menu-sub menu-sub-accordion">
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
                                         <span class="menu-link">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen051.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <path opacity="0.3"
+                                                            d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
+                                                            fill="currentColor" />
+                                                        <path
+                                                            d="M14.854 11.321C14.7568 11.2282 14.6388 11.1818 14.4998 11.1818H14.3333V10.2272C14.3333 9.61741 14.1041 9.09378 13.6458 8.65628C13.1875 8.21876 12.639 8 12 8C11.361 8 10.8124 8.21876 10.3541 8.65626C9.89574 9.09378 9.66663 9.61739 9.66663 10.2272V11.1818H9.49999C9.36115 11.1818 9.24306 11.2282 9.14583 11.321C9.0486 11.4138 9 11.5265 9 11.6591V14.5227C9 14.6553 9.04862 14.768 9.14583 14.8609C9.24306 14.9536 9.36115 15 9.49999 15H14.5C14.6389 15 14.7569 14.9536 14.8542 14.8609C14.9513 14.768 15 14.6553 15 14.5227V11.6591C15.0001 11.5265 14.9513 11.4138 14.854 11.321ZM13.3333 11.1818H10.6666V10.2272C10.6666 9.87594 10.7969 9.57597 11.0573 9.32743C11.3177 9.07886 11.6319 8.9546 12 8.9546C12.3681 8.9546 12.6823 9.07884 12.9427 9.32743C13.2031 9.57595 13.3333 9.87594 13.3333 10.2272V11.1818Z"
+                                                            fill="currentColor" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
                                             </span>
-                                            <span class="menu-title">Users</span>
+                                            <span class="menu-title">User Management</span>
                                             <span class="menu-arrow"></span>
                                         </span>
                                         <div class="menu-sub menu-sub-accordion">
-                                            <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/user-management/users/list.html">
+                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                                                <span class="menu-link">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Users List</span>
-                                                </a>
+                                                    <span class="menu-title">Users</span>
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+                                                <div class="menu-sub menu-sub-accordion">
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/user-management/users/list.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Users List</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/user-management/users/view.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">View User</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                                <span class="menu-link">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Roles</span>
+                                                    <span class="menu-arrow"></span>
+                                                </span>
+                                                <div class="menu-sub menu-sub-accordion">
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/user-management/roles/list.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Roles List</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="menu-item">
+                                                        <a class="menu-link"
+                                                            href="../../demo1/dist/apps/user-management/roles/view.html">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">View Role</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="menu-item">
                                                 <a class="menu-link"
-                                                    href="../../demo1/dist/apps/user-management/users/view.html">
+                                                    href="../../demo1/dist/apps/user-management/permissions.html">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">View User</span>
+                                                    <span class="menu-title">Permissions</span>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
+
+                                    @if (Auth::user()->role == 'moderator' || Auth::user()->role == 'super_admin')
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <span class="menu-link">
+                                                <span class="menu-icon">
+                                                    <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
+                                                    <span class="svg-icon svg-icon-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
+                                                            <path opacity="0.3"
+                                                                d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z"
+                                                                fill="currentColor" />
+                                                            <path
+                                                                d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z"
+                                                                fill="currentColor" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </span>
+                                                <span class="menu-title">Users</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-accordion">
+                                                <div class="menu-item">
+                                                    <a class="menu-link"
+                                                        href="{{ route('moderator.users.byRole', 'vendor') }}">
+                                                        <span class="menu-bullet"><span
+                                                                class="bullet bullet-dot"></span></span>
+                                                        <span class="menu-title">Vendors</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item">
+                                                    <a class="menu-link"
+                                                        href="{{ route('moderator.users.byRole', 'customer') }}">
+                                                        <span class="menu-bullet"><span
+                                                                class="bullet bullet-dot"></span></span>
+                                                        <span class="menu-title">Customers</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                         <span class="menu-link">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <path opacity="0.3"
+                                                            d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z"
+                                                            fill="currentColor" />
+                                                        <rect x="6" y="12" width="7" height="2" rx="1"
+                                                            fill="currentColor" />
+                                                        <rect x="6" y="7" width="12" height="2" rx="1"
+                                                            fill="currentColor" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
                                             </span>
-                                            <span class="menu-title">Roles</span>
+                                            <span class="menu-title">Chat</span>
                                             <span class="menu-arrow"></span>
                                         </span>
                                         <div class="menu-sub menu-sub-accordion">
                                             <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/user-management/roles/list.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/chat/private.html">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Roles List</span>
+                                                    <span class="menu-title">Private Chat</span>
                                                 </a>
                                             </div>
                                             <div class="menu-item">
-                                                <a class="menu-link"
-                                                    href="../../demo1/dist/apps/user-management/roles/view.html">
+                                                <a class="menu-link" href="../../demo1/dist/apps/chat/group.html">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">View Role</span>
+                                                    <span class="menu-title">Group Chat</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link" href="../../demo1/dist/apps/chat/drawer.html">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Drawer Chat</span>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link"
-                                            href="../../demo1/dist/apps/user-management/permissions.html">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Permissions</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        @if (Auth::user()->role == 'moderator' || Auth::user()->role == 'super_admin')
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <span class="menu-link">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path opacity="0.3"
-                                                    d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z"
-                                                    fill="currentColor" />
-                                                <path
-                                                    d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">Users</span>
-                                    <span class="menu-arrow"></span>
-                                </span>
-                                <div class="menu-sub menu-sub-accordion">
-                                    <div class="menu-item">
-                                        <a class="menu-link" href="{{ route('moderator.users.byRole', 'vendor') }}">
-                                            <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                            <span class="menu-title">Vendors</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link" href="{{ route('moderator.users.byRole', 'customer') }}">
-                                            <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
-                                            <span class="menu-title">Customers</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                <span class="menu-link">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path opacity="0.3"
-                                                    d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z"
-                                                    fill="currentColor" />
-                                                <rect x="6" y="12" width="7" height="2" rx="1"
-                                                    fill="currentColor" />
-                                                <rect x="6" y="7" width="12" height="2" rx="1"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">Chat</span>
-                                    <span class="menu-arrow"></span>
-                                </span>
-                                <div class="menu-sub menu-sub-accordion">
-                                    <div class="menu-item">
-                                        <a class="menu-link" href="../../demo1/dist/apps/chat/private.html">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Private Chat</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link" href="../../demo1/dist/apps/chat/group.html">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Group Chat</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link" href="../../demo1/dist/apps/chat/drawer.html">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Drawer Chat</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
 
 
 
-                            <div class="menu-item">
-                                <div class="menu-content">
-                                    <div class="separator mx-1 my-4"></div>
-                                </div>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link"
-                                    href="../../demo1/dist/documentation/getting-started/changelog.html">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/coding/cod003.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path
-                                                    d="M16.95 18.9688C16.75 18.9688 16.55 18.8688 16.35 18.7688C15.85 18.4688 15.75 17.8688 16.05 17.3688L19.65 11.9688L16.05 6.56876C15.75 6.06876 15.85 5.46873 16.35 5.16873C16.85 4.86873 17.45 4.96878 17.75 5.46878L21.75 11.4688C21.95 11.7688 21.95 12.2688 21.75 12.5688L17.75 18.5688C17.55 18.7688 17.25 18.9688 16.95 18.9688ZM7.55001 18.7688C8.05001 18.4688 8.15 17.8688 7.85 17.3688L4.25001 11.9688L7.85 6.56876C8.15 6.06876 8.05001 5.46873 7.55001 5.16873C7.05001 4.86873 6.45 4.96878 6.15 5.46878L2.15 11.4688C1.95 11.7688 1.95 12.2688 2.15 12.5688L6.15 18.5688C6.35 18.8688 6.65 18.9688 6.95 18.9688C7.15 18.9688 7.35001 18.8688 7.55001 18.7688Z"
-                                                    fill="currentColor" />
-                                                <path opacity="0.3"
-                                                    d="M10.45 18.9687C10.35 18.9687 10.25 18.9687 10.25 18.9687C9.75 18.8687 9.35 18.2688 9.55 17.7688L12.55 5.76878C12.65 5.26878 13.25 4.8687 13.75 5.0687C14.25 5.1687 14.65 5.76878 14.45 6.26878L11.45 18.2688C11.35 18.6688 10.85 18.9687 10.45 18.9687Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">Changelog v8.0.38</span>
-                                </a>
-                            </div>
+                                    <div class="menu-item">
+                                        <div class="menu-content">
+                                            <div class="separator mx-1 my-4"></div>
+                                        </div>
+                                    </div>
+
                         </div>
                         <!--end::Menu-->
                     </div>
@@ -575,30 +566,6 @@ License: For each use you must have a valid license purchased only from above li
                 </div>
                 <!--end::Aside menu-->
                 <!--begin::Footer-->
-                <div class="aside-footer flex-column-auto pt-5 pb-7 px-5" id="kt_aside_footer">
-                    <a href="../../demo1/dist/documentation/getting-started.html"
-                        class="btn btn-custom btn-primary w-100" data-bs-toggle="tooltip" data-bs-trigger="hover"
-                        data-bs-dismiss-="click" title="200+ in-house components and 3rd-party plugins">
-                        <span class="btn-label">Docs &amp; Components</span>
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen005.svg-->
-                        <span class="svg-icon btn-icon svg-icon-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <path opacity="0.3"
-                                    d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"
-                                    fill="currentColor" />
-                                <rect x="7" y="17" width="6" height="2" rx="1"
-                                    fill="currentColor" />
-                                <rect x="7" y="12" width="10" height="2" rx="1"
-                                    fill="currentColor" />
-                                <rect x="7" y="7" width="6" height="2" rx="1"
-                                    fill="currentColor" />
-                                <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </a>
-                </div>
                 <!--end::Footer-->
             </div>
             <!--end::Aside-->
@@ -614,8 +581,8 @@ License: For each use you must have a valid license purchased only from above li
                                 id="kt_aside_mobile_toggle">
                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs015.svg-->
                                 <span class="svg-icon svg-icon-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none">
                                         <path
                                             d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z"
                                             fill="currentColor" />
@@ -642,203 +609,17 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--begin::Menu wrapper-->
                                 <div class="header-menu align-items-stretch" data-kt-drawer="true"
                                     data-kt-drawer-name="header-menu"
-                                    data-kt-drawer-activate="{default: true, lg: false}"
-                                    data-kt-drawer-overlay="true"
+                                    data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
                                     data-kt-drawer-width="{default:'200px', '300px': '250px'}"
-                                    data-kt-drawer-direction="end"
-                                    data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true"
-                                    data-kt-swapper-mode="prepend"
+                                    data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle"
+                                    data-kt-swapper="true" data-kt-swapper-mode="prepend"
                                     data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
                                     <!--begin::Menu-->
                                     <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                                         id="#kt_header_menu" data-kt-menu="true">
                                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
-                                            class="menu-item here show menu-lg-down-accordion me-lg-1">
-                                            <span class="menu-link py-3">
-                                                <span class="menu-title">Dashboards</span>
-                                                <span class="menu-arrow d-lg-none"></span>
-                                            </span>
-                                            <div
-                                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
-                                                <div class="menu-item">
-                                                    <a class="menu-link py-3" href="">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Multipurpose</span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item">
-                                                    <a class="menu-link active py-3"
-                                                        href="../../demo1/dist/dashboards/ecommerce.html">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">eCommerce</span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item">
-                                                    <a class="menu-link py-3"
-                                                        href="../../demo1/dist/dashboards/projects.html">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Projects</span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item">
-                                                    <a class="menu-link py-3"
-                                                        href="../../demo1/dist/dashboards/online-courses.html">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Online Courses</span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item">
-                                                    <a class="menu-link py-3"
-                                                        href="../../demo1/dist/dashboards/marketing.html">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Marketing</span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item">
-                                                    <a class="menu-link py-3"
-                                                        href="../../demo1/dist/dashboards/bidding.html">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Bidding</span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-inner flex-column collapse"
-                                                    id="kt_aside_menu_collapse_2">
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/dashboards/logistics.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Logistics</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/dashboards/delivery.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Delivery</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/dashboards/website-analytics.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Website Analytics</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/dashboards/finance-performance.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Finance Performance</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/dashboards/store-analytics.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Store Analytics</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/dashboards/social.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Social</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/dashboards/crypto.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Crypto</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/dashboards/school.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">School</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/dashboards/podcast.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Podcast</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link py-3"
-                                                            href="../../demo1/dist/landing.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Landing</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="menu-item">
-                                                    <div class="menu-content">
-                                                        <a class="btn btn-flex btn-color-success fs-base p-0 ms-2 mb-2 collapsible collapsed rotate"
-                                                            data-bs-toggle="collapse"
-                                                            href="#kt_aside_menu_collapse_2"
-                                                            data-kt-toggle-text="Show Less">
-                                                            <span data-kt-toggle-text-target="true">Show 10
-                                                                More</span>
-                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr082.svg-->
-                                                            <span class="svg-icon ms-2 svg-icon-3 rotate-180">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="24" height="24"
-                                                                    viewBox="0 0 24 24" fill="none">
-                                                                    <path opacity="0.5"
-                                                                        d="M12.5657 9.63427L16.75 5.44995C17.1642 5.03574 17.8358 5.03574 18.25 5.44995C18.6642 5.86416 18.6642 6.53574 18.25 6.94995L12.7071 12.4928C12.3166 12.8834 11.6834 12.8834 11.2929 12.4928L5.75 6.94995C5.33579 6.53574 5.33579 5.86416 5.75 5.44995C6.16421 5.03574 6.83579 5.03574 7.25 5.44995L11.4343 9.63427C11.7467 9.94669 12.2533 9.94668 12.5657 9.63427Z"
-                                                                        fill="currentColor" />
-                                                                    <path
-                                                                        d="M12.5657 15.6343L16.75 11.45C17.1642 11.0357 17.8358 11.0357 18.25 11.45C18.6642 11.8642 18.6642 12.5357 18.25 12.95L12.7071 18.4928C12.3166 18.8834 11.6834 18.8834 11.2929 18.4928L5.75 12.95C5.33579 12.5357 5.33579 11.8642 5.75 11.45C6.16421 11.0357 6.83579 11.0357 7.25 11.45L11.4343 15.6343C11.7467 15.9467 12.2533 15.9467 12.5657 15.6343Z"
-                                                                        fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
                                             class="menu-item menu-lg-down-accordion me-lg-1">
-                                            <span class="menu-link py-3">
-                                                <span class="menu-title">Shop</span>
-                                                <span class="menu-arrow d-lg-none"></span>
-                                            </span>
+
                                             <div
                                                 class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                                 <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
@@ -848,9 +629,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         <span class="menu-icon">
                                                             <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
                                                             <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="24" height="24"
-                                                                    viewBox="0 0 24 24" fill="none">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
                                                                     <path
                                                                         d="M21 9V11C21 11.6 20.6 12 20 12H14V8H20C20.6 8 21 8.4 21 9ZM10 8H4C3.4 8 3 8.4 3 9V11C3 11.6 3.4 12 4 12H10V8Z"
                                                                         fill="currentColor" />
@@ -870,8 +650,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     <div
                                                         class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
                                                         <div class="menu-item">
-                                                            <a class="menu-link py-3"
-                                                                href="#">
+                                                            <a class="menu-link py-3" href="#">
                                                                 <span class="menu-bullet">
                                                                     <span class="bullet bullet-dot"></span>
                                                                 </span>
@@ -883,634 +662,6 @@ License: For each use you must have a valid license purchased only from above li
                                                 </div>
 
 
-                                            </div>
-                                        </div>
-                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
-                                            class="menu-item menu-lg-down-accordion me-lg-1">
-                                            <span class="menu-link py-3">
-                                                <span class="menu-title">Apps</span>
-                                                <span class="menu-arrow d-lg-none"></span>
-                                            </span>
-                                            <div
-                                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
-
-                                                <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                    data-kt-menu-placement="right-start"
-                                                    class="menu-item menu-lg-down-accordion">
-                                                    <span class="menu-link py-3">
-                                                        <span class="menu-icon">
-                                                            <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="24" height="24"
-                                                                    viewBox="0 0 24 24" fill="none">
-                                                                    <path opacity="0.3"
-                                                                        d="M18.041 22.041C18.5932 22.041 19.041 21.5932 19.041 21.041C19.041 20.4887 18.5932 20.041 18.041 20.041C17.4887 20.041 17.041 20.4887 17.041 21.041C17.041 21.5932 17.4887 22.041 18.041 22.041Z"
-                                                                        fill="currentColor" />
-                                                                    <path opacity="0.3"
-                                                                        d="M6.04095 22.041C6.59324 22.041 7.04095 21.5932 7.04095 21.041C7.04095 20.4887 6.59324 20.041 6.04095 20.041C5.48867 20.041 5.04095 20.4887 5.04095 21.041C5.04095 21.5932 5.48867 22.041 6.04095 22.041Z"
-                                                                        fill="currentColor" />
-                                                                    <path opacity="0.3"
-                                                                        d="M7.04095 16.041L19.1409 15.1409C19.7409 15.1409 20.141 14.7409 20.341 14.1409L21.7409 8.34094C21.9409 7.64094 21.4409 7.04095 20.7409 7.04095H5.44095L7.04095 16.041Z"
-                                                                        fill="currentColor" />
-                                                                    <path
-                                                                        d="M19.041 20.041H5.04096C4.74096 20.041 4.34095 19.841 4.14095 19.541C3.94095 19.241 3.94095 18.841 4.14095 18.541L6.04096 14.841L4.14095 4.64095L2.54096 3.84096C2.04096 3.64096 1.84095 3.04097 2.14095 2.54097C2.34095 2.04097 2.94096 1.84095 3.44096 2.14095L5.44096 3.14095C5.74096 3.24095 5.94096 3.54096 5.94096 3.84096L7.94096 14.841C7.94096 15.041 7.94095 15.241 7.84095 15.441L6.54096 18.041H19.041C19.641 18.041 20.041 18.441 20.041 19.041C20.041 19.641 19.641 20.041 19.041 20.041Z"
-                                                                        fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->
-                                                        </span>
-                                                        <span class="menu-title">eCommerce</span>
-                                                        <span class="menu-arrow"></span>
-                                                    </span>
-                                                    <div
-                                                        class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                                                        <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                            data-kt-menu-placement="right-start"
-                                                            class="menu-item menu-lg-down-accordion">
-                                                            <span class="menu-link py-3">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Catalog</span>
-                                                                <span class="menu-arrow"></span>
-                                                            </span>
-                                                            <div
-                                                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/catalog/products.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Products</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/catalog/categories.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Categories</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/catalog/add-product.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Add Product</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Edit Product</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/catalog/add-category.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Add Category</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Edit Category</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div data-kt-menu-trigger="click"
-                                                            class="menu-item menu-accordion">
-                                                            <span class="menu-link py-3">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Sales</span>
-                                                                <span class="menu-arrow"></span>
-                                                            </span>
-                                                            <div class="menu-sub menu-sub-accordion">
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/sales/listing.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Orders Listing</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/sales/details.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Order Details</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/sales/add-order.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Add Order</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/sales/edit-order.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Edit Order</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div data-kt-menu-trigger="click"
-                                                            class="menu-item menu-accordion">
-                                                            <span class="menu-link py-3">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Customers</span>
-                                                                <span class="menu-arrow"></span>
-                                                            </span>
-                                                            <div class="menu-sub menu-sub-accordion">
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/customers/listing.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Customers
-                                                                            Listing</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/customers/details.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Customers
-                                                                            Details</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div data-kt-menu-trigger="click"
-                                                            class="menu-item menu-accordion">
-                                                            <span class="menu-link py-3">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Reports</span>
-                                                                <span class="menu-arrow"></span>
-                                                            </span>
-                                                            <div class="menu-sub menu-sub-accordion">
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/reports/view.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Products
-                                                                            Viewed</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/reports/sales.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Sales</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/reports/returns.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Returns</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/reports/customer-orders.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Customer
-                                                                            Orders</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/ecommerce/reports/shipping.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Shipping</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="menu-item">
-                                                            <a class="menu-link py-3"
-                                                                href="../../demo1/dist/apps/ecommerce/settings.html">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Settings</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                    data-kt-menu-placement="right-start"
-                                                    class="menu-item menu-lg-down-accordion">
-                                                    <span class="menu-link py-3">
-                                                        <span class="menu-icon">
-                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen051.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="24" height="24"
-                                                                    viewBox="0 0 24 24" fill="none">
-                                                                    <path opacity="0.3"
-                                                                        d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
-                                                                        fill="currentColor" />
-                                                                    <path
-                                                                        d="M14.854 11.321C14.7568 11.2282 14.6388 11.1818 14.4998 11.1818H14.3333V10.2272C14.3333 9.61741 14.1041 9.09378 13.6458 8.65628C13.1875 8.21876 12.639 8 12 8C11.361 8 10.8124 8.21876 10.3541 8.65626C9.89574 9.09378 9.66663 9.61739 9.66663 10.2272V11.1818H9.49999C9.36115 11.1818 9.24306 11.2282 9.14583 11.321C9.0486 11.4138 9 11.5265 9 11.6591V14.5227C9 14.6553 9.04862 14.768 9.14583 14.8609C9.24306 14.9536 9.36115 15 9.49999 15H14.5C14.6389 15 14.7569 14.9536 14.8542 14.8609C14.9513 14.768 15 14.6553 15 14.5227V11.6591C15.0001 11.5265 14.9513 11.4138 14.854 11.321ZM13.3333 11.1818H10.6666V10.2272C10.6666 9.87594 10.7969 9.57597 11.0573 9.32743C11.3177 9.07886 11.6319 8.9546 12 8.9546C12.3681 8.9546 12.6823 9.07884 12.9427 9.32743C13.2031 9.57595 13.3333 9.87594 13.3333 10.2272V11.1818Z"
-                                                                        fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->
-                                                        </span>
-                                                        <span class="menu-title">User Management</span>
-                                                        <span class="menu-arrow"></span>
-                                                    </span>
-                                                    <div
-                                                        class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                                                        <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                            data-kt-menu-placement="right-start"
-                                                            class="menu-item menu-lg-down-accordion">
-                                                            <span class="menu-link py-3">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Users</span>
-                                                                <span class="menu-arrow"></span>
-                                                            </span>
-                                                            <div
-                                                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/user-management/users/list.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Users List</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/user-management/users/view.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">View User</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                            data-kt-menu-placement="right-start"
-                                                            class="menu-item menu-lg-down-accordion">
-                                                            <span class="menu-link py-3">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Roles</span>
-                                                                <span class="menu-arrow"></span>
-                                                            </span>
-                                                            <div
-                                                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/user-management/roles/list.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">Roles List</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="menu-item">
-                                                                    <a class="menu-link py-3"
-                                                                        href="../../demo1/dist/apps/user-management/roles/view.html">
-                                                                        <span class="menu-bullet">
-                                                                            <span class="bullet bullet-dot"></span>
-                                                                        </span>
-                                                                        <span class="menu-title">View Roles</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="menu-item">
-                                                            <a class="menu-link py-3"
-                                                                href="../../demo1/dist/apps/user-management/permissions.html">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Permissions</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                    data-kt-menu-placement="right-start"
-                                                    class="menu-item menu-lg-down-accordion">
-                                                    <span class="menu-link py-3">
-                                                        <span class="menu-icon">
-                                                            <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="24" height="24"
-                                                                    viewBox="0 0 24 24" fill="none">
-                                                                    <path opacity="0.3"
-                                                                        d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z"
-                                                                        fill="currentColor" />
-                                                                    <path
-                                                                        d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z"
-                                                                        fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->
-                                                        </span>
-                                                        <span class="menu-title">Customers</span>
-                                                        <span class="menu-arrow"></span>
-                                                    </span>
-                                                    <div
-                                                        class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                                                        <div class="menu-item">
-                                                            <a class="menu-link py-3"
-                                                                href="../../demo1/dist/apps/customers/getting-started.html">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Getting Started</span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item">
-                                                            <a class="menu-link py-3"
-                                                                href="../../demo1/dist/apps/customers/list.html">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Customer Listing</span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item">
-                                                            <a class="menu-link py-3"
-                                                                href="../../demo1/dist/apps/customers/view.html">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Customer Details</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
-                                                    data-kt-menu-placement="right-start"
-                                                    class="menu-item menu-lg-down-accordion">
-                                                    <span class="menu-link py-3">
-                                                        <span class="menu-icon">
-                                                            <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
-                                                            <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="24" height="24"
-                                                                    viewBox="0 0 24 24" fill="none">
-                                                                    <path opacity="0.3"
-                                                                        d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z"
-                                                                        fill="currentColor" />
-                                                                    <rect x="6" y="12" width="7" height="2"
-                                                                        rx="1" fill="currentColor" />
-                                                                    <rect x="6" y="7" width="12" height="2"
-                                                                        rx="1" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon-->
-                                                        </span>
-                                                        <span class="menu-title">Chat</span>
-                                                        <span class="menu-arrow"></span>
-                                                    </span>
-                                                    <div
-                                                        class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
-                                                        <div class="menu-item">
-                                                            <a class="menu-link py-3"
-                                                                href="../../demo1/dist/apps/chat/private.html">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Private Chat</span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item">
-                                                            <a class="menu-link py-3"
-                                                                href="../../demo1/dist/apps/chat/group.html">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Group Chat</span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="menu-item">
-                                                            <a class="menu-link py-3"
-                                                                href="../../demo1/dist/apps/chat/drawer.html">
-                                                                <span class="menu-bullet">
-                                                                    <span class="bullet bullet-dot"></span>
-                                                                </span>
-                                                                <span class="menu-title">Drawer Chat</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
-                                            class="menu-item menu-lg-down-accordion me-lg-1">
-                                            <span class="menu-link py-3">
-                                                <span class="menu-title">Mega Menu</span>
-                                                <span class="menu-arrow d-lg-none"></span>
-                                            </span>
-                                            <div
-                                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown w-100 w-lg-600px p-5 p-lg-5">
-                                                <!--begin:Row-->
-                                                <div class="row" data-kt-menu-dismiss="true">
-                                                    <!--begin:Col-->
-                                                    <div class="col-lg-4 border-left-lg-1">
-                                                        <div class="menu-inline menu-column menu-active-bg">
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end:Col-->
-                                                    <!--begin:Col-->
-                                                    <div class="col-lg-4 border-left-lg-1">
-                                                        <div class="menu-inline menu-column menu-active-bg">
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end:Col-->
-                                                    <!--begin:Col-->
-                                                    <div class="col-lg-4 border-left-lg-1">
-                                                        <div class="menu-inline menu-column menu-active-bg">
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="menu-item">
-                                                                <a href="#" class="menu-link">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                                                    <span class="menu-title">Example link</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!--end:Col-->
-                                                </div>
-                                                <!--end:Row-->
                                             </div>
                                         </div>
                                     </div>
@@ -1532,23 +683,7 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--begin::Search toggle-->
                                         <div class="d-flex align-items-center" data-kt-search-element="toggle"
                                             id="kt_header_search_toggle">
-                                            <div
-                                                class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px">
-                                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                            height="2" rx="1"
-                                                            transform="rotate(45 17.0365 15.1223)"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->
-                                            </div>
+
                                         </div>
                                         <!--end::Search toggle-->
                                         <!--begin::Menu-->
@@ -1557,17 +692,16 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--begin::Wrapper-->
                                             <div data-kt-search-element="wrapper">
                                                 <!--begin::Form-->
-                                                <form data-kt-search-element="form"
-                                                    class="w-100 position-relative mb-3" autocomplete="off">
+                                                <form data-kt-search-element="form" class="w-100 position-relative mb-3"
+                                                    autocomplete="off">
                                                     <!--begin::Icon-->
                                                     <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                                     <span
                                                         class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 translate-middle-y ms-0">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="17.0365" y="15.1223"
-                                                                width="8.15546" height="2" rx="1"
-                                                                transform="rotate(45 17.0365 15.1223)"
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
+                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                                height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
                                                                 fill="currentColor" />
                                                             <path
                                                                 d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
@@ -1598,12 +732,10 @@ License: For each use you must have a valid license purchased only from above li
                                                         <span class="svg-icon svg-icon-2 svg-icon-lg-1 me-0">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                 height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.5" x="6" y="17.3137"
-                                                                    width="16" height="2" rx="1"
-                                                                    transform="rotate(-45 6 17.3137)"
+                                                                <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                                                    height="2" rx="1" transform="rotate(-45 6 17.3137)"
                                                                     fill="currentColor" />
-                                                                <rect x="7.41422" y="6" width="16"
-                                                                    height="2" rx="1"
+                                                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
                                                                     transform="rotate(45 7.41422 6)"
                                                                     fill="currentColor" />
                                                             </svg>
@@ -1617,13 +749,11 @@ License: For each use you must have a valid license purchased only from above li
                                                         <!--begin::Preferences toggle-->
                                                         <div data-kt-search-element="preferences-show"
                                                             class="btn btn-icon w-20px btn-sm btn-active-color-primary me-1"
-                                                            data-bs-toggle="tooltip"
-                                                            title="Show search preferences">
+                                                            data-bs-toggle="tooltip" title="Show search preferences">
                                                             <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
                                                             <span class="svg-icon svg-icon-1">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="24" height="24"
-                                                                    viewBox="0 0 24 24" fill="none">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
                                                                     <path opacity="0.3"
                                                                         d="M22.1 11.5V12.6C22.1 13.2 21.7 13.6 21.2 13.7L19.9 13.9C19.7 14.7 19.4 15.5 18.9 16.2L19.7 17.2999C20 17.6999 20 18.3999 19.6 18.7999L18.8 19.6C18.4 20 17.8 20 17.3 19.7L16.2 18.9C15.5 19.3 14.7 19.7 13.9 19.9L13.7 21.2C13.6 21.7 13.1 22.1 12.6 22.1H11.5C10.9 22.1 10.5 21.7 10.4 21.2L10.2 19.9C9.4 19.7 8.6 19.4 7.9 18.9L6.8 19.7C6.4 20 5.7 20 5.3 19.6L4.5 18.7999C4.1 18.3999 4.1 17.7999 4.4 17.2999L5.2 16.2C4.8 15.5 4.4 14.7 4.2 13.9L2.9 13.7C2.4 13.6 2 13.1 2 12.6V11.5C2 10.9 2.4 10.5 2.9 10.4L4.2 10.2C4.4 9.39995 4.7 8.60002 5.2 7.90002L4.4 6.79993C4.1 6.39993 4.1 5.69993 4.5 5.29993L5.3 4.5C5.7 4.1 6.3 4.10002 6.8 4.40002L7.9 5.19995C8.6 4.79995 9.4 4.39995 10.2 4.19995L10.4 2.90002C10.5 2.40002 11 2 11.5 2H12.6C13.2 2 13.6 2.40002 13.7 2.90002L13.9 4.19995C14.7 4.39995 15.5 4.69995 16.2 5.19995L17.3 4.40002C17.7 4.10002 18.4 4.1 18.8 4.5L19.6 5.29993C20 5.69993 20 6.29993 19.7 6.79993L18.9 7.90002C19.3 8.60002 19.7 9.39995 19.9 10.2L21.2 10.4C21.7 10.5 22.1 11 22.1 11.5ZM12.1 8.59998C10.2 8.59998 8.6 10.2 8.6 12.1C8.6 14 10.2 15.6 12.1 15.6C14 15.6 15.6 14 15.6 12.1C15.6 10.2 14 8.59998 12.1 8.59998Z"
                                                                         fill="currentColor" />
@@ -1638,13 +768,11 @@ License: For each use you must have a valid license purchased only from above li
                                                         <!--begin::Advanced search toggle-->
                                                         <div data-kt-search-element="advanced-options-form-show"
                                                             class="btn btn-icon w-20px btn-sm btn-active-color-primary"
-                                                            data-bs-toggle="tooltip"
-                                                            title="Show more search options">
+                                                            data-bs-toggle="tooltip" title="Show more search options">
                                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                                             <span class="svg-icon svg-icon-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    width="24" height="24"
-                                                                    viewBox="0 0 24 24" fill="none">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
                                                                     <path
                                                                         d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                                                         fill="currentColor" />
@@ -1887,23 +1015,19 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/general/gen005.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"
                                                                                 fill="currentColor" />
-                                                                            <rect x="7" y="17" width="6"
-                                                                                height="2" rx="1"
-                                                                                fill="currentColor" />
-                                                                            <rect x="7" y="12" width="10"
-                                                                                height="2" rx="1"
-                                                                                fill="currentColor" />
-                                                                            <rect x="7" y="7" width="6"
-                                                                                height="2" rx="1"
-                                                                                fill="currentColor" />
+                                                                            <rect x="7" y="17" width="6" height="2"
+                                                                                rx="1" fill="currentColor" />
+                                                                            <rect x="7" y="12" width="10" height="2"
+                                                                                rx="1" fill="currentColor" />
+                                                                            <rect x="7" y="7" width="6" height="2"
+                                                                                rx="1" fill="currentColor" />
                                                                             <path
                                                                                 d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z"
                                                                                 fill="currentColor" />
@@ -1929,24 +1053,19 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
-                                                                            <rect x="8" y="9" width="3"
-                                                                                height="10" rx="1.5"
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
+                                                                            <rect x="8" y="9" width="3" height="10"
+                                                                                rx="1.5" fill="currentColor" />
+                                                                            <rect opacity="0.5" x="13" y="5" width="3"
+                                                                                height="14" rx="1.5"
                                                                                 fill="currentColor" />
-                                                                            <rect opacity="0.5" x="13" y="5"
-                                                                                width="3" height="14"
-                                                                                rx="1.5"
-                                                                                fill="currentColor" />
-                                                                            <rect x="18" y="11" width="3"
-                                                                                height="8" rx="1.5"
-                                                                                fill="currentColor" />
-                                                                            <rect x="3" y="13" width="3"
-                                                                                height="6" rx="1.5"
-                                                                                fill="currentColor" />
+                                                                            <rect x="18" y="11" width="3" height="8"
+                                                                                rx="1.5" fill="currentColor" />
+                                                                            <rect x="3" y="13" width="3" height="6"
+                                                                                rx="1.5" fill="currentColor" />
                                                                         </svg>
                                                                     </span>
                                                                     <!--end::Svg Icon-->
@@ -1969,20 +1088,17 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z"
                                                                                 fill="currentColor" />
-                                                                            <rect x="6" y="12" width="7"
-                                                                                height="2" rx="1"
-                                                                                fill="currentColor" />
-                                                                            <rect x="6" y="7" width="12"
-                                                                                height="2" rx="1"
-                                                                                fill="currentColor" />
+                                                                            <rect x="6" y="12" width="7" height="2"
+                                                                                rx="1" fill="currentColor" />
+                                                                            <rect x="6" y="7" width="12" height="2"
+                                                                                rx="1" fill="currentColor" />
                                                                         </svg>
                                                                     </span>
                                                                     <!--end::Svg Icon-->
@@ -2005,11 +1121,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM12 7C10.3 7 9 8.3 9 10C9 11.7 10.3 13 12 13C13.7 13 15 11.7 15 10C15 8.3 13.7 7 12 7Z"
                                                                                 fill="currentColor" />
@@ -2052,19 +1167,17 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/electronics/elc004.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path
                                                                                 d="M2 16C2 16.6 2.4 17 3 17H21C21.6 17 22 16.6 22 16V15H2V16Z"
                                                                                 fill="currentColor" />
                                                                             <path opacity="0.3"
                                                                                 d="M21 3H3C2.4 3 2 3.4 2 4V15H22V4C22 3.4 21.6 3 21 3Z"
                                                                                 fill="currentColor" />
-                                                                            <path opacity="0.3"
-                                                                                d="M15 17H9V20H15V17Z"
+                                                                            <path opacity="0.3" d="M15 17H9V20H15V17Z"
                                                                                 fill="currentColor" />
                                                                         </svg>
                                                                     </span>
@@ -2073,12 +1186,6 @@ License: For each use you must have a valid license purchased only from above li
                                                             </div>
                                                             <!--end::Symbol-->
                                                             <!--begin::Title-->
-                                                            <div class="d-flex flex-column">
-                                                                <a href="#"
-                                                                    class="fs-6 text-gray-800 text-hover-primary fw-bold">BoomApp
-                                                                    by Keenthemes</a>
-                                                                <span class="fs-7 text-muted fw-bold">#45789</span>
-                                                            </div>
                                                             <!--end::Title-->
                                                         </div>
                                                         <!--end::Item-->
@@ -2088,11 +1195,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/graphs/gra001.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M14 3V21H10V3C10 2.4 10.4 2 11 2H13C13.6 2 14 2.4 14 3ZM7 14H5C4.4 14 4 14.4 4 15V21H8V15C8 14.4 7.6 14 7 14Z"
                                                                                 fill="currentColor" />
@@ -2121,11 +1227,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/graphs/gra006.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path
                                                                                 d="M13 5.91517C15.8 6.41517 18 8.81519 18 11.8152C18 12.5152 17.9 13.2152 17.6 13.9152L20.1 15.3152C20.6 15.6152 21.4 15.4152 21.6 14.8152C21.9 13.9152 22.1 12.9152 22.1 11.8152C22.1 7.01519 18.8 3.11521 14.3 2.01521C13.7 1.91521 13.1 2.31521 13.1 3.01521V5.91517H13Z"
                                                                                 fill="currentColor" />
@@ -2154,11 +1259,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/graphs/gra002.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M20 8L12.5 5L5 14V19H20V8Z"
                                                                                 fill="currentColor" />
@@ -2187,11 +1291,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/communication/com010.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path
                                                                                 d="M6 8.725C6 8.125 6.4 7.725 7 7.725H14L18 11.725V12.925L22 9.725L12.6 2.225C12.2 1.925 11.7 1.925 11.4 2.225L2 9.725L6 12.925V8.725Z"
                                                                                 fill="currentColor" />
@@ -2220,11 +1323,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/finance/fin001.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path
                                                                                 d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z"
                                                                                 fill="currentColor" />
@@ -2253,11 +1355,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-40px me-4">
                                                                 <span class="symbol-label bg-light">
                                                                     <!--begin::Svg Icon | path: icons/duotune/graphs/gra002.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M20 8L12.5 5L5 14V19H20V8Z"
                                                                                 fill="currentColor" />
@@ -2321,8 +1422,7 @@ License: For each use you must have a valid license purchased only from above li
                                             </div>
                                             <!--end::Wrapper-->
                                             <!--begin::Preferences-->
-                                            <form data-kt-search-element="advanced-options-form"
-                                                class="pt-1 d-none">
+                                            <form data-kt-search-element="advanced-options-form" class="pt-1 d-none">
                                                 <!--begin::Heading-->
                                                 <h3 class="fw-bold text-dark mb-7">Advanced Search</h3>
                                                 <!--end::Heading-->
@@ -2393,9 +1493,8 @@ License: For each use you must have a valid license purchased only from above li
                                                     <div class="nav-group nav-group-fluid">
                                                         <!--begin::Option-->
                                                         <label>
-                                                            <input type="radio" class="btn-check"
-                                                                name="attachment" value="has"
-                                                                checked="checked" />
+                                                            <input type="radio" class="btn-check" name="attachment"
+                                                                value="has" checked="checked" />
                                                             <span
                                                                 class="btn btn-sm btn-color-muted btn-active btn-active-primary">Has
                                                                 attachment</span>
@@ -2403,8 +1502,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         <!--end::Option-->
                                                         <!--begin::Option-->
                                                         <label>
-                                                            <input type="radio" class="btn-check"
-                                                                name="attachment" value="any" />
+                                                            <input type="radio" class="btn-check" name="attachment"
+                                                                value="any" />
                                                             <span
                                                                 class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4">Any</span>
                                                         </label>
@@ -2471,8 +1570,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                         <span
                                                             class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Projects</span>
-                                                        <input class="form-check-input" type="checkbox"
-                                                            value="1" checked="checked" />
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            checked="checked" />
                                                     </label>
                                                 </div>
                                                 <!--end::Input group-->
@@ -2482,8 +1581,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                         <span
                                                             class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Targets</span>
-                                                        <input class="form-check-input" type="checkbox"
-                                                            value="1" checked="checked" />
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            checked="checked" />
                                                     </label>
                                                 </div>
                                                 <!--end::Input group-->
@@ -2494,8 +1593,7 @@ License: For each use you must have a valid license purchased only from above li
                                                         <span
                                                             class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Affiliate
                                                             Programs</span>
-                                                        <input class="form-check-input" type="checkbox"
-                                                            value="1" />
+                                                        <input class="form-check-input" type="checkbox" value="1" />
                                                     </label>
                                                 </div>
                                                 <!--end::Input group-->
@@ -2505,8 +1603,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                         <span
                                                             class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Referrals</span>
-                                                        <input class="form-check-input" type="checkbox"
-                                                            value="1" checked="checked" />
+                                                        <input class="form-check-input" type="checkbox" value="1"
+                                                            checked="checked" />
                                                     </label>
                                                 </div>
                                                 <!--end::Input group-->
@@ -2516,8 +1614,7 @@ License: For each use you must have a valid license purchased only from above li
                                                         class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
                                                         <span
                                                             class="form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2">Users</span>
-                                                        <input class="form-check-input" type="checkbox"
-                                                            value="1" />
+                                                        <input class="form-check-input" type="checkbox" value="1" />
                                                     </label>
                                                 </div>
                                                 <!--end::Input group-->
@@ -2526,8 +1623,8 @@ License: For each use you must have a valid license purchased only from above li
                                                     <button type="reset"
                                                         class="btn btn-sm btn-light fw-bolder btn-active-light-primary me-2"
                                                         data-kt-search-element="preferences-dismiss">Cancel</button>
-                                                    <button type="submit"
-                                                        class="btn btn-sm fw-bolder btn-primary">Save Changes</button>
+                                                    <button type="submit" class="btn btn-sm fw-bolder btn-primary">Save
+                                                        Changes</button>
                                                 </div>
                                                 <!--end::Actions-->
                                             </form>
@@ -2541,53 +1638,13 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--begin::Activities-->
                                 <div class="d-flex align-items-center ms-1 ms-lg-3">
                                     <!--begin::Drawer toggle-->
-                                    <div class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                        id="kt_activities_toggle">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
-                                        <span class="svg-icon svg-icon-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <rect x="8" y="9" width="3" height="10" rx="1.5"
-                                                    fill="currentColor" />
-                                                <rect opacity="0.5" x="13" y="5" width="3" height="14"
-                                                    rx="1.5" fill="currentColor" />
-                                                <rect x="18" y="11" width="3" height="8" rx="1.5"
-                                                    fill="currentColor" />
-                                                <rect x="3" y="13" width="3" height="6" rx="1.5"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </div>
                                     <!--end::Drawer toggle-->
                                 </div>
                                 <!--end::Activities-->
                                 <!--begin::Notifications-->
                                 <div class="d-flex align-items-center ms-1 ms-lg-3">
                                     <!--begin::Menu- wrapper-->
-                                    <div class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                        data-kt-menu-trigger="click" data-kt-menu-attach="parent"
-                                        data-kt-menu-placement="bottom-end">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen022.svg-->
-                                        <span class="svg-icon svg-icon-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path
-                                                    d="M11.2929 2.70711C11.6834 2.31658 12.3166 2.31658 12.7071 2.70711L15.2929 5.29289C15.6834 5.68342 15.6834 6.31658 15.2929 6.70711L12.7071 9.29289C12.3166 9.68342 11.6834 9.68342 11.2929 9.29289L8.70711 6.70711C8.31658 6.31658 8.31658 5.68342 8.70711 5.29289L11.2929 2.70711Z"
-                                                    fill="currentColor" />
-                                                <path
-                                                    d="M11.2929 14.7071C11.6834 14.3166 12.3166 14.3166 12.7071 14.7071L15.2929 17.2929C15.6834 17.6834 15.6834 18.3166 15.2929 18.7071L12.7071 21.2929C12.3166 21.6834 11.6834 21.6834 11.2929 21.2929L8.70711 18.7071C8.31658 18.3166 8.31658 17.6834 8.70711 17.2929L11.2929 14.7071Z"
-                                                    fill="currentColor" />
-                                                <path opacity="0.3"
-                                                    d="M5.29289 8.70711C5.68342 8.31658 6.31658 8.31658 6.70711 8.70711L9.29289 11.2929C9.68342 11.6834 9.68342 12.3166 9.29289 12.7071L6.70711 15.2929C6.31658 15.6834 5.68342 15.6834 5.29289 15.2929L2.70711 12.7071C2.31658 12.3166 2.31658 11.6834 2.70711 11.2929L5.29289 8.70711Z"
-                                                    fill="currentColor" />
-                                                <path opacity="0.3"
-                                                    d="M17.2929 8.70711C17.6834 8.31658 18.3166 8.31658 18.7071 8.70711L21.2929 11.2929C21.6834 11.6834 21.6834 12.3166 21.2929 12.7071L18.7071 15.2929C18.3166 15.6834 17.6834 15.6834 17.2929 15.2929L14.7071 12.7071C14.3166 12.3166 14.3166 11.6834 14.7071 11.2929L17.2929 8.70711Z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </div>
+
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px"
                                         data-kt-menu="true">
@@ -2613,8 +1670,7 @@ License: For each use you must have a valid license purchased only from above li
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link text-white opacity-75 opacity-state-100 pb-4"
-                                                        data-bs-toggle="tab"
-                                                        href="#kt_topbar_notifications_3">Logs</a>
+                                                        data-bs-toggle="tab" href="#kt_topbar_notifications_3">Logs</a>
                                                 </li>
                                             </ul>
                                             <!--end::Tabs-->
@@ -2623,8 +1679,7 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--begin::Tab content-->
                                         <div class="tab-content">
                                             <!--begin::Tab panel-->
-                                            <div class="tab-pane fade" id="kt_topbar_notifications_1"
-                                                role="tabpanel">
+                                            <div class="tab-pane fade" id="kt_topbar_notifications_1" role="tabpanel">
                                                 <!--begin::Items-->
                                                 <div class="scroll-y mh-325px my-5 px-8">
                                                     <!--begin::Item-->
@@ -2635,11 +1690,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-35px me-4">
                                                                 <span class="symbol-label bg-light-primary">
                                                                     <!--begin::Svg Icon | path: icons/duotune/technology/teh008.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M11 6.5C11 9 9 11 6.5 11C4 11 2 9 2 6.5C2 4 4 2 6.5 2C9 2 11 4 11 6.5ZM17.5 2C15 2 13 4 13 6.5C13 9 15 11 17.5 11C20 11 22 9 22 6.5C22 4 20 2 17.5 2ZM6.5 13C4 13 2 15 2 17.5C2 20 4 22 6.5 22C9 22 11 20 11 17.5C11 15 9 13 6.5 13ZM17.5 13C15 13 13 15 13 17.5C13 20 15 22 17.5 22C20 22 22 20 22 17.5C22 15 20 13 17.5 13Z"
                                                                                 fill="currentColor" />
@@ -2678,19 +1732,16 @@ License: For each use you must have a valid license purchased only from above li
                                                                     <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
                                                                     <span class="svg-icon svg-icon-2 svg-icon-danger">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
-                                                                            <rect opacity="0.3" x="2" y="2"
-                                                                                width="20" height="20"
-                                                                                rx="10"
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
+                                                                            <rect opacity="0.3" x="2" y="2" width="20"
+                                                                                height="20" rx="10"
                                                                                 fill="currentColor" />
-                                                                            <rect x="11" y="14" width="7"
-                                                                                height="2" rx="1"
-                                                                                transform="rotate(-90 11 14)"
+                                                                            <rect x="11" y="14" width="7" height="2"
+                                                                                rx="1" transform="rotate(-90 11 14)"
                                                                                 fill="currentColor" />
-                                                                            <rect x="11" y="17" width="2"
-                                                                                height="2" rx="1"
-                                                                                transform="rotate(-90 11 17)"
+                                                                            <rect x="11" y="17" width="2" height="2"
+                                                                                rx="1" transform="rotate(-90 11 17)"
                                                                                 fill="currentColor" />
                                                                         </svg>
                                                                     </span>
@@ -2722,11 +1773,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-35px me-4">
                                                                 <span class="symbol-label bg-light-warning">
                                                                     <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-warning">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-warning">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z"
                                                                                 fill="currentColor" />
@@ -2763,11 +1813,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-35px me-4">
                                                                 <span class="symbol-label bg-light-success">
                                                                     <!--begin::Svg Icon | path: icons/duotune/files/fil023.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-success">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-success">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M5 15C3.3 15 2 13.7 2 12C2 10.3 3.3 9 5 9H5.10001C5.00001 8.7 5 8.3 5 8C5 5.2 7.2 3 10 3C11.9 3 13.5 4 14.3 5.5C14.8 5.2 15.4 5 16 5C17.7 5 19 6.3 19 8C19 8.4 18.9 8.7 18.8 9C18.9 9 18.9 9 19 9C20.7 9 22 10.3 22 12C22 13.7 20.7 15 19 15H5ZM5 12.6H13L9.7 9.29999C9.3 8.89999 8.7 8.89999 8.3 9.29999L5 12.6Z"
                                                                                 fill="currentColor" />
@@ -2810,11 +1859,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-35px me-4">
                                                                 <span class="symbol-label bg-light-primary">
                                                                     <!--begin::Svg Icon | path: icons/duotune/maps/map001.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-primary">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M6 22H4V3C4 2.4 4.4 2 5 2C5.6 2 6 2.4 6 3V22Z"
                                                                                 fill="currentColor" />
@@ -2853,8 +1901,8 @@ License: For each use you must have a valid license purchased only from above li
                                                                     <!--begin::Svg Icon | path: icons/duotune/general/gen006.svg-->
                                                                     <span class="svg-icon svg-icon-2 svg-icon-info">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M22 5V19C22 19.6 21.6 20 21 20H19.5L11.9 12.4C11.5 12 10.9 12 10.5 12.4L3 20C2.5 20 2 19.5 2 19V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5ZM7.5 7C6.7 7 6 7.7 6 8.5C6 9.3 6.7 10 7.5 10C8.3 10 9 9.3 9 8.5C9 7.7 8.3 7 7.5 7Z"
                                                                                 fill="currentColor" />
@@ -2891,11 +1939,10 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="symbol symbol-35px me-4">
                                                                 <span class="symbol-label bg-light-warning">
                                                                     <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
-                                                                    <span
-                                                                        class="svg-icon svg-icon-2 svg-icon-warning">
+                                                                    <span class="svg-icon svg-icon-2 svg-icon-warning">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="25"
-                                                                            viewBox="0 0 24 25" fill="none">
+                                                                            width="24" height="25" viewBox="0 0 24 25"
+                                                                            fill="none">
                                                                             <path opacity="0.3"
                                                                                 d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z"
                                                                                 fill="currentColor" />
@@ -2935,9 +1982,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         <span class="svg-icon svg-icon-5">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                 height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.5" x="18" y="13" width="13"
-                                                                    height="2" rx="1"
-                                                                    transform="rotate(-180 18 13)"
+                                                                <rect opacity="0.5" x="18" y="13" width="13" height="2"
+                                                                    rx="1" transform="rotate(-180 18 13)"
                                                                     fill="currentColor" />
                                                                 <path
                                                                     d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
@@ -2985,8 +2031,7 @@ License: For each use you must have a valid license purchased only from above li
                                             </div>
                                             <!--end::Tab panel-->
                                             <!--begin::Tab panel-->
-                                            <div class="tab-pane fade" id="kt_topbar_notifications_3"
-                                                role="tabpanel">
+                                            <div class="tab-pane fade" id="kt_topbar_notifications_3" role="tabpanel">
                                                 <!--begin::Items-->
                                                 <div class="scroll-y mh-325px my-5 px-8">
                                                     <!--begin::Item-->
@@ -3240,9 +2285,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         <span class="svg-icon svg-icon-5">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                 height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.5" x="18" y="13" width="13"
-                                                                    height="2" rx="1"
-                                                                    transform="rotate(-180 18 13)"
+                                                                <rect opacity="0.5" x="18" y="13" width="13" height="2"
+                                                                    rx="1" transform="rotate(-180 18 13)"
                                                                     fill="currentColor" />
                                                                 <path
                                                                     d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
@@ -3264,50 +2308,13 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--begin::Chat-->
                                 <div class="d-flex align-items-center ms-1 ms-lg-3">
                                     <!--begin::Menu wrapper-->
-                                    <div class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px position-relative"
-                                        id="kt_drawer_chat_toggle">
-                                        <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
-                                        <span class="svg-icon svg-icon-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path opacity="0.3"
-                                                    d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z"
-                                                    fill="currentColor" />
-                                                <rect x="6" y="12" width="7" height="2" rx="1"
-                                                    fill="currentColor" />
-                                                <rect x="6" y="7" width="12" height="2" rx="1"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                        <span
-                                            class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
-                                    </div>
                                     <!--end::Menu wrapper-->
                                 </div>
                                 <!--end::Chat-->
                                 <!--begin::Quick links-->
                                 <div class="d-flex align-items-center ms-1 ms-lg-3">
                                     <!--begin::Menu wrapper-->
-                                    <div class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                        data-kt-menu-trigger="click" data-kt-menu-attach="parent"
-                                        data-kt-menu-placement="bottom-end">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                        <span class="svg-icon svg-icon-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <rect x="2" y="2" width="9" height="9" rx="2"
-                                                    fill="currentColor" />
-                                                <rect opacity="0.3" x="13" y="2" width="9" height="9"
-                                                    rx="2" fill="currentColor" />
-                                                <rect opacity="0.3" x="13" y="13" width="9" height="9"
-                                                    rx="2" fill="currentColor" />
-                                                <rect opacity="0.3" x="2" y="13" width="9" height="9"
-                                                    rx="2" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </div>
+
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column w-250px w-lg-325px"
                                         data-kt-menu="true">
@@ -3330,8 +2337,8 @@ License: For each use you must have a valid license purchased only from above li
                                                     class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end border-bottom">
                                                     <!--begin::Svg Icon | path: icons/duotune/finance/fin009.svg-->
                                                     <span class="svg-icon svg-icon-3x svg-icon-primary mb-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
                                                             <path opacity="0.3"
                                                                 d="M15.8 11.4H6C5.4 11.4 5 11 5 10.4C5 9.80002 5.4 9.40002 6 9.40002H15.8C16.4 9.40002 16.8 9.80002 16.8 10.4C16.8 11 16.3 11.4 15.8 11.4ZM15.7 13.7999C15.7 13.1999 15.3 12.7999 14.7 12.7999H6C5.4 12.7999 5 13.1999 5 13.7999C5 14.3999 5.4 14.7999 6 14.7999H14.8C15.3 14.7999 15.7 14.2999 15.7 13.7999Z"
                                                                 fill="currentColor" />
@@ -3352,8 +2359,8 @@ License: For each use you must have a valid license purchased only from above li
                                                     class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-bottom">
                                                     <!--begin::Svg Icon | path: icons/duotune/communication/com010.svg-->
                                                     <span class="svg-icon svg-icon-3x svg-icon-primary mb-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
                                                             <path
                                                                 d="M6 8.725C6 8.125 6.4 7.725 7 7.725H14L18 11.725V12.925L22 9.725L12.6 2.225C12.2 1.925 11.7 1.925 11.4 2.225L2 9.725L6 12.925V8.725Z"
                                                                 fill="currentColor" />
@@ -3363,8 +2370,7 @@ License: For each use you must have a valid license purchased only from above li
                                                         </svg>
                                                     </span>
                                                     <!--end::Svg Icon-->
-                                                    <span
-                                                        class="fs-5 fw-bold text-gray-800 mb-0">Administration</span>
+                                                    <span class="fs-5 fw-bold text-gray-800 mb-0">Administration</span>
                                                     <span class="fs-7 text-gray-400">Console</span>
                                                 </a>
                                             </div>
@@ -3375,8 +2381,8 @@ License: For each use you must have a valid license purchased only from above li
                                                     class="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end">
                                                     <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
                                                     <span class="svg-icon svg-icon-3x svg-icon-primary mb-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
                                                             <path
                                                                 d="M18 21.6C16.6 20.4 9.1 20.3 6.3 21.2C5.7 21.4 5.1 21.2 4.7 20.8L2 18C4.2 15.8 10.8 15.1 15.8 15.8C16.2 18.3 17 20.5 18 21.6ZM18.8 2.8C18.4 2.4 17.8 2.20001 17.2 2.40001C14.4 3.30001 6.9 3.2 5.5 2C6.8 3.3 7.4 5.5 7.7 7.7C9 7.9 10.3 8 11.7 8C15.8 8 19.8 7.2 21.5 5.5L18.8 2.8Z"
                                                                 fill="currentColor" />
@@ -3397,8 +2403,8 @@ License: For each use you must have a valid license purchased only from above li
                                                     class="d-flex flex-column flex-center h-100 p-6 bg-hover-light">
                                                     <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
                                                     <span class="svg-icon svg-icon-3x svg-icon-primary mb-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
                                                             <path opacity="0.3"
                                                                 d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z"
                                                                 fill="currentColor" />
@@ -3421,10 +2427,9 @@ License: For each use you must have a valid license purchased only from above li
                                                 class="btn btn-color-gray-600 btn-active-color-primary">View All
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                                 <span class="svg-icon svg-icon-5">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                            height="2" rx="1"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1"
                                                             transform="rotate(-180 18 13)" fill="currentColor" />
                                                         <path
                                                             d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
@@ -3439,16 +2444,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Menu wrapper-->
                                 </div>
                                 <!--end::Quick links-->
-                                <!--begin::Theme mode-->
-                                <div class="d-flex align-items-center ms-1 ms-lg-3">
-                                    <!--begin::Theme mode docs-->
-                                    <a class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                        href="../../demo1/dist/documentation/getting-started/dark-mode.html">
-                                        <i class="fonticon-sun fs-2"></i>
-                                    </a>
-                                    <!--end::Theme mode docs-->
-                                </div>
-                                <!--end::Theme mode-->
+
                                 <!--begin::User menu-->
                                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                                     <!--begin::Menu wrapper-->
@@ -3470,7 +2466,8 @@ License: For each use you must have a valid license purchased only from above li
                                                 <!--end::Avatar-->
                                                 <!--begin::Username-->
                                                 <div class="d-flex flex-column">
-                                                    <div class="fw-bolder d-flex align-items-center fs-5">{{Auth::user()->name}}
+                                                    <div class="fw-bolder d-flex align-items-center fs-5">
+                                                        {{Auth::user()->name}}
                                                         <span
                                                             class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">{{Auth::user()->role}}</span>
                                                     </div>
@@ -3486,14 +2483,12 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--end::Menu separator-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-5">
-                                            <a href=" {{ route('profile.show') }}"
-                                                class="menu-link px-5">My Profile</a>
+                                            <a href=" {{ route('profile.show') }}" class="menu-link px-5">My Profile</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-5">
-                                            <a href="../../demo1/dist/apps/projects/list.html"
-                                                class="menu-link px-5">
+                                            <a href="../../demo1/dist/apps/projects/list.html" class="menu-link px-5">
                                                 <span class="menu-text">My Projects</span>
                                                 <span class="menu-badge">
                                                     <span
@@ -3561,8 +2556,8 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-5">
-                                            <a href="../../demo1/dist/account/statements.html"
-                                                class="menu-link px-5">My Statements</a>
+                                            <a href="../../demo1/dist/account/statements.html" class="menu-link px-5">My
+                                                Statements</a>
                                         </div>
                                         <!--end::Menu item-->
                                         <!--begin::Menu separator-->
@@ -3598,7 +2593,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         class="menu-link d-flex px-5">
                                                         <span class="symbol symbol-20px me-4">
                                                             <img class="rounded-1"
-                                                                src="{{asset('assets/media/flags/spain.svg')}}" alt="" />
+                                                                src="{{asset('assets/media/flags/spain.svg')}}"
+                                                                alt="" />
                                                         </span>Spanish</a>
                                                 </div>
                                                 <!--end::Menu item-->
@@ -3619,7 +2615,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         class="menu-link d-flex px-5">
                                                         <span class="symbol symbol-20px me-4">
                                                             <img class="rounded-1"
-                                                                src="{{asset('assets/media/flags/japan.svg')}}" alt="" />
+                                                                src="{{asset('assets/media/flags/japan.svg')}}"
+                                                                alt="" />
                                                         </span>Japanese</a>
                                                 </div>
                                                 <!--end::Menu item-->
@@ -3646,8 +2643,11 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-5">
-                                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="menu-link px-5">Sign Out</a>
-                                            <form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
+                                            <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                                class="menu-link px-5">Sign Out</a>
+                                            <form id="logout-form" method="POST" action="{{ route('logout') }}"
+                                                class="hidden">
                                                 @csrf
                                             </form>
                                         </div>
@@ -3662,8 +2662,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     class="form-check form-switch form-check-custom form-check-solid pulse pulse-success"
                                                     for="kt_user_menu_dark_mode_toggle">
                                                     <input class="form-check-input w-30px h-20px" type="checkbox"
-                                                        value="1" name="mode"
-                                                        id="kt_user_menu_dark_mode_toggle"
+                                                        value="1" name="mode" id="kt_user_menu_dark_mode_toggle"
                                                         data-kt-url="../../demo1/dist/index.html" />
                                                     <span class="pulse-ring ms-n1"></span>
                                                     <span class="form-check-label text-gray-600 fs-7">Dark Mode</span>
@@ -3677,8 +2676,7 @@ License: For each use you must have a valid license purchased only from above li
                                 </div>
                                 <!--end::User menu-->
                                 <!--begin::Header menu toggle-->
-                                <div class="d-flex align-items-center d-lg-none ms-2 me-n3"
-                                    title="Show header menu">
+                                <div class="d-flex align-items-center d-lg-none ms-2 me-n3" title="Show header menu">
                                     <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
                                         id="kt_header_menu_mobile_toggle">
                                         <!--begin::Svg Icon | path: icons/duotune/text/txt001.svg-->
@@ -3709,93 +2707,63 @@ License: For each use you must have a valid license purchased only from above li
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     <!--begin::Toolbar-->
                     <div class="toolbar" id="kt_toolbar">
-							<!--begin::Container-->
-							<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-								<!--begin::Page title-->
-								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
-									<!--begin::Title-->
-									<h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">
-                                        @yield('pageTitle', 'Dashboards')
-                                    </h1>
-									<!--end::Title-->
-									<!--begin::Separator-->
-									<span class="h-20px border-gray-300 border-start mx-4"></span>
-									<!--end::Separator-->
-									<!--begin::Breadcrumb-->
-									<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
-										<!--begin::Item-->
-										<li class="breadcrumb-item text-muted">
-											<a href="." class="text-muted text-hover-primary">
-                                                @yield('subTitle', 'Home')
-                                            </a>
-										</li>
-										<!--end::Item-->
-										<!--begin::Item-->
-										<li class="breadcrumb-item">
-											<span class="bullet bg-gray-300 w-5px h-2px"></span>
-										</li>
-										<!--end::Item-->
+                        <!--begin::Container-->
+                        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                            <!--begin::Page title-->
+                            <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
+                                data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
+                                class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                                <!--begin::Title-->
+                                <h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">
+                                    @yield('pageTitle', 'Dashboards')
+                                </h1>
+                                <!--end::Title-->
+                                <!--begin::Separator-->
+                                <span class="h-20px border-gray-300 border-start mx-4"></span>
+                                <!--end::Separator-->
+                                <!--begin::Breadcrumb-->
+                                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="." class="text-muted text-hover-primary">
+                                            @yield('subTitle', 'Home')
+                                        </a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
 
-										<!--begin::Item-->
-										<li class="breadcrumb-item text-dark">
-                                            @yield('currentTitle', 'Dashboards')
-                                        </li>
-										<!--end::Item-->
-									</ul>
-									<!--end::Breadcrumb-->
-								</div>
-								<!--end::Page title-->
-								<!--begin::Actions-->
-								<div class="d-flex align-items-center gap-2 gap-lg-3">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-dark">
+                                        @yield('currentTitle', 'Dashboards')
+                                    </li>
+                                    <!--end::Item-->
+                                </ul>
+                                <!--end::Breadcrumb-->
+                            </div>
+                            <!--end::Page title-->
+                            <!--begin::Actions-->
+                            <div class="d-flex align-items-center gap-2 gap-lg-3">
 
 
-									<!--begin::Primary button-->
-									<a href="@yield('routeButton', '/')" class="btn btn-sm btn-primary">
-                                        @yield('nameButton', 'Home')</a>
-									<!--end::Primary button-->
-								</div>
-								<!--end::Actions-->
-							</div>
-							<!--end::Container-->
-						</div>
+                                <!--begin::Primary button-->
+                                <a href="@yield('routeButton', '/')" class="btn btn-sm btn-primary">
+                                    @yield('nameButton', 'Home')</a>
+                                <!--end::Primary button-->
+                            </div>
+                            <!--end::Actions-->
+                        </div>
+                        <!--end::Container-->
+                    </div>
                     <!--end::Toolbar-->
                     <!--begin::Post-->
                     @yield('content')
                     <!--end::Post-->
                 </div>
-                <!--end::Content-->
-                <!--begin::Footer-->
-                <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
-                    <!--begin::Container-->
-                    <div
-                        class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
-                        <!--begin::Copyright-->
-                        <div class="text-dark order-2 order-md-1">
-                            <span class="text-muted fw-bold me-1">2022©</span>
-                            <a href="https://keenthemes.com" target="_blank"
-                                class="text-gray-800 text-hover-primary">Keenthemes</a>
-                        </div>
-                        <!--end::Copyright-->
-                        <!--begin::Menu-->
-                        <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
-                            <li class="menu-item">
-                                <a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="https://devs.keenthemes.com" target="_blank"
-                                    class="menu-link px-2">Support</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="https://1.envato.market/EA4JP" target="_blank"
-                                    class="menu-link px-2">Purchase</a>
-                            </li>
-                        </ul>
-                        <!--end::Menu-->
-                    </div>
-                    <!--end::Container-->
                 </div>
-                <!--end::Footer-->
-            </div>
             <!--end::Wrapper-->
         </div>
         <!--end::Page-->
@@ -3809,25 +2777,6 @@ License: For each use you must have a valid license purchased only from above li
         data-kt-drawer-toggle="#kt_activities_toggle" data-kt-drawer-close="#kt_activities_close">
         <div class="card shadow-none rounded-0">
             <!--begin::Header-->
-            <div class="card-header" id="kt_activities_header">
-                <h3 class="card-title fw-bolder text-dark">Activity Logs</h3>
-                <div class="card-toolbar">
-                    <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5"
-                        id="kt_activities_close">
-                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                        <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </button>
-                </div>
-            </div>
             <!--end::Header-->
             <!--begin::Body-->
             <div class="card-body position-relative" id="kt_activities_body">
@@ -3901,8 +2850,7 @@ License: For each use you must have a valid license purchased only from above li
                                         </div>
                                         <!--end::Label-->
                                         <!--begin::Users-->
-                                        <div
-                                            class="symbol-group symbol-hover flex-nowrap flex-grow-1 min-w-100px pe-2">
+                                        <div class="symbol-group symbol-hover flex-nowrap flex-grow-1 min-w-100px pe-2">
                                             <!--begin::User-->
                                             <div class="symbol symbol-circle symbol-25px">
                                                 <img src="{{asset('assets/media/avatars/300-2.jpg')}}" alt="img" />
@@ -3915,8 +2863,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::User-->
                                             <!--begin::User-->
                                             <div class="symbol symbol-circle symbol-25px">
-                                                <div
-                                                    class="symbol-label fs-8 fw-bold bg-primary text-inverse-primary">
+                                                <div class="symbol-label fs-8 fw-bold bg-primary text-inverse-primary">
                                                     A</div>
                                             </div>
                                             <!--end::User-->
@@ -3955,8 +2902,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::User-->
                                             <!--begin::User-->
                                             <div class="symbol symbol-circle symbol-25px">
-                                                <div
-                                                    class="symbol-label fs-8 fw-bold bg-success text-inverse-primary">
+                                                <div class="symbol-label fs-8 fw-bold bg-success text-inverse-primary">
                                                     B</div>
                                             </div>
                                             <!--end::User-->
@@ -4104,8 +3050,8 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--begin::Item-->
                                         <div class="d-flex flex-aligns-center pe-10 pe-lg-20">
                                             <!--begin::Icon-->
-                                            <img alt="../../demo1/dist/apps/projects/project.html"
-                                                class="w-30px me-3" src="{{asset('assets/media/svg/files/doc.svg')}}" />
+                                            <img alt="../../demo1/dist/apps/projects/project.html" class="w-30px me-3"
+                                                src="{{asset('assets/media/svg/files/doc.svg')}}" />
                                             <!--end::Icon-->
                                             <!--begin::Info-->
                                             <div class="ms-1 fw-bold">
@@ -4123,8 +3069,8 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--begin::Item-->
                                         <div class="d-flex flex-aligns-center">
                                             <!--begin::Icon-->
-                                            <img alt="../../demo1/dist/apps/projects/project.html"
-                                                class="w-30px me-3" src="{{asset('assets/media/svg/files/css.svg')}}" />
+                                            <img alt="../../demo1/dist/apps/projects/project.html" class="w-30px me-3"
+                                                src="{{asset('assets/media/svg/files/css.svg')}}" />
                                             <!--end::Icon-->
                                             <!--begin::Info-->
                                             <div class="ms-1 fw-bold">
@@ -4238,8 +3184,7 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--end::Info-->
                                         <!--begin::User-->
                                         <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip"
-                                            data-bs-boundary="window" data-bs-placement="top"
-                                            title="Marcus Dotson">
+                                            data-bs-boundary="window" data-bs-placement="top" title="Marcus Dotson">
                                             <img src="{{asset('assets/media/avatars/300-2.jpg')}}" alt="img" />
                                         </div>
                                         <!--end::User-->
@@ -4261,8 +3206,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Image-->
                                             <!--begin::Link-->
                                             <div class="overlay-layer bg-dark bg-opacity-10 rounded">
-                                                <a href="#"
-                                                    class="btn btn-sm btn-primary btn-shadow">Explore</a>
+                                                <a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
                                             </div>
                                             <!--end::Link-->
                                         </div>
@@ -4277,8 +3221,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Image-->
                                             <!--begin::Link-->
                                             <div class="overlay-layer bg-dark bg-opacity-10 rounded">
-                                                <a href="#"
-                                                    class="btn btn-sm btn-primary btn-shadow">Explore</a>
+                                                <a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
                                             </div>
                                             <!--end::Link-->
                                         </div>
@@ -4293,8 +3236,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Image-->
                                             <!--begin::Link-->
                                             <div class="overlay-layer bg-dark bg-opacity-10 rounded">
-                                                <a href="#"
-                                                    class="btn btn-sm btn-primary btn-shadow">Explore</a>
+                                                <a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
                                             </div>
                                             <!--end::Link-->
                                         </div>
@@ -4511,12 +3453,11 @@ License: For each use you must have a valid license purchased only from above li
             <!--end::Body-->
             <!--begin::Footer-->
             <div class="card-footer py-5 text-center" id="kt_activities_footer">
-                <a href="../../demo1/dist/pages/user-profile/activity.html"
-                    class="btn btn-bg-body text-primary">View All Activities
+                <a href="../../demo1/dist/pages/user-profile/activity.html" class="btn btn-bg-body text-primary">View
+                    All Activities
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                     <span class="svg-icon svg-icon-3 svg-icon-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1"
                                 transform="rotate(-180 18 13)" fill="currentColor" />
                             <path
@@ -4543,8 +3484,7 @@ License: For each use you must have a valid license purchased only from above li
                 <div class="card-title">
                     <!--begin::User-->
                     <div class="d-flex justify-content-center flex-column me-3">
-                        <a href="#"
-                            class="fs-4 fw-bolder text-gray-900 text-hover-primary me-1 mb-2 lh-1">Brian Cox</a>
+                        <a href="#" class="fs-4 fw-bolder text-gray-900 text-hover-primary me-1 mb-2 lh-1">Brian Cox</a>
                         <!--begin::Info-->
                         <div class="mb-0 lh-1">
                             <span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
@@ -4630,12 +3570,12 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="btn btn-sm btn-icon btn-active-light-primary" id="kt_drawer_chat_close">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
@@ -4665,8 +3605,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Avatar-->
                                 <!--begin::Details-->
                                 <div class="ms-3">
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian
+                                        Cox</a>
                                     <span class="text-muted fs-7 mb-1">2 mins</span>
                                 </div>
                                 <!--end::Details-->
@@ -4690,8 +3630,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--begin::Details-->
                                 <div class="me-3">
                                     <span class="text-muted fs-7 mb-1">5 mins</span>
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
                                 </div>
                                 <!--end::Details-->
                                 <!--begin::Avatar-->
@@ -4723,8 +3662,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Avatar-->
                                 <!--begin::Details-->
                                 <div class="ms-3">
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian
+                                        Cox</a>
                                     <span class="text-muted fs-7 mb-1">1 Hour</span>
                                 </div>
                                 <!--end::Details-->
@@ -4747,8 +3686,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--begin::Details-->
                                 <div class="me-3">
                                     <span class="text-muted fs-7 mb-1">2 Hours</span>
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
                                 </div>
                                 <!--end::Details-->
                                 <!--begin::Avatar-->
@@ -4780,8 +3718,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Avatar-->
                                 <!--begin::Details-->
                                 <div class="ms-3">
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian
+                                        Cox</a>
                                     <span class="text-muted fs-7 mb-1">3 Hours</span>
                                 </div>
                                 <!--end::Details-->
@@ -4807,8 +3745,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--begin::Details-->
                                 <div class="me-3">
                                     <span class="text-muted fs-7 mb-1">4 Hours</span>
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
                                 </div>
                                 <!--end::Details-->
                                 <!--begin::Avatar-->
@@ -4839,8 +3776,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Avatar-->
                                 <!--begin::Details-->
                                 <div class="ms-3">
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian
+                                        Cox</a>
                                     <span class="text-muted fs-7 mb-1">5 Hours</span>
                                 </div>
                                 <!--end::Details-->
@@ -4864,8 +3801,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--begin::Details-->
                                 <div class="me-3">
                                     <span class="text-muted fs-7 mb-1">Just now</span>
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
                                 </div>
                                 <!--end::Details-->
                                 <!--begin::Avatar-->
@@ -4896,8 +3832,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Avatar-->
                                 <!--begin::Details-->
                                 <div class="ms-3">
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Brian
+                                        Cox</a>
                                     <span class="text-muted fs-7 mb-1">Just now</span>
                                 </div>
                                 <!--end::Details-->
@@ -4965,12 +3901,12 @@ License: For each use you must have a valid license purchased only from above li
                         id="kt_engage_demos_close">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
@@ -5485,26 +4421,24 @@ License: For each use you must have a valid license purchased only from above li
     </div>
     <!--end::Demos drawer-->
     <!--begin::Help drawer-->
-    <div id="kt_help" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="help"
-        data-kt-drawer-activate="true" data-kt-drawer-overlay="true"
-        data-kt-drawer-width="{default:'350px', 'md': '525px'}" data-kt-drawer-direction="end"
-        data-kt-drawer-toggle="#kt_help_toggle" data-kt-drawer-close="#kt_help_close">
+    <div id="kt_help" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="help" data-kt-drawer-activate="true"
+        data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'350px', 'md': '525px'}"
+        data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_help_toggle" data-kt-drawer-close="#kt_help_close">
         <!--begin::Card-->
         <div class="card shadow-none rounded-0 w-100">
             <!--begin::Header-->
             <div class="card-header" id="kt_help_header">
                 <h5 class="card-title fw-bold text-gray-600">Learn &amp; Get Inspired</h5>
                 <div class="card-toolbar">
-                    <button type="button" class="btn btn-sm btn-icon explore-btn-dismiss me-n5"
-                        id="kt_help_close">
+                    <button type="button" class="btn btn-sm btn-icon explore-btn-dismiss me-n5" id="kt_help_close">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
@@ -5545,8 +4479,8 @@ License: For each use you must have a valid license purchased only from above li
                             class="d-flex flex-center w-50px h-50px w-lg-75px h-lg-75px flex-shrink-0 rounded bg-light-warning">
                             <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
                             <span class="svg-icon svg-icon-warning svg-icon-2x svg-icon-lg-3x">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
                                     <path opacity="0.3"
                                         d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z"
                                         fill="currentColor" />
@@ -5575,10 +4509,10 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::Wrapper-->
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                             <span class="svg-icon svg-icon-gray-400 svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect opacity="0.5" x="18" y="13" width="13" height="2"
-                                        rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1"
+                                        transform="rotate(-180 18 13)" fill="currentColor" />
                                     <path
                                         d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
                                         fill="currentColor" />
@@ -5596,8 +4530,8 @@ License: For each use you must have a valid license purchased only from above li
                             class="d-flex flex-center w-50px h-50px w-lg-75px h-lg-75px flex-shrink-0 rounded bg-light-primary">
                             <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
                             <span class="svg-icon svg-icon-primary svg-icon-2x svg-icon-lg-3x">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
                                     <path
                                         d="M21 9V11C21 11.6 20.6 12 20 12H14V8H20C20.6 8 21 8.4 21 9ZM10 8H4C3.4 8 3 8.4 3 9V11C3 11.6 3.4 12 4 12H10V8Z"
                                         fill="currentColor" />
@@ -5628,10 +4562,10 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::Wrapper-->
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                             <span class="svg-icon svg-icon-gray-400 svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect opacity="0.5" x="18" y="13" width="13" height="2"
-                                        rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1"
+                                        transform="rotate(-180 18 13)" fill="currentColor" />
                                     <path
                                         d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
                                         fill="currentColor" />
@@ -5649,8 +4583,8 @@ License: For each use you must have a valid license purchased only from above li
                             class="d-flex flex-center w-50px h-50px w-lg-75px h-lg-75px flex-shrink-0 rounded bg-light-info">
                             <!--begin::Svg Icon | path: icons/duotune/art/art006.svg-->
                             <span class="svg-icon svg-icon-info svg-icon-2x svg-icon-lg-3x">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
                                     <path opacity="0.3"
                                         d="M22 19V17C22 16.4 21.6 16 21 16H8V3C8 2.4 7.6 2 7 2H5C4.4 2 4 2.4 4 3V19C4 19.6 4.4 20 5 20H21C21.6 20 22 19.6 22 19Z"
                                         fill="currentColor" />
@@ -5679,10 +4613,10 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::Wrapper-->
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                             <span class="svg-icon svg-icon-gray-400 svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect opacity="0.5" x="18" y="13" width="13" height="2"
-                                        rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1"
+                                        transform="rotate(-180 18 13)" fill="currentColor" />
                                     <path
                                         d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
                                         fill="currentColor" />
@@ -5700,15 +4634,14 @@ License: For each use you must have a valid license purchased only from above li
                             class="d-flex flex-center w-50px h-50px w-lg-75px h-lg-75px flex-shrink-0 rounded bg-light-success">
                             <!--begin::Svg Icon | path: icons/duotune/files/fil021.svg-->
                             <span class="svg-icon svg-icon-success svg-icon-2x svg-icon-lg-3x">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
                                     <path opacity="0.3"
                                         d="M19 15C20.7 15 22 13.7 22 12C22 10.3 20.7 9 19 9C18.9 9 18.9 9 18.8 9C18.9 8.7 19 8.3 19 8C19 6.3 17.7 5 16 5C15.4 5 14.8 5.2 14.3 5.5C13.4 4 11.8 3 10 3C7.2 3 5 5.2 5 8C5 8.3 5 8.7 5.1 9H5C3.3 9 2 10.3 2 12C2 13.7 3.3 15 5 15H19Z"
                                         fill="currentColor" />
                                     <path d="M13 17.4V12C13 11.4 12.6 11 12 11C11.4 11 11 11.4 11 12V17.4H13Z"
                                         fill="currentColor" />
-                                    <path opacity="0.3"
-                                        d="M8 17.4H16L12.7 20.7C12.3 21.1 11.7 21.1 11.3 20.7L8 17.4Z"
+                                    <path opacity="0.3" d="M8 17.4H16L12.7 20.7C12.3 21.1 11.7 21.1 11.3 20.7L8 17.4Z"
                                         fill="currentColor" />
                                 </svg>
                             </span>
@@ -5732,10 +4665,10 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::Wrapper-->
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                             <span class="svg-icon svg-icon-gray-400 svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect opacity="0.5" x="18" y="13" width="13" height="2"
-                                        rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1"
+                                        transform="rotate(-180 18 13)" fill="currentColor" />
                                     <path
                                         d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
                                         fill="currentColor" />
@@ -5753,8 +4686,8 @@ License: For each use you must have a valid license purchased only from above li
                             class="d-flex flex-center w-50px h-50px w-lg-75px h-lg-75px flex-shrink-0 rounded bg-light-danger">
                             <!--begin::Svg Icon | path: icons/duotune/electronics/elc009.svg-->
                             <span class="svg-icon svg-icon-danger svg-icon-2x svg-icon-lg-3x">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
                                     <path
                                         d="M13 9V8C13 7.4 13.4 7 14 7H15C16.7 7 18 5.7 18 4V3C18 2.4 17.6 2 17 2C16.4 2 16 2.4 16 3V4C16 4.6 15.6 5 15 5H14C12.3 5 11 6.3 11 8V9H13Z"
                                         fill="currentColor" />
@@ -5782,10 +4715,10 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::Wrapper-->
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                             <span class="svg-icon svg-icon-gray-400 svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect opacity="0.5" x="18" y="13" width="13" height="2"
-                                        rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1"
+                                        transform="rotate(-180 18 13)" fill="currentColor" />
                                     <path
                                         d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
                                         fill="currentColor" />
@@ -5810,10 +4743,9 @@ License: For each use you must have a valid license purchased only from above li
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
         <span class="svg-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                fill="none">
-                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
-                    transform="rotate(90 13 6)" fill="currentColor" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)"
+                    fill="currentColor" />
                 <path
                     d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
                     fill="currentColor" />
@@ -5835,12 +4767,12 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
@@ -5862,8 +4794,7 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="d-flex flex-column">
                         <!--begin::Nav group-->
                         <div class="nav-group nav-group-outline mx-auto" data-kt-buttons="true">
-                            <button
-                                class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3 me-2 active"
+                            <button class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3 me-2 active"
                                 data-kt-plan="month">Monthly</button>
                             <button class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3"
                                 data-kt-plan="annual">Annual</button>
@@ -6027,10 +4958,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Users</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6045,10 +4976,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Integrations</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6063,10 +4994,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Module</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6081,16 +5012,14 @@ License: For each use you must have a valid license purchased only from above li
                                                     Module</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
-                                                        <rect x="7" y="15.3137" width="12" height="2"
-                                                            rx="1" transform="rotate(-45 7 15.3137)"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
                                                             fill="currentColor" />
-                                                        <rect x="8.41422" y="7" width="12" height="2"
-                                                            rx="1" transform="rotate(45 8.41422 7)"
-                                                            fill="currentColor" />
+                                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
                                                     </svg>
                                                 </span>
                                                 <!--end::Svg Icon-->
@@ -6102,16 +5031,14 @@ License: For each use you must have a valid license purchased only from above li
                                                     Module</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
-                                                        <rect x="7" y="15.3137" width="12" height="2"
-                                                            rx="1" transform="rotate(-45 7 15.3137)"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
                                                             fill="currentColor" />
-                                                        <rect x="8.41422" y="7" width="12" height="2"
-                                                            rx="1" transform="rotate(45 8.41422 7)"
-                                                            fill="currentColor" />
+                                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
                                                     </svg>
                                                 </span>
                                                 <!--end::Svg Icon-->
@@ -6123,16 +5050,14 @@ License: For each use you must have a valid license purchased only from above li
                                                     Platform</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
-                                                        <rect x="7" y="15.3137" width="12" height="2"
-                                                            rx="1" transform="rotate(-45 7 15.3137)"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
                                                             fill="currentColor" />
-                                                        <rect x="8.41422" y="7" width="12" height="2"
-                                                            rx="1" transform="rotate(45 8.41422 7)"
-                                                            fill="currentColor" />
+                                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
                                                     </svg>
                                                 </span>
                                                 <!--end::Svg Icon-->
@@ -6144,16 +5069,14 @@ License: For each use you must have a valid license purchased only from above li
                                                     Space</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
-                                                        <rect x="7" y="15.3137" width="12" height="2"
-                                                            rx="1" transform="rotate(-45 7 15.3137)"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
                                                             fill="currentColor" />
-                                                        <rect x="8.41422" y="7" width="12" height="2"
-                                                            rx="1" transform="rotate(45 8.41422 7)"
-                                                            fill="currentColor" />
+                                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
                                                     </svg>
                                                 </span>
                                                 <!--end::Svg Icon-->
@@ -6180,10 +5103,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Users</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6198,10 +5121,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Integrations</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6216,10 +5139,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Module</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6234,10 +5157,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Module</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6252,10 +5175,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Module</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6270,16 +5193,14 @@ License: For each use you must have a valid license purchased only from above li
                                                     Platform</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
-                                                        <rect x="7" y="15.3137" width="12" height="2"
-                                                            rx="1" transform="rotate(-45 7 15.3137)"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
                                                             fill="currentColor" />
-                                                        <rect x="8.41422" y="7" width="12" height="2"
-                                                            rx="1" transform="rotate(45 8.41422 7)"
-                                                            fill="currentColor" />
+                                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
                                                     </svg>
                                                 </span>
                                                 <!--end::Svg Icon-->
@@ -6291,16 +5212,14 @@ License: For each use you must have a valid license purchased only from above li
                                                     Space</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
-                                                        <rect x="7" y="15.3137" width="12" height="2"
-                                                            rx="1" transform="rotate(-45 7 15.3137)"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
                                                             fill="currentColor" />
-                                                        <rect x="8.41422" y="7" width="12" height="2"
-                                                            rx="1" transform="rotate(45 8.41422 7)"
-                                                            fill="currentColor" />
+                                                        <rect x="7" y="15.3137" width="12" height="2" rx="1"
+                                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                                        <rect x="8.41422" y="7" width="12" height="2" rx="1"
+                                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
                                                     </svg>
                                                 </span>
                                                 <!--end::Svg Icon-->
@@ -6326,10 +5245,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Users</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6344,10 +5263,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Integrations</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6362,10 +5281,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Module</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6380,10 +5299,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Module</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6398,10 +5317,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Module</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6416,10 +5335,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Platform</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6434,10 +5353,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     Space</span>
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.3" x="2" y="2" width="20"
-                                                            height="20" rx="10" fill="currentColor" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10"
+                                                            fill="currentColor" />
                                                         <path
                                                             d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
                                                             fill="currentColor" />
@@ -6484,12 +5403,12 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
@@ -7032,12 +5951,12 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
@@ -7054,11 +5973,10 @@ License: For each use you must have a valid license purchased only from above li
                     </div>
                     <!--end::Content-->
                     <!--begin::Search-->
-                    <div id="kt_modal_users_search_handler" data-kt-search-keypress="true"
-                        data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="inline">
+                    <div id="kt_modal_users_search_handler" data-kt-search-keypress="true" data-kt-search-min-length="2"
+                        data-kt-search-enter="enter" data-kt-search-layout="inline">
                         <!--begin::Form-->
-                        <form data-kt-search-element="form" class="w-100 position-relative mb-5"
-                            autocomplete="off">
+                        <form data-kt-search-element="form" class="w-100 position-relative mb-5" autocomplete="off">
                             <!--begin::Hidden input(Added to disable form autocomplete)-->
                             <input type="hidden" />
                             <!--end::Hidden input-->
@@ -7066,11 +5984,10 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                             <span
                                 class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 ms-5 translate-middle-y">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"
-                                        rx="1" transform="rotate(45 17.0365 15.1223)"
-                                        fill="currentColor" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+                                        transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
                                     <path
                                         d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
                                         fill="currentColor" />
@@ -7080,8 +5997,7 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::Icon-->
                             <!--begin::Input-->
                             <input type="text" class="form-control form-control-lg form-control-solid px-15"
-                                name="search" value=""
-                                placeholder="Search by username, full name or email..."
+                                name="search" value="" placeholder="Search by username, full name or email..."
                                 data-kt-search-element="input" />
                             <!--end::Input-->
                             <!--begin::Spinner-->
@@ -7096,11 +6012,10 @@ License: For each use you must have a valid license purchased only from above li
                                 data-kt-search-element="clear">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                 <span class="svg-icon svg-icon-2 svg-icon-lg-1 me-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                            rx="1" transform="rotate(-45 6 17.3137)"
-                                            fill="currentColor" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                            transform="rotate(-45 6 17.3137)" fill="currentColor" />
                                         <rect x="7.41422" y="6" width="16" height="2" rx="1"
                                             transform="rotate(45 7.41422 6)" fill="currentColor" />
                                     </svg>
@@ -7261,8 +6176,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Checkbox-->
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-35px symbol-circle">
-                                                <span
-                                                    class="symbol-label bg-light-danger text-danger fw-bold">M</span>
+                                                <span class="symbol-label bg-light-danger text-danger fw-bold">M</span>
                                             </div>
                                             <!--end::Avatar-->
                                             <!--begin::Details-->
@@ -7509,8 +6423,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Checkbox-->
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-35px symbol-circle">
-                                                <span
-                                                    class="symbol-label bg-light-danger text-danger fw-bold">O</span>
+                                                <span class="symbol-label bg-light-danger text-danger fw-bold">O</span>
                                             </div>
                                             <!--end::Avatar-->
                                             <!--begin::Details-->
@@ -7634,8 +6547,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Checkbox-->
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-35px symbol-circle">
-                                                <span
-                                                    class="symbol-label bg-light-danger text-danger fw-bold">E</span>
+                                                <span class="symbol-label bg-light-danger text-danger fw-bold">E</span>
                                             </div>
                                             <!--end::Avatar-->
                                             <!--begin::Details-->
@@ -7911,10 +6823,10 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Users-->
                                 <!--begin::Actions-->
                                 <div class="d-flex flex-center mt-15">
-                                    <button type="reset" id="kt_modal_users_search_reset"
-                                        data-bs-dismiss="modal" class="btn btn-active-light me-3">Cancel</button>
-                                    <button type="submit" id="kt_modal_users_search_submit"
-                                        class="btn btn-primary">Add Selected Users</button>
+                                    <button type="reset" id="kt_modal_users_search_reset" data-bs-dismiss="modal"
+                                        class="btn btn-active-light me-3">Cancel</button>
+                                    <button type="submit" id="kt_modal_users_search_submit" class="btn btn-primary">Add
+                                        Selected Users</button>
                                 </div>
                                 <!--end::Actions-->
                             </div>
@@ -7960,12 +6872,12 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                    rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                    fill="currentColor" />
                             </svg>
                         </span>
                         <!--end::Svg Icon-->
@@ -7999,7 +6911,8 @@ License: For each use you must have a valid license purchased only from above li
                     </div>
                     <!--end::Separator-->
                     <!--begin::Textarea-->
-                    <textarea class="form-control form-control-solid mb-8" rows="3" placeholder="Type or paste emails here"></textarea>
+                    <textarea class="form-control form-control-solid mb-8" rows="3"
+                        placeholder="Type or paste emails here"></textarea>
                     <!--end::Textarea-->
                     <!--begin::Users-->
                     <div class="mb-10">
@@ -8019,8 +6932,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Emma
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Emma
                                             Smith</a>
                                         <div class="fw-bold text-muted">smith@kpmg.com</div>
                                     </div>
@@ -8029,8 +6941,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2" selected="selected">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8050,8 +6962,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Melody
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Melody
                                             Macy</a>
                                         <div class="fw-bold text-muted">melody@altbox.com</div>
                                     </div>
@@ -8060,8 +6971,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1" selected="selected">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8081,8 +6992,8 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Max Smith</a>
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Max
+                                            Smith</a>
                                         <div class="fw-bold text-muted">max@kt.com</div>
                                     </div>
                                     <!--end::Details-->
@@ -8090,8 +7001,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3" selected="selected">Can Edit</option>
@@ -8111,8 +7022,8 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Sean Bean</a>
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Sean
+                                            Bean</a>
                                         <div class="fw-bold text-muted">sean@dellito.com</div>
                                     </div>
                                     <!--end::Details-->
@@ -8120,8 +7031,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2" selected="selected">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8141,8 +7052,8 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Brian Cox</a>
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Brian
+                                            Cox</a>
                                         <div class="fw-bold text-muted">brian@exchange.com</div>
                                     </div>
                                     <!--end::Details-->
@@ -8150,8 +7061,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3" selected="selected">Can Edit</option>
@@ -8171,8 +7082,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Mikaela
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Mikaela
                                             Collins</a>
                                         <div class="fw-bold text-muted">mik@pex.com</div>
                                     </div>
@@ -8181,8 +7091,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2" selected="selected">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8202,8 +7112,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Francis
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Francis
                                             Mitcham</a>
                                         <div class="fw-bold text-muted">f.mit@kpmg.com</div>
                                     </div>
@@ -8212,8 +7121,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3" selected="selected">Can Edit</option>
@@ -8233,8 +7142,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Olivia
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Olivia
                                             Wild</a>
                                         <div class="fw-bold text-muted">olivia@corpmail.com</div>
                                     </div>
@@ -8243,8 +7151,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2" selected="selected">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8264,8 +7172,8 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Neil Owen</a>
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Neil
+                                            Owen</a>
                                         <div class="fw-bold text-muted">owen.neil@gmail.com</div>
                                     </div>
                                     <!--end::Details-->
@@ -8273,8 +7181,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1" selected="selected">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8294,8 +7202,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Dan
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Dan
                                             Wilson</a>
                                         <div class="fw-bold text-muted">dam@consilting.com</div>
                                     </div>
@@ -8304,8 +7211,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3" selected="selected">Can Edit</option>
@@ -8325,8 +7232,8 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Emma Bold</a>
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Emma
+                                            Bold</a>
                                         <div class="fw-bold text-muted">emma@intenso.com</div>
                                     </div>
                                     <!--end::Details-->
@@ -8334,8 +7241,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2" selected="selected">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8355,8 +7262,8 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Ana Crown</a>
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Ana
+                                            Crown</a>
                                         <div class="fw-bold text-muted">ana.cf@limtel.com</div>
                                     </div>
                                     <!--end::Details-->
@@ -8364,8 +7271,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1" selected="selected">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8385,8 +7292,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Robert
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Robert
                                             Doe</a>
                                         <div class="fw-bold text-muted">robert@benko.com</div>
                                     </div>
@@ -8395,8 +7301,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3" selected="selected">Can Edit</option>
@@ -8416,8 +7322,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">John
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">John
                                             Miller</a>
                                         <div class="fw-bold text-muted">miller@mapple.com</div>
                                     </div>
@@ -8426,8 +7331,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3" selected="selected">Can Edit</option>
@@ -8447,8 +7352,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Lucy
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Lucy
                                             Kunic</a>
                                         <div class="fw-bold text-muted">lucy.m@fentech.com</div>
                                     </div>
@@ -8457,8 +7361,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2" selected="selected">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8478,8 +7382,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Ethan
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Ethan
                                             Wilder</a>
                                         <div class="fw-bold text-muted">ethan@loop.com.au</div>
                                     </div>
@@ -8488,8 +7391,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1" selected="selected">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3">Can Edit</option>
@@ -8509,8 +7412,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Mikaela
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Mikaela
                                             Collins</a>
                                         <div class="fw-bold text-muted">mik@pex.com</div>
                                     </div>
@@ -8519,8 +7421,8 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Details-->
                                 <!--begin::Access menu-->
                                 <div class="ms-2 w-100px">
-                                    <select class="form-select form-select-solid form-select-sm"
-                                        data-control="select2" data-hide-search="true">
+                                    <select class="form-select form-select-solid form-select-sm" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="1">Guest</option>
                                         <option value="2">Owner</option>
                                         <option value="3" selected="selected">Can Edit</option>
@@ -8577,7 +7479,8 @@ License: For each use you must have a valid license purchased only from above li
     <script src="{{asset('assets/js/custom/utilities/modals/upgrade-plan.js')}}"></script>
     <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}"></script>
 
-    {{-- <script src="{{ asset('js/jquery-3.6.0.min') }}"></script>
+    {{--
+    <script src="{{ asset('js/jquery-3.6.0.min') }}"></script>
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script> --}}
 

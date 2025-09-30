@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Order;
 use Stripe\Stripe;
+use Illuminate\Support\Facades\Auth;
 use Stripe\PaymentIntent;
 class StripeController extends Controller
 {
@@ -87,6 +88,12 @@ class StripeController extends Controller
   'metadata' => ['order_id' => $order->id],
 ]);
 
+        if (Auth::check()) {
+            $username = Auth::user()->name;
+        } else {
+            $username = 'Guest'; // أو أي قيمة افتراضية
+        }
+
     return view('users.customer.payment', compact(
   'order',
  'items',
@@ -94,7 +101,8 @@ class StripeController extends Controller
             'taxAmount',
             'total',
             'productDiscount',
-            'discount'
+            'discount',
+            'username'
             ));
 }
 
