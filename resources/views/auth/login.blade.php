@@ -38,7 +38,21 @@
 </head>
 
 <body>
-    <div class="overlay"></div>
+    <div class="overlay">
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-3 shadow" role="alert"
+                style="z-index: 9999; min-width: 250px;">
+                <strong>خطأ!</strong>
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+
     <div class="login-wrap">
         <div class="login-html">
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">تسجيل
@@ -50,11 +64,14 @@
 
 
             <div class="login-form">
+
+
+
                 <!-- نموذج تسجيل الدخول -->
                 <div class="sign-in-htm">
 
                     <div class="group text-center">
-                        <a href="#">
+                        <a href="{{ route('guest.main-page') }}">
                             <img src="{{ asset('assets2/images/logo/logo.svg') }}" alt="">
 
                         </a>

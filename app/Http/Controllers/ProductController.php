@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\ProductVariant;
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Product;
-use App\Models\ProductAttribute;
-use App\Models\ProductAttributeValue;
+use App\Models\Category;
 use App\Models\Subcategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
+use \App\Models\ProductVariant;
+use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ProductAttributeValue;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -36,7 +37,8 @@ class ProductController extends Controller
 
         $attributes = ProductAttribute::all();
         $categories = Category::all();
-        return view('users.vendor.Product.create', compact('categories', 'attributes'));
+        $users = User::all();
+        return view('users.vendor.Product.create', compact('categories', 'attributes','users'));
     }
 
     /**

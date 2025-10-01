@@ -122,7 +122,7 @@
         <p>مرساتك الآمنة لمشترياتك - التسوق الآمن مع أريحية الشراء</p>
         @guest
             <div class="hero-buttons">
-                <button class="hero-button" onclick="openModal2()">أنشئ حساب</button>
+                <button class="hero-button"> <a href="{{ route('login') }}" style="color: white">أنشئ حساب</a> </button>
                 <button class=" hero-button" onclick="openModal()">تسجيل دخول</button>
             </div>
         @endguest
@@ -197,90 +197,7 @@
 
                     @endforeach
 
-                    {{-- <div class="product-card" data-id="2">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
-                    <div class="product-card" data-id="3">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
-                    <div class="product-card" data-id="4">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
-                    <div class="product-card" data-id="5">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يومين</div>
-                    </div>
-                    <div class="product-card" data-id="6">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ شهر</div>
-                    </div>
-                    <div class="product-card" data-id="7">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ ساعة</div>
-                    </div> --}}
+
                 </div>
             </div>
         </section>
@@ -327,101 +244,12 @@
                                     @endforeach
                                 </div>
 
-
-
                             </div>
                             <!-- End Single Category -->
                         </div>
                     @endforeach
                 </div>
 
-
-                {{-- <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">الموضة</h3>
-                        <ul>
-                            <li><a href="product-grids.html" style="color: white;">Men's Clothing</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Women's Clothing</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Shoes</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Bags & Backpacks</a></li>
-                            <li><a href="product-grids.html" style="color: white;">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img alt="#" src="{{asset('assets2/images/fashion.jpg')}}" />
-                        </div>
-                    </div>
-                    <!-- End Single Category -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">البيت & المطبخ</h3>
-                        <ul>
-                            <li><a href="product-grids.html" style="color: white;">Furniture</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Kitchen Appliances</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Cookware & Utensils</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Home Decor</a></li>
-                            <li><a href="product-grids.html" style="color: white;">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img alt="#" src="{{asset('assets2/images/home&kitchen.jpg')}}" />
-                        </div>
-                    </div>
-                    <!-- End Single Category -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">الجمال & العناية بالنفس</h3>
-                        <ul>
-                            <li><a href="product-grids.html" style="color: white;">Skincare</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Makeup</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Hair Care</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Fragrances</a></li>
-                            <li><a href="product-grids.html" style="color: white;">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img alt="#" src="{{asset('assets2/images/Beauty & Personal Care.jpg')}}" />
-                        </div>
-                    </div>
-                    <!-- End Single Category -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">ألعاب</h3>
-                        <ul>
-                            <li><a href="product-grids.html" style="color: white;">Educational Toys</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Action Figures</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Puzzles & Board Games</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Stuffed Animals</a></li>
-                            <li><a href="product-grids.html" style="color: white;">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img alt="#" src="{{asset('assets2/images/gmaes.jpg')}}" />
-                        </div>
-                    </div> --}}
-                    <!-- End Single Category -->
-                    {{--
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Category -->
-                    <div class="single-category">
-                        <h3 class="heading">الصحة</h3>
-                        <ul>
-                            <li><a href="product-grids.html" style="color: white;">Vitamins & Supplements</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Medical Equipment</a></li>
-                            <li><a href="product-grids.html" style="color: white;">First Aid Supplies</a></li>
-                            <li><a href="product-grids.html" style="color: white;">Personal Care</a></li>
-                            <li><a href="product-grids.html" style="color: white;">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img alt="#" src="{{asset('assets2/images/Health & Wellness.jpg')}}" />
-                        </div>
-                    </div>
-                    <!-- End Single Category -->
-                </div> --}}
             </div>
     </div>
     </section>
@@ -491,90 +319,7 @@
                         </div>
 
                     @endforeach
-                    {{-- <div class="product-card" data-id="2">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div>
-                    {{-- <div class="product-card" data-id="1">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div> --}}
-                    {{-- <div class="product-card" data-id="1">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div> --}}
-                    {{-- <div class="product-card" data-id="1">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div> --}}
-                    {{-- <div class="product-card" data-id="3">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div> --}}
-                    {{-- <div class="product-card" data-id="4">
-                        <img alt="منتج" src="{{asset('img/Group 2.png')}}" />
-                        <div class="title">سماعات بلوتوث</div>
-                        <span class="category">Camera</span>
-                        <div class="price" data-symbol="$">$15.00</div>
-                        <div class="rating">★★★★★</div>
-                        <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                        <div class="actions">
-                            <button class="btn-cart">شراء الآن</button>
-                            {{-- <i class="fa-solid fa-heart btn-fav"></i>
-                            <i class="fa-solid fa-cart-shopping cart"></i>
-                        </div>
-                        <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-                    </div> --}}
+
                 </div>
             </div>
         </section>
@@ -1164,9 +909,15 @@
                 <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
             </a>
 
+            <a class="user-item" href="{{ route('customer.orders.show') }}">
+                <i class="fa-solid fa-box fa-lg me-2"></i>&nbsp; طلباتك
+            </a>
+
             <a class="user-item" href="#">
                 <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
             </a>
+
+
 
             <form method="POST" action="{{ route('logout') }}" class="m-0">
                 @csrf

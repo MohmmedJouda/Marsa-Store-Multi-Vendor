@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\CartItem;
 use App\Models\Category;
@@ -17,6 +18,36 @@ class CustomerController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+    {
+        $latest = Product::where('status','active')->with('store.user','subcategory','ratings')->latest()->take(7)->get();
+        $mostOrdereds = Product::where('status', 'active')
+        ->with('store.user', 'subcategory', 'images','ratings') // جلب العلاقات
+        ->withCount('orderItems')                     // يحسب عدد مرات الطلب
+        ->orderByDesc('order_items_count')           // ترتيب حسب الأكثر طلبًا
+        ->take(7)                                     // أعلى 7 منتجات
+        ->get();
+
+        $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
+        ->where('status', 'open')->get();
+
+        $totalPrice = 0;
+        $categories = Category::with('subcategories')->get();
+
+        foreach ($carts as $cart) {
+            foreach ($cart->items as $item) {
+                $totalPrice += $item->qty * $item->product->price;
+            }
+        }
+
+    if (Auth::check()) {
+        $username = Auth::user()->name;
+    } else {
+        $username = 'Guest'; // أو أي قيمة افتراضية
+    }
+        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories','username','mostOrdereds'));
+    }
+
+        public function guest()
     {
         $latest = Product::where('status','active')->with('store.user','subcategory','ratings')->latest()->take(7)->get();
         $mostOrdereds = Product::where('status', 'active')
@@ -194,6 +225,27 @@ class CustomerController extends Controller
         return view('users.customer.store',compact('store','products','carts','totalPrice','categories','username','averageRate'));
     }
     
+    public function orders_show(Order $order){
+        $orders = Order::with('items.product.images')->where('user_id', Auth::id())->get();
+        return view('users.customer.orders',compact('orders'));
+    }
+
+
+     public function cancel(Order $order)
+    {
+        if(!in_array($order->status, ['delivered','refunded'])) {
+            $order->update(['status' => 'cancelled']);
+        }
+        return back();
+    }
+
+    public function refund(Order $order)
+    {
+        if($order->status === 'delivered') {
+            $order->update(['status' => 'refunded']);
+        }
+        return back();
+    }
     public function create()
     {
         //

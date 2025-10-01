@@ -30,10 +30,6 @@ class ModeratorController extends Controller
         return view('users.moderator.create');
     }
 
-
-
-
-
     public function store(Request $request)
     {
         $validator = Validator($request->all(), [

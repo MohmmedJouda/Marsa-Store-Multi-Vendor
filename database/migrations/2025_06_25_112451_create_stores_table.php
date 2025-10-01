@@ -20,7 +20,6 @@ return new class extends Migration
         $table->string('logo')->nullable();
         $table->string('phone')->nullable();
         $table->string('address')->nullable();
-        $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
         $table->timestamps();
         $table->softDeletes();
 

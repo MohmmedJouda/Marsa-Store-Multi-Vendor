@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 // implements MustVerifyEmail
 {
     use HasApiTokens;
@@ -87,10 +87,10 @@ class User extends Authenticatable
         ];
     }
 
-            public function comment()
-    {
-        return $this->hasMany(Comment::class);
-    }
+    //         public function comment()
+    // {
+    //     return $this->hasMany(comment::class);
+    // }
 
 
         public function productRatings()
@@ -103,5 +103,9 @@ class User extends Authenticatable
         return $this->hasMany(StoreRating::class);
     }
 
+    public function vendorDocuments()
+{
+    return $this->hasMany(VendorDocument::class, 'user_id');
+}
 
 }

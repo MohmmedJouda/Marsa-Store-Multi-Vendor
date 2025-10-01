@@ -30,26 +30,38 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * تعريف مسار إعادة التوجيه بعد تسجيل الدخول
      */
-    protected function defineLoginRedirectRoute(): void
-    {
-        Route::middleware('web')->get('/redirect-after-login', function () {
-            $user = Auth::user();
+protected function defineLoginRedirectRoute(): void
+{
+    Route::middleware('web')->get('/redirect-after-login', function () {
+    $user = Auth::user();
 
-            if (!$user) {
-                // إعادة توجيه افتراضي إذا لم يكن هناك مستخدم
-                return redirect('/login');
-            }
-
-            // التوجيه حسب دور المستخدم
-            return match ($user->role) {
-                'vendor' => redirect()->route('vendor.categories.index'),
-                'customer' => redirect()->route('customer.main-page'),
-                'moderator' => redirect()->route('moderator.dashboard'),
-                'super_admin' => redirect()->route('admin.dashboard'),
-                default => redirect()->route('customer.main-page'),
-            };
-        })->name('login.redirect');
+    if (!$user) {
+        return redirect('/login');
     }
+
+    // تحقق من حالة المستند فقط للمستخدم vendor
+    if ($user->role === 'vendor') {
+        $latestDoc = $user->documents()->latest()->first();
+        if ($latestDoc && in_array($latestDoc->status, ['pending', 'rejected'])) {
+            // لا نسمح له بالدخول إلى dashboard
+            Auth::logout(); // ✨ مهم لإزالة session
+            return redirect()->route('vendor.register.request', ['status' => $latestDoc->status]);
+        }
+        // approved
+        return redirect()->route('vendor.categories.index');
+    }
+
+    // توجيه باقي المستخدمين
+    return match ($user->role) {
+        'customer' => redirect()->route('customer.main-page'),
+        'moderator' => redirect()->route('moderator.dashboard'),
+        'super_admin' => redirect()->route('admin.dashboard'),
+        default => redirect()->route('main-page'),
+    };
+})->name('login.redirect');
+
+}
+
 
     /**
      * تعريف التوجيه بعد تسجيل الخروج

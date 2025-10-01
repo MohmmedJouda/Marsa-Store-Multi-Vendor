@@ -20,6 +20,14 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\StoreCommentController;
 use App\Http\Controllers\ProductRatingController;
 use App\Http\Controllers\ProductCommentController;
+use App\Http\Middleware\CheckVendorDocument;
+
+Route::middleware(['auth', CheckVendorDocument::class])->group(function () {
+    Route::get('/vendor/dashboard', [VendorController::class, 'dashboard'])
+        ->name('vendor.dashboard');
+
+    // أي Route أخرى خاصة بالتاجر يمكنك وضعها هنا
+});
 
 
 
@@ -53,7 +61,8 @@ Route::middleware([
     'verified',
     'role:customer'
 ])->prefix('customer')->name('customer.')->group(function () {
-    
+        Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page'); 
+
     Route::get('/cart',        [CartItemController::class, 'index'])->name('cart.index');
     Route::post('/cart/add',   [CartItemController::class, 'add'])->name('cart.add');
     Route::patch('/cart/{id}', [CartItemController::class, 'update'])->name('cart.update');
@@ -78,18 +87,23 @@ Route::middleware([
     Route::get('/checkout/{order}', [StripeController::class, 'index'])->name('payment.index');
     Route::post('/checkout/process', [StripeController::class, 'process'])
         ->middleware('auth')->name('checkout.process');
-    Route::get('checkout/success/{order}', [StripeController::class, 'checkoutSuccess'])
-        ->name('checkout.success');
+    Route::get('/checkout/success/{order}', [StripeController::class, 'checkoutSuccess'])->name('checkout.success');
     Route::post('/stripe/webhook', [StripeController::class, 'handle'])->name('stripe.webhook');
 
     Route::get('/contact-us/',function(){
         return view('users.customer.contact');
     })->name('contact');
 
+    Route::get('/orders', [CustomerController::class, 'orders_show'])->name('orders.show');
+    // routes/web.php
+    Route::patch('/orders/{order}/cancel', [CustomerController::class, 'cancel'])->name('orders.cancel');
+    Route::patch('/orders/{order}/refund', [CustomerController::class, 'refund'])->name('orders.refund');
+    // Route::get('/complaints/{product}/create', [ComplaintController::class, 'create'])->name('complaints.create');
+
 });
+    Route::get('/main-page', [CustomerController::class, 'guest'])->middleware('guest')->name('guest.main-page'); 
 
 Route::prefix('customer')->name('customer.')->group(function () {
-    Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page'); 
 
 Route::get('/product/{id}', [CustomerController::class, 'product_show'])->name('product.show'); 
     Route::get('/products-customer', [CustomerController::class, 'product_index'])->name('products.index'); 
@@ -103,12 +117,15 @@ Route::get('/product/{id}', [CustomerController::class, 'product_show'])->name('
 });
 
 
+
+
 // Routes for vendor
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'role:vendor', // التأكد من أن المستخدم له صلاحية 'vendor'
+    'role:vendor',
+    // \App\Http\Middleware\VerifiedVendor::class, // التأكد من أن المستخدم له صلاحية 'vendor'
 ])->prefix('vendor')->name('vendor.')->group(function () {
     // التوجيه إلى لوحة التحكم الخاصة بالتاجر
     Route::get('/dashboard', function () {
@@ -129,7 +146,12 @@ Route::middleware([
 
 
 
+Route::get('vendor/register-request/{status}', function($status){
+    return view('users.vendor.registerOrderSuccess', compact('status'));
+})->name('vendor.register.request');
 
+
+Route::get('vendor/status-request',[VendorAuthController::class,'documentStatus'])->name('vendor.status');
 
 Route::get('/get-subcategories', [ProductController::class, 'getSubcategories'])->name('getSubcategories');
 
@@ -163,6 +185,7 @@ Route::middleware([
     Route::delete('/vendor/trashed/{id}', [ModeratorController::class, 'forceDelete'])->name('forceDelete');
     // routes/web.php
     Route::get('/vendors/search', [ModeratorController::class, 'ajaxSearch'])->name('vendors.ajaxSearch');
+    Route::patch('/vendor-documents/{document}/status', [VendorAuthController::class, 'updateStatus'])->name('vendor-documents.updateStatus');
 
     // Customer
     // Route::get('/{role}', [ModeratorController::class, 'indexByRole'])->name('customer');

@@ -15,8 +15,8 @@
                     <!-- Product Name and Status next to each other -->
                     <div class="form-group col-md-6 mt-3">
                         <label for="name">Product Name</label>
-                        <input type="text" name="name" id="name" class="form-control"
-                            placeholder="Enter product name" required>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter product name"
+                            required>
                     </div>
 
                     <div class="form-group col-md-6 mt-3">
@@ -30,7 +30,8 @@
                     <!-- Description below Name and Status -->
                     <div class="form-group col-md-6 mt-3">
                         <label for="description">Description</label>
-                        <textarea name="description" id="description" class="form-control" placeholder="Enter product description" required></textarea>
+                        <textarea name="description" id="description" class="form-control"
+                            placeholder="Enter product description" required></textarea>
                     </div>
 
                     <!-- Discount -->
@@ -43,8 +44,8 @@
                     <!-- Price -->
                     <div class="form-group col-md-6 mt-3">
                         <label for="price">Price ($)</label>
-                        <input type="number" name="price" id="price" class="form-control"
-                            placeholder="Enter product price" step="0.01" required>
+                        <input type="number" name="price" id="price" class="form-control" placeholder="Enter product price"
+                            step="0.01" required>
                     </div>
 
                     <!-- Stock -->
@@ -68,8 +69,8 @@
                     <!-- Additional images field beside main image field -->
                     <div class="form-group col-md-6 mt-3">
                         <label for="additional_images">Select Product Images</label>
-                        <input type="file" name="additional_images[]" id="additional_images" class="form-control"
-                            multiple required>
+                        <input type="file" name="additional_images[]" id="additional_images" class="form-control" multiple
+                            required>
                         <small class="form-text text-muted">
                             Hold down the <strong>Ctrl</strong> (Windows) or <strong>Command</strong> (Mac) key to select
                             multiple images.
@@ -97,7 +98,8 @@
                             @foreach ($categories as $category)
                                 @foreach ($category->subcategories as $subcategory)
                                     <option value="{{ $subcategory->id }}" data-category-id="{{ $category->id }}">
-                                        {{ $subcategory->name }}</option>
+                                        {{ $subcategory->name }}
+                                    </option>
                                 @endforeach
                             @endforeach
                             <option value="other">Other</option>
@@ -135,8 +137,7 @@
                                 </div>
 
                                 <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                    <label for="attributes[{{ $index }}][values][]"
-                                        class="mt-3 form-label">Value</label>
+                                    <label for="attributes[{{ $index }}][values][]" class="mt-3 form-label">Value</label>
                                     <input type="text" name="attributes[{{ $index }}][values][]"
                                         class="form-control attribute-value mb-2" placeholder="Value" required>
                                 </div>
@@ -155,9 +156,17 @@
                     التركيبات</button>
                 <div id="variant-container"></div>
 
-                <button type="button" onclick="createProduct()" id="add-product-btn"
-                    class="btn btn-primary mt-5">Create
-                    Product</button>
+                {{-- <button type="button" onclick="createProduct()" id="add-product-btn" class="btn btn-primary mt-5" @php
+                    use Illuminate\Support\Facades\Auth; if (auth::user()->status == 'pending') {
+                    echo 'disabled';
+                    }
+                    @endphp>
+                    Create
+                    Product</button> --}}
+                <button type="button" onclick="createProduct()" id="add-product-btn" class="btn btn-primary mt-5"
+                    @if(auth()->user()->store->status != 'pending') disabled @endif>
+                    Create Product </button>
+
             </form>
         </div>
     </div>
@@ -201,12 +210,12 @@
     <script src="{{ asset('js/crud.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // تعطيل حقل Subcategory عند تحميل الصفحة
             $('#subcategory_id').prop('disabled', true);
 
             // جلب الفئات الفرعية عند اختيار فئة
-            $('#category_id').change(function() {
+            $('#category_id').change(function () {
                 var categoryId = $(this).val();
 
                 if (!categoryId) {
@@ -221,10 +230,10 @@
                         data: {
                             category_id: categoryId
                         },
-                        success: function(response) {
+                        success: function (response) {
                             $('#subcategory_id').empty().append(
                                 '<option value="">Select SubCategory</option>');
-                            $.each(response.subcategories, function(key, subcategory) {
+                            $.each(response.subcategories, function (key, subcategory) {
                                 $('#subcategory_id').append('<option value="' +
                                     subcategory.id + '">' + subcategory.name +
                                     '</option>');
@@ -236,52 +245,52 @@
             });
 
             // عرض حقل إضافة subcategory جديد
-            $('#subcategory_id').on('change', function() {
+            $('#subcategory_id').on('change', function () {
                 $('#other_subcategory_field').toggle($(this).val() === 'other');
             });
 
             // التعامل مع السمات الأولى التي تم تحميلها من الخادم
-            $('#add-attribute').click(function() {
+            $('#add-attribute').click(function () {
                 const newAttributeIndex = $('.attribute').length; // تحديد الفهرس للسمات المضافة
 
                 const field = `
-                    <div class="col-md-4 mb-4">
-                        <div class="attribute p-3 border rounded shadow-sm">
-                            <div class="form-group mb-3">
-                                <label for="attributes" class="form-label">Attribute Name</label>
-                                <input type="text" name="attributes[${newAttributeIndex}][name]" class="form-control attribute-name mb-2" placeholder="Attribute name" required>
-                            </div>
+                                                                        <div class="col-md-4 mb-4">
+                                                                            <div class="attribute p-3 border rounded shadow-sm">
+                                                                                <div class="form-group mb-3">
+                                                                                    <label for="attributes" class="form-label">Attribute Name</label>
+                                                                                    <input type="text" name="attributes[${newAttributeIndex}][name]" class="form-control attribute-name mb-2" placeholder="Attribute name" required>
+                                                                                </div>
 
-                            <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
-                                <input type="text" name="attributes[${newAttributeIndex}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
-                            </div>
+                                                                                <div class="value-container mb-3 p-3 border rounded shadow-sm">
+                                                                                    <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
+                                                                                    <input type="text" name="attributes[${newAttributeIndex}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
+                                                                                </div>
 
-                            <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100" data-attribute-index="${newAttributeIndex}">Add Value</button>
-                        </div>
-                    </div>`;
+                                                                                <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100" data-attribute-index="${newAttributeIndex}">Add Value</button>
+                                                                            </div>
+                                                                        </div>`;
                 $('#attribute-container').append(field); // إضافة السمة إلى الـ DOM
             });
 
             // زر إضافة قيمة جديدة لكل سمة
-            $(document).on('click', '.add-value', function() {
+            $(document).on('click', '.add-value', function () {
                 const index = $(this).data('attribute-index');
                 const newValue = `
-                    <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                        <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
-                        <input type="text" name="attributes[${index}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
-                    </div>`;
+                                                                        <div class="value-container mb-3 p-3 border rounded shadow-sm">
+                                                                            <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
+                                                                            <input type="text" name="attributes[${index}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
+                                                                        </div>`;
                 $(this).before(newValue); // إضافة الحقل الجديد قبل الزر
             });
 
             // توليد التركيبات عند الضغط على "توليد التركيبات"
-            window.generateVariants = function() {
+            window.generateVariants = function () {
                 const attributes = {};
 
                 // جمع السمات والقيم المدخلة
-                $('.attribute').each(function() {
+                $('.attribute').each(function () {
                     const name = $(this).find('.attribute-name').val().trim();
-                    const values = $(this).find('.attribute-value').map(function() {
+                    const values = $(this).find('.attribute-value').map(function () {
                         return $(this).val().trim();
                     }).get().filter(Boolean);
 
@@ -292,46 +301,46 @@
 
 
 
-//                document.addEventListener('click', function (event) {
-//     if (event.target && event.target.classList.contains('add-value')) {
-//         const button = event.target;
-//         const attributeIndex = button.getAttribute('data-attribute-index');
-//         const attributeNameInput = document.querySelector(`[name="attributes[${attributeIndex}][name]"]`);
-//         const attributeValueInputs = document.querySelectorAll(`[name="attributes[${attributeIndex}][values][]"]`);
+                //                document.addEventListener('click', function (event) {
+                //     if (event.target && event.target.classList.contains('add-value')) {
+                //         const button = event.target;
+                //         const attributeIndex = button.getAttribute('data-attribute-index');
+                //         const attributeNameInput = document.querySelector(`[name="attributes[${attributeIndex}][name]"]`);
+                //         const attributeValueInputs = document.querySelectorAll(`[name="attributes[${attributeIndex}][values][]"]`);
 
-//         // التحقق من أن اسم السمة غير فارغ
-//         if (attributeNameInput.value.trim() === '') {
-//             alert('Attribute name must not be empty.');
-//             return;
-//         }
+                //         // التحقق من أن اسم السمة غير فارغ
+                //         if (attributeNameInput.value.trim() === '') {
+                //             alert('Attribute name must not be empty.');
+                //             return;
+                //         }
 
-//         // التحقق من وجود قيمة واحدة على الأقل
-//         let isValueFilled = false;
-//         attributeValueInputs.forEach(input => {
-//             if (input.value.trim() !== '') {
-//                 isValueFilled = true;
-//             }
-//         });
+                //         // التحقق من وجود قيمة واحدة على الأقل
+                //         let isValueFilled = false;
+                //         attributeValueInputs.forEach(input => {
+                //             if (input.value.trim() !== '') {
+                //                 isValueFilled = true;
+                //             }
+                //         });
 
-//         if (!isValueFilled) {
-//             alert('At least one attribute value must be entered.');
-//             return;
-//         }
+                //         if (!isValueFilled) {
+                //             alert('At least one attribute value must be entered.');
+                //             return;
+                //         }
 
-//         // إنشاء حقل جديد للقيمة
-//         const newValueContainer = document.createElement('div');
-//         newValueContainer.classList.add('value-container', 'mb-3', 'p-3', 'border', 'rounded', 'shadow-sm');
+                //         // إنشاء حقل جديد للقيمة
+                //         const newValueContainer = document.createElement('div');
+                //         newValueContainer.classList.add('value-container', 'mb-3', 'p-3', 'border', 'rounded', 'shadow-sm');
 
-//         const newValueInput = document.createElement('input');
-//         newValueInput.setAttribute('type', 'text');
-//         newValueInput.setAttribute('name', `attributes[${attributeIndex}][values][]`);
-//         newValueInput.classList.add('form-control', 'attribute-value', 'mb-2');
-//         newValueInput.setAttribute('placeholder', 'Value');
-//         newValueContainer.appendChild(newValueInput);
+                //         const newValueInput = document.createElement('input');
+                //         newValueInput.setAttribute('type', 'text');
+                //         newValueInput.setAttribute('name', `attributes[${attributeIndex}][values][]`);
+                //         newValueInput.classList.add('form-control', 'attribute-value', 'mb-2');
+                //         newValueInput.setAttribute('placeholder', 'Value');
+                //         newValueContainer.appendChild(newValueInput);
 
-//         button.parentNode.appendChild(newValueContainer);
-//     }
-// });
+                //         button.parentNode.appendChild(newValueContainer);
+                //     }
+                // });
 
 
 
@@ -348,31 +357,31 @@
 
                     // إضافة كل تركيبة إلى الحاوية
                     container.insertAdjacentHTML('beforeend', `
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="variant-item p-3 mb-3 border rounded shadow-sm variant-row" data-attributes='${JSON.stringify(combo)}'>
-                                    <p>${comboText}</p>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="variant-item p-3 mb-3 border rounded shadow-sm variant-row" data-attributes='${JSON.stringify(combo)}'>
+                                                                                        <p>${comboText}</p>
 
-                                    <!-- حقل السعر -->
-                                    <div class="form-group mb-2">
-                                        <label>Price</label>
-                                        <input type="number" class="form-control variant-price" placeholder="Variant Price" step="0.01" required>
-                                    </div>
+                                                                                        <!-- حقل السعر -->
+                                                                                        <div class="form-group mb-2">
+                                                                                            <label>Price</label>
+                                                                                            <input type="number" class="form-control variant-price" placeholder="Variant Price" step="0.01" required>
+                                                                                        </div>
 
-                                    <!-- حقل الكمية -->
-                                    <div class="form-group mb-2">
-                                        <label>Quantity</label>
-                                        <input type="number" class="form-control variant-quantity" placeholder="Variant Quantity" required>
-                                    </div>
+                                                                                        <!-- حقل الكمية -->
+                                                                                        <div class="form-group mb-2">
+                                                                                            <label>Quantity</label>
+                                                                                            <input type="number" class="form-control variant-quantity" placeholder="Variant Quantity" required>
+                                                                                        </div>
 
-                                    <!-- حقل الصورة -->
-                                    <div class="form-group mb-2">
-                                        <label>Image</label>
-                                        <input type="file" class="form-control variant-image" accept="image/*">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`);
+                                                                                        <!-- حقل الصورة -->
+                                                                                        <div class="form-group mb-2">
+                                                                                            <label>Image</label>
+                                                                                            <input type="file" class="form-control variant-image" accept="image/*">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>`);
                 });
             }
 
@@ -386,12 +395,12 @@
 
                 function helper(index, current) {
                     if (index === keys.length) {
-                        combinations.push({...current});
+                        combinations.push({ ...current });
                         return;
                     }
                     const key = keys[index];
                     attributes[key].forEach(value => {
-                        helper(index + 1, {...current, [key]: value});
+                        helper(index + 1, { ...current, [key]: value });
                     });
                 }
                 helper(0, {});
@@ -399,7 +408,7 @@
             }
 
             // إرسال البيانات بـ AJAX
-            document.getElementById('create_product').addEventListener('submit', function(e) {
+            document.getElementById('create_product').addEventListener('submit', function (e) {
                 e.preventDefault();
 
                 const form = e.target;
@@ -437,12 +446,12 @@
                 });
 
                 fetch("{{ route('vendor.products.store') }}", {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                    })
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
                     .then(res => res.json())
                     .then(data => {
                         alert(data.message);
@@ -461,104 +470,99 @@
     <script>
         function createProduct() {
 
-    const form = document.getElementById("create_product");
-    const formData = new FormData(form);
+            const form = document.getElementById("create_product");
+            const formData = new FormData(form);
 
-    // ✅ التحقق من الحقول قبل الإرسال
-    const attributes = [];
-    let validationFailed = false;
-    let errorMessage = "";
+            // ✅ التحقق من الحقول قبل الإرسال
+            const attributes = [];
+            let validationFailed = false;
+            let errorMessage = "";
 
-    document.querySelectorAll('.attribute').forEach((block, idx) => {
-        const name = block.querySelector('.attribute-name').value.trim();
-        const valueInputs = block.querySelectorAll('.attribute-value');
+            document.querySelectorAll('.attribute').forEach((block, idx) => {
+                const name = block.querySelector('.attribute-name').value.trim();
+                const valueInputs = block.querySelectorAll('.attribute-value');
 
-        const values = Array.from(valueInputs)
-            .map(i => i.value.trim())
-            .filter(v => v !== "");
+                const values = Array.from(valueInputs)
+                    .map(i => i.value.trim())
+                    .filter(v => v !== "");
 
-        // 🔴 الحالة 1: اسم موجود لكن ما في قيم
-        if (name !== "" && values.length === 0) {
-            validationFailed = true;
-            errorMessage = `Attribute #${idx + 1}: name entered but no values provided.`;
+                // 🔴 الحالة 1: اسم موجود لكن ما في قيم
+                if (name !== "" && values.length === 0) {
+                    validationFailed = true;
+                    errorMessage = `Attribute #${idx + 1}: name entered but no values provided.`;
+                }
+
+                // 🔴 الحالة 2: قيم موجودة لكن الاسم فارغ
+                if (name === "" && values.length > 0) {
+                    validationFailed = true;
+                    errorMessage = `Attribute #${idx + 1}: values entered but attribute name is missing.`;
+                }
+
+                attributes.push({ name, values });
+            });
+
+            if (validationFailed) {
+                alert(errorMessage);
+                return;
+            }
+
+            // 🟢 أضف السمات إلى FormData
+            formData.append('attributes', JSON.stringify(attributes));
+
+            // 🟢 إضافة التركيبات (variants)
+            document.querySelectorAll('.variant-row').forEach((row, i) => {
+                let attrs = {};
+                try {
+                    attrs = JSON.parse(row.dataset.attributes);
+                } catch (e) {
+                    console.error('Invalid JSON in variant attributes:', e);
+                    return;
+                }
+
+                formData.append(`variants[${i}][price]`, row.querySelector('.variant-price').value);
+                formData.append(`variants[${i}][quantity]`, row.querySelector('.variant-quantity').value);
+                formData.append(`variants[${i}][attributes]`, JSON.stringify(attrs));
+
+                const imageInput = row.querySelector('.variant-image');
+                if (imageInput && imageInput.files.length > 0) {
+                    formData.append(`variants[${i}][image]`, imageInput.files[0]);
+                }
+            });
+
+            // 🟢 تنفيذ الإرسال
+            store('/vendor/products', formData)
+                .then(() => {
+                    form.reset();
+                    console.log('done');
+                })
+                .catch(error => {
+                    console.error("error in reset data..", error);
+                });
         }
 
-        // 🔴 الحالة 2: قيم موجودة لكن الاسم فارغ
-        if (name === "" && values.length > 0) {
-            validationFailed = true;
-            errorMessage = `Attribute #${idx + 1}: values entered but attribute name is missing.`;
-        }
-
-        attributes.push({ name, values });
-    });
-
-    if (validationFailed) {
-        alert(errorMessage);
-        return;
-    }
-
-    // 🟢 أضف السمات إلى FormData
-    formData.append('attributes', JSON.stringify(attributes));
-
-    // 🟢 إضافة التركيبات (variants)
-    document.querySelectorAll('.variant-row').forEach((row, i) => {
-        let attrs = {};
-        try {
-            attrs = JSON.parse(row.dataset.attributes);
-        } catch (e) {
-            console.error('Invalid JSON in variant attributes:', e);
-            return;
-        }
-
-        formData.append(`variants[${i}][price]`, row.querySelector('.variant-price').value);
-        formData.append(`variants[${i}][quantity]`, row.querySelector('.variant-quantity').value);
-        formData.append(`variants[${i}][attributes]`, JSON.stringify(attrs));
-
-        const imageInput = row.querySelector('.variant-image');
-        if (imageInput && imageInput.files.length > 0) {
-            formData.append(`variants[${i}][image]`, imageInput.files[0]);
-        }
-    });
-
-    // 🟢 تنفيذ الإرسال
-    store('/vendor/products', formData)
-        .then(() => {
-            form.reset();
-            console.log('done');
-        })
-        .catch(error => {
-            console.error("error in reset data..", error);
-        });
-}
-
-</script>
-@endsection
-{{-- // <<<<<<< HEAD
-//         function createProduct() {
-//     const form = document.getElementById("create_product");
-//     const formData = new FormData(form);
-
-//     // عرض البيانات في الكونسول قبل إرسالها
-//     formData.forEach((value, key) => {
-//         console.log(`${key}: ${value}`);
-//     });
-
-//     // إرسال البيانات باستخدام دالة store() - AJAX
-//     store('/vendor/products', formData)
-//         .then(() => {
-//             // إعادة تعيين الفورم بعد النجاح
-//             form.reset();
-//             console.log('Data submitted successfully');
-//         })
-//         .catch(error => {
-//             // عرض الأخطاء إذا حدثت
-//             console.error("Error in resetting data..", error);
-//             console.log('Error occurred during data submission');
-//         });
-// }
-
-
-</script> --}}
-{{-- =======
     </script>
->>>>>>> fb599ce12ee098993aa02190a198f7fcb1cf3f84 --}}
+@endsection
+{{-- // <<<<<<< HEAD // function createProduct() { // const form=document.getElementById("create_product"); // const
+    formData=new FormData(form); // // عرض البيانات في الكونسول قبل إرسالها // formData.forEach((value, key)=> {
+    // console.log(`${key}: ${value}`);
+    // });
+
+    // // إرسال البيانات باستخدام دالة store() - AJAX
+    // store('/vendor/products', formData)
+    // .then(() => {
+    // // إعادة تعيين الفورم بعد النجاح
+    // form.reset();
+    // console.log('Data submitted successfully');
+    // })
+    // .catch(error => {
+    // // عرض الأخطاء إذا حدثت
+    // console.error("Error in resetting data..", error);
+    // console.log('Error occurred during data submission');
+    // });
+    // }
+
+
+    </script> --}}
+    {{-- =======
+    </script>
+    >>>>>>> fb599ce12ee098993aa02190a198f7fcb1cf3f84 --}}

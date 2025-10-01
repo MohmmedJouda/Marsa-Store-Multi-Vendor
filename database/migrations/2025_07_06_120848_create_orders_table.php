@@ -20,7 +20,7 @@ return new class extends Migration
         $table->integer('shipping_amount')->default('5');
         $table->integer('tax_amount')->default( 5);
         $table->decimal('total_amount', 10, 2)->nullable();
-        $table->string('currency')->default('usd');
+        $table->string('currency')->default('ils');
         $table->timestamps();
     });
     }
