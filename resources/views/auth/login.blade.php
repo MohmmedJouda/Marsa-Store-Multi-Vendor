@@ -59,14 +59,15 @@
                 الدخول</label>
             <input id="tab-3" type="radio" name="tab" class="sign-third">
             <label for="tab-3" class="tab">مشترٍ جديد</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"><a
-                    href="{{ route('vendor.register') }}">بائع جديد </a> </label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up">
 
+            <label for="tab-2" class="tab">
+                <a href="{{ route('vendor.register') }}">
+                    بائع جديد
+                </a>
+            </label>
 
             <div class="login-form">
-
-
-
                 <!-- نموذج تسجيل الدخول -->
                 <div class="sign-in-htm">
 

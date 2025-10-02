@@ -56,7 +56,7 @@ protected function defineLoginRedirectRoute(): void
         'customer' => redirect()->route('customer.main-page'),
         'moderator' => redirect()->route('moderator.dashboard'),
         'super_admin' => redirect()->route('admin.dashboard'),
-        default => redirect()->route('main-page'),
+        default => redirect()->route('guest.main-page'),
     };
 })->name('login.redirect');
 

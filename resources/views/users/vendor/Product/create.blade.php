@@ -163,8 +163,7 @@
                     @endphp>
                     Create
                     Product</button> --}}
-                <button type="button" onclick="createProduct()" id="add-product-btn" class="btn btn-primary mt-5"
-                    @if(auth()->user()->store->status != 'pending') disabled @endif>
+                <button type="button" onclick="createProduct()" id="add-product-btn" class="btn btn-primary mt-5">
                     Create Product </button>
 
             </form>
@@ -254,21 +253,21 @@
                 const newAttributeIndex = $('.attribute').length; // تحديد الفهرس للسمات المضافة
 
                 const field = `
-                                                                        <div class="col-md-4 mb-4">
-                                                                            <div class="attribute p-3 border rounded shadow-sm">
-                                                                                <div class="form-group mb-3">
-                                                                                    <label for="attributes" class="form-label">Attribute Name</label>
-                                                                                    <input type="text" name="attributes[${newAttributeIndex}][name]" class="form-control attribute-name mb-2" placeholder="Attribute name" required>
-                                                                                </div>
+                                                                                                <div class="col-md-4 mb-4">
+                                                                                                    <div class="attribute p-3 border rounded shadow-sm">
+                                                                                                        <div class="form-group mb-3">
+                                                                                                            <label for="attributes" class="form-label">Attribute Name</label>
+                                                                                                            <input type="text" name="attributes[${newAttributeIndex}][name]" class="form-control attribute-name mb-2" placeholder="Attribute name" required>
+                                                                                                        </div>
 
-                                                                                <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                                                                    <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
-                                                                                    <input type="text" name="attributes[${newAttributeIndex}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
-                                                                                </div>
+                                                                                                        <div class="value-container mb-3 p-3 border rounded shadow-sm">
+                                                                                                            <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
+                                                                                                            <input type="text" name="attributes[${newAttributeIndex}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
+                                                                                                        </div>
 
-                                                                                <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100" data-attribute-index="${newAttributeIndex}">Add Value</button>
-                                                                            </div>
-                                                                        </div>`;
+                                                                                                        <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100" data-attribute-index="${newAttributeIndex}">Add Value</button>
+                                                                                                    </div>
+                                                                                                </div>`;
                 $('#attribute-container').append(field); // إضافة السمة إلى الـ DOM
             });
 
@@ -276,10 +275,10 @@
             $(document).on('click', '.add-value', function () {
                 const index = $(this).data('attribute-index');
                 const newValue = `
-                                                                        <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                                                            <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
-                                                                            <input type="text" name="attributes[${index}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
-                                                                        </div>`;
+                                                                                                <div class="value-container mb-3 p-3 border rounded shadow-sm">
+                                                                                                    <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
+                                                                                                    <input type="text" name="attributes[${index}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
+                                                                                                </div>`;
                 $(this).before(newValue); // إضافة الحقل الجديد قبل الزر
             });
 
@@ -357,31 +356,31 @@
 
                     // إضافة كل تركيبة إلى الحاوية
                     container.insertAdjacentHTML('beforeend', `
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="variant-item p-3 mb-3 border rounded shadow-sm variant-row" data-attributes='${JSON.stringify(combo)}'>
-                                                                                        <p>${comboText}</p>
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-6">
+                                                                                                            <div class="variant-item p-3 mb-3 border rounded shadow-sm variant-row" data-attributes='${JSON.stringify(combo)}'>
+                                                                                                                <p>${comboText}</p>
 
-                                                                                        <!-- حقل السعر -->
-                                                                                        <div class="form-group mb-2">
-                                                                                            <label>Price</label>
-                                                                                            <input type="number" class="form-control variant-price" placeholder="Variant Price" step="0.01" required>
-                                                                                        </div>
+                                                                                                                <!-- حقل السعر -->
+                                                                                                                <div class="form-group mb-2">
+                                                                                                                    <label>Price</label>
+                                                                                                                    <input type="number" class="form-control variant-price" placeholder="Variant Price" step="0.01" required>
+                                                                                                                </div>
 
-                                                                                        <!-- حقل الكمية -->
-                                                                                        <div class="form-group mb-2">
-                                                                                            <label>Quantity</label>
-                                                                                            <input type="number" class="form-control variant-quantity" placeholder="Variant Quantity" required>
-                                                                                        </div>
+                                                                                                                <!-- حقل الكمية -->
+                                                                                                                <div class="form-group mb-2">
+                                                                                                                    <label>Quantity</label>
+                                                                                                                    <input type="number" class="form-control variant-quantity" placeholder="Variant Quantity" required>
+                                                                                                                </div>
 
-                                                                                        <!-- حقل الصورة -->
-                                                                                        <div class="form-group mb-2">
-                                                                                            <label>Image</label>
-                                                                                            <input type="file" class="form-control variant-image" accept="image/*">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>`);
+                                                                                                                <!-- حقل الصورة -->
+                                                                                                                <div class="form-group mb-2">
+                                                                                                                    <label>Image</label>
+                                                                                                                    <input type="file" class="form-control variant-image" accept="image/*">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>`);
                 });
             }
 
@@ -540,6 +539,27 @@
                 });
         }
 
+        let variantsGenerated = false;
+
+        function generateVariants() {
+            // هنا ضع الكود الخاص بتوليد التركيبات
+            console.log("تم توليد التركيبات");
+
+            // مثال: إضافة عناصر إلى div variant-container
+            document.getElementById('variant-container').innerHTML = "<p>تم إنشاء التركيبات!</p>";
+
+            variantsGenerated = true; // تحديث المتغير عند النقر
+        }
+
+        function createProduct() {
+            if (!variantsGenerated) {
+                alert('يجب الضغط على زر 🔄 توليد التركيبات أولاً!');
+                return; // يمنع الاستمرار
+            }
+
+            // إذا تم توليد التركيبات، يمكن إرسال الفورم
+            document.getElementById('productForm').submit();
+        }
     </script>
 @endsection
 {{-- // <<<<<<< HEAD // function createProduct() { // const form=document.getElementById("create_product"); // const

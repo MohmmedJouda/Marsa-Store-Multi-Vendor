@@ -26,102 +26,102 @@ public function run()
 
         // Subcategories for Electronics
         $electronics->subcategories()->createMany([
-            ['name' => 'هواتف و أجهزة لوحية', 'image' => 'images/iphone.png'],
-            ['name' => 'أجهزة لابتوب و كمبيوتر', 'image' => 'images/iphone.png'],
-            ['name' => 'سماعات', 'image' => 'images/iphone.png'],
-            ['name' => 'كاميرات', 'image' => 'images/iphone.png'],
-            ['name' => 'أجهزة التلفاز', 'image' => 'images/iphone.png'],
-            ['name' => 'أجهزة الالعاب', 'image' => 'images/iphone.png'],
-            ['name' => 'ملحقات', 'image' => 'images/iphone.png'],
+            ['name' => 'هواتف و أجهزة لوحية', 'image' => 'images/electronics.jpg'],
+            ['name' => 'أجهزة لابتوب و كمبيوتر', 'image' => 'images/electronics.jpg'],
+            ['name' => 'سماعات', 'image' => 'images/electronics.jpg'],
+            ['name' => 'كاميرات', 'image' => 'images/electronics.jpg'],
+            ['name' => 'أجهزة التلفاز', 'image' => 'images/electronics.jpg'],
+            ['name' => 'أجهزة الالعاب', 'image' => 'images/electronics.jpg'],
+            ['name' => 'ملحقات', 'image' => 'images/electronics.jpg'],
         ]);
 
 
         // Subcategories for Fashion
         $fashion->subcategories()->createMany([
-            ['name' => 'ملابس رجال', 'image' => 'images/iphone.png' ],
-            ['name' => 'ملابس نساء', 'image' => 'images/iphone.png' ],
-            ['name' => 'أحذية', 'image' => 'images/iphone.png'],
-            ['name' => 'حقائب', 'image' => 'images/iphone.png'],
-            ['name' => 'ساعات', 'image' => 'images/iphone.png'],
-            ['name' => 'نظارات شمسية', 'image' => 'images/iphone.png'],
-            ['name' => 'مجوهرات', 'image' => 'images/iphone.png'],
+            ['name' => 'ملابس رجال', 'image' => 'images/fashion.jpg' ],
+            ['name' => 'ملابس نساء', 'image' => 'images/fashion.jpg' ],
+            ['name' => 'أحذية', 'image' => 'images/fashion.jpg'],
+            ['name' => 'حقائب', 'image' => 'images/fashion.jpg'],
+            ['name' => 'ساعات', 'image' => 'images/fashion.jpg'],
+            ['name' => 'نظارات شمسية', 'image' => 'images/fashion.jpg'],
+            ['name' => 'مجوهرات', 'image' => 'images/fashion.jpg'],
         ]);
 
         // Subcategories for Home & Kitchen
         $home_kitchen->subcategories()->createMany([
-            ['name' => 'أثاث', 'image' => 'images/iphone.png'],
-            ['name' => 'أجهزة المطبخ', 'image' => 'images/iphone.png'],
-            ['name' => 'أدوات الطبخ والأواني', 'image' => 'images/iphone.png'],
-            ['name' => 'ديكور المنزل', 'image' => 'images/iphone.png'],
-            ['name' => 'إضاءة', 'image' => 'images/iphone.png'],
-            ['name' => 'مفروشات وبياضات', 'image' => 'images/iphone.png'],
-            ['name' => 'مستلزمات التنظيف', 'image' => 'images/iphone.png'],
+            ['name' => 'أثاث', 'image' => 'images/home&kitchen.jpg'],
+            ['name' => 'أجهزة المطبخ', 'image' => 'images/home&kitchen.jpg'],
+            ['name' => 'أدوات الطبخ والأواني', 'image' => 'images/home&kitchen.jpg'],
+            ['name' => 'ديكور المنزل', 'image' => 'images/home&kitchen.jpg'],
+            ['name' => 'إضاءة', 'image' => 'images/home&kitchen.jpg'],
+            ['name' => 'مفروشات وبياضات', 'image' => 'images/home&kitchen.jpg'],
+            ['name' => 'مستلزمات التنظيف', 'image' => 'images/home&kitchen.jpg'],
         ]);
 
         // Subcategories for Beauty & Personal Care
         $beauty->subcategories()->createMany([
-            ['name' => 'العناية بالبشرة', 'image' => 'images/iphone.png'],
-            ['name' => 'ماكياج', 'image' => 'images/iphone.png'],
-            ['name' => 'العناية بالشعر', 'image' => 'images/iphone.png'],
-            ['name' => 'العطور', 'image' => 'images/iphone.png'],
-            ['name' => 'العناية بالرجال', 'image' => 'images/iphone.png'],
-            ['name' => 'الاستحمام والجسم', 'image' => 'images/iphone.png'],
-            ['name' => 'الأدوات والملحقات', 'image' => 'images/iphone.png'],
+            ['name' => 'العناية بالبشرة', 'image' => 'images/Beauty & Personal Care.jpg'],
+            ['name' => 'ماكياج', 'image' => 'images/Beauty & Personal Care.jpg'],
+            ['name' => 'العناية بالشعر', 'image' => 'images/Beauty & Personal Care.jpg'],
+            ['name' => 'العطور', 'image' => 'images/Beauty & Personal Care.jpg'],
+            ['name' => 'العناية بالرجال', 'image' => 'images/Beauty & Personal Care.jpg'],
+            ['name' => 'الاستحمام والجسم', 'image' => 'images/Beauty & Personal Care.jpg'],
+            ['name' => 'الأدوات والملحقات', 'image' => 'images/Beauty & Personal Care.jpg'],
         ]);
 
         // Subcategories for Books & Stationery
         $books_stationery->subcategories()->createMany([
-            ['name' => 'اللوازم المدرسية', 'image' => 'images/iphone.png'],
-            ['name' => 'اللوازم المكتبية', 'image' => 'images/iphone.png'],
-            ['name' => 'كتب الخيال', 'image' => 'images/iphone.png'],
-            ['name' => 'كتب غير روائية', 'image' => 'images/iphone.png'],
-            ['name' => 'كتب الأطفال', 'image' => 'images/iphone.png'],
-            ['name' => 'الكتب التعليمية', 'image' => 'images/iphone.png'],
-            ['name' => 'لوازم فنية', 'image' => 'images/iphone.png'],
+            ['name' => 'اللوازم المدرسية', 'image' => 'images/books.jpg'],
+            ['name' => 'اللوازم المكتبية', 'image' => 'images/books.jpg'],
+            ['name' => 'كتب الخيال', 'image' => 'images/books.jpg'],
+            ['name' => 'كتب غير روائية', 'image' => 'images/books.jpg'],
+            ['name' => 'كتب الأطفال', 'image' => 'images/books.jpg'],
+            ['name' => 'الكتب التعليمية', 'image' => 'images/books.jpg'],
+            ['name' => 'لوازم فنية', 'image' => 'images/books.jpg'],
         ]);
 
         // Subcategories for Toys & Games
         $toys_games->subcategories()->createMany([
-            ['name' => 'ألعاب تعليمية', 'image' => 'images/iphone.png'],
-            ['name' => 'شخصيات الحركة', 'image' => 'images/iphone.png'],
-            ['name' => 'الألغاز وألعاب الطاولة', 'image' => 'images/iphone.png'],
-            ['name' => 'حيوانات محشوة', 'image' => 'images/iphone.png'],
-            ['name' => 'ألعاب خارجية', 'image' => 'images/iphone.png'],
-            ['name' => 'ألعاب التحكم عن بعد', 'image' => 'images/iphone.png'],
-            ['name' => 'كتل البناء', 'image' => 'images/iphone.png'],
+            ['name' => 'ألعاب تعليمية', 'image' => 'images/games.jpg'],
+            ['name' => 'شخصيات الحركة', 'image' => 'images/games.jpg'],
+            ['name' => 'الألغاز وألعاب الطاولة', 'image' => 'images/games.jpg'],
+            ['name' => 'حيوانات محشوة', 'image' => 'images/games.jpg'],
+            ['name' => 'ألعاب خارجية', 'image' => 'images/games.jpg'],
+            ['name' => 'ألعاب التحكم عن بعد', 'image' => 'images/games.jpg'],
+            ['name' => 'كتل البناء', 'image' => 'images/games.jpg'],
         ]);
 
         // Subcategories for Sports & Outdoors
         $sports_outdoors->subcategories()->createMany([
-            ['name' => 'معدات اللياقة البدنية', 'image' => 'images/iphone.png'],
-            ['name' => 'ملابس رياضية', 'image' => 'images/iphone.png'],
-            ['name' => 'الأحذية', 'image' => 'images/iphone.png'],
-            ['name' => 'التخييم', 'image' => 'images/iphone.png'],
-            ['name' => 'الدراجات الهوائية وملحقاتها', 'image' => 'images/iphone.png'],
-            ['name' => 'الرياضات المائية', 'image' => 'images/iphone.png'],
-            ['name' => 'الرياضات الجماعية', 'image' => 'images/iphone.png'],
+            ['name' => 'معدات اللياقة البدنية', 'image' => 'images/sport.jpeg'],
+            ['name' => 'ملابس رياضية', 'image' => 'images/sport.jpeg'],
+            ['name' => 'الأحذية', 'image' => 'images/sport.jpeg'],
+            ['name' => 'التخييم', 'image' => 'images/sport.jpeg'],
+            ['name' => 'الدراجات الهوائية وملحقاتها', 'image' => 'images/sport.jpeg'],
+            ['name' => 'الرياضات المائية', 'image' => 'images/sport.jpeg'],
+            ['name' => 'الرياضات الجماعية', 'image' => 'images/sport.jpeg'],
         ]);
 
         // Subcategories for Automotive
         $automotive->subcategories()->createMany([
-            ['name' => 'اكسسوارات السيارات', 'image' => 'images/iphone.png'],
-            ['name' => 'الزيوت والسوائل', 'image' => 'images/iphone.png'],
-            ['name' => 'إلكترونيات السيارات', 'image' => 'images/iphone.png'],
-            ['name' => 'الإطارات والعجلات', 'image' => 'images/iphone.png'],
-            ['name' => 'الأدوات والمعدات', 'image' => 'images/iphone.png'],
-            ['name' => 'التنظيف والتفصيل', 'image' => 'images/iphone.png'],
-            ['name' => 'قطع غيار الدراجات النارية', 'image' => 'images/iphone.png'],
+            ['name' => 'اكسسوارات السيارات', 'image' => 'images/cars.jpg'],
+            ['name' => 'الزيوت والسوائل', 'image' => 'images/cars.jpg'],
+            ['name' => 'إلكترونيات السيارات', 'image' => 'images/cars.jpg'],
+            ['name' => 'الإطارات والعجلات', 'image' => 'images/cars.jpg'],
+            ['name' => 'الأدوات والمعدات', 'image' => 'images/cars.jpg'],
+            ['name' => 'التنظيف والتفصيل', 'image' => 'images/cars.jpg'],
+            ['name' => 'قطع غيار الدراجات النارية', 'image' => 'images/cars.jpg'],
         ]);
 
         // Subcategories for Health & Wellness
         $health_wellness->subcategories()->createMany([
-            ['name' => 'الفيتامينات والمكملات الغذائية', 'image' => 'images/iphone.png'],
-            ['name' => 'المعدات الطبية', 'image' => 'images/iphone.png'],
-            ['name' => 'مستلزمات الإسعافات الأولية', 'image' => 'images/iphone.png'],
-            ['name' => 'العناية الشخصية', 'image' => 'images/iphone.png'],
-            ['name' => 'تسكين الألم', 'image' => 'images/iphone.png'],
-            ['name' => 'مراقبة الصحة', 'image' => 'images/iphone.png'],
-            ['name' => 'إدارة الوزن', 'image' => 'images/iphone.png'],
+            ['name' => 'الفيتامينات والمكملات الغذائية', 'image' => 'images/Health & Wellness.jpg'],
+            ['name' => 'المعدات الطبية', 'image' => 'images/Health & Wellness.jpg'],
+            ['name' => 'مستلزمات الإسعافات الأولية', 'image' => 'images/Health & Wellness.jpg'],
+            ['name' => 'العناية الشخصية', 'image' => 'images/Health & Wellness.jpg'],
+            ['name' => 'تسكين الألم', 'image' => 'images/Health & Wellness.jpg'],
+            ['name' => 'مراقبة الصحة', 'image' => 'images/Health & Wellness.jpg'],
+            ['name' => 'إدارة الوزن', 'image' => 'images/Health & Wellness.jpg'],
         ]);
     }
 }

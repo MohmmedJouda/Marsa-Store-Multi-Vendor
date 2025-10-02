@@ -1057,7 +1057,9 @@
         <a class="user-item" href="{{ route('profile.show') }}">
             <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
         </a>
-
+        <a class="user-item" href="{{ route('customer.orders.show') }}">
+            <i class="fa-solid fa-box fa-lg me-2"></i>&nbsp; طلباتك
+        </a>
         <a class="user-item" href="#">
             <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
         </a>

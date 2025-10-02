@@ -134,7 +134,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2 onclick="window.location.href='/product_page.html'">أخر المنتجات المعروضة حالياَ</h2>
+                        <h2>أخر المنتجات المعروضة حالياَ</h2>
                         <p>مرر للحصول على اخر ما أتيح في السوق</p>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2 onclick="window.location.href='/product_page.html'">المنتجات الأعلى طلبا </h2>
+                        <h2>المنتجات الأعلى طلبا </h2>
                         <p>مرر للحصول على أفضل المنتجات المتاحة في السوق</p>
                     </div>
                 </div>

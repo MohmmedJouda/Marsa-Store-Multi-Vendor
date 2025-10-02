@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المنتجات</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <title>اتصل بنا</title>
+    <link rel="stylesheet" href="{{asset('assets2/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets2/css/main.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <!-- Bootstrap -->
@@ -28,10 +28,10 @@
 
     <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link href="{{asset('assets2/css/bootstrap.min.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets2/css/tiny-slider.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets2/css/main.css')}}" rel="stylesheet" />
-    <link href="{{asset('style.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('assets2/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets2/css/tiny-slider.css')}}">
+    <link rel="stylesheet" href="{{asset('assets2/css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('style.css')}}">
 
 
 
@@ -43,8 +43,9 @@
     <header id="main-header" class="apple-header">
         <nav class="nav">
             <ul class="nav-list">
-                <li class="logoheader"><a href="{{ route('customer.main-page')}}"><img
-                            src="{{asset('assets2/images/logo/logo.svg')}}" /></a></li>
+                <li class="logoheader"><a href="{{ route('customer.main-page') }}"><img
+                            src="{{ asset('img/logo.svg') }}" class="apple-logo" /></a>
+                </li>
                 <li><a href="#">السوق العام</a>
                     <div class="dropdown-menu">
                         <a href="product_page.html"> السوق العام & المنتجات</a>
@@ -60,16 +61,25 @@
                     <a href="{{ route('customer.stores.index') }}">المتاجر</a>
 
                 </li>
-                </li>
                 <li><a href="#">المنتجات</a>
                     <div class="dropdown-menu">
+                        @php
+                            use App\Models\Category;
+
+                            $categories = Category::with('subcategories')->get();
+
+                            if (Auth::check()) {
+                                $username = Auth::user()->name;
+                            } else {
+                                $username = 'Guest'; // أو أي قيمة افتراضية
+                            }
+                        @endphp
                         @foreach ($categories as $category)
                             <a
                                 href="{{ route('customer.category_products.index', $category->id)}}">{{ $category->name }}</a>
                         @endforeach
                     </div>
                 </li>
-
                 <!-- <li><a href="#">الدعم الفني</a></li> -->
                 <li><a href="about-us.html">من نحن</a></li>
 
@@ -118,12 +128,14 @@
                 <i class="fa-solid fa-user"></i>
             </div>
         @endauth
-
         <div class="right">
             <i class="fa-solid fa-heart" id="fav-icon">
                 <span class="badge" id="fav-count">0</span>
             </i>
 
+            <i class="fa-solid fa-cart-shopping" id="cart-icon">
+                <span class="badge" id="cart-count">0</span>
+            </i>
         </div>
 
     </div>
@@ -136,13 +148,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">السوق العام و المنتجات</h1>
+                        <h1 class="page-title">تغذية رجعية </h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="{{ route('customer.main-page')}}"><i class="lni lni-home"></i> الرئيسية</a></li>
-                        <li> سلة المشتريات</li>
+                        <li><a href=" {{ route('customer.main-page') }}"><i class="lni lni-home"></i> الرئيسية</a></li>
+                        <li> تغذية رجعية </li>
                     </ul>
                 </div>
             </div>
@@ -150,109 +162,76 @@
     </div>
     <!-- End Breadcrumbs -->
 
-    <!-- Main Content -->
-    <main class="container py-5">
-        <div class="row">
-            <!-- Sidebar: Categories -->
-            <sidebar class="sidebar">
-                <h3>التصنيفات</h3>
-                <select id="category-filter">
-                    <option value="all">الكل</option>
-                    <option value="">الكترونيات</option>
-                    <option value="">موضة</option>
-                    <option value="">الجمال والعناية</option>
-                    <option value="">الكتب والقرطاسية</option>
-                    <option value="">الألعاب</option>
-                    <option value="">رياضة</option>
-                    <option value="">إكسسورات & ساعات</option>
-                    <option value="">مستلزمات صحية</option>
-                    <option value="">سيارات & مركبات</option>
-                    <option value="">أخرى</option>
-                </select>
+    <!-- Start Contact Area -->
+    <section id="contact-us" class="contact-us section">
+        <div class="container">
+            <div class="contact-head">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            @if($status === 'delivered')
+                                <h2>أعطنا رأيك</h2>
+                                <p style="color: black;">لقد تم تسليم طلبك بنجاح، يمكنك إعطائنا رأيك في المنتج حتى نتمكن من
+                                    تحسين خدماتنا.</p>
+                            @elseif($status === 'cancelled')
+                                <h2>تم إلغاء الطلب</h2>
+                                <p style="color: black;">تم إلغاء طلبك، لكن يمكنك مشاركتنا السبب أو رأيك لتحسين تجربتك
+                                    المستقبلية.</p>
+                            @elseif($status === 'refunded')
+                                <h2>تم استرجاع المبلغ</h2>
+                                <p style="color: black;">تمت عملية الاسترجاع بنجاح، يمكنك إعطائنا ملاحظاتك حول تجربتك مع
+                                    الطلب.</p>
+                            @else
+                                <h2>حالة الطلب غير معروفة</h2>
+                                <p style="color: black;">لا يمكن تحديد حالة طلبك، يرجى المحاولة لاحقًا.</p>
+                            @endif
+                        </div>
 
-                <h3>بحث</h3>
-                <input type="text" id="search-input" placeholder="ابحث عن منتج...">
-
-                <h3>تصفية <i class="fa-solid fa-filter"></i></h3>
-                <select id="sort-filter">
-                    <option value="default">الافتراضي</option>
-                    <option value="rating">الأعلى تقييماً</option>
-                    <option value="price-asc">من الأرخص</option>
-                    <option value="price-desc">من الأغلى</option>
-                    <option value="sales">الأكثر مبيعاً</option>
-                    <option value="sales">الأحدث - للأقدم</option>
-                </select>
-
-
-
-                <div class="single-widget range">
-                    <h3> قيمة السلع </h3>
-                    <input type="range" class="form-range" name="range" step="1" min="100" max="10000" value="10"
-                        onchange="rangePrimary.value=value">
-                    <div class="range-inner">
-                        <label style="margin-bottom: -45px; margin-right: -10px; display:flex ; ">$</label>
-                        <input type="text" id="rangePrimary" placeholder="100" />
                     </div>
                 </div>
-            </sidebar>
 
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
+                <div class="container" style=" display: flex; justify-content: center; align-items: center;">
+                    <div class="col-lg-8 col-md-12 col-12">
+                        <div class="contact-form-head">
+                            <div class="form-main">
+                                <form class="form" action="{{ route('customer.feedback.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                    <input type="hidden" name="status" value="{{ $status }}">
 
-            <!-- Product Grid -->
-            <section class="col-lg-9">
-                <div class="row">
-                    <!-- Product Card -->
-
-
-                    @foreach ($items as $item)
-
-                        <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="product-card" data-id="1">
-                                <a href="{{ route('customer.product.show', $item->id) }}">
-                                    <img alt="منتج"
-                                        src="{{asset('storage/' . $item->product->images()->where('is_main', true)->first()->image_path)}}"
-                                        onclick="window.location.href='/product_details.html'" />
-                                </a>
-                                <div class="title">{{ $item->name }} </div>
-                                {{-- <span class="category">{{ $item->subcategory->name }}</span> --}}
-                                <div class="price" data-symbol="$">Price: {{ $item->price }}</div>
-                                <div class="seller"></div>
-                                <div class="actions">
-                                    <button class="btn-cart"> <a style="color:white"
-                                            href="{{ route('customer.product.show', $item->id) }}">
-                                            شراء الان </a></button>
-                                    <form action="{{ route('customer.cart.remove', $item->id) }}" method="POST"
-                                        class="inline">
-                                        @csrf @method('DELETE')
-                                        <button class="delete" style="padding: 5px;background:red" title="حذف">
-                                            <i class="fa-solid fa-trash" style="padding:0px;margin:0%"></i></button>
-                                    </form>
-                                </div>
-
-                                <h6 data-time="2025-07-30T10:30:00Z" style="margin-top: 20px; color:white;">
-                                    {{ $item->created_at }}
-                                </h6>
-
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group message">
+                                                <textarea name="feedback" placeholder="رأيك او موضوعك"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group button">
+                                                <button type="submit" class="btn">ارسال الطلب</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    @endforeach
-
-
-
+                    </div>
                 </div>
-            </section>
+
+            </div>
         </div>
-    </main>
+    </section>
+    <!--/ End Contact Area -->
 
-
-
+    <!-- ========================= scroll-top ========================= -->
     <a href="#" class="scroll-top">
         <i class="lni lni-chevron-up"></i>
     </a>
-
-
-
-
 
     <!-- Start Footer Area -->
     <footer class="footer">
@@ -263,8 +242,8 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="footer-logo" style="margin-top: 10px;">
-                                <a href="">
-                                    <img src="{{asset('assets2/images/logo/logo.svg')}}" alt="#">
+                                <a href="index.html">
+                                    <img src="{{asset(path: 'assets2/images/logo/logo.svg')}}" alt="#">
                                 </a>
                             </div>
                         </div>
@@ -272,12 +251,12 @@
                         <div class="col-lg-9 col-md-8 col-12">
                             <div class="footer-newsletter">
                                 <h4 class="title" style="  float: none !important;
-                                    text-align: center !important;
-                                    margin-left: -450px;
-                                    margin-right: auto;
-                                    margin-top: 30px;
-                                    margin-bottom: -55px;
-                                    ">
+  text-align: center !important;
+  margin-left: -450px;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: -55px;
+  ">
                                     اشترك في نشرتنا الإخبارية
                                     <span>واحصل على أحدث المعلومات والتخفيضات والعروض</span>
                                 </h4>
@@ -380,7 +359,7 @@
                         <div class="col-lg-4 col-12">
                             <div class="payment-gateway">
                                 <span>We Accept:</span>
-                                <img src="{{asset('assets2/images/footer/credit-cards-footer.png')  }}" alt="#">
+                                <img src="{{asset(path: 'assets2/images/footer/credit-cards-footer.png')}}" alt="#">
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">
@@ -408,6 +387,7 @@
         <!-- End Footer Bottom -->
     </footer>
     <!--/ End Footer Area -->
+
 
 
 
@@ -444,7 +424,7 @@
     <!-- سلة جانبية -->
     <div id="cart-panel" class="cart-panel" style="display:none;">
         <button class="close-panel" id="close-cart">&times;</button>
-        <h3>سلة المشتريات</h3>
+        <h3> <a href="{{ route('customer.cart.index') }}">سلة المشتريات</a> </h3>
         <div id="cart-items" class="cart-items"></div>
 
         <div class="cart-footer">
@@ -498,8 +478,6 @@
 
 
     <script>
-
-
         function updateCartCount() {
             const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
             document.getElementById('cart-count').textContent = cartItems.length || 0;
@@ -527,7 +505,6 @@
         // بعد إزالة من المفضلة:
         // localStorage.setItem('favorites', JSON.stringify(favItems));
         // updateFavCount();
-
 
         document.addEventListener('DOMContentLoaded', function () {
             const userIcon = document.getElementById('userIcon');
@@ -617,6 +594,13 @@
         });
 
     </script>
+
+
+
+
+
+
+
     @auth
         <div id="userDropdown" class="user-dropdown" role="menu" aria-hidden="true">
             <div class="user-header d-flex align-items-center px-3 py-2 mb-2">
@@ -644,6 +628,8 @@
             </form>
         </div>
     @endauth
+
+
 </body>
 
 </html>

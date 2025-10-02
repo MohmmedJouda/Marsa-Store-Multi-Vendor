@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اتصل بنا</title>
+    <title>الطلبات</title>
     <link rel="stylesheet" href="{{asset('assets2/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets2/css/main.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -184,18 +184,18 @@
                                 <h6 class="mb-0">
                                     الحالة:
                                     <span class="badge 
-                                    @if($order->status == 'pending') bg-warning 
-                                    @elseif($order->status == 'shipping') bg-info 
-                                    @elseif($order->status == 'shipped') bg-primary 
-                                    @elseif($order->status == 'delivered') bg-success 
-                                    @elseif($order->status == 'cancelled') bg-danger 
-                                    @elseif($order->status == 'refunded') bg-secondary 
-                                    @endif">
+                                                                                        @if($order->status == 'pending') bg-warning 
+                                                                                        @elseif($order->status == 'shipping') bg-info 
+                                                                                        @elseif($order->status == 'shipped') bg-primary 
+                                                                                        @elseif($order->status == 'delivered') bg-success 
+                                                                                        @elseif($order->status == 'cancelled') bg-danger 
+                                                                                        @elseif($order->status == 'refunded') bg-secondary 
+                                                                                        @endif">
                                         {{ ucfirst($order->status) }}
                                     </span>
                                 </h6>
                                 <p class="text-muted mb-0">
-                                    تم إنشاء الطلب منذ {{ $order->created_at->diffForHumans() }} | الحالة:
+                                    تم إنشاء الطلب منذ {{ $order->created_at->diffForHumans() }}
                                 </p>
                             </div>
 
@@ -234,8 +234,21 @@
                                             </form>
 
                                             <!-- زر رضا المستخدم -->
-                                            <a href="#" class="btn btn-outline-primary btn-sm">
+                                            <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
+                                                class="btn btn-outline-primary btn-sm">
                                                 هل أنت راضٍ عن المنتج؟
+                                            </a>
+                                        @endif
+                                        @if($order->status === 'refunded')
+                                            <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
+                                                class="btn btn-outline-primary btn-sm">
+                                                لست راض عن المنتج
+                                            </a>
+                                        @endif
+                                        @if($order->status === 'cancelled')
+                                            <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
+                                                class="btn btn-outline-primary btn-sm">
+                                                لست راض عن خدمة التوصيل
                                             </a>
                                         @endif
                                     </div>
@@ -634,7 +647,9 @@
             <a class="user-item" href="{{ route('profile.show') }}">
                 <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
             </a>
-
+            <a class="user-item" href="{{ route('customer.orders.show') }}">
+                <i class="fa-solid fa-box fa-lg me-2"></i>&nbsp; طلباتك
+            </a>
             <a class="user-item" href="#">
                 <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
             </a>

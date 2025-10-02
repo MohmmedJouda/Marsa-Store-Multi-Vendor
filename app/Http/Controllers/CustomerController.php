@@ -203,13 +203,13 @@ class CustomerController extends Controller
     public function store($id)
     {
         $store = Store::with('user','products.subcategory')->findOrFail($id);
-        $products =  Product::with('store.user','subcategory','ratings')->latest()->get();
+        $products =  Product::where('store_id', $store->id)->with('store.user','subcategory','ratings')->latest()->get();
         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
         
         $totalPrice = 0;
         $categories = Category::with('subcategories')->get();
-        $averageRate = $products->ratings->avg('rate'); // قيمة بين 1 و 5
+        // $averageRate = $products->ratings->avg('rate'); // قيمة بين 1 و 5
 
         foreach ($carts as $cart) {
             foreach ($cart->items as $item) {
@@ -222,7 +222,7 @@ class CustomerController extends Controller
     } else {
         $username = 'Guest'; // أو أي قيمة افتراضية
     }
-        return view('users.customer.store',compact('store','products','carts','totalPrice','categories','username','averageRate'));
+        return view('users.customer.store',compact('store','products','carts','totalPrice','categories','username'));
     }
     
     public function orders_show(Order $order){

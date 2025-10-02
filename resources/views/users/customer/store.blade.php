@@ -223,10 +223,10 @@
 
 
 
-    <div class="seller-profile dark-box">
+    <div class="seller-profile dark-box container">
         <div class="seller-header">
             <div class="profile-left">
-                <img src="{{ asset('/assets2/images/store-logo.jpg') }}" class="profile-img" alt="شعار المتجر">
+                <img src="{{ asset('assets2/images/store-logo.jpg') }}" class="profile-img" alt="شعار المتجر">
                 <div class="profile-info">
                     <h2 class="seller-name" id="StoreName">{{ $store->name }}</h2>
                     <p>المالك : <span id="SellerName" style="cursor: pointer; color: #ee8383; font-weight: bold;"
@@ -372,22 +372,15 @@
                                 {{-- <div class="rating">★★★★★</div> --}}
                                 {{-- Blade: افترض أن $rating يحتوي التقييم كـ 0..5 (مثال: 3.5) --}}
                                 @php
-                                    $rating = $rating ?? 3.5; // تجريبياً
-                                    $percentage = ($rating / 5) * 100;
+                                    $averageRate = $product->ratings->avg('rate');
                                 @endphp
 
-                                <div class="star-rating" role="img" aria-label="تقييم {{ number_format($rating, 1) }} من 5">
-                                    <div class="product-rating"
-                                        style="display:flex; justify-content:center; gap: 2px; margin: 5px 0;">
-                                        @for($i = 1; $i <= 5; $i++)
-                                            <span class="stars"
-                                                style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
-                                                &#9733;
-                                            </span>
-                                        @endfor
-                                    </div>
-                                    <div class="stars-inner" style="width: {{ $percentage }}%">★★★★★</div>
-                                    <span class="sr-only">{{ number_format($rating, 1) }}/5</span>
+                                <div class="product-rating">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <span style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
+                                            &#9733;
+                                        </span>
+                                    @endfor
                                 </div>
 
                                 <div class="actions">
@@ -1009,7 +1002,9 @@
                 <a class="user-item" href="{{ route('profile.show') }}">
                     <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
                 </a>
-
+                <a class="user-item" href="{{ route('customer.orders.show') }}">
+                    <i class="fa-solid fa-box fa-lg me-2"></i>&nbsp; طلباتك
+                </a>
                 <a class="user-item" href="#">
                     <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
                 </a>

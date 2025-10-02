@@ -18,7 +18,6 @@ class order extends Model
         'tax_amount',
         'total_amount',
         'currency',
-        'order_number'
     ];
 
     //  العميل
@@ -46,13 +45,5 @@ class order extends Model
     {
         return $this->belongsTo(Address::class);
     }
-
-    protected static function booted()
-{
-    static::creating(function ($order) {
-        $lastOrder = Order::where('user_id', $order->user_id)->max('order_number');
-        $order->order_number = $lastOrder ? $lastOrder + 1 : 1;
-    });
-}
 
 }

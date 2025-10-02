@@ -21,6 +21,7 @@ use App\Http\Controllers\StoreCommentController;
 use App\Http\Controllers\ProductRatingController;
 use App\Http\Controllers\ProductCommentController;
 use App\Http\Middleware\CheckVendorDocument;
+use App\Http\Controllers\FeedBackController;
 
 Route::middleware(['auth', CheckVendorDocument::class])->group(function () {
     Route::get('/vendor/dashboard', [VendorController::class, 'dashboard'])
@@ -98,9 +99,13 @@ Route::middleware([
     // routes/web.php
     Route::patch('/orders/{order}/cancel', [CustomerController::class, 'cancel'])->name('orders.cancel');
     Route::patch('/orders/{order}/refund', [CustomerController::class, 'refund'])->name('orders.refund');
-    // Route::get('/complaints/{product}/create', [ComplaintController::class, 'create'])->name('complaints.create');
-
-});
+    
+    // صفحة الفورم
+    Route::get('/feedback/create/{order_id}/{status}', [FeedBackController::class, 'create'])->name('feedback.create');
+    // تخزين البيانات
+    Route::post('/feedback/store', [FeedBackController::class, 'store'])->name('feedback.store');
+    });
+    
     Route::get('/main-page', [CustomerController::class, 'guest'])->middleware('guest')->name('guest.main-page'); 
 
 Route::prefix('customer')->name('customer.')->group(function () {
