@@ -10,14 +10,31 @@
 <body class="bg-light d-flex justify-content-center align-items-center" style="height: 100vh;">
 
     <div class="card p-4 shadow text-end" style="min-width: 350px;">
-        @if($status === 'pending')
+
+
+        @if(isset($latestDoc) && $latestDoc->status === 'pending')
             <div class="alert alert-warning m-0" role="alert">
                 <strong>تم تقديم طلبك بنجاح!</strong>
                 <br>حسابك تحت المراجعة من قبل الإدارة.
                 <br>
                 <a href="{{ route('guest.main-page') }}" class="alert-link">يمكنك تصفح المتجر من هنا</a>
             </div>
-        @elseif($status === 'rejected')
+        @elseif(isset($latestDoc) && $latestDoc->status === 'rejected')
+            <div class="alert alert-danger m-0" role="alert">
+                <strong>تم رفض طلبك!</strong>
+                <br>يرجى مراجعة المستندات أو الاتصال بالدعم.
+                <br>
+                <a href="{{ route('guest.main-page') }}" class="alert-link">يمكنك تصفح المتجر من هنا</a>
+            </div>
+
+        @elseif ($status === 'pending')
+            <div class="alert alert-warning m-0" role="alert">
+                <strong>تم تقديم طلبك بنجاح!</strong>
+                <br>حسابك تحت المراجعة من قبل الإدارة.
+                <br>
+                <a href="{{ route('guest.main-page') }}" class="alert-link">يمكنك تصفح المتجر من هنا</a>
+            </div>
+        @elseif ($status === 'rejected')
             <div class="alert alert-danger m-0" role="alert">
                 <strong>تم رفض طلبك!</strong>
                 <br>يرجى مراجعة المستندات أو الاتصال بالدعم.
@@ -25,6 +42,25 @@
                 <a href="{{ route('guest.main-page') }}" class="alert-link">يمكنك تصفح المتجر من هنا</a>
             </div>
         @endif
+
+        {{-- @guest
+        @if($status === 'pending')
+        <div class="alert alert-warning m-0" role="alert">
+            <strong>تم تقديم طلبك بنجاح!</strong>
+            <br>حسابك تحت المراجعة من قبل الإدارة.
+            <br>
+            <a href="{{ route('guest.main-page') }}" class="alert-link">يمكنك تصفح المتجر من هنا</a>
+        </div>
+        @elseif($status === 'rejected')
+        <div class="alert alert-danger m-0" role="alert">
+            <strong>تم رفض طلبك!</strong>
+            <br>يرجى مراجعة المستندات أو الاتصال بالدعم.
+            <br>
+            <a href="{{ route('guest.main-page') }}" class="alert-link">يمكنك تصفح المتجر من هنا</a>
+        </div>
+
+        @endif
+        @endguest --}}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
