@@ -66,7 +66,7 @@ class StripeController extends Controller
         ]);
     }
 
-    public function index(Order $order)
+    public function index(Request $request, Order $order)
 {
     // جلب كل عناصر الطلب
     $items = $order->items()->with('variant','variant.product')->get();
@@ -78,6 +78,11 @@ class StripeController extends Controller
     $taxAmount = $order->tax_amount;
     $total = $order->total_amount;
 
+    $paymentReference = 'ORDER' . $order->id . '-' . now()->format('YmdHis');
+    $order->bank_reference = $paymentReference;
+    $selectedMethod = $request->input('payment_method', 'bank_transfer');
+
+    
     $productDiscount = $item['product_discount'] ?? 0;
     $discount = 0;
 
@@ -102,13 +107,37 @@ class StripeController extends Controller
             'total',
             'productDiscount',
             'discount',
-            'username'
+            'username',
+            'selectedMethod',
+            'paymentReference'
             ));
 }
 
-    public function checkoutSuccess(Order $order){
-        return redirect()->back()->with('success','تمت عملية الدفع بنجاح');
+    public function bank_transfer(Request $request, $order){
+            $order->payment_method = $request->input('payment_method', 'bank_transfer');
+            $order->bank_reference = $request->input('payment_reference'); // أو قيمة مرجع ثابتة
+            $order->save();
+        return redirect()->route('customer.orders.show')->with('success','طلبك قيد المراجعة');
     }
+
+        public function credit_card(Request $request, Order $order){
+        // return redirect()->route('customer.orders.show', $order->id)->with('success','تمت عملية الدفع بنجاح');
+     Stripe::setApiKey(config('services.stripe.secret')); // secret key من .env
+
+        // إنشاء PaymentIntent
+        $paymentIntent = PaymentIntent::create([
+            'amount' => $order->total_amount * 100, // Stripe يحتاج المبلغ بالـ "cents"
+            'currency' => 'ils',
+            'metadata' => [
+            'order_id' => $order->id
+            ]
+        ]);
+
+            return response()->json([
+                'clientSecret' => $paymentIntent->client_secret
+            ]);
+        }
+    
 
     /**
      * Show the form for creating a new resource.

@@ -165,6 +165,12 @@
     <!-- Start Contact Area -->
     <section id="contact-us" class="contact-us section">
         <div class="container">
+            @if(request('success'))
+                <div class="alert alert-success">
+                    تمت عملية الدفع بنجاح ✅
+                </div>
+            @endif
+
             <div class="contact-head">
                 <div class="row">
                     <div class="col-12">
@@ -184,13 +190,13 @@
                                 <h6 class="mb-0">
                                     الحالة:
                                     <span class="badge 
-                                                                                                            @if($order->status == 'pending') bg-warning   
-                                                                                                            @elseif($order->status == 'shipping') bg-info 
-                                                                                                            @elseif($order->status == 'shipped') bg-primary 
-                                                                                                            @elseif($order->status == 'delivered') bg-success 
-                                                                                                            @elseif($order->status == 'cancelled') bg-danger 
-                                                                                                            @elseif($order->status == 'refunded') bg-secondary 
-                                                                                                            @endif">
+                                                                                                                @if($order->status == 'pending') bg-warning   
+                                                                                                                @elseif($order->status == 'shipping') bg-info 
+                                                                                                                @elseif($order->status == 'shipped') bg-primary 
+                                                                                                                @elseif($order->status == 'delivered') bg-success 
+                                                                                                                @elseif($order->status == 'cancelled') bg-danger 
+                                                                                                                @elseif($order->status == 'refunded') bg-secondary 
+                                                                                                                @endif">
 
                                         @if($order->status == 'pending') قيد العمل
                                         @elseif($order->status == 'shipping') جاري الشحن

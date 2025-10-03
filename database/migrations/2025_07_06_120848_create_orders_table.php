@@ -18,7 +18,11 @@ return new class extends Migration
         $table->enum('status',['pending','shipping','shipped','delivered','cancelled','refunded'])->default('delivered');
         $table->timestamp('delivered_at')->nullable();
         $table->enum('shipping_plan',['free','standard','express'])->default('standard');
-        $table->enum('payment_method', ['cash_on_delivery','paypal','visa','mastercard','bank_transfer'])->default('cash_on_delivery');
+        $table->enum('payment_method', ['pay_on_delivery','credit_card','bank_transfer'])->default('pay_on_delivery');
+        $table->string('bank_reference')->nullable();       // المرجع الذي أعطيته للعميل أو المعرف الذي أدخله هو
+        $table->string('transaction_id')->nullable();       // رقم التحويل من البنك (يدخله العميل)
+        $table->string('receipt_path')->nullable();         // مسار الملف المرفوع (أيصال)
+        $table->timestamp('payment_confirmed_at')->nullable();
         $table->integer('shipping_amount')->default('5');
         $table->integer('tax_amount')->default( 5);
         $table->decimal('total_amount', 10, 2)->nullable();

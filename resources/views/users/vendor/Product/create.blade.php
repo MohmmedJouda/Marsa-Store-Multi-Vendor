@@ -156,13 +156,6 @@
                     التركيبات</button>
                 <div id="variant-container"></div>
 
-                {{-- <button type="button" onclick="createProduct()" id="add-product-btn" class="btn btn-primary mt-5" @php
-                    use Illuminate\Support\Facades\Auth; if (auth::user()->status == 'pending') {
-                    echo 'disabled';
-                    }
-                    @endphp>
-                    Create
-                    Product</button> --}}
                 <button type="button" onclick="createProduct()" id="add-product-btn" class="btn btn-primary mt-5">
                     Create Product </button>
 
@@ -253,21 +246,21 @@
                 const newAttributeIndex = $('.attribute').length; // تحديد الفهرس للسمات المضافة
 
                 const field = `
-                                                                                                <div class="col-md-4 mb-4">
-                                                                                                    <div class="attribute p-3 border rounded shadow-sm">
-                                                                                                        <div class="form-group mb-3">
-                                                                                                            <label for="attributes" class="form-label">Attribute Name</label>
-                                                                                                            <input type="text" name="attributes[${newAttributeIndex}][name]" class="form-control attribute-name mb-2" placeholder="Attribute name" required>
-                                                                                                        </div>
+                                            <div class="col-md-4 mb-4">
+                                                <div class="attribute p-3 border rounded shadow-sm">
+                                                    <div class="form-group mb-3">
+                                                        <label for="attributes" class="form-label">Attribute Name</label>
+                                                        <input type="text" name="attributes[${newAttributeIndex}][name]" class="form-control attribute-name mb-2" placeholder="Attribute name" required>
+                                                    </div>
 
-                                                                                                        <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                                                                                            <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
-                                                                                                            <input type="text" name="attributes[${newAttributeIndex}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
-                                                                                                        </div>
+                                                    <div class="value-container mb-3 p-3 border rounded shadow-sm">
+                                                        <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
+                                                        <input type="text" name="attributes[${newAttributeIndex}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
+                                                    </div>
 
-                                                                                                        <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100" data-attribute-index="${newAttributeIndex}">Add Value</button>
-                                                                                                    </div>
-                                                                                                </div>`;
+                                                    <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100" data-attribute-index="${newAttributeIndex}">Add Value</button>
+                                                </div>
+                                            </div>`;
                 $('#attribute-container').append(field); // إضافة السمة إلى الـ DOM
             });
 
@@ -275,136 +268,13 @@
             $(document).on('click', '.add-value', function () {
                 const index = $(this).data('attribute-index');
                 const newValue = `
-                                                                                                <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                                                                                    <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
-                                                                                                    <input type="text" name="attributes[${index}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
-                                                                                                </div>`;
+                                                                                                                            <div class="value-container mb-3 p-3 border rounded shadow-sm">
+                                                                                                                                <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
+                                                                                                                                <input type="text" name="attributes[${index}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
+                                                                                                                            </div>`;
                 $(this).before(newValue); // إضافة الحقل الجديد قبل الزر
             });
 
-            // توليد التركيبات عند الضغط على "توليد التركيبات"
-            window.generateVariants = function () {
-                const attributes = {};
-
-                // جمع السمات والقيم المدخلة
-                $('.attribute').each(function () {
-                    const name = $(this).find('.attribute-name').val().trim();
-                    const values = $(this).find('.attribute-value').map(function () {
-                        return $(this).val().trim();
-                    }).get().filter(Boolean);
-
-                    if (name && values.length) {
-                        attributes[name] = values; // إضافة السمة مع قيمها
-                    }
-                });
-
-
-
-                //                document.addEventListener('click', function (event) {
-                //     if (event.target && event.target.classList.contains('add-value')) {
-                //         const button = event.target;
-                //         const attributeIndex = button.getAttribute('data-attribute-index');
-                //         const attributeNameInput = document.querySelector(`[name="attributes[${attributeIndex}][name]"]`);
-                //         const attributeValueInputs = document.querySelectorAll(`[name="attributes[${attributeIndex}][values][]"]`);
-
-                //         // التحقق من أن اسم السمة غير فارغ
-                //         if (attributeNameInput.value.trim() === '') {
-                //             alert('Attribute name must not be empty.');
-                //             return;
-                //         }
-
-                //         // التحقق من وجود قيمة واحدة على الأقل
-                //         let isValueFilled = false;
-                //         attributeValueInputs.forEach(input => {
-                //             if (input.value.trim() !== '') {
-                //                 isValueFilled = true;
-                //             }
-                //         });
-
-                //         if (!isValueFilled) {
-                //             alert('At least one attribute value must be entered.');
-                //             return;
-                //         }
-
-                //         // إنشاء حقل جديد للقيمة
-                //         const newValueContainer = document.createElement('div');
-                //         newValueContainer.classList.add('value-container', 'mb-3', 'p-3', 'border', 'rounded', 'shadow-sm');
-
-                //         const newValueInput = document.createElement('input');
-                //         newValueInput.setAttribute('type', 'text');
-                //         newValueInput.setAttribute('name', `attributes[${attributeIndex}][values][]`);
-                //         newValueInput.classList.add('form-control', 'attribute-value', 'mb-2');
-                //         newValueInput.setAttribute('placeholder', 'Value');
-                //         newValueContainer.appendChild(newValueInput);
-
-                //         button.parentNode.appendChild(newValueContainer);
-                //     }
-                // });
-
-
-
-
-                // توليد التركيبات
-                const combinations = generateCombinations(attributes);
-                const container = document.getElementById('variant-container');
-                container.innerHTML = ''; // مسح التركيبات القديمة
-
-                combinations.forEach((combo, i) => {
-                    const comboText = Object.entries(combo)
-                        .map(([k, v]) => `<strong>${k}</strong>: ${v}`) // تجميع كل سمة مع قيمتها
-                        .join(' | ');
-
-                    // إضافة كل تركيبة إلى الحاوية
-                    container.insertAdjacentHTML('beforeend', `
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-md-6">
-                                                                                                            <div class="variant-item p-3 mb-3 border rounded shadow-sm variant-row" data-attributes='${JSON.stringify(combo)}'>
-                                                                                                                <p>${comboText}</p>
-
-                                                                                                                <!-- حقل السعر -->
-                                                                                                                <div class="form-group mb-2">
-                                                                                                                    <label>Price</label>
-                                                                                                                    <input type="number" class="form-control variant-price" placeholder="Variant Price" step="0.01" required>
-                                                                                                                </div>
-
-                                                                                                                <!-- حقل الكمية -->
-                                                                                                                <div class="form-group mb-2">
-                                                                                                                    <label>Quantity</label>
-                                                                                                                    <input type="number" class="form-control variant-quantity" placeholder="Variant Quantity" required>
-                                                                                                                </div>
-
-                                                                                                                <!-- حقل الصورة -->
-                                                                                                                <div class="form-group mb-2">
-                                                                                                                    <label>Image</label>
-                                                                                                                    <input type="file" class="form-control variant-image" accept="image/*">
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>`);
-                });
-            }
-
-
-
-            // دالة لتوليد التركيبات
-            function generateCombinations(attributes) {
-                const keys = Object.keys(attributes);
-                if (keys.length === 0) return [];
-                const combinations = [];
-
-                function helper(index, current) {
-                    if (index === keys.length) {
-                        combinations.push({ ...current });
-                        return;
-                    }
-                    const key = keys[index];
-                    attributes[key].forEach(value => {
-                        helper(index + 1, { ...current, [key]: value });
-                    });
-                }
-                helper(0, {});
-                return combinations;
-            }
 
             // إرسال البيانات بـ AJAX
             document.getElementById('create_product').addEventListener('submit', function (e) {
@@ -468,6 +338,10 @@
 
     <script>
         function createProduct() {
+            if (!variantsGenerated) {
+                alert('يجب الضغط على زر 🔄 توليد التركيبات أولاً!');
+                return; // يمنع الاستمرار
+            }
 
             const form = document.getElementById("create_product");
             const formData = new FormData(form);
@@ -542,47 +416,92 @@
         let variantsGenerated = false;
 
         function generateVariants() {
-            // هنا ضع الكود الخاص بتوليد التركيبات
-            console.log("تم توليد التركيبات");
+            // توليد التركيبات عند الضغط على "توليد التركيبات"
+            window.generateVariants = function () {
+                const attributes = {};
 
-            // مثال: إضافة عناصر إلى div variant-container
-            document.getElementById('variant-container').innerHTML = "<p>تم إنشاء التركيبات!</p>";
+                // جمع السمات والقيم المدخلة
+                $('.attribute').each(function () {
+                    const name = $(this).find('.attribute-name').val().trim();
+                    const values = $(this).find('.attribute-value').map(function () {
+                        return $(this).val().trim();
+                    }).get().filter(Boolean);
+
+                    if (name && values.length) {
+                        attributes[name] = values; // إضافة السمة مع قيمها
+                    }
+                });
+
+
+                // توليد التركيبات
+                const combinations = generateCombinations(attributes);
+                const container = document.getElementById('variant-container');
+                container.innerHTML = ''; // مسح التركيبات القديمة
+
+                combinations.forEach((combo, i) => {
+                    const comboText = Object.entries(combo)
+                        .map(([k, v]) => `<strong>${k}</strong>: ${v}`) // تجميع كل سمة مع قيمتها
+                        .join(' | ');
+
+                    // إضافة كل تركيبة إلى الحاوية
+                    container.insertAdjacentHTML('beforeend', `
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="variant-item p-3 mb-3 border rounded shadow-sm variant-row" data-attributes='${JSON.stringify(combo)}'>
+                                                    <p>${comboText}</p>
+
+                                                    <!-- حقل السعر -->
+                                                    <div class="form-group mb-2">
+                                                        <label>Price</label>
+                                                        <input type="number" class="form-control variant-price" placeholder="Variant Price" step="0.01" required>
+                                                    </div>
+
+                                                    <!-- حقل الكمية -->
+                                                    <div class="form-group mb-2">
+                                                        <label>Quantity</label>
+                                                        <input type="number" class="form-control variant-quantity" placeholder="Variant Quantity" required>
+                                                    </div>
+
+                                                    <!-- حقل الصورة -->
+                                                    <div class="form-group mb-2">
+                                                        <label>Image</label>
+                                                        <input type="file" class="form-control variant-image" accept="image/*">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`);
+                });
+            }
+
+
+
+            // دالة لتوليد التركيبات
+            function generateCombinations(attributes) {
+                const keys = Object.keys(attributes);
+                if (keys.length === 0) return [];
+                const combinations = [];
+
+                function helper(index, current) {
+                    if (index === keys.length) {
+                        combinations.push({ ...current });
+                        return;
+                    }
+                    const key = keys[index];
+                    attributes[key].forEach(value => {
+                        helper(index + 1, { ...current, [key]: value });
+                    });
+                }
+                helper(0, {});
+                return combinations;
+            }
 
             variantsGenerated = true; // تحديث المتغير عند النقر
         }
 
-        function createProduct() {
-            if (!variantsGenerated) {
-                alert('يجب الضغط على زر 🔄 توليد التركيبات أولاً!');
-                return; // يمنع الاستمرار
-            }
+        // function createProduct() {
 
-            // إذا تم توليد التركيبات، يمكن إرسال الفورم
-            document.getElementById('productForm').submit();
-        }
+        //     // إذا تم توليد التركيبات، يمكن إرسال الفورم
+        //     document.getElementById('productForm').submit();
+        // }
     </script>
 @endsection
-{{-- // <<<<<<< HEAD // function createProduct() { // const form=document.getElementById("create_product"); // const
-    formData=new FormData(form); // // عرض البيانات في الكونسول قبل إرسالها // formData.forEach((value, key)=> {
-    // console.log(`${key}: ${value}`);
-    // });
-
-    // // إرسال البيانات باستخدام دالة store() - AJAX
-    // store('/vendor/products', formData)
-    // .then(() => {
-    // // إعادة تعيين الفورم بعد النجاح
-    // form.reset();
-    // console.log('Data submitted successfully');
-    // })
-    // .catch(error => {
-    // // عرض الأخطاء إذا حدثت
-    // console.error("Error in resetting data..", error);
-    // console.log('Error occurred during data submission');
-    // });
-    // }
-
-
-    </script> --}}
-    {{-- =======
-    </script>
-    >>>>>>> fb599ce12ee098993aa02190a198f7fcb1cf3f84 --}}
