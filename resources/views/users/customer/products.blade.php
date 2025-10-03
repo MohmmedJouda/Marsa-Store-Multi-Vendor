@@ -218,10 +218,13 @@
                             <div class="title"> {{ $product->name }}</div>
                             <span class="category">{{ $product->subcategory->name }}</span>
                             <div class="price" data-symbol="$">${{ $product->price }}</div>
-                            <div class="product-rating"
-                                style="display:flex; justify-content:center; gap: 2px; margin: 5px 0;">
+                            @php
+                                $averageRate = $product->ratings->avg('rate'); // ✅ لكل منتج
+                            @endphp
+
+                            <div class="product-rating" style="display:flex; justify-content:center; gap:2px;">
                                 @for($i = 1; $i <= 5; $i++)
-                                    <span class="stars" style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
+                                    <span style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
                                         &#9733;
                                     </span>
                                 @endfor

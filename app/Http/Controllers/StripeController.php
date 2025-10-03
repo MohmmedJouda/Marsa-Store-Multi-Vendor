@@ -80,7 +80,7 @@ class StripeController extends Controller
 
     $paymentReference = 'ORDER' . $order->id . '-' . now()->format('YmdHis');
     $order->bank_reference = $paymentReference;
-    $selectedMethod = $request->input('payment_method', 'bank_transfer');
+    $selectedMethod = $request->input('payment_method', 'pay_on_delivery');
 
     
     $productDiscount = $item['product_discount'] ?? 0;
@@ -113,12 +113,12 @@ class StripeController extends Controller
             ));
 }
 
-    public function bank_transfer(Request $request, $order){
-            $order->payment_method = $request->input('payment_method', 'bank_transfer');
-            $order->bank_reference = $request->input('payment_reference'); // أو قيمة مرجع ثابتة
-            $order->save();
-        return redirect()->route('customer.orders.show')->with('success','طلبك قيد المراجعة');
-    }
+    // public function bank_transfer(Request $request, $order){
+    //         $order->payment_method = $request->input('payment_method', 'bank_transfer');
+    //         $order->bank_reference = $request->input('payment_reference'); // أو قيمة مرجع ثابتة
+    //         $order->save();
+    //     return redirect()->route('customer.orders.show')->with('success','طلبك قيد المراجعة');
+    // }
 
         public function credit_card(Request $request, Order $order){
         // return redirect()->route('customer.orders.show', $order->id)->with('success','تمت عملية الدفع بنجاح');

@@ -157,7 +157,7 @@
 
                             <div class="title"> {{ $product->name }}</div>
                             <span class="category">{{ $product->subcategory->name }}</span>
-                            <div class="price" data-symbol="$">${{ $product->price }}</div>
+                            <div class="price" data-symbol="₪">₪{{ $product->price }}</div>
                             @php
                                 $averageRate = $product->ratings->avg('rate');
                             @endphp
@@ -281,7 +281,7 @@
 
                             <div class="title"> {{ $mostOrdered->name }}</div>
                             <span class="category">{{ $mostOrdered->subcategory->name }}</span>
-                            <div class="price" data-symbol="$">${{ $mostOrdered->price }}</div>
+                            <div class="price" data-symbol="₪">₪{{ $mostOrdered->price }}</div>
 
                             @php
                                 $averageRate = $mostOrdered->ratings->avg('rate'); // ✅ لكل منتج
@@ -357,7 +357,7 @@
                                         </h4>
                                         <div class="rating">★★★★★</div>
                                         <div class="price">
-                                            <span>$399.00</span>
+                                            <span>₪ٍ399.00</span>
                                         </div>
                                     </div>
                                 </div>
@@ -380,7 +380,7 @@
                                         </h4>
                                         <div class="rating">★★★★★</div>
                                         <div class="price">
-                                            <span>$899.00</span>
+                                            <span>₪899.00</span>
                                         </div>
                                     </div>
                                 </div>
@@ -403,7 +403,7 @@
                                         </h4>
                                         <div class="rating">★★★★★</div>
                                         <div class="price">
-                                            <span>$70.00</span>
+                                            <span>₪70.00</span>
                                         </div>
                                     </div>
                                 </div>
@@ -418,7 +418,7 @@
                                 <p>Lorem ipsum dolor sit amet, <br />eiusmod tempor
                                     incididunt ut labore.</p>
                                 <div class="price">
-                                    <span>$590.00</span>
+                                    <span>₪590.00</span>
                                 </div>
                                 <div class="button">
                                     <a class="btn" href="product-grids.html">شراء الآن </a>
@@ -437,8 +437,8 @@
                                 <h2><a href="product-grids.html">Bluetooth Headphone</a></h2>
                                 <div class="rating">★★★★★</div>
                                 <div class="price">
-                                    <span>$200.00</span>
-                                    <span class="discount-price">$400.00</span>
+                                    <span>₪200.00</span>
+                                    <span class="discount-price">₪400.00</span>
                                 </div>
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry incididunt
                                     ut

@@ -635,73 +635,73 @@
 
     <script>
 
-        const stripe = Stripe("{{ config('services.stripe.key') }}"); 
-        const elements = stripe.elements();
-        const cardElement = elements.create("card");
-        cardElement.mount("#card-element");
+        // const stripe = Stripe("{{ config('services.stripe.key') }}"); 
+        // const elements = stripe.elements();
+        // const cardElement = elements.create("card");
+        // cardElement.mount("#card-element");
 
-        const form = document.getElementById("payment-form");
-        const submitButton = document.getElementById("submit-button");
+        // const form = document.getElementById("payment-form");
+        // const submitButton = document.getElementById("submit-button");
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            submitButton.disabled = true;
+        // form.addEventListener("submit", async (e) => {
+        //     e.preventDefault();
+        //     submitButton.disabled = true;
 
-            // قيم من الحقول
-            const name = form.querySelector("[name='name']").value;
-            const email = form.querySelector("[name='email']").value;
-            const variantId = form.querySelector("[name='variant_id']").value;
-            const quantity = form.querySelector("[name='quantity']").value;
-            const shippingMethod = form.querySelector("[name='shipping_method']").value;
+        //     // قيم من الحقول
+        //     const name = form.querySelector("[name='name']").value;
+        //     const email = form.querySelector("[name='email']").value;
+        //     const variantId = form.querySelector("[name='variant_id']").value;
+        //     const quantity = form.querySelector("[name='quantity']").value;
+        //     const shippingMethod = form.querySelector("[name='shipping_method']").value;
 
-            try {
-                // 1️⃣ اطلب client_secret من السيرفر
-                const response = await fetch("{{ route('customer.checkout.credit_card',$order->id) }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({
-                        variant_id: variantId,
-                        quantity: quantity,
-                        shipping_method: shippingMethod,
-                        email: email
-                    })
-                });
+        //     try {
+        //         // 1️⃣ اطلب client_secret من السيرفر
+        //         const response = await fetch("{{ route('customer.checkout.credit_card',$order->id) }}", {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //                 "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        //             },
+        //             body: JSON.stringify({
+        //                 variant_id: variantId,
+        //                 quantity: quantity,
+        //                 shipping_method: shippingMethod,
+        //                 email: email
+        //             })
+        //         });
 
-                const data = await response.json();
-                console.log("Server response:", data);
+        //         const data = await response.json();
+        //         console.log("Server response:", data);
 
-                if (!data.clientSecret) {
-                    throw new Error("لم يتم إرجاع clientSecret من السيرفر");
-                }
+        //         if (!data.clientSecret) {
+        //             throw new Error("لم يتم إرجاع clientSecret من السيرفر");
+        //         }
 
-                // 2️⃣ نفذ الدفع
-                const { paymentIntent, error } = await stripe.confirmCardPayment(data.clientSecret, {
-                    payment_method: {
-                        card: cardElement,
-                        billing_details: {
-                            name: name,
-                            email: email
-                        }
-                    }
-                });
+        //         // 2️⃣ نفذ الدفع
+        //         const { paymentIntent, error } = await stripe.confirmCardPayment(data.clientSecret, {
+        //             payment_method: {
+        //                 card: cardElement,
+        //                 billing_details: {
+        //                     name: name,
+        //                     email: email
+        //                 }
+        //             }
+        //         });
 
-                if (error) {
-                    document.getElementById("card-errors").textContent = error.message;
-                    submitButton.disabled = false;
-                } else if (paymentIntent.status === "succeeded") {
-                    window.location.href = "{{ route('customer.orders.show', $order->id) }}?success=1";
+        //         if (error) {
+        //             document.getElementById("card-errors").textContent = error.message;
+        //             submitButton.disabled = false;
+        //         } else if (paymentIntent.status === "succeeded") {
+        //             window.location.href = "{{ route('customer.orders.show', $order->id) }}?success=1";
 
-                }
-            } 
-            catch (err) {
-                console.error(err);
-                document.getElementById("card-errors").textContent = err.message;
-                submitButton.disabled = false;
-            }
-        });
+        //         }
+        //     } 
+        //     catch (err) {
+        //         console.error(err);
+        //         document.getElementById("card-errors").textContent = err.message;
+        //         submitButton.disabled = false;
+        //     }
+        // });
 
 
         document.addEventListener('DOMContentLoaded', function () {
