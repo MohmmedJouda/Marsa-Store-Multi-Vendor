@@ -16,19 +16,16 @@ class DatabaseSeeder extends Seeder
             CategoriesSeeder::class,
         ]);
 
-        // ثم، إنشاء 10 مستخدمين (vendors)
-        // $vendors = \App\Models\User::factory()->count(10)->create([
-        //     'role' => 'vendor', // تعيين role للمستخدمين كـ "vendor"
-        // ]);
+        $vendors = \App\Models\User::factory()->count(5)->create([
+            'role' => 'vendor', 
+        ]);
 
-        // بعد إنشاء المستخدمين، قم بإنشاء متجر لكل مستخدم
-        // foreach ($vendors as $vendor) {
-        //     \App\Models\Store::factory()->create([
-        //         'user_id' => $vendor->id,  // ربط المتجر بالمستخدم
-        //     ]);
-        // }
+        foreach ($vendors as $vendor) {
+            \App\Models\Store::factory()->create([
+                'user_id' => $vendor->id,  // ربط المتجر بالمستخدم
+            ]);
+        }
 
-        // أخيرًا، قم بتشغيل Seeder المنتجات بعد المتاجر
-        // $this->call(ProductSeeder::class);
+        $this->call(ProductSeeder::class);
     }
 }

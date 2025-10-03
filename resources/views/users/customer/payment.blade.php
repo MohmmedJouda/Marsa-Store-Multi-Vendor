@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Checkout </title>
+    <title>الدفع </title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets2/images/favicon.svg') }}" />
@@ -118,12 +118,10 @@
 
 
         <div class="right">
-            <i class="fa-solid fa-heart" id="fav-icon">
-                <span class="badge" id="fav-count">0</span>
-            </i>
+
 
             <i class="fa-solid fa-cart-shopping" id="cart-icon">
-                <span class="badge" id="cart-count">0</span>
+
             </i>
         </div>
 
@@ -153,282 +151,6 @@
 
     <!--====== Checkout Form Steps Part Start ======-->
 
-    {{-- <section class="checkout-wrapper section" lang="en" dir="rtl">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="checkout-steps-form-style-1">
-
-                        <!-- ✅ Form مخصص للدفع مع Stripe -->
-                        <form id="payment-form">
-                            @csrf
-                            <ul id="accordionExample">
-                                <!-- ================= Personal Details ================= -->
-                                <li>
-                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                        aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
-                                    <section class="checkout-steps-form-content collapse show" id="collapseThree">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="single-form form-default">
-                                                    <label>User Name</label>
-                                                    <div class="row">
-                                                        <div class="col-md-6 form-input form">
-                                                            <input type="text" name="first_name"
-                                                                placeholder="First Name" required>
-                                                        </div>
-                                                        <div class="col-md-6 form-input form">
-                                                            <input type="text" name="last_name" placeholder="Last Name"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Email Address</label>
-                                                    <div class="form-input form">
-                                                        <input type="email" name="email" placeholder="Email Address"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Phone Number</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" name="phone" placeholder="Phone Number"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="single-form form-default">
-                                                    <label>Mailing Address</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" name="address" placeholder="Mailing Address"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>City</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" name="city" placeholder="City" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Post Code</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" name="postal_code" placeholder="Post Code">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Country</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" name="country" placeholder="Country"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="single-form form-default">
-                                                    <label>Region/State</label>
-                                                    <div class="form-input form">
-                                                        <input type="text" name="state" placeholder="Region/State">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </li>
-
-                                <!-- ================= Shipping Option ================= -->
-                                <li>
-                                    <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                        aria-expanded="false" aria-controls="collapseFour">Shipping Address</h6>
-                                    <section class="checkout-steps-form-content collapse" id="collapseFour">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="checkout-payment-option">
-                                                    <h6 class="heading-6 font-weight-400 payment-title">Select Delivery
-                                                        Option</h6>
-                                                    <div class="payment-option-wrapper">
-                                                        <div class="single-payment-option">
-                                                            <input type="radio" name="shipping_method" value="standard"
-                                                                checked data-price="10.50">
-                                                            <label>
-                                                                <p>Standard Shipping</p>
-                                                                <span class="price">$10.50</span>
-                                                            </label>
-                                                        </div>
-                                                        <div class="single-payment-option">
-                                                            <input type="radio" name="shipping_method" value="express"
-                                                                data-price="20.00">
-                                                            <label>
-                                                                <p>Express Shipping</p>
-                                                                <span class="price">$20.00</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </li>
-
-                                <!-- ================= Payment Info ================= -->
-                                <li>
-                                    <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
-                                        aria-expanded="false" aria-controls="collapsefive">Payment Info</h6>
-                                    <section class="checkout-steps-form-content collapse" id="collapsefive">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="checkout-payment-form">
-                                                    <!-- ✅ Stripe Card Element -->
-                                                    <label>Credit or Debit Card</label>
-                                                    <div id="card-element" class="form-input form"></div>
-                                                    <div id="card-errors" role="alert"
-                                                        style="color:red;margin-top:5px;"></div>
-                                                    <div class="single-form form-default button mt-3">
-                                                        <button type="submit" class="btn" id="submit-button">Pay
-                                                            Now</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </li>
-                            </ul>
-
-                            <!-- قيم مخفية -->
-                            <input type="hidden" name="variant_id" value="{{ request('variant_id') }}">
-                            <input type="hidden" name="quantity" value="{{ request('qty', 1) }}">
-                        </form>
-
-                    </div>
-                </div>
-
-                <!-- ================= Sidebar ================= -->
-                <div class="col-lg-4">
-                    <div class="checkout-sidebar">
-                        <div class="checkout-sidebar-price-table mt-30">
-                            <h4 class="title">{{ $variant->product->name }}</h4>
-                            <div class="sub-total-price">
-                                <div class="total-price">
-                                    <p>
-                                        @foreach ($variant->attributeValues as $value)
-                                        {{ $value->attribute->name }}: {{ $value->value }} <br>
-                                        @endforeach
-                                    </p>
-                                    <p class="price">التشكيلة </p>
-                                </div>
-                                <div class="total-price shipping">
-                                    <p class="value">${{ $variant->price }}</p>
-                                    <p class="price" style="font-size: 13px">السعر للوحدة</p>
-                                </div>
-
-                                <div class="total-price shipping">
-                                    <p class="value">{{ $qty }}</p>
-                                    <p class="price" style="font-size: 13px">الكمية المطلوبة</p>
-                                </div>
-
-                                <div class="total-price shipping">
-                                    <p class="value" id="shipping-amount">${{ $shippingAmount }}</p>
-                                    <p class="price" style="font-size: 13px"> تكاليف الشحن</p>
-                                </div>
-
-                                <div class="total-price shipping">
-                                    <p class="value">${{ $taxAmount }}</p>
-                                    <p class="price" style="font-size: 13px">الضرائب</p>
-                                </div>
-
-                                @if($discountAmount > 0)
-                                <div class="total-price shipping">
-                                    <p class="value">${{ $discountAmount }}</p>
-                                    <p class="price" style="font-size: 13px">الخصم</p>
-                                </div>
-                                @endif
-                            </div>
-
-                            <div class="total-payable">
-                                <div class="payable-price">
-                                    <p class="value" style="color:rgb(17, 206, 0); font-weight: bold;font-size: 1.3rem">
-                                        ${{ $totalPriceAfterDiscount + $shippingAmount + $taxAmount }}
-                                    </p>
-                                    <p class="price" style="color:rgb(17, 206, 0); font-size: 1.3rem">المجموع</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stripe.js -->
-        <script src="https://js.stripe.com/v3/"></script>
-        <script>
-            const stripe = Stripe('{{ config("services.stripe.key") }}');
-            const elements = stripe.elements();
-            const cardElement = elements.create('card');
-            cardElement.mount('#card-element');
-
-            const form = document.getElementById('payment-form');
-            const submitButton = document.getElementById('submit-button');
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                submitButton.disabled = true;
-
-                // إرسال البيانات لإنشاء PaymentIntent
-                const response = await fetch("{{ route('customer.checkout.process') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({
-                        variant_id: form.querySelector('[name="variant_id"]').value,
-                        quantity: form.querySelector('[name="quantity"]').value,
-                        shipping_method: form.querySelector('[name="shipping_method"]:checked').value,
-                        email: form.querySelector('[name="email"]').value
-                    })
-                });
-
-                const data = await response.json();
-                const clientSecret = data.clientSecret;
-
-                // تنفيذ الدفع
-                const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-                    payment_method: {
-                        card: cardElement,
-                        billing_details: {
-                            name: form.querySelector('[name="first_name"]').value + ' ' + form.querySelector('[name="last_name"]').value,
-                            email: form.querySelector('[name="email"]').value
-                        }
-                    }
-                });
-
-                if (error) {
-                    document.getElementById('card-errors').textContent = error.message;
-                    submitButton.disabled = false;
-                } else if (paymentIntent.status === 'succeeded') {
-                    window.location.href = "/checkout/success/" + paymentIntent.metadata.order_id;
-                }
-            });
-        </script>
-    </section> --}}
-
-
-
-
-    {{-- ======================================================= --}}
 
     <section class="checkout-wrapper section" lang="en" dir="rtl">
 
@@ -454,7 +176,48 @@
                     </ul>
                 </div>
             @endif
-            <div class="row justify-content-center">
+
+            <!-- ================= Shipping Option ================= -->
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="checkout-payment-option">
+                        <div class="shipping-header">
+                            <h5 class="payment-title" style="color: black; font-weight: bold;">اختر طريقة الدفع</h5>
+                        </div>
+
+                        <div class="payment-option-wrapper">
+
+                            <div class="single-payment-option">
+                                <input type="radio" id="cash_on_delivery" name="shipping_method"
+                                    value="cash_on_delivery">
+                                {{-- {{ $selectedShipping == 'cash_on_delivery' ? 'checked' : '' }} --}}
+                                <label for="cash_on_delivery">
+                                    <p> الدفع عند التوصيل</p>
+                                </label>
+                            </div>
+
+                            <div class="single-payment-option">
+                                {{-- {{ $selectedShipping == 'bank_transfer' ? 'checked' : '' }} --}}
+                                <input type="radio" id="bank_transfer" name="shipping_method" value="bank_transfer">
+                                <label for="bank_transfer">
+                                    <p> التحويل البنكي</p>
+                                </label>
+                            </div>
+
+                            <div class="single-payment-option">
+                                <input type="radio" id="stripe" name="shipping_method" value="stripe" {{-- {{
+                                    $selectedShipping=='stripe' ? 'checked' : '' }}> --}}
+                                <label for="stripe">
+                                    <p>paybal or visa or mastercard </p>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 {{-- <h6>معلومات الدفع</h6> --}}
 
                 <div class="col-lg-4">
@@ -489,7 +252,6 @@
                                     <p class="value" id="shipping-amount">${{  $order->shipping_amount }}</p>
                                     <p class="price" style="font-size: 13px"> تكاليف الشحن</p>
                                 </div>
-
                                 <div class="total-price shipping">
                                     <p class="value">${{  $taxAmount }}</p>
                                     <p class="price" style="font-size: 13px">الضرائب</p>
@@ -517,54 +279,6 @@
                     </div>
                 </div>
 
-                {{-- <div class="col-lg-8">
-                    <div class="checkout-steps-form-style-1">
-                        <section>
-                            <div class="container" style="text-align: right">
-                                <div class="card shadow-sm mb-4" style="border-radius: 12px; direction: rtl;">
-                                    <div class="card-body">
-                                        <div class="single-form form-default">
-                                            <label>اسم حامل البطاقة</label>
-                                            <div class="form-input form">
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="single-form form-default">
-                                            <label>رقم البطاقة</label>
-                                            <div class="form-input form">
-                                                <input id="credit-input" type="text" placeholder="0000 0000 0000 0000">
-                                                <img src="{{ asset('assets2/images/payment/card.png') }}" alt="card">
-                                            </div>
-                                        </div>
-                                        <div class="payment-card-info">
-                                            <div class="single-form form-default mm-yy">
-                                                <label>Expiration</label>
-                                                <div class="expiration d-flex">
-                                                    <div class="form-input form">
-                                                        <input type="text" placeholder="MM">
-                                                    </div>
-                                                    <div class="form-input form">
-                                                        <input type="text" placeholder="YYYY">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="single-form form-default">
-                                                <label>CVC/CVV <span><i class="mdi mdi-alert-circle"></i></span></label>
-                                                <div class="form-input form">
-                                                    <input type="text" placeholder="***">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="single-form form-default button">
-                                            <button id="submit-button" class="btn">دفع الان</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                    </div>
-                </div> --}}
 
                 <div class="col-lg-8">
                     <div class="checkout-steps-form-style-1">
@@ -573,45 +287,87 @@
                                 <div class="card shadow-sm mb-4" style="border-radius: 12px; direction: rtl;">
                                     <div class="card-body">
                                         <form id="payment-form">
+                                            <div class="col-md-12">
+                                                <div class="checkout-payment-option">
+                                                    <div class="shipping-header">
+                                                        <h5 class="payment-title"
+                                                            style="color: black; font-weight: bold;">اختر طريقة الدفع
+                                                        </h5>
+                                                    </div>
 
-                                            <!-- اسم حامل البطاقة -->
-                                            <div class="single-form form-default">
-                                                <label>اسم حامل البطاقة</label>
-                                                <div class="form-input form">
-                                                    <input type="text" name="first_name" placeholder="الاسم الأول">
-                                                    <input type="text" name="last_name" placeholder="الاسم الأخير">
+                                                    <div class="payment-option-wrapper">
+
+                                                        <div class="single-payment-option">
+                                                            <input type="radio" id="cash_on_delivery"
+                                                                name="shipping_method" value="cash_on_delivery">
+                                                            {{-- {{ $selectedShipping == 'cash_on_delivery' ? 'checked'
+                                                            : '' }} --}}
+                                                            <label for="cash_on_delivery">
+                                                                <p> الدفع عند التوصيل</p>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="single-payment-option">
+                                                            {{-- {{ $selectedShipping == 'bank_transfer' ? 'checked' :
+                                                            '' }} --}}
+                                                            <input type="radio" id="bank_transfer"
+                                                                name="shipping_method" value="bank_transfer">
+                                                            <label for="bank_transfer">
+                                                                <p> التحويل البنكي</p>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="single-payment-option">
+                                                            <input type="radio" id="stripe" name="shipping_method"
+                                                                value="stripe" {{-- {{ $selectedShipping=='stripe'
+                                                                ? 'checked' : '' }}> --}}
+                                                            <label for="stripe">
+                                                                <p>paybal or visa or mastercard </p>
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <!-- البريد الإلكتروني -->
-                                            <div class="single-form form-default">
-                                                <label>البريد الإلكتروني</label>
-                                                <div class="form-input form">
-                                                    <input type="email" name="email" placeholder="example@email.com">
+                                                <hr>
+                                                <!-- اسم حامل البطاقة -->
+                                                <div class="single-form form-default">
+                                                    <label>اسم حامل البطاقة</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" name="first_name" placeholder="الاسم الأول">
+                                                        <input type="text" name="last_name" placeholder="الاسم الأخير">
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Stripe Card Element -->
-                                            <div class="single-form form-default">
-                                                <label>تفاصيل البطاقة</label>
-                                                <div id="card-element" class="form-input form"></div>
-                                                {{-- <div id="card-errors" role="alert"
-                                                    style="color:red; margin-top:5px;"> --}}
+                                                <!-- البريد الإلكتروني -->
+                                                <div class="single-form form-default">
+                                                    <label>البريد الإلكتروني</label>
+                                                    <div class="form-input form">
+                                                        <input type="email" name="email"
+                                                            placeholder="example@email.com">
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- بيانات الطلب (hidden inputs) -->
-                                            <input type="hidden" name="variant_id" value="1">
-                                            <input type="hidden" name="quantity" value="1">
-                                            <input type="hidden" name="shipping_method" value="standard">
+                                                <!-- Stripe Card Element -->
+                                                <div class="single-form form-default">
+                                                    <label>تفاصيل البطاقة</label>
+                                                    <div id="card-element" class="form-input form"></div>
+                                                    {{-- <div id="card-errors" role="alert"
+                                                        style="color:red; margin-top:5px;"> --}}
+                                                    </div>
+                                                </div>
 
-                                            <!-- زر الدفع -->
-                                            <div class="single-form form-default button">
-                                                <a
-                                                    href="{{ route('customer.checkout.success', ['order' => $order->id]) }}">
-                                                    <button id="submit-button" class="btn">دفع الآن</button>
-                                                </a>
-                                            </div>
+                                                <!-- بيانات الطلب (hidden inputs) -->
+                                                <input type="hidden" name="variant_id" value="1">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="shipping_method" value="standard">
+
+                                                <!-- زر الدفع -->
+                                                <div class="single-form form-default button">
+                                                    <a
+                                                        href="{{ route('customer.checkout.success', ['order' => $order->id]) }}">
+                                                        <button id="submit-button" class="btn">دفع الآن</button>
+                                                    </a>
+                                                </div>
 
                                         </form>
                                     </div>
@@ -875,20 +631,6 @@
 
 
     <script>
-        // function updateCartCount() {
-        //     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-        //     document.getElementById('cart-count').textContent = cartItems.length || 0;
-        // }
-
-        // function updateFavCount() {
-        //     const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-        //     document.getElementById('fav-count').textContent = favItems.length || 0;
-        // }
-
-        // function updateAllCounts() {
-        //     updateCartCount();
-        //     updateFavCount();
-        // }
 
         const stripe = Stripe("{{ config('services.stripe.key') }}"); // public key من .env
         const elements = stripe.elements();

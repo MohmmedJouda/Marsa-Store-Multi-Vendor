@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Checkout </title>
+    <title>الدفع </title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets2/images/favicon.svg') }}" />
@@ -189,11 +189,12 @@
                                     <div class="col-md-12">
                                         <div class="checkout-payment-option">
                                             <div class="shipping-header">
-                                                <h6 class="heading-6 font-weight-400 payment-title">اختر خيار
-                                                    التوصيل</h6>
-                                                <h6><a href="#"
-                                                        style="font-size:11px; color: rgb(0, 81, 255);text-decoration: underline;">اعرف
-                                                        أكثر عن خطط الشحن</a></h6>
+                                                <h5 class="payment-title" style="color: black; font-weight: bold;">اختر خيارالتوصيل</h5>
+                                                <h6>
+                                                    <a href="#" style="font-size:11px; color: rgb(0, 81, 255);text-decoration: underline;">
+                                                        اعرف أكثر عن خطط الشحن
+                                                    </a>
+                                                </h6>
                                             </div>
 
                                             <div class="payment-option-wrapper">
@@ -231,8 +232,11 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-12">
-                                        <div class="steps-form-btn button" style="text-align: right;">
+                                    <hr>
+                                    <h5 class=" payment-title" style="color: black; font-weight: bold;">معلوماتك الشخصية </h5>
+                                        <div class="steps-form-btn button" style="text-align: right; margin-bottom:-20px">
 
                                         </div>
                                         <input type="hidden" name="variant_id" value="{{ request('variant_id') }}">
@@ -266,6 +270,8 @@
                             </div>
                         </div>
                     </div>
+<hr>
+                                    <h5 class=" payment-title mb-3" style="color: black; font-weight: bold;"> عنوان التوصيل  </h5>
 
                     <!-- ================= Address Details ================= -->
                     <div class="mb-4">
@@ -539,34 +545,6 @@
 
 
 
-    <div id="customModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal()">✖</button>
-            <div class="modal-content">
-                <h2>تسجيل الدخول</h2>
-                <form>
-                    <label for="email">البريد الإلكتروني</label>
-                    <input type="email" id="email" placeholder="example@email.com" required>
-
-                    <label for="password">كلمة المرور</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
-
-                    <button type="submit" class="submit-btn">دخول</button>
-                    <p class="link"><a href="#">نسيت كلمة المرور؟</a></p>
-
-                    <div class="or-divider">أو</div>
-
-                    <button class="google-btn">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo">
-                        التسجيل عبر Google
-                    </button>
-
-                </form>
-            </div>
-        </div>
-    </div>
-
-
 
     <!-- سلة جانبية -->
     <div id="cart-panel" class="cart-panel" style="display:none;">
@@ -626,35 +604,6 @@
 
 
     <script>
-        // function updateCartCount() {
-        //     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-        //     document.getElementById('cart-count').textContent = cartItems.length || 0;
-        // }
-
-        // function updateFavCount() {
-        //     const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-        //     document.getElementById('fav-count').textContent = favItems.length || 0;
-        // }
-
-        // function updateAllCounts() {
-        //     updateCartCount();
-        //     updateFavCount();
-        // }
-
-        // نفذ عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', updateAllCounts);
-
-
-
-        // استدعِ هذه الوظيفة عند إضافة/إزالة أي منتج للسلة أو المفضلة
-        // مثال:
-        // بعد إضافة منتج:
-        // localStorage.setItem('cart', JSON.stringify(cartItems));
-        // updateCartCount();
-
-        // بعد إزالة من المفضلة:
-        // localStorage.setItem('favorites', JSON.stringify(favItems));
-        // updateFavCount();
 
 
         const stripe = Stripe('{{ config("services.stripe.key") }}'); // مفتاح public

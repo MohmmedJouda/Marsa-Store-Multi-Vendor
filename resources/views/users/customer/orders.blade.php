@@ -184,14 +184,22 @@
                                 <h6 class="mb-0">
                                     الحالة:
                                     <span class="badge 
-                                                                                        @if($order->status == 'pending') bg-warning 
-                                                                                        @elseif($order->status == 'shipping') bg-info 
-                                                                                        @elseif($order->status == 'shipped') bg-primary 
-                                                                                        @elseif($order->status == 'delivered') bg-success 
-                                                                                        @elseif($order->status == 'cancelled') bg-danger 
-                                                                                        @elseif($order->status == 'refunded') bg-secondary 
-                                                                                        @endif">
-                                        {{ ucfirst($order->status) }}
+                                                                                                            @if($order->status == 'pending') bg-warning   
+                                                                                                            @elseif($order->status == 'shipping') bg-info 
+                                                                                                            @elseif($order->status == 'shipped') bg-primary 
+                                                                                                            @elseif($order->status == 'delivered') bg-success 
+                                                                                                            @elseif($order->status == 'cancelled') bg-danger 
+                                                                                                            @elseif($order->status == 'refunded') bg-secondary 
+                                                                                                            @endif">
+
+                                        @if($order->status == 'pending') قيد العمل
+                                        @elseif($order->status == 'shipping') جاري الشحن
+                                        @elseif($order->status == 'shipped') تم الشحن
+                                        @elseif($order->status == 'delivered') تم التوصيل
+                                        @elseif($order->status == 'cancelled') ملغي
+                                        @elseif($order->status == 'refunded') مسترد
+                                        @endif
+                                        {{-- {{ ucfirst($order->status) }} --}}
                                     </span>
                                 </h6>
                                 <p class="text-muted mb-0">
@@ -224,14 +232,22 @@
                                             </form>
                                         @endif
 
-                                        @if($order->status === 'delivered')
-                                            <!-- زر إرجاع الطلب -->
+                                        @if($order->status === 'delivered' && $order->delivered_at && $order->delivered_at->diffInDays(now()) < 1)
                                             <form method="POST" action="{{ route('customer.orders.refund', $order->id) }}"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('PATCH')
                                                 <button class="btn btn-warning btn-sm">إرجاع الطلب</button>
                                             </form>
+                                        @endif
+
+                                        @if($order->status === 'delivered')
+                                            {{-- <form method="POST" action="{{ route('customer.orders.refund', $order->id) }}"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button class="btn btn-warning btn-sm">إرجاع الطلب</button>
+                                            </form> --}}
 
                                             <!-- زر رضا المستخدم -->
                                             <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
@@ -242,13 +258,13 @@
                                         @if($order->status === 'refunded')
                                             <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
                                                 class="btn btn-outline-primary btn-sm">
-                                                لست راض عن المنتج
+                                                لست راض عن المنتج ؟
                                             </a>
                                         @endif
                                         @if($order->status === 'cancelled')
                                             <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
                                                 class="btn btn-outline-primary btn-sm">
-                                                لست راض عن خدمة التوصيل
+                                                لست راض عن خدمة التوصيل ؟
                                             </a>
                                         @endif
                                     </div>
@@ -513,33 +529,6 @@
 
 
     <script>
-        function updateCartCount() {
-            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-            document.getElementById('cart-count').textContent = cartItems.length || 0;
-        }
-
-        function updateFavCount() {
-            const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-            document.getElementById('fav-count').textContent = favItems.length || 0;
-        }
-
-        function updateAllCounts() {
-            updateCartCount();
-            updateFavCount();
-        }
-
-        // نفذ عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', updateAllCounts);
-
-        // استدعِ هذه الوظيفة عند إضافة/إزالة أي منتج للسلة أو المفضلة
-        // مثال:
-        // بعد إضافة منتج:
-        // localStorage.setItem('cart', JSON.stringify(cartItems));
-        // updateCartCount();
-
-        // بعد إزالة من المفضلة:
-        // localStorage.setItem('favorites', JSON.stringify(favItems));
-        // updateFavCount();
 
         document.addEventListener('DOMContentLoaded', function () {
             const userIcon = document.getElementById('userIcon');

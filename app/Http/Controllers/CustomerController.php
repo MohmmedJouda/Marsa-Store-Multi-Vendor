@@ -246,6 +246,22 @@ class CustomerController extends Controller
         }
         return back();
     }
+
+    public function updateStatus(Request $request, Order $order)
+{
+    $order->status = $request->status;
+
+    if ($request->status === 'delivered') {
+        $order->delivered_at = now(); // تسجيل وقت التسليم
+    }else {
+    $order->delivered_at = null;
+}
+
+    $order->save();
+
+    return back()->with('success', 'تم تحديث حالة الطلب');
+}
+
     public function create()
     {
         //

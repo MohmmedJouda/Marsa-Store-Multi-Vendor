@@ -27,7 +27,6 @@ class StoreFactory extends Factory
             'logo' => null,
             'phone' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
-            'status' => $this->faker->randomElement(['approved', 'rejected', 'pending']),
         ];
     }
 }

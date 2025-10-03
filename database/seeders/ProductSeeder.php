@@ -13,7 +13,7 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        Product::factory(7)->create()->each(function ($product) {
+        Product::factory(1)->create()->each(function ($product) {
 
             // إنشاء Variants لكل منتج
             $variants = ProductVariant::factory(3)->create([
