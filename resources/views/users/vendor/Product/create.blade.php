@@ -15,8 +15,8 @@
                     <!-- Product Name and Status next to each other -->
                     <div class="form-group col-md-6 mt-3">
                         <label for="name">Product Name</label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter product name"
-                            required>
+                        <input type="text" name="name" id="name" class="form-control"
+                            placeholder="Enter product name" required>
                     </div>
 
                     <div class="form-group col-md-6 mt-3">
@@ -30,8 +30,7 @@
                     <!-- Description below Name and Status -->
                     <div class="form-group col-md-6 mt-3">
                         <label for="description">Description</label>
-                        <textarea name="description" id="description" class="form-control"
-                            placeholder="Enter product description" required></textarea>
+                        <textarea name="description" id="description" class="form-control" placeholder="Enter product description" required></textarea>
                     </div>
 
                     <!-- Discount -->
@@ -44,8 +43,8 @@
                     <!-- Price -->
                     <div class="form-group col-md-6 mt-3">
                         <label for="price">Price ($)</label>
-                        <input type="number" name="price" id="price" class="form-control" placeholder="Enter product price"
-                            step="0.01" required>
+                        <input type="number" name="price" id="price" class="form-control"
+                            placeholder="Enter product price" step="0.01" required>
                     </div>
 
                     <!-- Stock -->
@@ -69,8 +68,8 @@
                     <!-- Additional images field beside main image field -->
                     <div class="form-group col-md-6 mt-3">
                         <label for="additional_images">Select Product Images</label>
-                        <input type="file" name="additional_images[]" id="additional_images" class="form-control" multiple
-                            required>
+                        <input type="file" name="additional_images[]" id="additional_images" class="form-control"
+                            multiple required>
                         <small class="form-text text-muted">
                             Hold down the <strong>Ctrl</strong> (Windows) or <strong>Command</strong> (Mac) key to select
                             multiple images.
@@ -118,7 +117,8 @@
                     <!-- Field to upload image for the new subcategory -->
                     <div class="col-md-6">
                         <label for="subcategory_image" class="mt-3">Upload Image for New SubCategory</label>
-                        <input type="file" name="subcategory_image" id="subcategory_image" class="form-control" required>
+                        <input type="file" name="subcategory_image" id="subcategory_image" class="form-control"
+                            required>
                     </div>
                 </div>
 
@@ -137,7 +137,8 @@
                                 </div>
 
                                 <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                    <label for="attributes[{{ $index }}][values][]" class="mt-3 form-label">Value</label>
+                                    <label for="attributes[{{ $index }}][values][]"
+                                        class="mt-3 form-label">Value</label>
                                     <input type="text" name="attributes[{{ $index }}][values][]"
                                         class="form-control attribute-value mb-2" placeholder="Value" required>
                                 </div>
@@ -202,12 +203,12 @@
     <script src="{{ asset('js/crud.js') }}"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // تعطيل حقل Subcategory عند تحميل الصفحة
             $('#subcategory_id').prop('disabled', true);
 
             // جلب الفئات الفرعية عند اختيار فئة
-            $('#category_id').change(function () {
+            $('#category_id').change(function() {
                 var categoryId = $(this).val();
 
                 if (!categoryId) {
@@ -222,10 +223,10 @@
                         data: {
                             category_id: categoryId
                         },
-                        success: function (response) {
+                        success: function(response) {
                             $('#subcategory_id').empty().append(
                                 '<option value="">Select SubCategory</option>');
-                            $.each(response.subcategories, function (key, subcategory) {
+                            $.each(response.subcategories, function(key, subcategory) {
                                 $('#subcategory_id').append('<option value="' +
                                     subcategory.id + '">' + subcategory.name +
                                     '</option>');
@@ -237,12 +238,12 @@
             });
 
             // عرض حقل إضافة subcategory جديد
-            $('#subcategory_id').on('change', function () {
+            $('#subcategory_id').on('change', function() {
                 $('#other_subcategory_field').toggle($(this).val() === 'other');
             });
 
             // التعامل مع السمات الأولى التي تم تحميلها من الخادم
-            $('#add-attribute').click(function () {
+            $('#add-attribute').click(function() {
                 const newAttributeIndex = $('.attribute').length; // تحديد الفهرس للسمات المضافة
 
                 const field = `
@@ -265,9 +266,10 @@
             });
 
             // زر إضافة قيمة جديدة لكل سمة
-            $(document).on('click', '.add-value', function () {
+            $(document).on('click', '.add-value', function() {
                 const index = $(this).data('attribute-index');
-                const newValue = `
+                const newValue =
+                    `
                                                                                                                             <div class="value-container mb-3 p-3 border rounded shadow-sm">
                                                                                                                                 <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
                                                                                                                                 <input type="text" name="attributes[${index}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
@@ -277,7 +279,7 @@
 
 
             // إرسال البيانات بـ AJAX
-            document.getElementById('create_product').addEventListener('submit', function (e) {
+            document.getElementById('create_product').addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 const form = e.target;
@@ -286,8 +288,12 @@
                 const attributes = [];
                 document.querySelectorAll('.attribute-block').forEach(block => {
                     const name = block.querySelector('.attribute-name').value;
-                    const values = Array.from(block.querySelectorAll('.attribute-value')).map(i => i.value);
-                    attributes.push({ name, values });
+                    const values = Array.from(block.querySelectorAll('.attribute-value')).map(i => i
+                        .value);
+                    attributes.push({
+                        name,
+                        values
+                    });
                 });
 
                 formData.append('attributes', JSON.stringify(attributes));
@@ -315,12 +321,12 @@
                 });
 
                 fetch("{{ route('vendor.products.store') }}", {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                })
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
                     .then(res => res.json())
                     .then(data => {
                         alert(data.message);
@@ -371,7 +377,10 @@
                     errorMessage = `Attribute #${idx + 1}: values entered but attribute name is missing.`;
                 }
 
-                attributes.push({ name, values });
+                attributes.push({
+                    name,
+                    values
+                });
             });
 
             if (validationFailed) {
@@ -417,13 +426,13 @@
 
         function generateVariants() {
             // توليد التركيبات عند الضغط على "توليد التركيبات"
-            window.generateVariants = function () {
+            window.generateVariants = function() {
                 const attributes = {};
 
                 // جمع السمات والقيم المدخلة
-                $('.attribute').each(function () {
+                $('.attribute').each(function() {
                     const name = $(this).find('.attribute-name').val().trim();
-                    const values = $(this).find('.attribute-value').map(function () {
+                    const values = $(this).find('.attribute-value').map(function() {
                         return $(this).val().trim();
                     }).get().filter(Boolean);
 
@@ -483,12 +492,17 @@
 
                 function helper(index, current) {
                     if (index === keys.length) {
-                        combinations.push({ ...current });
+                        combinations.push({
+                            ...current
+                        });
                         return;
                     }
                     const key = keys[index];
                     attributes[key].forEach(value => {
-                        helper(index + 1, { ...current, [key]: value });
+                        helper(index + 1, {
+                            ...current,
+                            [key]: value
+                        });
                     });
                 }
                 helper(0, {});

@@ -162,210 +162,32 @@ License: For each use you must have a valid license purchased only from above li
                                             <span class="menu-arrow"></span>
                                         </span>
                                         <div class="menu-sub menu-sub-accordion">
-                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                                <span class="menu-link">
+                                        
+                                            <div class="menu-item">
+                                                <a class="menu-link"
+                                                    href="{{route('vendor.products.index')}}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Catalog</span>
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                                <div class="menu-sub menu-sub-accordion">
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/catalog/products.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Products</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/catalog/categories.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Categories</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/catalog/add-product.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Add Product</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Edit Product</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/catalog/add-category.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Add Category</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Edit Category</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                                <span class="menu-link">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Sales</span>
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                                <div class="menu-sub menu-sub-accordion">
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/sales/listing.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Orders Listing</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/sales/details.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Order Details</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/sales/add-order.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Add Order</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/sales/edit-order.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Edit Order</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                                <span class="menu-link">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Customers</span>
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                                <div class="menu-sub menu-sub-accordion">
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/customers/listing.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Customer Listing</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/customers/details.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Customer Details</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                                <span class="menu-link">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Reports</span>
-                                                    <span class="menu-arrow"></span>
-                                                </span>
-                                                <div class="menu-sub menu-sub-accordion">
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/reports/view.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Products Viewed</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/reports/sales.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Sales</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/reports/returns.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Returns</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/reports/customer-orders.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Customer Orders</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link"
-                                                            href="../../demo1/dist/apps/ecommerce/reports/shipping.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Shipping</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                                    <span class="menu-title">Products</span>
+                                                </a>
                                             </div>
                                             <div class="menu-item">
                                                 <a class="menu-link"
-                                                    href="../../demo1/dist/apps/ecommerce/settings.html">
+                                                    href="{{route('vendor.products.create')}}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Settings</span>
+                                                    <span class="menu-title">Add Products</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link"
+                                                    href="{{route('vendor.categories.index')}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Categories</span>
                                                 </a>
                                             </div>
                                         </div>

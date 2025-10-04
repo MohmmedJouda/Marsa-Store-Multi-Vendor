@@ -21,12 +21,6 @@ use App\Http\Controllers\vendorController;
 use App\Http\Middleware\CheckVendorDocument;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', CheckVendorDocument::class])->group(function () {
-    Route::get('/vendor/dashboard', [VendorController::class, 'dashboard'])
-        ->name('vendor.dashboard');
-
-    // أي Route أخرى خاصة بالتاجر يمكنك وضعها هنا
-});
 
 Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
 
@@ -46,6 +40,11 @@ Route::middleware([
 
 Route::get('/vendor/register', [VendorAuthController::class, 'showRegistrationForm'])->name('vendor.register');
 Route::post('/vendor/register', [VendorAuthController::class, 'register']);
+
+// routes/web.php
+Route::get('/search-products', [ProductController::class, 'search'])->name('products.search');
+
+
 
 //  customer
 Route::middleware([
