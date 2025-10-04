@@ -46,7 +46,7 @@ class CheckoutController extends Controller
         }
 
         // لتحديد الخيار المحدد مسبقاً في الواجهة
-        $selectedShipping = $request->input('shipping_method', 'standard'); // default to standard
+        $selectedShipping = $request->input('shipping_method', 'standard'); 
 
         $taxAmount = 5;      // مثال ثابت
 
@@ -59,7 +59,12 @@ class CheckoutController extends Controller
         }
 
         return view('users.customer.checkout', compact(
-            'variant', 'qty', 'subtotalPrice', 'discountAmount', 'totalPriceAfterDiscount', 'shippingAmount', 'taxAmount', 'selectedShipping','addresses','username'
+            'variant', 
+            'qty','subtotalPrice',
+                    'discountAmount','totalPriceAfterDiscount',
+                    'shippingAmount','taxAmount',
+                    'selectedShipping','addresses',
+                    'username'
         ));
     }
 

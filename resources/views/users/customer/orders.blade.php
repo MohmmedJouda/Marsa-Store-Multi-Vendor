@@ -165,6 +165,12 @@
     <!-- Start Contact Area -->
     <section id="contact-us" class="contact-us section">
         <div class="container">
+            @if(request('success'))
+                <div class="alert alert-success">
+                    تمت عملية الدفع بنجاح ✅
+                </div>
+            @endif
+
             <div class="contact-head">
                 <div class="row">
                     <div class="col-12">
@@ -183,14 +189,15 @@
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h6 class="mb-0">
                                     الحالة:
-                                    <span class="badge 
-                                                                                                            @if($order->status == 'pending') bg-warning   
-                                                                                                            @elseif($order->status == 'shipping') bg-info 
-                                                                                                            @elseif($order->status == 'shipped') bg-primary 
-                                                                                                            @elseif($order->status == 'delivered') bg-success 
-                                                                                                            @elseif($order->status == 'cancelled') bg-danger 
-                                                                                                            @elseif($order->status == 'refunded') bg-secondary 
-                                                                                                            @endif">
+                                    <span
+                                        class="badge 
+                                                                                                                    @if($order->status == 'pending') bg-warning   
+                                                                                                                    @elseif($order->status == 'shipping') bg-info 
+                                                                                                                    @elseif($order->status == 'shipped') bg-primary 
+                                                                                                                    @elseif($order->status == 'delivered') bg-success 
+                                                                                                                    @elseif($order->status == 'cancelled') bg-danger 
+                                                                                                                    @elseif($order->status == 'refunded') bg-secondary 
+                                                                                                                    @endif">
 
                                         @if($order->status == 'pending') قيد العمل
                                         @elseif($order->status == 'shipping') جاري الشحن
@@ -232,7 +239,7 @@
                                             </form>
                                         @endif
 
-                                        @if($order->status === 'delivered' && $order->delivered_at && $order->delivered_at->diffInDays(now()) < 1)
+                                        @if($order->status === 'delivered')
                                             <form method="POST" action="{{ route('customer.orders.refund', $order->id) }}"
                                                 class="d-inline">
                                                 @csrf

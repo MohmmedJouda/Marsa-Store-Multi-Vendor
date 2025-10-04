@@ -51,13 +51,4 @@ class order extends Model
         return $this->belongsTo(Address::class);
     }
 
-    protected static function booted()
-{
-    static::updating(function ($order) {
-        if ($order->isDirty('status') && $order->status === 'delivered') {
-            $order->delivered_at = now();
-        }
-    });
-}
-
 }
