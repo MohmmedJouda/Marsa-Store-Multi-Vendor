@@ -12,5 +12,12 @@ class PaymentMethod extends Model
             'transaction_id',     
             'receipt_path',     
             'payment_confirmed_at',
+            'order_id',
         ];
+
+        public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+    
 }

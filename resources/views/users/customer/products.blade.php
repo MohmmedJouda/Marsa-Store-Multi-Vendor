@@ -119,10 +119,6 @@
         @endauth
 
         <div class="right">
-            <i class="fa-solid fa-heart" id="fav-icon">
-                <span class="badge" id="fav-count">0</span>
-            </i>
-
             <i class="fa-solid fa-cart-shopping" id="cart-icon">
                 <span class="badge" id="cart-count">0</span>
             </i>
@@ -513,31 +509,6 @@
         </div>
     </div>
 
-
-
-
-
-
-    <!-- لوحة المفضلة -->
-    <div class="fav-panel" id="fav-panel" style="display:none;">
-        <button class="close-panel" id="close-fav">&times;</button>
-        <h3>المفضلة</h3>
-        <div class="fav-items" id="fav-items">
-            <!-- المنتجات المضافة للمفضلة ستُدرج هنا عبر JavaScript -->
-        </div>
-        <div class="fav-footer">
-            <button class="clear-fav">إزالة الكل</button>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-
     <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets2/js/glightbox.min.js')}}"></script>
     <script src="{{asset('assets2/js/main.js')}}"></script>
@@ -553,28 +524,7 @@
 
 
     <script>
-        // function updateFavCount() {
-        //     const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-        //     document.getElementById('fav-count').textContent = favItems.length || 0;
-        // }
 
-        // function updateAllCounts() {
-        //     updateCartCount();
-        //     updateFavCount();
-        // }
-
-        // نفذ عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', updateAllCounts);
-
-        // استدعِ هذه الوظيفة عند إضافة/إزالة أي منتج للسلة أو المفضلة
-        // مثال:
-        // بعد إضافة منتج:
-        // localStorage.setItem('cart', JSON.stringify(cartItems));
-        // updateCartCount();
-
-        // بعد إزالة من المفضلة:
-        // localStorage.setItem('favorites', JSON.stringify(favItems));
-        // updateFavCount();
 
         document.addEventListener('DOMContentLoaded', function () {
             const userIcon = document.getElementById('userIcon');

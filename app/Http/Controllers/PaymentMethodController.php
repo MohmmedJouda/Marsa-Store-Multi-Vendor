@@ -2,64 +2,78 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\PaymentMethod;
+use Illuminate\Support\Facades\Storage;
 
 class PaymentMethodController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function storeBankTransfer(Request $request, Order $order)
     {
-        //
+        // ✅ التحقق من المدخلات
+        $validated = $request->validate([
+            'transaction_id' => 'nullable|string|max:255',
+            'receipt' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        ]);
+
+        // ✅ رفع الملف إن وُجد
+        $receiptPath = null;
+        if ($request->hasFile('receipt')) {
+            $receiptPath = $request->file('receipt')->store('receipts', 'public');
+        }
+
+        // ✅ إنشاء سجل الدفع
+        $payment = PaymentMethod::create([
+            'order_id'       => $order->id,
+            'payment_method' => 'bank_transfer',
+            'bank_reference' => 'BANK-' . strtoupper(uniqid()), // مثال مرجع فريد
+            'transaction_id' => $validated['transaction_id'] ?? null,
+            'receipt_path' => $receiptPath,
+        ]);
+
+        // ✅ ربط طريقة الدفع بالطلب
+        $order->update([
+            'payment_method' => 'bank_transfer',
+        ]);
+
+        // يمكنك ربط علاقة الدفع بالطلب (إن أضفت عمود order_id في جدول payment_methods)
+        // $payment->order()->associate($order)->save();
+
+        return redirect()->route('customer.orders.show')
+            ->with('success', 'تم إرسال بيانات التحويل البنكي بنجاح، وسيتم تأكيد الدفع قريبًا.');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function storePayOnDelivery(Request $request, Order $order)
     {
-        //
-    }
+        // ✅ التحقق من المدخلات
+        $validated = $request->validate([
+            'transaction_id' => 'nullable|string|max:255',
+            'receipt' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // ✅ رفع الملف إن وُجد
+        $receiptPath = null;
+        if ($request->hasFile('receipt')) {
+            $receiptPath = $request->file('receipt')->store('receipts', 'public');
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(PaymentMethod $paymentMethod)
-    {
-        //
-    }
+        // ✅ إنشاء سجل الدفع
+        $payment = PaymentMethod::create([
+            'order_id'       => $order->id,
+            'payment_method' => 'pay_on_delivery',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PaymentMethod $paymentMethod)
-    {
-        //
-    }
+        // ✅ ربط طريقة الدفع بالطلب
+        $order->update([
+            'payment_method' => 'pay_on_delivery',
+            'status' => 'shipping',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PaymentMethod $paymentMethod)
-    {
-        //
-    }
+        // يمكنك ربط علاقة الدفع بالطلب (إن أضفت عمود order_id في جدول payment_methods)
+        // $payment->order()->associate($order)->save();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PaymentMethod $paymentMethod)
-    {
-        //
+        return redirect()->route('customer.orders.show')
+            ->with('success', 'تم تأكيد الطلب بنجاح, جاري شحن الطلب.');
     }
 }

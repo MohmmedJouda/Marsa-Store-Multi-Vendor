@@ -36,13 +36,13 @@ class CheckoutController extends Controller
 
         // حساب السعر حسب طريقة الشحن
         if ($shippingMethod === 'express') {
-            $shippingAmount = 10;
+            $shippingAmount = 30;
         } elseif ($shippingMethod === 'standard') {
-            $shippingAmount = 5;
+            $shippingAmount = 15;
         } elseif ($shippingMethod === 'free') {
             $shippingAmount = 0;
         } else {
-            $shippingAmount = 5; // fallback
+            $shippingAmount = 15; // fallback
         }
 
         // لتحديد الخيار المحدد مسبقاً في الواجهة

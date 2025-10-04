@@ -43,7 +43,7 @@ class order extends Model
     //  معلومات الدفع
     public function payment()
     {
-        return $this->hasOne(Payment::class);
+        return $this->hasOne(PaymentMethod::class);
     }
 
     public function address()

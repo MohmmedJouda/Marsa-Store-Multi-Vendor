@@ -43,6 +43,7 @@ License: For each use you must have a valid license purchased only from above li
     <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -54,12 +55,12 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
         <!--begin::Page-->
-        <div class="page d-flex flex-row flex-column-fluid">
+        <div class="page d-flex flex-row-reverse flex-column-fluid">
             <!--begin::Aside-->
             <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true"
                 data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}"
                 data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}"
-                data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
+                data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
                 <!--begin::Brand-->
                 <div class="aside-logo flex-column-auto" id="kt_aside_logo">
                     <!--begin::Logo-->
@@ -520,38 +521,10 @@ License: For each use you must have a valid license purchased only from above li
                                                 </span>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                            <span class="menu-title">Chat</span>
-                                            <span class="menu-arrow"></span>
+                                            <a href="{{ route('vendor.orders') }}"><span
+                                                    class="menu-title">Orders</span></a>
                                         </span>
-                                        <div class="menu-sub menu-sub-accordion">
-                                            <div class="menu-item">
-                                                <a class="menu-link" href="../../demo1/dist/apps/chat/private.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Private Chat</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link" href="../../demo1/dist/apps/chat/group.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Group Chat</span>
-                                                </a>
-                                            </div>
-                                            <div class="menu-item">
-                                                <a class="menu-link" href="../../demo1/dist/apps/chat/drawer.html">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Drawer Chat</span>
-                                                </a>
-                                            </div>
-                                        </div>
                                     </div>
-
-
 
                                     <div class="menu-item">
                                         <div class="menu-content">

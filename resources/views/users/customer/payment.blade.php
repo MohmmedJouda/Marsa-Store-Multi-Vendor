@@ -156,19 +156,19 @@
 
         <div class="container">
             @if(session('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
+                <div class="alert alert-success" role="alert" style="text-align: right">
+                  ✅  {{ session('success') }} 
                 </div>
             @endif
 
             @if(session('error'))
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger" role="alert" style="text-align: right">
                     {{ session('error') }}
                 </div>
             @endif
 
             @if ($errors->any())
-                <div class="alert alert-warning">
+                <div class="alert alert-warning" style="text-align: right">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -192,7 +192,7 @@
                                 $item = $items->first(); // أخذ أول عنصر فقط
                                 $discount += ($item['price'] * $item['quantity'] * $productDiscount) / 100;
                             @endphp
-                            <h4 class="title">{{ $item->variant->product->name }}</h4>
+                            <h4 class="title" style="text-align: right">{{ $item->variant->product->name }}</h4>
                             <div class="sub-total-price">
                                 <div class="total-price">
                                     <p>
@@ -203,7 +203,7 @@
                                     <p class="price">التشكيلة </p>
                                 </div>
                                 <div class="total-price shipping">
-                                    <p class="value">${{ $item->variant->price }}</p>
+                                    <p class="value">₪{{ $item->variant->price }}</p>
                                     <input type="hidden" name="price" value="{{ $item->variant->price }}">
                                     <p class="price" style="font-size: 13px">السعر للوحدة</p>
                                 </div>
@@ -214,17 +214,17 @@
                                 </div>
 
                                 <div class="total-price shipping">
-                                    <p class="value" id="shipping-amount">${{  $order->shipping_amount }}</p>
+                                    <p class="value" id="shipping-amount">₪{{  $order->shipping_amount }}</p>
                                     <p class="price" style="font-size: 13px"> تكاليف الشحن</p>
                                 </div>
                                 <div class="total-price shipping">
-                                    <p class="value">${{  $taxAmount }}</p>
+                                    <p class="value">₪{{  $taxAmount }}</p>
                                     <p class="price" style="font-size: 13px">الضرائب</p>
                                 </div>
 
                                 @if($productDiscount > 0)
                                     <div class="total-price shipping">
-                                        <p class="value">${{ $productDiscount }}</p>
+                                        <p class="value">₪{{ $productDiscount }}</p>
                                         <p class="price" style="font-size: 13px">الخصم</p>
                                     </div>
                                 @endif
@@ -234,7 +234,7 @@
                             <div class="total-payable">
                                 <div class="payable-price">
                                     <p class="value" style="color:rgb(17, 206, 0); font-weight: bold;font-size: 1.3rem">
-                                        ${{ $total }}
+                                        ₪{{ $total }}
                                     </p>
                                     <p class="price" style="color:rgb(17, 206, 0); font-size: 1.3rem">المجموع</p>
                                 </div>
@@ -263,10 +263,10 @@
                                                     <div class="payment-option-wrapper">
 
                                                         <div class="single-payment-option">
-                                                            <input type="radio" id="cash_on_delivery"
-                                                                name="payment_method" value="cash_on_delivery"
+                                                            <input type="radio" id="pay_on_delivery"
+                                                                name="payment_method" value="pay_on_delivery"
                                                             {{ $selectedMethod == 'cash_on_delivery' ? 'checked' : '' }}>
-                                                            <label for="cash_on_delivery">
+                                                            <label for="pay_on_delivery">
                                                                 <p> الدفع عند التوصيل</p>
                                                             </label>
                                                         </div>
@@ -292,6 +292,51 @@
                                                     </div>
                                                 </div>
                                                 <hr>
+
+                                             <div id="on_delivery_pay_code" style="display:none;" class="on_delivery_pay-box">
+                                                <p class="mb-3">يتم الدفع عند استلام الطلب, يرجى التأكد من توفر المبلغ اذا كنت تريد الدفع بالاموال النقدية</p>
+                                                <form action="{{ route('customer.checkout.pay_on_delivery', $order->id) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary">تأكيد الطلب</button>
+                                                </form>
+                                             </div>
+
+                                            <div id="bank_transfer_code" style="display:none;" class="bank-transfer-box">
+                                                <h4>تفاصيل التحويل البنكي</h4>
+
+                                                <p><strong>المبلغ المطلوب:</strong> {{ number_format($order->total_amount,2) }} {{ strtoupper($order->currency) }}</p>
+
+                                                <div class="bank-details">
+                                                    <p><strong>البنك</strong>: <span id="bank-name">بنك فلسطين</span> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
+                                                    <p> <strong>اسم الحساب:</strong><span id="acc-name">نادر عبدالعليم فؤاد فارس</span> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
+                                                    <p><strong>(₪)IBAN:</strong> <span id="iban">PS46PALS044612840270993100000</span> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
+                                                    <p> <strong>SWIFT:</strong><span id="bic">PALSPS22</span> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
+                                                    <p> <strong>المرجع:</strong><<strong id="pay-ref">{{ $paymentReference }}</strong> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
+
+                                                    {{-- QR (اختياري) --}}
+                                                    <div id="bank-qr">
+                                                        <img src="{{ asset('img/ibanqr.jpg') }}" alt="QR للدفع" width="300">
+                                                    <p>امسح QR من تطبيق البنك لإتمام التحويل</p>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <form action="{{ route('customer.checkout.bank_transfer', $order->id) }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="form-group mb-3">
+                                                    <label>رقم العملية/Transaction ID (إن وجد)</label>
+                                                    <input type="text" name="transaction_id" class="form-control" />
+                                                    </div>
+
+                                                    <div class="form-group mb-3">
+                                                    <label>تحميل إيصال التحويل</label>
+                                                    <input type="file" name="receipt" accept="image/*,.pdf" class="form-control" />
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-primary">أرسل بيانات التحويل</button>
+                                                </form>
+                                            </div>
 
                                                 <!-- اسم حامل البطاقة -->
                                         <div id="credit_card_code" style="display:none;">
@@ -329,48 +374,13 @@
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="shipping_method" value="standard">
                                                 <!-- زر الدفع -->
-                                                <div   class="single-form form-default button">
+                                                <div id="cc_code" class="single-form form-default button" style="display:none;">
                                                         <button type="submit" id="submit-button" class=" btn">دفع الآن</button>
                                                 </div>
                                             </form>
                                         </div>
                                                 
-                                        <div id="bank_transfer_code" style="display:none;" class="bank-transfer-box">
-                                                <h4>تفاصيل التحويل البنكي</h4>
 
-                                                <p><strong>المبلغ المطلوب:</strong> {{ number_format($order->total_amount,2) }} {{ strtoupper($order->currency) }}</p>
-
-                                                <div class="bank-details">
-                                                    <p>البنك: <span id="bank-name">Bank Name</span> <button class="btn-copy" data-copy="bank-name">نسخ</button></p>
-                                                    <p>اسم الحساب: <span id="acc-name">My Shop Ltd</span> <button class="btn-copy" data-copy="acc-name">نسخ</button></p>
-                                                    <p>IBAN: <span id="iban">IL12 3456 7890 1234 5678 901</span> <button class="btn-copy" data-copy="iban">نسخ</button></p>
-                                                    <p>SWIFT/BIC: <span id="bic">ABCDEF12</span> <button class="btn-copy" data-copy="bic">نسخ</button></p>
-                                                    <p>المرجع: <strong id="pay-ref">{{ $paymentReference }}</strong> <button class="btn-copy" data-copy="pay-ref">نسخ</button></p>
-
-                                                    {{-- QR (اختياري) --}}
-                                                    <div id="bank-qr">
-                                                    {{-- <img src="{{ $qrUrl }}" alt="QR للدفع"> --}}
-                                                    <p>امسح QR من تطبيق البنك لإتمام التحويل</p>
-                                                    </div>
-                                                </div>
-
-                                                <hr>
-
-                                                <form action="{{ route('customer.checkout.bank_transfer', $order->id) }}" method="POST" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div class="form-group">
-                                                    <label>رقم العملية/Transaction ID (إن وجد)</label>
-                                                    <input type="text" name="transaction_id" class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                    <label>تحميل إيصال التحويل</label>
-                                                    <input type="file" name="receipt" accept="image/*,.pdf" class="form-control" />
-                                                    </div>
-
-                                                    <button type="submit" class="btn btn-primary">أرسل بيانات التحويل</button>
-                                                </form>
-                                        </div>
 
 
                                     </div>
@@ -595,28 +605,6 @@
     </div>
 
 
-
-
-
-    <!-- لوحة المفضلة -->
-    <div class="fav-panel" id="fav-panel" style="display:none;">
-        <button class="close-panel" id="close-fav">&times;</button>
-        <h3>المفضلة</h3>
-        <div class="fav-items" id="fav-items">
-            <!-- المنتجات المضافة للمفضلة ستُدرج هنا عبر JavaScript -->
-        </div>
-        <div class="fav-footer">
-            <button class="clear-fav">إزالة الكل</button>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
     <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets2/js/glightbox.min.js')}}"></script>
     <script src="{{asset('assets2/js/main.js')}}"></script>
@@ -634,75 +622,122 @@
 
 
     <script>
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM loaded — stripe init");
 
-        // const stripe = Stripe("{{ config('services.stripe.key') }}"); 
-        // const elements = stripe.elements();
-        // const cardElement = elements.create("card");
-        // cardElement.mount("#card-element");
+    const stripe = Stripe("{{ config('services.stripe.key') }}"); // تأكد من وجود المفتاح العام
+    console.log("Stripe public key:", "{{ config('services.stripe.key') }}");
 
-        // const form = document.getElementById("payment-form");
-        // const submitButton = document.getElementById("submit-button");
+    const elements = stripe.elements();
+    const cardElement = elements.create("card");
+    cardElement.mount("#card-element");
 
-        // form.addEventListener("submit", async (e) => {
-        //     e.preventDefault();
-        //     submitButton.disabled = true;
+    const form = document.getElementById("payment-form");
+    const submitButton = document.getElementById("submit-button");
 
-        //     // قيم من الحقول
-        //     const name = form.querySelector("[name='name']").value;
-        //     const email = form.querySelector("[name='email']").value;
-        //     const variantId = form.querySelector("[name='variant_id']").value;
-        //     const quantity = form.querySelector("[name='quantity']").value;
-        //     const shippingMethod = form.querySelector("[name='shipping_method']").value;
+    if (!form) {
+        console.error("payment-form not found in DOM");
+        return;
+    }
 
-        //     try {
-        //         // 1️⃣ اطلب client_secret من السيرفر
-        //         const response = await fetch("{{ route('customer.checkout.credit_card',$order->id) }}", {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //                 "X-CSRF-TOKEN": "{{ csrf_token() }}"
-        //             },
-        //             body: JSON.stringify({
-        //                 variant_id: variantId,
-        //                 quantity: quantity,
-        //                 shipping_method: shippingMethod,
-        //                 email: email
-        //             })
-        //         });
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        console.log("🚀 submit clicked");
+        submitButton.disabled = true;
+        document.getElementById("card-errors").textContent = "";
 
-        //         const data = await response.json();
-        //         console.log("Server response:", data);
+        // جمع القيم
+        const name = form.querySelector("[name='name']")?.value || '';
+        const email = form.querySelector("[name='email']")?.value || '';
+        const variantId = form.querySelector("[name='variant_id']")?.value || '';
+        const quantity = form.querySelector("[name='quantity']")?.value || '';
+        const shippingMethod = form.querySelector("[name='shipping_method']")?.value || '';
 
-        //         if (!data.clientSecret) {
-        //             throw new Error("لم يتم إرجاع clientSecret من السيرفر");
-        //         }
+        try {
+            // ********** ملاحظة مهمة: تأكد أن اسم الراوت صحيح هنا **********
+            const fetchUrl = "{{ route('customer.checkout.credit_card', $order->id ?? 0) }}"; // <-- استخدام اسم الراوت الصحيح
+            console.log("Posting to:", fetchUrl);
 
-        //         // 2️⃣ نفذ الدفع
-        //         const { paymentIntent, error } = await stripe.confirmCardPayment(data.clientSecret, {
-        //             payment_method: {
-        //                 card: cardElement,
-        //                 billing_details: {
-        //                     name: name,
-        //                     email: email
-        //                 }
-        //             }
-        //         });
+            const response = await fetch(fetchUrl, {
+                method: "POST",
+                credentials: "same-origin", // ← مهم جداً لإرسال الكوكيز (session و csrf)
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    variant_id: variantId,
+                    quantity: quantity,
+                    shipping_method: shippingMethod,
+                    email: email
+                })
+            });
 
-        //         if (error) {
-        //             document.getElementById("card-errors").textContent = error.message;
-        //             submitButton.disabled = false;
-        //         } else if (paymentIntent.status === "succeeded") {
-        //             window.location.href = "{{ route('customer.orders.show', $order->id) }}?success=1";
+            console.log("Fetch response status:", response.status, response.statusText);
 
-        //         }
-        //     } 
-        //     catch (err) {
-        //         console.error(err);
-        //         document.getElementById("card-errors").textContent = err.message;
-        //         submitButton.disabled = false;
-        //     }
-        // });
+            // لو الرد ليس OK حاول أن تطبع النص لتشخيص المشكلة
+            if (!response.ok) {
+                const text = await response.text();
+                console.error("Non-OK response body:", text);
+                document.getElementById("card-errors").textContent = "خطأ من السيرفر: " + response.status;
+                submitButton.disabled = false;
+                return;
+            }
 
+            const data = await response.json().catch(async err => {
+                const text = await response.text();
+                console.error("Invalid JSON response:", text);
+                throw err;
+            });
+
+            console.log("Server response JSON:", data);
+
+            if (!data.clientSecret) {
+                throw new Error("لم يتم إرجاع clientSecret من السيرفر");
+            }
+
+            // تنفيذ الدفع عبر Stripe
+            const { paymentIntent, error } = await stripe.confirmCardPayment(data.clientSecret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: { name: name, email: email }
+                }
+            });
+
+            if (error) {
+                console.error("Stripe error:", error);
+                document.getElementById("card-errors").textContent = error.message || "خطأ أثناء الدفع";
+                submitButton.disabled = false;
+                return;
+            }
+
+            if (paymentIntent.status === "succeeded") {
+                // تحديث حالة الطلب بعد نجاح الدفع
+                await fetch("{{ route('customer.checkout.update_status', $order->id) }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                });
+
+                // توجيه المستخدم لصفحة الطلبات مع رسالة نجاح
+                window.location.href = "{{ route('customer.orders.show') }}?success=1";
+            }
+
+
+            // أي حالة أخرى
+            console.log("PaymentIntent status:", paymentIntent && paymentIntent.status);
+            submitButton.disabled = false;
+
+        } catch (err) {
+            console.error("Caught error:", err);
+            document.getElementById("card-errors").textContent = err.message || "حدث خطأ غير متوقع";
+            submitButton.disabled = false;
+        }
+    });
+});
 
         document.addEventListener('DOMContentLoaded', function () {
             const userIcon = document.getElementById('userIcon');
@@ -717,6 +752,7 @@
             if (dropdown.parentElement !== document.body) {
                 document.body.appendChild(dropdown);
             }
+        
 
             // إعدادات أولية
             dropdown.style.position = 'absolute';
@@ -822,15 +858,23 @@
                 || document.querySelector('input[name="payment_method"]');
             if (defaultOption) defaultOption.checked = true;
 
+
             function updatePaymentCodes() {
             const creditCardDiv = document.getElementById('credit_card_code');
             const bankTransferDiv = document.getElementById('bank_transfer_code');
+            const onDeliveryPayferDiv = document.getElementById('on_delivery_pay_code');
+            const ccbtn = document.getElementById('cc_code');
+
+            
 
             const selected = document.querySelector('input[name="payment_method"]:checked').value;
 
             creditCardDiv.style.display = selected === 'credit_card' ? 'block' : 'none';
             bankTransferDiv.style.display = selected === 'bank_transfer' ? 'block' : 'none';
+            onDeliveryPayferDiv.style.display = selected === 'pay_on_delivery' ? 'block' : 'none';
+            ccbtn.style.display = selected === 'credit_card' ? 'block' : 'none';
             }
+
 
             paymentOptions.forEach(option => {
             option.addEventListener("change", function () {

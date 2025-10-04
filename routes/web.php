@@ -16,6 +16,8 @@ use App\Http\Controllers\StoreRatingController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\VendorAuthController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\vendorController;
 use App\Http\Middleware\CheckVendorDocument;
 use Illuminate\Support\Facades\Route;
 
@@ -75,10 +77,16 @@ Route::middleware([
     Route::post('/address/store', [AddressesController::class, 'store'])->name('address.store');
     Route::put('/address/{address}', [AddressesController::class, 'update'])->name('address.update');
     Route::get('/checkout/{order}', [StripeController::class, 'index'])->name('payment.index');
+    Route::post('/checkout/{order}/bank-transfer', [PaymentMethodController::class, 'storeBankTransfer'])
+    ->middleware('auth')
+    ->name('checkout.bank_transfer');
+    Route::post('/checkout/{order}/pay-on-delivery', [PaymentMethodController::class, 'storePayOnDelivery'])
+    ->middleware('auth')
+    ->name('checkout.pay_on_delivery');
     Route::post('/checkout/process', [StripeController::class, 'process'])
         ->middleware('auth')->name('checkout.process');
-    Route::post('/orders/{order}/bank_transfer', [StripeController::class, 'bank_transfer'])
-        ->middleware('auth')->name('checkout.bank_transfer');
+    // Route::post('/orders/{order}/bank_transfer', [StripeController::class, 'bank_transfer'])
+    //     ->middleware('auth')->name('checkout.bank_transfer');
     Route::post('/orders/{order}/credit_card', [StripeController::class, 'credit_card'])
         ->middleware('auth')->name('checkout.credit_card');
     // Route::get('/checkout/success/{order}', [StripeController::class, 'checkoutSuccess'])->name('checkout.success');
@@ -92,6 +100,11 @@ Route::middleware([
     // routes/web.php
     Route::patch('/orders/{order}/cancel', [CustomerController::class, 'cancel'])->name('orders.cancel');
     Route::patch('/orders/{order}/refund', [CustomerController::class, 'refund'])->name('orders.refund');
+
+    // web.php
+    Route::post('/orders/{order}/update-status', [StripeController::class, 'updateOrderStatus'])
+    ->middleware('auth')
+    ->name('checkout.update_status');
 
     // صفحة الفورم
     Route::get('/feedback/create/{order_id}/{status}', [FeedBackController::class, 'create'])->name('feedback.create');
@@ -136,6 +149,9 @@ Route::middleware([
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubCategoryController::class);
     Route::get('/get-subcategories', [ProductController::class, 'getSubcategories'])->name('getSubcategories');
+    Route::get('/orders', [vendorController::class, 'index'])->name('orders');
+    Route::delete('/orders/{id}', [vendorController::class, 'destroy'])->name('orders.destroy');
+
 });
 
 Route::get('vendor/register-request/{status}', function ($status) {

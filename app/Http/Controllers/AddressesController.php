@@ -6,6 +6,7 @@
     use App\Models\OrderItem;
     use Illuminate\Http\Request;
     use App\Models\ProductVariant;
+    use App\Models\Product;
     use App\Models\Order;
     use Illuminate\Support\Facades\Auth;
 
@@ -85,9 +86,9 @@
 
         // حساب السعر حسب طريقة الشحن
         if ($shippingPlan === 'express') {
-            $shippingAmount = 10;
+            $shippingAmount = 30;
         } elseif ($shippingPlan === 'standard') {
-            $shippingAmount = 5;
+            $shippingAmount = 15;
         } elseif ($shippingPlan === 'free') {
             $shippingAmount = 0;
         } else {
@@ -107,7 +108,7 @@
             'shipping_amount'=> $shippingAmount, 
             'tax_amount'     => $taxAmount,
             'total_amount'   => $totalAmount,
-            'currency'       => 'usd',
+            'currency'       => 'ils',
         ]);
 
         foreach ($items as $item) {
@@ -117,7 +118,26 @@
             'quantity'          => $item['quantity'],
             'unit_price'        => $item['price'],
         ]);
+
+        $variant = ProductVariant::find($item['variant_id']);
+        if ($variant) {
+            $variant->quantity -= $item['quantity']; // طرح الكمية المطلوبة
+            if ($variant->quantity < 0) {
+                $variant->quantity = 0; // تجنّب الأرقام السالبة
+            }
+            $variant->save();
         }
+
+         $product = Product::find($item['product_id']);
+        if ($product) {
+        $product->stock -= $item['quantity'];
+        if ($product->stock < 0) {
+            $product->stock = 0;
+        }
+        $product->save();
+        }
+    }
+        
 
             return redirect()->route('customer.payment.index',$order->id)->with('success', 'تم حفظ العنوان بنجاح');
         }

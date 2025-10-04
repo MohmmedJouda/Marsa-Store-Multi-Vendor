@@ -18,7 +18,7 @@ return new class extends Migration
         $table->enum('status',['pending','shipping','shipped','delivered','cancelled','refunded'])->default('delivered');
         $table->timestamp('delivered_at')->nullable();
         $table->enum('shipping_plan',['free','standard','express'])->default('standard');
-        $table->integer('shipping_amount')->default('5');
+        $table->integer('shipping_amount')->default('15');
         $table->integer('tax_amount')->default( 5);
         $table->decimal('total_amount', 10, 2)->nullable();
         $table->string('currency')->default('ils');
