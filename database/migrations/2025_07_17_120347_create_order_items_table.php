@@ -12,17 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_items', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->foreignId('product_variant_id')->constrained('product_variants')->onDelete('cascade');
-            $table->integer('quantity')->nullable();
-            $table->integer('unit_price')->nullable(); 
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_variant_id')->nullable()->constrained()->onDelete('set null');
+            $table->integer('quantity');
+            $table->decimal('price', 10, 2); // السعر وقت الطلب
             $table->timestamps();
         });
-
-
     }
 
     /**

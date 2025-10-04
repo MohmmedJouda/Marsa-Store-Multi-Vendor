@@ -38,7 +38,7 @@ class ProductController extends Controller
         $attributes = ProductAttribute::all();
         $categories = Category::all();
         $users = User::all();
-        return view('users.vendor.Product.create', compact('categories', 'attributes','users'));
+        return view('users.vendor.Product.create', compact('categories', 'attributes', 'users'));
     }
 
     /**
@@ -178,16 +178,16 @@ class ProductController extends Controller
                         $imagePath = $variant['image']->store('variant_images', 'public');
                     }
 
-                    if($variant['quantity'] > 0){
-                    $variantModel = ProductVariant::create([
-                        'product_id' => $product->id,
-                        'combination' => $combination,
-                        'price' => $variant['price'],
-                        'quantity' => $variant['quantity'],
-                        'sku' => $sku,
-                        'image' => $imagePath,
-                    ]);
-}
+                    if ($variant['quantity'] > 0) {
+                        $variantModel = ProductVariant::create([
+                            'product_id' => $product->id,
+                            'combination' => $combination,
+                            'price' => $variant['price'],
+                            'quantity' => $variant['quantity'],
+                            'sku' => $sku,
+                            'image' => $imagePath,
+                        ]);
+                    }
                     foreach ($combination as $attributeName => $valueName) {
                         $attribute = ProductAttribute::where('product_id', $product->id)
                             ->where('name', $attributeName)->first();
@@ -647,5 +647,16 @@ class ProductController extends Controller
                 'icon' => 'danger'
             ]);
         }
+    }
+    // app/Http/Controllers/ProductController.php
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+
+        $products = Product::where('name', 'like', "%{$query}%")
+            ->limit(5)
+            ->get(['name','price']);
+
+        return response()->json($products);
     }
 }

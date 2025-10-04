@@ -23,17 +23,10 @@ use App\Http\Controllers\ProductCommentController;
 use App\Http\Middleware\CheckVendorDocument;
 use App\Http\Controllers\FeedBackController;
 
-Route::middleware(['auth', CheckVendorDocument::class])->group(function () {
-    Route::get('/vendor/dashboard', [VendorController::class, 'dashboard'])
-        ->name('vendor.dashboard');
-
-    // أي Route أخرى خاصة بالتاجر يمكنك وضعها هنا
-});
 
 
 
-
-Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page'); 
+Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
 
 Route::get('/layout', function () {
     return view('layout');
@@ -54,6 +47,10 @@ Route::middleware([
 Route::get('/vendor/register', [VendorAuthController::class, 'showRegistrationForm'])->name('vendor.register');
 Route::post('/vendor/register', [VendorAuthController::class, 'register']);
 
+// routes/web.php
+Route::get('/search-products', [ProductController::class, 'search'])->name('products.search');
+
+
 
 //  customer
 Route::middleware([
@@ -62,15 +59,15 @@ Route::middleware([
     'verified',
     'role:customer'
 ])->prefix('customer')->name('customer.')->group(function () {
-        Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page'); 
+    Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
 
     Route::get('/cart',        [CartItemController::class, 'index'])->name('cart.index');
     Route::post('/cart/add',   [CartItemController::class, 'add'])->name('cart.add');
     Route::patch('/cart/{id}', [CartItemController::class, 'update'])->name('cart.update');
-    Route::delete('/cart/{id}',[CartItemController::class, 'remove'])->name('cart.remove');
+    Route::delete('/cart/{id}', [CartItemController::class, 'remove'])->name('cart.remove');
     // routes/web.php
     Route::delete('/cart/remove-multiple', [CartItemController::class, 'removeMultiple'])
-    ->name('cart.removeMultiple');
+        ->name('cart.removeMultiple');
     Route::delete('/cart',     [CartItemController::class, 'clear'])->name('cart.clear');
 
     Route::post('/product/{id}/rate',  [ProductRatingController::class, 'rateProduct'])->middleware('auth')->name('product.rate');
@@ -81,7 +78,7 @@ Route::middleware([
     Route::post('/products/{product}/comments', [ProductCommentController::class, 'store'])->name('products.comments.store');
 
     Route::get('/checkout', [CheckoutController::class, 'showCheckout'])
-    ->middleware('auth')->name('checkout.show');
+        ->middleware('auth')->name('checkout.show');
 
     Route::post('/address/store', [AddressesController::class, 'store'])->name('address.store');
     Route::put('/address/{address}', [AddressesController::class, 'update'])->name('address.update');
@@ -91,7 +88,7 @@ Route::middleware([
     Route::get('/checkout/success/{order}', [StripeController::class, 'checkoutSuccess'])->name('checkout.success');
     Route::post('/stripe/webhook', [StripeController::class, 'handle'])->name('stripe.webhook');
 
-    Route::get('/contact-us/',function(){
+    Route::get('/contact-us/', function () {
         return view('users.customer.contact');
     })->name('contact');
 
@@ -99,24 +96,24 @@ Route::middleware([
     // routes/web.php
     Route::patch('/orders/{order}/cancel', [CustomerController::class, 'cancel'])->name('orders.cancel');
     Route::patch('/orders/{order}/refund', [CustomerController::class, 'refund'])->name('orders.refund');
-    
+
     // صفحة الفورم
     Route::get('/feedback/create/{order_id}/{status}', [FeedBackController::class, 'create'])->name('feedback.create');
     // تخزين البيانات
     Route::post('/feedback/store', [FeedBackController::class, 'store'])->name('feedback.store');
-    });
-    
-    Route::get('/main-page', [CustomerController::class, 'guest'])->middleware('guest')->name('guest.main-page'); 
+});
+
+Route::get('/main-page', [CustomerController::class, 'guest'])->middleware('guest')->name('guest.main-page');
 
 Route::prefix('customer')->name('customer.')->group(function () {
 
-Route::get('/product/{id}', [CustomerController::class, 'product_show'])->name('product.show'); 
-    Route::get('/products-customer', [CustomerController::class, 'product_index'])->name('products.index'); 
+    Route::get('/product/{id}', [CustomerController::class, 'product_show'])->name('product.show');
+    Route::get('/products-customer', [CustomerController::class, 'product_index'])->name('products.index');
     Route::get('/categories/{id}/products', [CustomerController::class, 'products_cat_index'])->name('category_products.index');
-    Route::get('/stores', [CustomerController::class, 'stores'])->name('stores.index'); 
-    Route::get('/store/{id}', [CustomerController::class, 'store'])->name('stores.show'); 
+    Route::get('/stores', [CustomerController::class, 'stores'])->name('stores.index');
+    Route::get('/store/{id}', [CustomerController::class, 'store'])->name('stores.show');
 
-    Route::get('/faq/',function(){
+    Route::get('/faq/', function () {
         return view('users.customer.faq');
     })->name('faq');
 });
@@ -151,12 +148,12 @@ Route::middleware([
 
 
 
-Route::get('vendor/register-request/{status}', function($status){
+Route::get('vendor/register-request/{status}', function ($status) {
     return view('users.vendor.registerOrderSuccess', compact('status'));
 })->name('vendor.register.request');
 
 
-Route::get('vendor/status-request',[VendorAuthController::class,'documentStatus'])->name('vendor.status');
+Route::get('vendor/status-request', [VendorAuthController::class, 'documentStatus'])->name('vendor.status');
 
 Route::get('/get-subcategories', [ProductController::class, 'getSubcategories'])->name('getSubcategories');
 

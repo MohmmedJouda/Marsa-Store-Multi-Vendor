@@ -553,7 +553,7 @@
 
         function createProduct() {
             if (!variantsGenerated) {
-                alert('يجب الضغط على زر 🔄 توليد التركيبات أولاً!');
+                alert(' يجب الضغط على زر توليد التركيبات أولاً!');
                 return; // يمنع الاستمرار
             }
 
