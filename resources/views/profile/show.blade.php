@@ -7,9 +7,115 @@
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center mb-10">
+                @if (Auth()->user()->role === 'customer')
+                            {{-- 🌟 نموذج الزبون --}}
+                            <form action="{{ route('customer.update-photo') }}" method="POST" enctype="multipart/form-data"
+                                class="flex flex-col items-center">
+                                @csrf
+                                <label class="relative cursor-pointer group">
+                                    <img src="{{ auth()->user()->profile_photo_path
+                    ? asset('storage/' . auth()->user()->profile_photo_path)
+                    : asset('assets2/images/default-avatar.png') }}"
+                                        class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
+
+                                    <input type="file" name="photo" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                        accept="image/*">
+
+                                    <div
+                                        class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 group-hover:opacity-100 transition pointer-events-none">
+                                        <span class="text-white text-sm">تغيير الصورة</span>
+                                    </div>
+                                </label>
+
+                                <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">تحديث
+                                    الصورة</button>
+
+                                @error('photo')
+                                    <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
+                                @enderror
+
+                                @if (session()->has('success'))
+                                    <span class="text-green-600 text-sm mt-2">{{ session('success') }}</span>
+                                @endif
+                            </form>
+                @elseif (Auth()->user()->role === 'vendor')
+                            {{-- 🌟 نموذج البائع --}}
+                            <div class="flex flex-wrap justify-center gap-12">
+
+                                {{-- 🧍‍♂️ صورة الحساب --}}
+                                <form action="{{ route('vendor.update-photo') }}" method="POST" enctype="multipart/form-data"
+                                    class="flex flex-col items-center">
+                                    @csrf
+                                    <label class="relative cursor-pointer group">
+                                        <img src="{{ auth()->user()->profile_photo_path
+                    ? asset('storage/' . auth()->user()->profile_photo_path)
+                    : asset('assets2/images/default-avatar.png') }}"
+                                            class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
+
+                                        <input type="file" name="photo"
+                                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
+
+                                        <div
+                                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 group-hover:opacity-100 transition pointer-events-none">
+                                            <span class="text-white text-sm">تغيير صورة الحساب</span>
+                                        </div>
+                                    </label>
+
+                                    <button type="submit"
+                                        class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">تحديث الصورة
+                                        الشخصية</button>
+
+                                    @error('photo')
+                                        <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
+                                    @enderror
+
+                                    @if (session()->has('success_user_photo'))
+                                        <span class="text-green-600 text-sm mt-2">{{ session('success_user_photo') }}</span>
+                                    @endif
+                                </form>
+
+                                {{-- 🏪 صورة المتجر --}}
+                                <form action="{{ route('vendor.store.update-photo') }}" method="POST" enctype="multipart/form-data"
+                                    class="flex flex-col items-center">
+                                    @csrf
+                                    <label class="relative cursor-pointer group">
+                                        <img src="{{ auth()->user()->store && auth()->user()->store->logo
+                    ? asset('storage/' . auth()->user()->store->logo)
+                    : asset('assets2/images/store-logo.jpg') }}"
+                                            class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
+
+                                        <input type="file" name="store_photo"
+                                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
+
+                                        <div
+                                            class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 group-hover:opacity-100 transition pointer-events-none">
+                                            <span class="text-white text-sm">تغيير صورة المتجر</span>
+                                        </div>
+                                    </label>
+
+                                    <button type="submit"
+                                        class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">تحديث صورة
+                                        المتجر</button>
+
+                                    @error('store_photo')
+                                        <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
+                                    @enderror
+
+                                    @if (session()->has('success_store_photo'))
+                                        <span class="text-green-600 text-sm mt-2">{{ session('success_store_photo') }}</span>
+                                    @endif
+                                </form>
+                            </div>
+                @endif
+            </div>
+
+
+
+            <hr style="margin-bottom: 30px">
+
             {{-- تحديث المعلومات الشخصية --}}
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
-                <h3 class="text-lg font-medium text-gray-900 mb-4">تحديث المعلومات الشخصية</h3>
                 @livewire('profile.update-profile-information-form')
 
                 <x-section-border />
@@ -18,7 +124,6 @@
             {{-- تحديث كلمة المرور --}}
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
                 <div class="mt-10 sm:mt-0">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">تغيير كلمة المرور</h3>
                     @livewire('profile.update-password-form')
                 </div>
 
@@ -28,7 +133,6 @@
             {{-- إدارة التحقق بخطوتين --}}
             @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
                 <div class="mt-10 sm:mt-0">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">إدارة التحقق بخطوتين</h3>
                     @livewire('profile.two-factor-authentication-form')
                 </div>
 
@@ -37,7 +141,6 @@
 
             {{-- تسجيل الخروج من الجلسات الأخرى --}}
             <div class="mt-10 sm:mt-0">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">تسجيل الخروج من جميع الأجهزة</h3>
                 @livewire('profile.logout-other-browser-sessions-form')
             </div>
 
@@ -46,7 +149,6 @@
                 <x-section-border />
 
                 <div class="mt-10 sm:mt-0">
-                    <h3 class="text-lg font-medium text-red-600 mb-4">حذف الحساب</h3>
                     @livewire('profile.delete-user-form')
                 </div>
             @endif

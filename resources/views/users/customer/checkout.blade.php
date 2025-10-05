@@ -205,26 +205,26 @@
                                                     <label for="shipping_free">
 
                                                                                                                    <p>الشحن المجاني</p>
-                                                        <span class="price">$0</span>
+                                                        <span class="price">₪0</span>
                                                     </label>
                                                 </div>
 
                                                 <div class="single-payment-option">
                                                     <input type="radio" id="shipping_standard" name="shipping_method"
-                                                        value="standard" data-price="5" {{ $selectedShipping == 'standard' ? 'checked' : '' }}>
+                                                        value="standard" data-price="15" {{ $selectedShipping == 'standard' ? 'checked' : '' }}>
                                                     <label for="shipping_standard">
                                                         <p>الشحن العادي</p>
 
-                                                                                                                   <span class="price">5$</span>
+                                                                                                                   <span class="price">15₪</span>
                                                     </label>
                                                 </div>
 
                                                 <div class="single-payment-option">
                                                     <input type="radio" id="shipping_express" name="shipping_method"
-                                                        value="express" data-price="10" {{ $selectedShipping == 'express' ? 'checked' : '' }}>
+                                                        value="express" data-price="30" {{ $selectedShipping == 'express' ? 'checked' : '' }}>
                                                     <label for="shipping_express">
                                                         <p>الشحن السريع</p>
-                                                        <span class="price">10$</span>
+                                                        <span class="price">30₪</span>
 
                                                                                                                </label>
                                                 </div>
@@ -323,7 +323,7 @@
                 <div class="col-lg-4">
                     <div class="checkout-sidebar">
                         <div class="checkout-sidebar-price-table mt-30">
-                            <h4 class=" title">{{ $variant->product->name }}</h4>
+                            <h4 class=" title" >{{ $variant->product->name }}</h4>
                             <div class="sub-total-price">
                                 <div class="total-price">
                                 <p class="price">التشكيلة </p>
@@ -337,7 +337,7 @@
                                 <div class="total-price shipping">
                                     <p class="price" style="font-size: 13px">السعر للوحدة</p>
 
-                                    <p class=" value">${{ $variant->price }}</p>
+                                    <p class=" value">₪{{ $variant->price }}</p>
                                 </div>
 
                                 <div class="total-price shipping">
@@ -349,19 +349,19 @@
                                 <div class="total-price shipping">
                                     <p class="price" style="font-size: 13px"> تكاليف الشحن</p>
 
-                                    <p class="value" id="shipping-amount">${{ $shippingAmount }}</p>
+                                    <p class="value" id="shipping-amount">₪{{ $shippingAmount }}</p>
                                 </div>
 
                                 <div class="total-price shipping">
                                     <p class="price" style="font-size: 13px">الضرائب</p>
 
-                                    <p class=" value">${{ $taxAmount }}</p>
+                                    <p class=" value">₪{{ $taxAmount }}</p>
                                 </div>
                                 @if($discountAmount > 0)
                                     <div class="total-price shipping">
                                         <p class="price" style="font-size: 13px">الخصم</p>
 
-                                        <p class=" value">${{ $discountAmount }}</p>
+                                        <p class=" value">₪{{ $discountAmount }}</p>
                                     </div>
                                 @endif
                             </div>
@@ -371,7 +371,7 @@
                                     <p class="price" style="color:rgb(17, 206, 0); font-size: 1.3rem">المجموع</p>
 
                                     <p class="value" style="color:rgb(17, 206, 0); font-weight: bold;font-size: 1.3rem">
-                                        ${{ $totalPriceAfterDiscount + $shippingAmount + $taxAmount }}
+                                        ₪{{ $totalPriceAfterDiscount + $shippingAmount + $taxAmount }}
                                     </p>
                                 </div>
                             </div>
@@ -563,26 +563,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-    <!-- لوحة المفضلة -->
-    <div class="fav-panel" id="fav-panel" style="display:none;">
-        <button class="close-panel" id="close-fav">&times;</button>
-        <h3>المفضلة</h3>
-        <div class="fav-items" id="fav-items">
-            <!-- المنتجات المضافة للمفضلة ستُدرج هنا عبر JavaScript -->
-        </div>
-        <div class="fav-footer">
-            <button class="clear-fav">إزالة الكل</button>
-        </div>
-    </div>
-
-
-
-
 
 
 

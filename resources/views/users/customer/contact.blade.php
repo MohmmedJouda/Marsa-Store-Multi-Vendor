@@ -128,9 +128,6 @@
       </div>
     @endauth
     <div class="right">
-      <i class="fa-solid fa-heart" id="fav-icon">
-        <span class="badge" id="fav-count">0</span>
-      </i>
 
       <i class="fa-solid fa-cart-shopping" id="cart-icon">
         <span class="badge" id="cart-count">0</span>

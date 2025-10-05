@@ -32,10 +32,6 @@
     <link rel="stylesheet" href="{{asset('assets2/css/tiny-slider.css')}}">
     <link rel="stylesheet" href="{{asset('assets2/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('style.css')}}">
-
-
-
-
 </head>
 
 <body>
@@ -129,9 +125,7 @@
             </div>
         @endauth
         <div class="right">
-            <i class="fa-solid fa-heart" id="fav-icon">
-                <span class="badge" id="fav-count">0</span>
-            </i>
+
 
             <i class="fa-solid fa-cart-shopping" id="cart-icon">
                 <span class="badge" id="cart-count">0</span>

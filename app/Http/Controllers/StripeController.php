@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
+use Stripe\Stripe;
 
 use App\Models\Order;
-use Stripe\Stripe;
-use Illuminate\Support\Facades\Auth;
 use Stripe\PaymentIntent;
+use Illuminate\Http\Request;
+use App\Models\PaymentMethod;
+use Illuminate\Support\Facades\Auth;
+
 class StripeController extends Controller
 {
     /**
@@ -16,55 +18,55 @@ class StripeController extends Controller
      */
     
 
-    public function process(Request $request)
-    {
-        Stripe::setApiKey(config('services.stripe.secret'));
+//     public function process(Request $request)
+//     {
+//         Stripe::setApiKey(config('services.stripe.secret'));
 
-        // اجلب معلومات المنتج من الـ request
-        $variantId = $request->variant_id;
-        $quantity = $request->quantity;
-        $shippingMethod = $request->shipping_method;
-        $email = $request->email;
+//         // اجلب معلومات المنتج من الـ request
+//         $variantId = $request->variant_id;
+//         $quantity = $request->quantity;
+//         $shippingMethod = $request->shipping_method;
+//         $email = $request->email;
 
-        // حساب المجموع (مثال)
-        $unitPrice = 1000; // مثلا 10$ بالسنت
-        $shippingCost = $shippingMethod === 'express' ? 500 : 0;
-        $totalAmount = $unitPrice * $quantity + $shippingCost;
+//         // حساب المجموع (مثال)
+//         $unitPrice = 1000; // مثلا 10$ بالسنت
+//         $shippingCost = $shippingMethod === 'express' ? 500 : 0;
+//         $totalAmount = $unitPrice * $quantity + $shippingCost;
 
-        // إنشاء Order مؤقت لتخزين الـ order_id في metadata
-        $order = Order::create([
-            'user_id' => auth()->id() ?? null,
-            'variant_id' => $variantId,
-            'quantity' => $quantity,
-            'shipping_method' => $shippingMethod,
-            'total_amount' => $totalAmount,
-            'status' => 'delivered',
-            'email' => $email
-        ]);
+//         // إنشاء Order مؤقت لتخزين الـ order_id في metadata
+//         $order = Order::create([
+//             'user_id' => auth()->id() ?? null,
+//             'variant_id' => $variantId,
+//             'quantity' => $quantity,
+//             'shipping_method' => $shippingMethod,
+//             'total_amount' => $totalAmount,
+//             'status' => 'delivered',
+//             'email' => $email
+//         ]);
 
-        // إنشاء PaymentIntent
-        $paymentIntent = PaymentIntent::create([
-            'amount' => $totalAmount,
-            'currency' => 'usd',
-            'metadata' => [
-            'order_id' => $order->id
-            ]
-        ]);
+//         // إنشاء PaymentIntent
+//         $paymentIntent = PaymentIntent::create([
+//             'amount' => $totalAmount,
+//             'currency' => 'usd',
+//             'metadata' => [
+//             'order_id' => $order->id
+//             ]
+//         ]);
 
-        if ($paymentIntent->status === 'succeeded') {
-        // الدفع ناجح → تحديث حالة الطلب إلى "shipping"
-        $order = Order::find($paymentIntent->metadata->order_id);
-        $order->update(['status' => 'shipping']);
+//         if ($paymentIntent->status === 'succeeded') {
+//         // الدفع ناجح → تحديث حالة الطلب إلى "shipping"
+//         $order = Order::find($paymentIntent->metadata->order_id);
+//         $order->update(['status' => 'shipping']);
 
-        // استدعاء Job لتحديث الحالة لاحقًا حسب خطة الشحن
-        UpdateOrderStatusJob::dispatch($order)->delay(now()->addMinutes(0)); // يبدأ مباشرة
-}
+//         // استدعاء Job لتحديث الحالة لاحقًا حسب خطة الشحن
+//         UpdateOrderStatusJob::dispatch($order)->delay(now()->addMinutes(0)); // يبدأ مباشرة
+// }
 
 
-        return response()->json([
-            'clientSecret' => $paymentIntent->client_secret
-        ]);
-    }
+//         return response()->json([
+//             'clientSecret' => $paymentIntent->client_secret
+//         ]);
+//     }
 
     public function index(Request $request, Order $order)
 {
@@ -120,9 +122,9 @@ class StripeController extends Controller
     //     return redirect()->route('customer.orders.show')->with('success','طلبك قيد المراجعة');
     // }
 
-        public function credit_card(Request $request, Order $order){
+        public function credit_card( Order $order){
         // return redirect()->route('customer.orders.show', $order->id)->with('success','تمت عملية الدفع بنجاح');
-     Stripe::setApiKey(config('services.stripe.secret')); // secret key من .env
+        Stripe::setApiKey(config('services.stripe.secret')); // secret key من .env
 
         // إنشاء PaymentIntent
         $paymentIntent = PaymentIntent::create([
@@ -133,11 +135,28 @@ class StripeController extends Controller
             ]
         ]);
 
+        // ✅ إنشاء سجل الدفع
+        $payment = PaymentMethod::create([
+            'order_id'       => $order->id,
+            'payment_method' => 'credit_card',
+            'payment_confirmed_at' => now(),
+        ]);
+
             return response()->json([
                 'clientSecret' => $paymentIntent->client_secret
             ]);
         }
     
+       public function updateOrderStatus(Order $order)
+{
+        $order->update([
+            'status' => 'shipping',
+            'payment_method' => 'credit_card',
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
 
     /**
      * Show the form for creating a new resource.

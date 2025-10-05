@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->foreignId('product_id')->constrained()->onDelete('cascade'); 
-            $table->tinyInteger('rate'); // من 1 إلى 5 مثلاً
-            $table->text('review')->nullable(); // نص التقييم (اختياري)
+            $table->tinyInteger('rate')->nullable(); // من 1 إلى 5 مثلاً
             $table->timestamps();
         });
     }

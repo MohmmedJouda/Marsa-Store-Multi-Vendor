@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('transaction_id')->nullable();       // رقم التحويل من البنك (يدخله العميل)
             $table->string('receipt_path')->nullable();         // مسار الملف المرفوع (أيصال)
             $table->timestamp('payment_confirmed_at')->nullable();
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

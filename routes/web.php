@@ -1,23 +1,26 @@
 <?php
 
-use App\Http\Controllers\AddressesController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\vendorController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FeedBackController;
-use App\Http\Controllers\ModeratorController;
-use App\Http\Controllers\ProductCommentController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductRatingController;
-use App\Http\Controllers\SocialAuthController;
-use App\Http\Controllers\StoreCommentController;
-use App\Http\Controllers\StoreRatingController;
-use App\Http\Controllers\StripeController;
-use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\VendorAuthController;
 use App\Http\Middleware\CheckVendorDocument;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AddressesController;
+use App\Http\Controllers\ModeratorController;
+use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\VendorAuthController;
+use App\Http\Controllers\StoreRatingController;
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\StoreCommentController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ProductRatingController;
+use App\Http\Controllers\ProductCommentController;
 
 
 Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
@@ -53,6 +56,9 @@ Route::middleware([
 ])->prefix('customer')->name('customer.')->group(function () {
     Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
 
+    Route::post('/update-photo', [UserController::class, 'updateProfilePhoto'])->name('update-photo');
+
+
     Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CartItemController::class, 'add'])->name('cart.add');
     Route::patch('/cart/{id}', [CartItemController::class, 'update'])->name('cart.update');
@@ -74,10 +80,16 @@ Route::middleware([
     Route::post('/address/store', [AddressesController::class, 'store'])->name('address.store');
     Route::put('/address/{address}', [AddressesController::class, 'update'])->name('address.update');
     Route::get('/checkout/{order}', [StripeController::class, 'index'])->name('payment.index');
+    Route::post('/checkout/{order}/bank-transfer', [PaymentMethodController::class, 'storeBankTransfer'])
+    ->middleware('auth')
+    ->name('checkout.bank_transfer');
+    Route::post('/checkout/{order}/pay-on-delivery', [PaymentMethodController::class, 'storePayOnDelivery'])
+    ->middleware('auth')
+    ->name('checkout.pay_on_delivery');
     Route::post('/checkout/process', [StripeController::class, 'process'])
         ->middleware('auth')->name('checkout.process');
-    Route::post('/orders/{order}/bank_transfer', [StripeController::class, 'bank_transfer'])
-        ->middleware('auth')->name('checkout.bank_transfer');
+    // Route::post('/orders/{order}/bank_transfer', [StripeController::class, 'bank_transfer'])
+    //     ->middleware('auth')->name('checkout.bank_transfer');
     Route::post('/orders/{order}/credit_card', [StripeController::class, 'credit_card'])
         ->middleware('auth')->name('checkout.credit_card');
     // Route::get('/checkout/success/{order}', [StripeController::class, 'checkoutSuccess'])->name('checkout.success');
@@ -91,6 +103,11 @@ Route::middleware([
     // routes/web.php
     Route::patch('/orders/{order}/cancel', [CustomerController::class, 'cancel'])->name('orders.cancel');
     Route::patch('/orders/{order}/refund', [CustomerController::class, 'refund'])->name('orders.refund');
+
+    // web.php
+    Route::post('/orders/{order}/update-status', [StripeController::class, 'updateOrderStatus'])
+    ->middleware('auth')
+    ->name('checkout.update_status');
 
     // صفحة الفورم
     Route::get('/feedback/create/{order_id}/{status}', [FeedBackController::class, 'create'])->name('feedback.create');
@@ -126,6 +143,9 @@ Route::middleware([
         return view('users.vendor.dashboard'); // التأكد من أن العرض الخاص بـ vendor موجود
     })->name('dashboard');
 
+        Route::post('/update-photo', [UserController::class, 'updateProfilePhoto'])->name('update-photo');
+        Route::post('/store/update-photo', [vendorController::class, 'updateStorePhoto'])->name('store.update-photo');
+
     // باقي المسارات الخاصة بـ vendor
     Route::resource('products', ProductController::class);
     Route::get('/product/trashed/{subcategory_id?}', [ProductController::class, 'trashed'])->name('products.trashed');
@@ -135,6 +155,9 @@ Route::middleware([
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubCategoryController::class);
     Route::get('/get-subcategories', [ProductController::class, 'getSubcategories'])->name('getSubcategories');
+    Route::get('/orders', [vendorController::class, 'index'])->name('orders');
+    Route::delete('/orders/{id}', [vendorController::class, 'destroy'])->name('orders.destroy');
+
 });
 
 Route::get('vendor/register-request/{status}', function ($status) {
@@ -162,6 +185,8 @@ Route::middleware([
     Route::get('/{role}', [ModeratorController::class, 'indexByRole'])
         ->where('role', 'vendor|customer') // تأكد أن القيمة صحيحة فقط
         ->name('users.byRole');
+
+
 
     Route::post('/vendor', [ModeratorController::class, 'store'])->name('vendorStore');
     Route::get('/create', [ModeratorController::class, 'create'])->name('createVendor');

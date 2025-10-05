@@ -10,7 +10,6 @@ class StoreRating extends Model
         'user_id',
         'store_id',
         'rate',
-        'review',
     ];
 
     // العلاقة مع المستخدم
