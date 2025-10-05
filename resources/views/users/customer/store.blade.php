@@ -217,9 +217,7 @@
     <!-- End Breadcrumbs -->
 
 
-
-
-    <div class="seller-profile dark-box container">
+    <div class="seller-profile dark-box ">
         <div class="seller-header">
             <div class="profile-left">
                 <img src="{{ asset('assets2/images/store-logo.jpg') }}" class="profile-img" alt="شعار المتجر">
@@ -227,7 +225,7 @@
                     <h2 class="seller-name" id="StoreName">{{ $store->name }}</h2>
                     <p>المالك : <span id="SellerName" style="cursor: pointer; color: #ee8383; font-weight: bold;"
                             onclick="window.location.href='/merchant_details.html'">{{ $store->user->name }} </span></p>
-                    <p>مصداقية منذ: 2019</p>
+                    <p>{{ $store->slogan }}2019</p>
                     <div class="rating">
                         <form action="{{ route('customer.store.rate', $store->id) }}" method="POST" id="rating-form">
                             @csrf
@@ -268,7 +266,9 @@
                 </div>
             </div>
             <div id="seller-extra-info" class="extra-info-box" style="display:none;">
-                <p><i class="fab fa-whatsapp"></i> <strong>واتساب:</strong> {{ $store->phone }}</p>
+                <p><i class="fab fa-whatsapp"></i> <strong>واتساب:</strong> <span dir="ltr"
+                        style="unicode-bidi: embed;">{{ $store->phone }}</span>
+                </p>
                 {{-- <p><i class="fab fa-facebook"></i> <strong>فيسبوك:</strong> <a href="https://facebook.com/seller"
                         target="_blank">facebook.com/seller</a></p> --}}
             </div>
@@ -582,7 +582,7 @@
                                 <!-- Single Widget -->
                                 <div class="single-footer f-contact">
                                     <h3>تواصل معنا</h3>
-                                    <p class="phone">Phone: +970 59 5570612</p>
+                                    <p class="phone">Phone: {{ $store->phone }}</p>
                                     <ul>
                                         <li><span>الاحد-الخميس: </span> 9.00 am - 8.00 pm</li>
                                         <li><span>السبت: </span> 10.00 am - 6.00 pm</li>

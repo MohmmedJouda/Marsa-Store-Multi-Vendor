@@ -505,6 +505,8 @@
                         <li>تفاصيل المنتج </li>
                     </ul>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -566,7 +568,8 @@
                 </div>
             </div>
             <div id="seller-extra-info" class="extra-info-box" style="display:none;">
-                <p><i class="fab fa-whatsapp"></i> <strong>واتساب:</strong> {{ $product->store->phone }}</p>
+                <p><i class="fab fa-whatsapp"></i> <strong>واتساب:</strong> <span dir="ltr"
+                        style="unicode-bidi: embed;">{{ $product->store->phone }} </span> </p>
                 {{-- <p><i class="fab fa-facebook"></i> <strong>فيسبوك:</strong> <a href="https://facebook.com/seller"
                         target="_blank">facebook.com/seller</a></p> --}}
             </div>

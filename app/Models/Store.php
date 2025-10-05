@@ -31,7 +31,10 @@ class Store extends Model
         return $this->hasMany(StoreComment::class);
     }
 
-
+        public function ratings()
+    {
+        return $this->hasMany(StoreRating::class);
+    }
 
 
 }

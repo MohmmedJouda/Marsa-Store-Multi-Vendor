@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->foreignId('store_id')->constrained()->onDelete('cascade'); 
-            $table->tinyInteger('rate'); 
-            $table->text('review')->nullable(); 
+            $table->tinyInteger('rate')->nullable(); 
             $table->timestamps();
         });
     }

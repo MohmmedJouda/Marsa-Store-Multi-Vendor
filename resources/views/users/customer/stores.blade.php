@@ -152,7 +152,7 @@
     <main class="container py-5">
         <div class="row">
             <!-- Sidebar: Categories -->
-            <sidebar class="sidebar">
+            {{-- <sidebar class="sidebar">
                 <h3>التصنيفات</h3>
                 <select id="category-filter">
                     <option value="all">الكل</option>
@@ -192,23 +192,34 @@
                         <input type="text" id="rangePrimary" placeholder="100" />
                     </div>
                 </div>
-            </sidebar>
+            </sidebar> --}}
 
 
 
 
 
-            <section class="col-lg-9">
+            <section class="col-lg-12">
                 <div class="row">
                     @foreach ($stores as $store)
-                        <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="col-md-6 col-lg-3 mb-3">
 
                             <!-- البطاقة الأولى: المتجر -->
                             <a href="{{ route('customer.stores.show', $store->id) }}" class="seller-card">
                                 <div class="seller-info">
                                     <img class="seller-image" src="/assets2/images/store-logo.jpg" alt="شعار المتجر" />
                                     <h3 class="seller-name">{{ $store->name }}</h3>
-                                    <div class="rating">★★★★★ <span>4.9</span></div>
+                                    @php
+                                        $averageRate = $store->ratings->avg('rate'); // ✅ لكل منتج
+                                    @endphp
+
+                                    <div class="product-rating" style="display:flex; justify-content:center; gap:2px;">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <span style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
+                                                &#9733;
+                                            </span>
+                                        @endfor
+                                    </div>
+                                    <strong>{{ $store->slogan }}</strong>
                                 </div>
                             </a>
 
@@ -217,7 +228,7 @@
                                 style="cursor: pointer; margin-top: 3px; padding: 10px;">
                                 <a href="/merchant_details.html" style="color: #ffd700; text-decoration: none;">
                                     <span style="color: antiquewhite; margin-right: -10px;">
-                                        {{ $store->user->name }}
+                                        <strong> اسم التاجر: </strong>{{ $store->user->name }}
                                     </span>
                                 </a>
                             </div>

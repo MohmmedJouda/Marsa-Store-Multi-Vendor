@@ -29,7 +29,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'email', 'password', 'role', 'is_active', 'email_verified_at',];
+    protected $fillable = ['name', 'email', 'password', 'role', 'is_active', 'email_verified_at', 'profile_photo_path'];
     protected $dates = ['deleted_at'];
 
     public function store()
@@ -104,8 +104,14 @@ class User extends Authenticatable
     }
 
     public function vendorDocuments()
-{
-    return $this->hasMany(VendorDocument::class, 'user_id');
-}
+    {
+        return $this->hasMany(VendorDocument::class, 'user_id');
+    }
 
+    // public function getProfilePhotoUrlAttribute()
+    // {
+    //     return $this->profile_photo_path
+    //         ? asset('storage/' . $this->profile_photo_path)
+    //         : asset('images/default-avatar.png');
+    // }
 }

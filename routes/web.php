@@ -1,25 +1,26 @@
 <?php
 
-use App\Http\Controllers\AddressesController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\vendorController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FeedBackController;
-use App\Http\Controllers\ModeratorController;
-use App\Http\Controllers\ProductCommentController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductRatingController;
-use App\Http\Controllers\SocialAuthController;
-use App\Http\Controllers\StoreCommentController;
-use App\Http\Controllers\StoreRatingController;
-use App\Http\Controllers\StripeController;
-use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\VendorAuthController;
-use App\Http\Controllers\PaymentMethodController;
-use App\Http\Controllers\vendorController;
 use App\Http\Middleware\CheckVendorDocument;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AddressesController;
+use App\Http\Controllers\ModeratorController;
+use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\VendorAuthController;
+use App\Http\Controllers\StoreRatingController;
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\StoreCommentController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ProductRatingController;
+use App\Http\Controllers\ProductCommentController;
 
 
 Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
@@ -54,6 +55,9 @@ Route::middleware([
     'role:customer',
 ])->prefix('customer')->name('customer.')->group(function () {
     Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
+
+    Route::post('/update-photo', [UserController::class, 'updateProfilePhoto'])->name('update-photo');
+
 
     Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CartItemController::class, 'add'])->name('cart.add');
@@ -139,6 +143,9 @@ Route::middleware([
         return view('users.vendor.dashboard'); // التأكد من أن العرض الخاص بـ vendor موجود
     })->name('dashboard');
 
+        Route::post('/update-photo', [UserController::class, 'updateProfilePhoto'])->name('update-photo');
+        Route::post('/store/update-photo', [vendorController::class, 'updateStorePhoto'])->name('store.update-photo');
+
     // باقي المسارات الخاصة بـ vendor
     Route::resource('products', ProductController::class);
     Route::get('/product/trashed/{subcategory_id?}', [ProductController::class, 'trashed'])->name('products.trashed');
@@ -178,6 +185,8 @@ Route::middleware([
     Route::get('/{role}', [ModeratorController::class, 'indexByRole'])
         ->where('role', 'vendor|customer') // تأكد أن القيمة صحيحة فقط
         ->name('users.byRole');
+
+
 
     Route::post('/vendor', [ModeratorController::class, 'store'])->name('vendorStore');
     Route::get('/create', [ModeratorController::class, 'create'])->name('createVendor');

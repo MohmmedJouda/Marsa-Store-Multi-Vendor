@@ -32,10 +32,6 @@
     <link rel="stylesheet" href="{{asset('assets2/css/tiny-slider.css')}}">
     <link rel="stylesheet" href="{{asset('assets2/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('style.css')}}">
-
-
-
-
 </head>
 
 <body>

@@ -10,7 +10,6 @@ class productRating extends Model
         'user_id',
         'product_id',
         'rate',
-        'review',
     ];
 
     // العلاقة مع المستخدم

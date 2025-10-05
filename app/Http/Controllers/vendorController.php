@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\order;
 
 class vendorController extends Controller
@@ -34,6 +35,28 @@ class vendorController extends Controller
         $order->delete();
 
         return redirect()->back()->with('success', 'تم حذف الطلب بنجاح.');
+    }
+
+    public function updateStorePhoto(Request $request)
+    {
+        $request->validate([
+            'store_photo' => 'nullable|image|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        // تحديث صورة المتجر
+        if($request->hasFile('store_photo') && $user->store){
+            $store = $user->store;
+            if($store->photo_path && Storage::disk('public')->exists($store->photo_path)){
+                Storage::disk('public')->delete($store->photo_path);
+            }
+            $store->update([
+                'logo' => $request->file('store_photo')->store('store-photos', 'public')
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'تم تحديث الصور بنجاح!');
     }
 
 }
