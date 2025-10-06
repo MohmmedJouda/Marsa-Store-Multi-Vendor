@@ -742,7 +742,7 @@
         <h3> <a href="{{ route('customer.cart.index') }}"> سلة المشتريات </a></h3>
 
         <div class="cart-items" id="cart-items">
-                  @foreach ($carts as $cart)
+                      @foreach ($carts as $cart)
                     @forelse ($cart->items as $item)
                         @php
                             $img = $item->product->images()->where('is_main', 1)->first();
@@ -956,10 +956,20 @@
                         let results = '';
                         if (data.length > 0) {
                             data.forEach(product => {
-                                results += `<li style="padding: 8px; border-bottom: 1px solid #eee; cursor: pointer;" 
-                                          onclick="window.location='/products/${product.id}'">
-                                          ${product.name}
-                                        </li>`;
+                                results += `<li style="padding:10px; border-bottom:1px solid #eee;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="${product.image_url}" alt="منتج"
+                             style="width:50px; height:50px; object-fit:cover; border-radius:6px;">
+                        <div style="flex:1;">
+                            <div style="font-weight:bold; font-size:14px;">${product.name}</div>
+                            <div style="color:green;">${product.price} ₪</div>
+                        </div>
+                        <button onclick="window.location='/products/${product.id}'"
+                                style="background:#007bff;color:white;border:none;padding:6px 10px;border-radius:4px;cursor:pointer;">
+                            تفاصيل
+                        </button>
+                    </div>
+                </li>`;
                             });
                         } else {
                             results =
