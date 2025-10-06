@@ -220,12 +220,14 @@
     <div class="seller-profile dark-box ">
         <div class="seller-header">
             <div class="profile-left">
-                <img src="{{ asset('assets2/images/store-logo.jpg') }}" class="profile-img" alt="شعار المتجر">
+                <img class="seller-image"
+                    src="{{ $store->logo ? asset('storage/' . $store->logo) : asset('img/store-logo.jpg') }}"
+                    alt="Store Logo">
                 <div class="profile-info">
                     <h2 class="seller-name" id="StoreName">{{ $store->name }}</h2>
                     <p>المالك : <span id="SellerName" style="cursor: pointer; color: #ee8383; font-weight: bold;"
                             onclick="window.location.href='/merchant_details.html'">{{ $store->user->name }} </span></p>
-                    <p>{{ $store->slogan }}2019</p>
+                    <p>{{ $store->slogan }}</p>
                     <div class="rating">
                         <form action="{{ route('customer.store.rate', $store->id) }}" method="POST" id="rating-form">
                             @csrf
@@ -333,27 +335,6 @@
                     <div class="slider-container">
 
 
-
-                        {{-- <div class="product-card" data-id="1">
-                            <img src="img/Group 2.png" alt="منتج">
-
-                            <div class="title">سماعات بلوتوث</div>
-                            <span class="category">Camera</span>
-                            <div class="price" data-symbol="$">$15.00</div>
-                            <div class="rating">★★★★★</div>
-                            <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                            <div class="actions">
-                                <button class="btn-cart">شراء الآن</button>
-
-                                <i class="fa-solid fa-heart btn-fav"></i>
-                                <i class="fa-solid fa-cart-shopping cart"></i>
-
-                            </div>
-                            <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                        </div> --}}
-
-
                         @foreach ($products as $product)
 
                             <div class="product-card" data-id="1">
@@ -395,141 +376,15 @@
                                 </div>
                             </div>
                         @endforeach
-
-                        {{-- <div class="product-card" data-id="1">
-                            <img src="img/Group 2.png" alt="منتج">
-
-                            <div class="title">سماعات بلوتوث</div>
-                            <span class="category">Camera</span>
-                            <div class="price" data-symbol="$">$15.00</div>
-                            <div class="rating">★★★★★</div>
-                            <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                            <div class="actions">
-                                <button class="btn-cart">شراء الآن</button>
-
-                                <i class="fa-solid fa-heart btn-fav"></i>
-                                <i class="fa-solid fa-cart-shopping cart"></i>
-
-                            </div>
-                            <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                        </div>
-
-                        <div class="product-card" data-id="1">
-                            <img src="img/Group 2.png" alt="منتج">
-
-                            <div class="title">سماعات بلوتوث</div>
-                            <span class="category">Camera</span>
-                            <div class="price" data-symbol="$">$15.00</div>
-                            <div class="rating">★★★★★</div>
-                            <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                            <div class="actions">
-                                <button class="btn-cart">شراء الآن</button>
-
-                                <i class="fa-solid fa-heart btn-fav"></i>
-                                <i class="fa-solid fa-cart-shopping cart"></i>
-
-                            </div>
-                            <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                        </div>
-
-                        <div class="product-card" data-id="1">
-                            <img src="img/Group 2.png" alt="منتج">
-
-                            <div class="title">سماعات بلوتوث</div>
-                            <span class="category">Camera</span>
-                            <div class="price" data-symbol="$">$15.00</div>
-                            <div class="rating">★★★★★</div>
-                            <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                            <div class="actions">
-                                <button class="btn-cart">شراء الآن</button>
-
-                                <i class="fa-solid fa-heart btn-fav"></i>
-                                <i class="fa-solid fa-cart-shopping cart"></i>
-
-                            </div>
-                            <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                        </div>
-
-
-                        <div class="product-card" data-id="3">
-                            <img src="img/Group 2.png" alt="منتج">
-
-                            <div class="title">سماعات بلوتوث</div>
-                            <span class="category">Camera</span>
-                            <div class="price" data-symbol="$">$15.00</div>
-                            <div class="rating">★★★★★</div>
-                            <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                            <div class="actions">
-                                <button class="btn-cart">شراء الآن</button>
-
-                                <i class="fa-solid fa-heart btn-fav"></i>
-                                <i class="fa-solid fa-cart-shopping cart"></i>
-
-                            </div>
-                            <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div>
-
-                        </div>
-
-
-                        <div class="product-card" data-id="4">
-                            <img src="img/Group 2.png" alt="منتج">
-
-                            <div class="title">سماعات بلوتوث</div>
-                            <span class="category">Camera</span>
-                            <div class="price" data-symbol="$">$15.00</div>
-                            <div class="rating">★★★★★</div>
-                            <div class="seller">البائع: <span>Mr mustafa</span> </div>
-                            <div class="actions">
-                                <button class="btn-cart">شراء الآن</button>
-
-                                <i class="fa-solid fa-heart btn-fav"></i>
-                                <i class="fa-solid fa-cart-shopping cart"></i>
-
-                            </div>
-                            <div class="published-time" data-time="2025-07-30T10:30:00Z">منذ يوم</div> --}}
-                            {{--
-                        </div> --}}
-
-
                     </div>
                 </div>
-
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <!-- ========================= scroll-top ========================= -->
         <a href="#" class="scroll-top">
             <i class="lni lni-chevron-up"></i>
         </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <!-- Start Footer Area -->
         <footer class="footer">
@@ -769,36 +624,13 @@
                     <input id="select-all" type="checkbox" />
                     <span>تحديد الكل</span>
                 </label> --}}
-                <div class="total">المجموع: $<span id="cart-total">{{ $totalPrice }}</span></div>
+                <div class="total">المجموع: ₪<span id="cart-total">{{ $totalPrice }}</span></div>
                 <div class="cart-actions">
                     <button type="button" id="buy-selected">شراء الآن</button>
                     {{-- <button type="submit" id="delete-selected" class="danger">حذف المحدد</button> --}}
                 </div>
             </div>
         </div>
-
-
-
-
-        <!-- لوحة المفضلة -->
-        <div class="fav-panel" id="fav-panel" style="display:none;">
-            <button class="close-panel" id="close-fav">&times;</button>
-            <h3>المفضلة</h3>
-            <div class="fav-items" id="fav-items">
-                <!-- المنتجات المضافة للمفضلة ستُدرج هنا عبر JavaScript -->
-            </div>
-            <div class="fav-footer">
-                <button class="clear-fav">إزالة الكل</button>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
 
         <script src="{{asset('assets2/js/js/bootstrap.min.js')  }}"></script>
         <script src="{{asset('assets2/js/glightbox.min.js')  }}"></script>

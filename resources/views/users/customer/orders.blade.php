@@ -175,23 +175,24 @@
             </div>
         </div>
         <div class=" my-5">
-            @if(request('success'))
-                <div class="alert alert-success">
-                    تمت عملية الدفع بنجاح ✅
-                </div>
-            @endif
-            @if(session('success'))
-                <div class="alert alert-success" role="alert" style="text-align: right">
-                    ✅ {{ session('success') }}
-                </div>
-            @endif
+
 
 
 
             <div class="post d-flex flex-column-fluid" id="kt_post">
+
                 <!--begin::Container-->
                 <div id="kt_content_container" class="container-xxl ">
-
+                    @if(request('success'))
+                        <div class="alert alert-success">
+                            تمت عملية الدفع بنجاح ✅
+                        </div>
+                    @endif
+                    @if(session('success'))
+                        <div class="alert alert-success" role="alert" style="text-align: right">
+                            ✅ {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="card card-flush">
                         <!--begin::Card header-->
 
@@ -225,7 +226,7 @@
                                     <tr>
                                         @foreach ($orders as $order)
                                             <td>
-                                                <p>{{ $order->id }}</p>
+                                                <p>{{ $order->order_number }}</p>
                                             </td>
 
                                             @foreach($order->items as $item)
@@ -242,23 +243,32 @@
                                                     </td>
 
                                                     <td class="text-end " data-order="Published">
-                                                        <span
-                                                            class="badge 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @if($order->status == 'pending') bg-warning   
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @elseif($order->status == 'shipping') bg-info 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @elseif($order->status == 'shipped') bg-primary 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @elseif($order->status == 'delivered') bg-success 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @elseif($order->status == 'cancelled') bg-danger 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @elseif($order->status == 'refunded') bg-secondary 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @endif">
+                                                        <span class="badge 
+                                                                                    @if($order->status == 'pending') bg-warning   
+                                                                                    @elseif($order->status == 'shipping') bg-info 
+                                                                                    @elseif($order->status == 'shipped') bg-primary 
+                                                                                    @elseif($order->status == 'delivered') bg-success 
+                                                                                    @elseif($order->status == 'cancelled') bg-danger 
+                                                                                    @elseif($order->status == 'refunded') bg-secondary 
+                                                                                    @endif">
 
-                                                            @if($order->status == 'pending') قيد العمل
-                                                            @elseif($order->status == 'shipping') جاري الشحن
-                                                            @elseif($order->status == 'shipped') تم الشحن
-                                                            @elseif($order->status == 'delivered') تم التوصيل
-                                                            @elseif($order->status == 'cancelled') ملغي
-                                                            @elseif($order->status == 'refunded') مسترد
+
+                                                            @if($order->status == 'pending' && (!$order->payment || is_null($order->payment->payment_method)))
+                                                                معلق
+                                                            @elseif($order->status == 'pending')
+                                                                قيد العمل
+                                                            @elseif($order->status == 'shipping')
+                                                                جاري الشحن
+                                                            @elseif($order->status == 'shipped')
+                                                                تم الشحن
+                                                            @elseif($order->status == 'delivered')
+                                                                تم التوصيل
+                                                            @elseif($order->status == 'cancelled')
+                                                                ملغي
+                                                            @elseif($order->status == 'refunded')
+                                                                مسترد
                                                             @endif
+
                                                             {{-- {{ ucfirst($order->status) }} --}}
                                                         </span>
                                                     </td>
@@ -273,7 +283,8 @@
                                                         @elseif ($order->payment && $order->payment->payment_method === 'pay_on_delivery')
                                                             الدفع عند التسليم
                                                         @else
-                                                            غير محدد
+                                                            <a href="{{ route('customer.payment.index', $order->id) }}"
+                                                                style="color:rgb(255, 0, 0)">غير محدد</a>
                                                         @endif
 
                                                     </td>
@@ -577,24 +588,13 @@
             <div>
                 <input type="checkbox" id="select-all"> <label for="select-all">تحديد الكل</label>
             </div>
-            <div class="total">المجموع: $<span id="cart-total">0.00</span></div>
+            <div class="total">المجموع: ₪<span id="cart-total">0.00</span></div>
             <div class="cart-actions">
                 <button id="buy-selected">شراء الآن</button>
                 <button id="delete-selected">حذف المحدد</button>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
     <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>

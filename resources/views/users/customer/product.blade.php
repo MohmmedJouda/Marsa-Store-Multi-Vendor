@@ -520,42 +520,32 @@
         <div class="seller-profile dark-box">
             <div class="seller-header">
                 <div class="profile-left">
-                    <img src="{{asset('assets2/images/man.png')}}" class="profile-img" alt="صورة التاجر">
+                    <img class="seller-image"
+                        src="{{ $product->store->logo ? asset('storage/' . $product->store->logo) : asset('img/store-logo.jpg') }}"
+                        alt="Store Logo">
                     <div class="profile-info">
-                        <h2 class="seller-name">{{ $product->store->user->name }}</h2>
-                        <p>متجر: {{ $product->store->name }}</p>
-                        <p>مصداقية منذ: 2019</p>
-                        <div class="rating">
-                            <form action="{{ route('customer.product.rate', $product->id) }}" method="POST"
-                                id="rating-form">
-                                @csrf
-                                <div class="star-rating">
-                                    @for($i = 5; $i >= 1; $i--)
-                                        <input type="radio" id="star{{$i}}" name="rate" value="{{$i}}"
-                                            style="display:none;">
-                                        <label for="star{{$i}}" title="{{$i}} نجوم"
-                                            style="cursor:pointer; font-size:24px;">&#9733;</label>
-                                    @endfor
-                                </div>
-                            </form>
+                        <h2 class="seller-name"> <a
+                                href="{{ route('customer.stores.show', $product->store_id) }}">{{ $product->store->name }}</a>
+                        </h2>
+                        <p>التاجر: {{ $product->store->user->name }}</p>
+                        <p>{{ $product->store->slogan }}</p>
+                        @php
+                            $averageRate = $product->store->ratings->avg('rate'); // ✅ لكل منتج
+                        @endphp
 
-                            <script>
-                                // نختار كل اللابلز داخل star-rating
-                                document.querySelectorAll('.star-rating label').forEach(label => {
-                                    label.addEventListener('click', function () {
-                                        // عند الضغط على النجمة، يتم اختيار الراديو المناسب
-                                        const input = document.getElementById(this.getAttribute('for'));
-                                        input.checked = true;
-                                        // ثم إرسال الفورم
-                                        document.getElementById('rating-form').submit();
-                                    });
-                                });
-                            </script>
+                        <div class="product-rating"
+                            style="display:flex; justify-content:center; align-items:center; gap:10px;">
+                            <p style="margin:0;">تقييم المتجر:</p>
 
-                            <p>متوسط التقييم: {{ number_format($product->ratings()->avg('rate') ?? 0, 1) }} / 5
-                            </p>
-
+                            @for ($i = 1; $i <= 5; $i++)
+                                <span style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }};">
+                                    &#9733;
+                                </span>
+                            @endfor
                         </div>
+
+
+
                     </div>
                 </div>
                 <div class="profile-actions modern-actions">
@@ -576,7 +566,39 @@
         </div>
 
         <div class="product-box dark-box">
-            <h1 class="product-title"> {{ $product->name }}</h1>
+            <div style="display: flex; justify-content: space-between;">
+                <h1 class="product-title"> {{ $product->name }}</h1>
+                <div class="rating" style="margin-top: -10px">
+                    <form action="{{ route('customer.product.rate', $product->id) }}" method="POST" id="rating-form">
+                        @csrf
+                        <div class="star-rating">
+                            @for($i = 5; $i >= 1; $i--)
+                                <input type="radio" id="star{{$i}}" name="rate" value="{{$i}}" style="display:none;">
+                                <label for="star{{$i}}" title="{{$i}} نجوم"
+                                    style="cursor:pointer; font-size:24px;">&#9733;</label>
+                            @endfor
+                        </div>
+                    </form>
+
+                    <script>
+                        // نختار كل اللابلز داخل star-rating
+                        document.querySelectorAll('.star-rating label').forEach(label => {
+                            label.addEventListener('click', function () {
+                                // عند الضغط على النجمة، يتم اختيار الراديو المناسب
+                                const input = document.getElementById(this.getAttribute('for'));
+                                input.checked = true;
+                                // ثم إرسال الفورم
+                                document.getElementById('rating-form').submit();
+                            });
+                        });
+                    </script>
+
+                    <p>متوسط التقييم: {{ number_format($product->ratings()->avg('rate') ?? 0, 1) }} / 5
+                    </p>
+
+                </div>
+            </div>
+
             <p class="product-price">السعر: <strong>{{ $product->price }}₪</strong></p>
             <p class="product-date">تاريخ الطرح: <strong>{{ $product->created_at }}</strong></p>
             <div class="product-gallery">
@@ -1054,34 +1076,13 @@
                 <input id="select-all" type="checkbox" />
                 <span>تحديد الكل</span>
             </label> --}}
-            <div class="total">المجموع: $<span id="cart-total">{{ $totalPrice }}</span></div>
+            <div class="total">المجموع: ₪<span id="cart-total">{{ $totalPrice }}</span></div>
             <div class="cart-actions">
                 <button type="button" id="buy-selected">شراء الآن</button>
                 {{-- <button type="submit" id="delete-selected" class="danger">حذف المحدد</button> --}}
             </div>
         </div>
     </div>
-
-
-
-
-    <!-- لوحة المفضلة -->
-    <div class="fav-panel" id="fav-panel" style="display:none;">
-        <button class="close-panel" id="close-fav">&times;</button>
-        <h3>المفضلة</h3>
-        <div class="fav-items" id="fav-items">
-            <!-- المنتجات المضافة للمفضلة ستُدرج هنا عبر JavaScript -->
-        </div>
-        <div class="fav-footer">
-            <button class="clear-fav">إزالة الكل</button>
-        </div>
-    </div>
-
-
-
-
-
-
 
 
     <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>

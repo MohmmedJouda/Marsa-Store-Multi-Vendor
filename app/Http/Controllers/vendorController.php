@@ -59,4 +59,23 @@ class vendorController extends Controller
         return redirect()->back()->with('success', 'تم تحديث الصور بنجاح!');
     }
 
+    public function updateSlogan(Request $request){
+    $request->validate([
+        'slogan' => 'nullable|string|max:255',
+    ]);
+
+    if ($request->has('slogan')) {
+        $data['slogan'] = $request->slogan;
+    }
+
+    $store = auth()->user()->store;
+
+    $store->update([
+        'slogan' => $request->slogan
+    ]);
+
+    return redirect()->back()->with('success', 'تم تحديث الشعار بنجاح!');
+}
+
+
 }

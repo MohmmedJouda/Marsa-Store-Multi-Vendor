@@ -121,7 +121,6 @@
 
         <div class="right">
 
-
             <i class="fa-solid fa-cart-shopping" id="cart-icon">
                 <span class="badge" id="cart-count">0</span>
             </i>
@@ -160,7 +159,7 @@
     <main class="container py-5">
         <div class="row">
             <!-- Sidebar: Categories -->
-            <sidebar class="sidebar">
+            {{-- <sidebar class="sidebar">
                 <h3>التصنيفات</h3>
                 <select id="category-filter">
                     <option value="all">الكل</option>
@@ -196,11 +195,11 @@
                     <input type="range" class="form-range" name="range" step="1" min="100" max="10000" value="10"
                         onchange="rangePrimary.value=value">
                     <div class="range-inner">
-                        <label style="margin-bottom: -45px; margin-right: -10px; display:flex ; ">$</label>
+                        <label style="margin-bottom: -45px; margin-right: -10px; display:flex ; ">₪</label>
                         <input type="text" id="rangePrimary" placeholder="100" />
                     </div>
                 </div>
-            </sidebar>
+            </sidebar> --}}
 
 
 
@@ -219,9 +218,13 @@
                             </a>
                             <div class="title"> {{ $product->name }}</div>
                             <span class="category">{{ $product->subcategory->name }}</span>
-                            <div class="price" data-symbol="$">${{ $product->price }}</div>
+                            <div class="price" data-symbol="$">₪{{ $product->price }}</div>
                             <div class="product-rating"
                                 style="display:flex; justify-content:center; gap: 2px; margin: 5px 0;">
+                                @php
+                                    $averageRate = $product->store->ratings->avg('rate'); // ✅ لكل منتج
+                                @endphp
+
                                 @for($i = 1; $i <= 5; $i++)
                                     <span class="stars" style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
                                         &#9733;
@@ -504,38 +507,13 @@
                 <input id="select-all" type="checkbox" />
                 <span>تحديد الكل</span>
             </label> --}}
-            <div class="total">المجموع: $<span id="cart-total">{{ $totalPrice }}</span></div>
+            <div class="total">المجموع: ₪<span id="cart-total">{{ $totalPrice }}</span></div>
             <div class="cart-actions">
                 <button type="button" id="buy-selected">شراء الآن</button>
                 {{-- <button type="submit" id="delete-selected" class="danger">حذف المحدد</button> --}}
             </div>
         </div>
     </div>
-
-
-
-
-
-
-    <!-- لوحة المفضلة -->
-    <div class="fav-panel" id="fav-panel" style="display:none;">
-        <button class="close-panel" id="close-fav">&times;</button>
-        <h3>المفضلة</h3>
-        <div class="fav-items" id="fav-items">
-            <!-- المنتجات المضافة للمفضلة ستُدرج هنا عبر JavaScript -->
-        </div>
-        <div class="fav-footer">
-            <button class="clear-fav">إزالة الكل</button>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
 
     <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets2/js/glightbox.min.js')}}"></script>
@@ -547,36 +525,8 @@
     <script>AOS.init();</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
-
-
     <script>
 
-
-
-        // function updateFavCount() {
-        //     const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-        //     document.getElementById('fav-count').textContent = favItems.length || 0;
-        // }
-
-        // function updateAllCounts() {
-        //     updateCartCount();
-        //     updateFavCount();
-        // }
-
-        // نفذ عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', updateAllCounts);
-
-        // استدعِ هذه الوظيفة عند إضافة/إزالة أي منتج للسلة أو المفضلة
-        // مثال:
-        // بعد إضافة منتج:
-        // localStorage.setItem('cart', JSON.stringify(cartItems));
-        // updateCartCount();
-
-        // بعد إزالة من المفضلة:
-        // localStorage.setItem('favorites', JSON.stringify(favItems));
-        // updateFavCount();
 
         document.addEventListener('DOMContentLoaded', function () {
             const userIcon = document.getElementById('userIcon');

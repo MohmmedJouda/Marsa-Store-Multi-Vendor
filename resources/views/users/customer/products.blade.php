@@ -213,7 +213,7 @@
                             </a>
                             <div class="title"> {{ $product->name }}</div>
                             <span class="category">{{ $product->subcategory->name }}</span>
-                            <div class="price" data-symbol="$">${{ $product->price }}</div>
+                            <div class="price" data-symbol="$">₪{{ $product->price }}</div>
                             @php
                                 $averageRate = $product->ratings->avg('rate'); // ✅ لكل منتج
                             @endphp
@@ -501,7 +501,7 @@
                 <input id="select-all" type="checkbox" />
                 <span>تحديد الكل</span>
             </label> --}}
-            <div class="total">المجموع: $<span id="cart-total">{{ $totalPrice }}</span></div>
+            <div class="total">المجموع: ₪<span id="cart-total">{{ $totalPrice }}</span></div>
             <div class="cart-actions">
                 <button type="button" id="buy-selected">شراء الآن</button>
                 {{-- <button type="submit" id="delete-selected" class="danger">حذف المحدد</button> --}}

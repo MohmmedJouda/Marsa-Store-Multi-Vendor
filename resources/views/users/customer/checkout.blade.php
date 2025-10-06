@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="ar" dir="rtl">
+<html  lang="ar" dir="rtl">
 
 <head>
     <meta charset="utf-8" />
@@ -13,19 +13,14 @@
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
     <!-- AOS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-
     <!-- Google Font: Tajawal -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-
     <!-- Main CSS -->
     <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -543,9 +538,6 @@
     <!--/ End Footer Area -->
 
 
-
-
-
     <!-- سلة جانبية -->
     <div id="cart-panel" class="cart-panel" style="display:none;">
         <button class="close-panel" id="close-cart">&times;</button>
@@ -556,7 +548,7 @@
             <div>
                 <input type="checkbox" id="select-all"> <label for="select-all">تحديد الكل</label>
             </div>
-            <div class="total">المجموع: $<span id="cart-total">0.00</span></div>
+            <div class="total">المجموع: ₪<span id="cart-total">0.00</span></div>
             <div class="cart-actions">
                 <button id="buy-selected">شراء الآن</button>
                 <button id="delete-selected">حذف المحدد</button>
@@ -564,26 +556,108 @@
         </div>
     </div>
 
-
-
-
     <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets2/js/glightbox.min.js')}}"></script>
     <script src="{{asset('assets2/js/main.js')}}"></script>
     <script src=" {{asset('assets2/js/jsmain.js')}}"></script>
     <script src="{{asset('assets2/js/js/tiny-slider.js')}}"></script>
     <script src="https://js.stripe.com/v3/"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>AOS.init();</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
-
-
-
     <script>
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userIcon = document.getElementById('userIcon');
+            const dropdown = document.getElementById('userDropdown');
+
+            if (!userIcon || !dropdown) {
+                console.warn('userIcon or userDropdown element not found. تأكد من وجود العنصرين ومعرفاتهما id="userIcon" و id="userDropdown".');
+                return;
+            }
+
+            // تأكد أن الـ dropdown طفل مباشر للـ body حتى لا يتأثر بـ overflow/transform من والدين آخرين
+            if (dropdown.parentElement !== document.body) {
+                document.body.appendChild(dropdown);
+            }
+
+            // إعدادات أولية
+            dropdown.style.position = 'absolute';
+            dropdown.style.display = 'none';
+            dropdown.style.zIndex = 9999;
+
+            function positionDropdown() {
+                // نظهر مؤقتاً مخفياً لقياس الأبعاد بدون فلاش
+                dropdown.style.display = 'block';
+                dropdown.style.visibility = 'hidden';
+                dropdown.classList.add('open'); // يضيف أي ستايل عرض لو حاطه
+                const iconRect = userIcon.getBoundingClientRect();
+                const ddRect = dropdown.getBoundingClientRect();
+                const gap = 8; // مسافة بين الأيقونة والقائمة
+
+                // محاذاة يمين القائمة مع يمين الأيقونة (مناسب للـ RTL)
+                let left = window.scrollX + iconRect.right - ddRect.width;
+                let top = window.scrollY + iconRect.bottom + gap;
+
+                const margin = 8;
+                if (left < margin) left = margin;
+                if (left + ddRect.width > window.innerWidth - margin) left = window.innerWidth - ddRect.width - margin;
+
+                // إذا ما فيه مساحة تحت، اعرض فوق الأيقونة
+                if (top + ddRect.height > window.scrollY + window.innerHeight - margin) {
+                    top = window.scrollY + iconRect.top - ddRect.height - gap;
+                }
+
+                dropdown.style.left = Math.round(left) + 'px';
+                dropdown.style.top = Math.round(top) + 'px';
+
+                // أظهر بشكل نهائي
+                dropdown.style.visibility = 'visible';
+            }
+
+            function openDropdown() {
+                positionDropdown();
+                dropdown.classList.add('open');
+                userIcon.setAttribute('aria-expanded', 'true');
+                dropdown.setAttribute('aria-hidden', 'false');
+
+                window.addEventListener('resize', positionDropdown);
+                window.addEventListener('scroll', positionDropdown, true);
+            }
+
+            function closeDropdown() {
+                dropdown.classList.remove('open');
+                dropdown.style.display = 'none';
+                userIcon.setAttribute('aria-expanded', 'false');
+                dropdown.setAttribute('aria-hidden', 'true');
+
+                window.removeEventListener('resize', positionDropdown);
+                window.removeEventListener('scroll', positionDropdown, true);
+            }
+
+            userIcon.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (dropdown.classList.contains('open')) closeDropdown();
+                else openDropdown();
+            });
+
+            // غلق عند النقر خارج القائمة أو عند الضغط على Esc
+            document.addEventListener('click', function (e) {
+                if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeDropdown();
+            });
+
+        });
+
 
 
         const stripe = Stripe('{{ config("services.stripe.key") }}'); // مفتاح public
@@ -695,92 +769,6 @@
             updateRadioBorders();
         });
 
-document.addEventListener('DOMContentLoaded', function () {
-            const userIcon = document.getElementById('userIcon');
-            const dropdown = document.getElementById('userDropdown');
-
-            if (!userIcon || !dropdown) {
-                console.warn('userIcon or userDropdown element not found. تأكد من وجود العنصرين ومعرفاتهما id="userIcon" و id="userDropdown".');
-                return;
-            }
-
-            // تأكد أن الـ dropdown طفل مباشر للـ body حتى لا يتأثر بـ overflow/transform من والدين آخرين
-            if (dropdown.parentElement !== document.body) {
-                document.body.appendChild(dropdown);
-            }
-
-            // إعدادات أولية
-            dropdown.style.position = 'absolute';
-            dropdown.style.display = 'none';
-            dropdown.style.zIndex = 9999;
-
-            function positionDropdown() {
-                // نظهر مؤقتاً مخفياً لقياس الأبعاد بدون فلاش
-                dropdown.style.display = 'block';
-                dropdown.style.visibility = 'hidden';
-                dropdown.classList.add('open'); // يضيف أي ستايل عرض لو حاطه
-                const iconRect = userIcon.getBoundingClientRect();
-                const ddRect = dropdown.getBoundingClientRect();
-                const gap = 8; // مسافة بين الأيقونة والقائمة
-
-                // محاذاة يمين القائمة مع يمين الأيقونة (مناسب للـ RTL)
-                let left = window.scrollX + iconRect.right - ddRect.width;
-                let top = window.scrollY + iconRect.bottom + gap;
-
-                const margin = 8;
-                if (left < margin) left = margin;
-                if (left + ddRect.width > window.innerWidth - margin) left = window.innerWidth - ddRect.width - margin;
-
-                // إذا ما فيه مساحة تحت، اعرض فوق الأيقونة
-                if (top + ddRect.height > window.scrollY + window.innerHeight - margin) {
-                    top = window.scrollY + iconRect.top - ddRect.height - gap;
-                }
-
-                dropdown.style.left = Math.round(left) + 'px';
-                dropdown.style.top = Math.round(top) + 'px';
-
-                // أظهر بشكل نهائي
-                dropdown.style.visibility = 'visible';
-            }
-
-            function openDropdown() {
-                positionDropdown();
-                dropdown.classList.add('open');
-                userIcon.setAttribute('aria-expanded', 'true');
-                dropdown.setAttribute('aria-hidden', 'false');
-
-                window.addEventListener('resize', positionDropdown);
-                window.addEventListener('scroll', positionDropdown, true);
-            }
-
-            function closeDropdown() {
-                dropdown.classList.remove('open');
-                dropdown.style.display = 'none';
-                userIcon.setAttribute('aria-expanded', 'false');
-                dropdown.setAttribute('aria-hidden', 'true');
-
-                window.removeEventListener('resize', positionDropdown);
-                window.removeEventListener('scroll', positionDropdown, true);
-            }
-
-            userIcon.addEventListener('click', function (e) {
-                e.stopPropagation();
-                if (dropdown.classList.contains('open')) closeDropdown();
-                else openDropdown();
-            });
-
-            // غلق عند النقر خارج القائمة أو عند الضغط على Esc
-            document.addEventListener('click', function (e) {
-                if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
-                    closeDropdown();
-                }
-            });
-
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') closeDropdown();
-            });
-
-        });
 
     </script>
 

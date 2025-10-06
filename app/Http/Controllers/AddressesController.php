@@ -99,8 +99,12 @@
         $taxAmount = 5;      // مثال ثابت
         $totalAmount = $subtotal + $shippingAmount + $taxAmount - $discount;
 
+        $lastOrderNumber = Order::where('user_id', Auth::id())->max('order_number');
+        $newOrderNumber = $lastOrderNumber ? $lastOrderNumber + 1 : 1;
+
         $order = Order::create([
             'user_id'        => Auth::id(),
+            'order_number'     => $newOrderNumber,
             'address_id'     => $address->id,
             'payment_method' => 'pending',
             'status'         => 'pending',
@@ -116,7 +120,7 @@
             'product_id'        => $item['product_id'],
             'product_variant_id'=> $item['variant_id'],
             'quantity'          => $item['quantity'],
-            'unit_price'        => $item['price'],
+            'price'        => $item['price'],
         ]);
 
         $variant = ProductVariant::find($item['variant_id']);
@@ -171,7 +175,7 @@
                 'first_name'   => 'required|string|max:255',
                 'last_name'    => 'required|string|max:255',
                 'email'        => 'required|email|max:255',
-                'phone_number' => 'required|string|max:20',
+                'phone_number' => 'required','regex:/^05[0-9]{8}$/',
                 'state'        => 'required|in:gaza,westbank',
                 'city'         => 'required|string|max:255',
                 'address'      => 'required|string|max:500',
