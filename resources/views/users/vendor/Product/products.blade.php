@@ -1,7 +1,7 @@
 @extends('layout')
-@section('pageTitle', 'Product Listing')
-@section('subTitle', 'Home')
-@section('currentTitle', 'Products')
+@section('pageTitle', 'قائمة المنتجات')
+@section('subTitle', 'الرئيسية')
+@section('currentTitle', 'المنتجات')
 @section('routeButton', route('vendor.dashboard'))
 @section('content')
     <!--begin::Post-->
@@ -36,7 +36,7 @@
                             </span>
                             <!--end::Svg Icon-->
                             <input type="text" data-kt-ecommerce-product-filter="search"
-                                class="form-control form-control-solid w-250px ps-14" placeholder="Search Product" />
+                                class="form-control form-control-solid w-250px ps-14" placeholder="ابحث عن المنتج" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -44,10 +44,9 @@
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                         <!--begin::Add product-->
-                        <a href="{{ route('vendor.products.trashed') }}" class="btn btn-danger">Trashed</a>
+                        <a href="{{ route('vendor.products.trashed') }}" class="btn btn-danger">سلة المحذوفات</a>
                         <!--end::Add product-->
-                        <a href="{{ route('vendor.products.create') }}" class="btn btn-primary">Add
-                            Product</a>
+                        <a href="{{ route('vendor.products.create') }}" class="btn btn-primary">اضافة منتج</a>
                     </div>
                     <!--end::Card toolbar-->
 
@@ -70,13 +69,13 @@
                                             value="1" />
                                     </div>
                                 </th>
-                                <th class="min-w-200px">Product</th>
-                                <th class="text-end min-w-100px">Subcategory</th>
-                                <th class="text-end min-w-70px">Qty</th>
-                                <th class="text-end min-w-100px">Price</th>
-                                <th class="text-end min-w-100px">Rating</th>
-                                <th class="text-end min-w-100px">Status</th>
-                                <th class="text-end min-w-70px">Actions</th>
+                                <th class="min-w-200px">المنتج</th>
+                                <th class="text-end min-w-100px">الأقسام الفرعية</th>
+                                <th class="text-end min-w-70px">الكمية</th>
+                                <th class="text-end min-w-100px">السعر</th>
+                                <th class="text-end min-w-100px">التقييم</th>
+                                <th class="text-end min-w-100px">الحالة</th>
+                                <th class="text-end min-w-70px">الأحداث</th>
                             </tr>
                             <!--end::Table row-->
                         </thead>
@@ -129,7 +128,7 @@
                                     <!--end::Qty=-->
                                     <!--begin::Price=-->
                                     <td class="text-end pe-0">
-                                        <span class="fw-bolder text-dark">${{ $product->price }}</span>
+                                        <span class="fw-bolder text-dark">₪{{ $product->price }}</span>
                                     </td>
                                     <!--end::Price=-->
                                     <!--begin::Rating-->
@@ -214,7 +213,7 @@
                                     <!--begin::Action=-->
                                     <td class="text-end">
                                         <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
-                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">الأحداث
                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                             <span class="svg-icon svg-icon-5 m-0">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -234,7 +233,7 @@
                                                     class="menu-link px-3">
                                                     <span class="me-2">
                                                         <i class="fas fa-edit"></i>
-                                                    </span>Edit</a>
+                                                    </span>تعديل</a>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
@@ -244,7 +243,7 @@
                                                     <span class="me-2">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
-                                                    Delete
+                                                    حذف
                                                 </a>
 
                                             </div>

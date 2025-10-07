@@ -1,57 +1,57 @@
 @extends('layout')
-@section('pageTitle', 'Create Product')
-@section('subTitle', 'Products')
-@section('currentTitle', 'Create')
-@section('nameButton', 'All Products')
+@section('pageTitle', 'اضافة المنتجات')
+@section('subTitle', 'المنتجات')
+@section('currentTitle', 'اضافة')
+@section('nameButton', 'عرض المنتجات')
 @section('routeButton', route('vendor.products.index'))
 @section('content')
     <div class="card card-flush">
         <div class="container" style="margin-top: 40px;">
-            <h2>Create New Product</h2>
+            <h2>اضافة منتج جديد</h2>
             <form id="create_product" enctype="multipart/form-data" class="form">
                 @csrf
 
                 <div class="row">
                     <!-- Product Name and Status next to each other -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="name">Product Name</label>
+                        <label for="name">اسم المنتج</label>
                         <input type="text" name="name" id="name" class="form-control"
-                            placeholder="Enter product name" required>
+                            placeholder="ادخل اسم المنتج" required>
                     </div>
 
                     <div class="form-group col-md-6 mt-3">
-                        <label for="status">Status</label>
+                        <label for="status">الحالة</label>
                         <select name="status" id="status" class="form-control" required>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="active">فعال</option>
+                            <option value="inactive">غير فعال</option>
                         </select>
                     </div>
 
                     <!-- Description below Name and Status -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="description">Description</label>
-                        <textarea name="description" id="description" class="form-control" placeholder="Enter product description" required></textarea>
+                        <label for="description">الوصف</label>
+                        <textarea name="description" id="description" class="form-control" placeholder="ادخل وصف المنتج" required></textarea>
                     </div>
 
                     <!-- Discount -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="discount">Discount (%)</label>
+                        <label for="discount">الخصم (%)</label>
                         <input type="number" name="discount" id="discount" class="form-control"
-                            placeholder="Enter discount (0-100)" min="0" max="100" step="0.01">
+                            placeholder="ادخل الخصم (0-100)" min="0" max="100" step="0.01">
                     </div>
 
                     <!-- Price -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="price">Price ($)</label>
+                        <label for="price">السعر (₪)</label>
                         <input type="number" name="price" id="price" class="form-control"
-                            placeholder="Enter product price" step="0.01" required>
+                            placeholder="ادخل سعر المنتج" step="0.01" required>
                     </div>
 
                     <!-- Stock -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="stock">Stock Quantity</label>
+                        <label for="stock">كمية المخزون</label>
                         <input type="number" name="stock" id="stock" class="form-control"
-                            placeholder="Enter product stock quantity" required>
+                            placeholder="أدخل كمية مخزون المنتج" required>
                     </div>
                 </div>
 
@@ -59,20 +59,19 @@
                 <div class="row">
                     <!-- Main Image -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="main_image">Main Product Image</label>
+                        <label for="main_image">الصورة الرئيسية للمنتج</label>
                         <input type="file" name="main_image" id="main_image" class="form-control" required>
-                        <small class="form-text text-muted">This image will be the main display image for the
-                            product.</small>
+                        <small class="form-text text-muted">ستكون هذه الصورة هي صورة العرض الرئيسية للمنتج.</small>
                     </div>
 
                     <!-- Additional images field beside main image field -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="additional_images">Select Product Images</label>
+                        <label for="additional_images">اختر صور المنتج</label>
                         <input type="file" name="additional_images[]" id="additional_images" class="form-control"
                             multiple required>
                         <small class="form-text text-muted">
-                            Hold down the <strong>Ctrl</strong> (Windows) or <strong>Command</strong> (Mac) key to select
-                            multiple images.
+                            اضغط باستمرار على <strong>Ctrl</strong> (Windows) أو <strong>Command</strong> (Mac)اختار مفتاح
+                            لاختيار صور متعددة.
                         </small>
                     </div>
                 </div>
@@ -80,9 +79,9 @@
                 <!-- Category and Subcategory -->
                 <div class="row">
                     <div class="form-group col-md-6 mt-3">
-                        <label for="category_id">Category</label>
+                        <label for="category_id">القسم</label>
                         <select name="category_id" id="category_id" class="form-control" required>
-                            <option value="">Select Category</option>
+                            <option value="">Select القسم</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
@@ -91,9 +90,9 @@
 
                     <!-- SubCategory -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="subcategory_id">SubCategory</label>
+                        <label for="subcategory_id">القسم الفرعي</label>
                         <select name="subcategory_id" id="subcategory_id" class="form-control" required>
-                            <option value="">Select SubCategory</option>
+                            <option value="">اختيار القسم الفرعي</option>
                             @foreach ($categories as $category)
                                 @foreach ($category->subcategories as $subcategory)
                                     <option value="{{ $subcategory->id }}" data-category-id="{{ $category->id }}">
@@ -101,7 +100,7 @@
                                     </option>
                                 @endforeach
                             @endforeach
-                            <option value="other">Other</option>
+                            <option value="other">اخرى</option>
                         </select>
                     </div>
                 </div>
@@ -109,56 +108,56 @@
                 <!-- Field to input new subcategory name and upload image (hidden initially) -->
                 <div class="form-group row mt-3" id="other_subcategory_field" style="display: none;">
                     <div class="col-md-6">
-                        <label for="new_subcategory_name" class="mt-3">New SubCategory Name</label>
+                        <label for="new_subcategory_name" class="mt-3">اسم القسم الفرعية الجديدة</label>
                         <input type="text" name="new_subcategory_name" id="new_subcategory_name" class="form-control"
-                            placeholder="Enter new subcategory name">
+                            placeholder="أدخل اسم القسم الفرعية الجديدة">
                     </div>
 
                     <!-- Field to upload image for the new subcategory -->
                     <div class="col-md-6">
-                        <label for="subcategory_image" class="mt-3">Upload Image for New SubCategory</label>
+                        <label for="subcategory_image" class="mt-3">تحميل صورة للقسم الفرعي الجديد</label>
                         <input type="file" name="subcategory_image" id="subcategory_image" class="form-control"
                             required>
                     </div>
                 </div>
 
                 <!-- ✅ السمات داخل الفورم -->
-                <label for="attributes" class="mt-5 form-label">Product Attributes</label>
+                <label for="attributes" class="mt-5 form-label">سمات المنتج</label>
                 <div class="row" id="attribute-container">
                     @foreach ([0] as $index)
                         <!-- تأكد من أن المتغير $attributes يحتوي على السمات الحالية -->
                         <div class="col-md-4 mb-4">
                             <div class="attribute p-3 border rounded shadow-sm">
                                 <div class="form-group mb-3">
-                                    <label for="attributes[{{ $index }}][name]" class="form-label">Attribute
-                                        Name</label>
+                                    <label for="attributes[{{ $index }}][name]" class="form-label">اسم
+                                        السمة</label>
                                     <input type="text" name="attributes[{{ $index }}][name]"
-                                        class="form-control attribute-name mb-2" placeholder="Attribute name" required>
+                                        class="form-control attribute-name mb-2" placeholder="مثال :اللون" required>
                                 </div>
 
                                 <div class="value-container mb-3 p-3 border rounded shadow-sm">
                                     <label for="attributes[{{ $index }}][values][]"
-                                        class="mt-3 form-label">Value</label>
+                                        class="mt-3 form-label">القيمة</label>
                                     <input type="text" name="attributes[{{ $index }}][values][]"
-                                        class="form-control attribute-value mb-2" placeholder="Value" required>
+                                        class="form-control attribute-value mb-2" placeholder="مثال : أحمر" required>
                                 </div>
 
                                 <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100"
-                                    data-attribute-index="{{ $index }}">Add Value</button>
+                                    data-attribute-index="{{ $index }}">اضافة قيمة اخرى</button>
                             </div>
                         </div>
                     @endforeach
                 </div>
 
                 <!-- زر لإضافة سمة جديدة -->
-                <button type="button" class="btn btn-sm btn-success my-5" id="add-attribute">Add Attribute</button>
+                <button type="button" class="btn btn-sm btn-success my-5" id="add-attribute">اضافة سمة جديدة</button>
 
-                <button type="button" class="btn btn-secondary mb-3" onclick="generateVariants()">🔄 توليد
+                <button type="button" class="btn btn-sm btn-secondary my-5" onclick="generateVariants()"> توليد
                     التركيبات</button>
                 <div id="variant-container"></div>
 
                 <button type="button" onclick="createProduct()" id="add-product-btn" class="btn btn-primary mt-5">
-                    Create Product </button>
+                    اضافة المنتج </button>
 
             </form>
         </div>

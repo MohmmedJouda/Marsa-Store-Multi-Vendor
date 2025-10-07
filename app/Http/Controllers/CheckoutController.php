@@ -46,7 +46,7 @@ class CheckoutController extends Controller
         }
 
         // لتحديد الخيار المحدد مسبقاً في الواجهة
-        $selectedShipping = $request->input('shipping_method', 'standard'); 
+        $selectedShipping = $request->input('shipping_method', 'standard');
 
         $taxAmount = 5;      // مثال ثابت
 
@@ -59,7 +59,7 @@ class CheckoutController extends Controller
         }
 
         return view('users.customer.checkout', compact(
-            'variant', 
+            'variant',
             'qty','subtotalPrice',
                     'discountAmount','totalPriceAfterDiscount',
                     'shippingAmount','taxAmount',
@@ -134,8 +134,9 @@ class CheckoutController extends Controller
                 'product_id' => $item['product_id'],
                 'product_variant_id' => $item['variant_id'] ?? null,
                 'quantity' => $item['quantity'],
-                'unit_price' => round($item['price'] * 100),
-                'total_price' => round($item['price'] * $item['quantity'] * 100),
+                'price'               => $item['price'],
+                // 'unit_price' => round($item['price'] * 100),
+                // 'total_price' => round($item['price'] * $item['quantity'] * 100),
 
             ]);
         }
@@ -156,13 +157,13 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
-        
+
     }
 
      public function update(Request $request, Address $address)
     {
 
-    
+
     }
 
 
