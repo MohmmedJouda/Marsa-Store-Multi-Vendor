@@ -223,14 +223,16 @@
                                 <!--begin::Table body-->
                                 <tbody class="fw-bold text-gray-600">
                                     <!--begin::Table row-->
+                                    @php
+                                        $n = method_exists($orders, 'firstItem') ? $orders->firstItem() - 1 : 0; // يدعم الـpagination
+                                    @endphp
 
-                                    <tr>
-                                        @foreach ($orders as $order)
-                                            <td>
-                                                <p>{{ $order->order_number }}</p>
-                                            </td>
-
-                                            @foreach ($order->items as $item)
+                                    @foreach ($orders as $order)
+                                        @foreach ($order->items as $item)
+                                            <tr>
+                                                <td>
+                                                    <p>{{ ++$n }}</p>
+                                                </td>
                                                 <td>
                                                     <div class="d-flex align-items-center justify-content-start">
                                                         <!--begin::Thumbnail-->
@@ -241,13 +243,11 @@
                                                         <div class="ms-5">
                                                             {{ $item->product->name }}
                                                         </div>
-                                                    </div>
-                        </div>
-                        </td>
+                                                </td>
 
-                        <td class="text-end " data-order="Published">
-                            <span
-                                class="badge
+                                                <td class="text-end " data-order="Published">
+                                                    <span
+                                                        class="badge
                                                                                     @if ($order->status == 'pending') bg-warning
                                                                                     @elseif($order->status == 'shipping') bg-info
                                                                                     @elseif($order->status == 'shipped') bg-primary
@@ -256,101 +256,103 @@
                                                                                     @elseif($order->status == 'refunded') bg-secondary @endif">
 
 
-                                @if ($order->status == 'pending' && (!$order->payment || is_null($order->payment->payment_method)))
-                                    معلق
-                                @elseif($order->status == 'pending')
-                                    قيد العمل
-                                @elseif($order->status == 'shipping')
-                                    جاري الشحن
-                                @elseif($order->status == 'shipped')
-                                    تم الشحن
-                                @elseif($order->status == 'delivered')
-                                    تم التوصيل
-                                @elseif($order->status == 'cancelled')
-                                    ملغي
-                                @elseif($order->status == 'refunded')
-                                    مسترد
-                                @endif
+                                                        @if ($order->status == 'pending' && (!$order->payment || is_null($order->payment->payment_method)))
+                                                            معلق
+                                                        @elseif($order->status == 'pending')
+                                                            قيد العمل
+                                                        @elseif($order->status == 'shipping')
+                                                            جاري الشحن
+                                                        @elseif($order->status == 'shipped')
+                                                            تم الشحن
+                                                        @elseif($order->status == 'delivered')
+                                                            تم التوصيل
+                                                        @elseif($order->status == 'cancelled')
+                                                            ملغي
+                                                        @elseif($order->status == 'refunded')
+                                                            مسترد
+                                                        @endif
 
-                                {{-- {{ ucfirst($order->status) }} --}}
-                            </span>
-                        </td>
-                        <!--end::Category=-->
-                        <!--begin::SKU=-->
-                        <td class="text-end pe-0">
-                            {{-- {{ $order->payment->payment_method ?? 'غير محدد' }} --}}
-                            @if ($order->payment && $order->payment->payment_method === 'bank_transfer')
-                                التحويل البنكي
-                            @elseif ($order->payment && $order->payment->payment_method === 'credit_card')
-                                بطاقة الائتمان
-                            @elseif ($order->payment && $order->payment->payment_method === 'pay_on_delivery')
-                                الدفع عند التسليم
-                            @else
-                                <a href="{{ route('customer.payment.index', $order->id) }}"
-                                    style="color:rgb(255, 0, 0)">غير محدد</a>
-                            @endif
+                                                        {{-- {{ ucfirst($order->status) }} --}}
+                                                    </span>
+                                                </td>
+                                                <!--end::Category=-->
+                                                <!--begin::SKU=-->
+                                                <td class="text-end pe-0">
+                                                    {{-- {{ $order->payment->payment_method ?? 'غير محدد' }} --}}
+                                                    @if ($order->payment && $order->payment->payment_method === 'bank_transfer')
+                                                        التحويل البنكي
+                                                    @elseif ($order->payment && $order->payment->payment_method === 'credit_card')
+                                                        بطاقة الائتمان
+                                                    @elseif ($order->payment && $order->payment->payment_method === 'pay_on_delivery')
+                                                        الدفع عند التسليم
+                                                    @else
+                                                        <a href="{{ route('customer.payment.index', $order->id) }}"
+                                                            style="color:rgb(255, 0, 0)">غير محدد</a>
+                                                    @endif
 
-                            {{-- {{ ucfirst($order->status) }} --}}
-                            </span>
-                        </td>
-                        <!--end::Category=-->
-                        <!--begin::SKU=-->
-                        <td class="text-end pe-0">
-                            {{-- {{ $order->payment->payment_method ?? 'غير محدد' }} --}}
-                            @if ($order->payment && $order->payment->payment_method === 'bank_transfer')
-                                التحويل البنكي
-                            @elseif ($order->payment && $order->payment->payment_method === 'credit_card')
-                                بطاقة الائتمان
-                            @elseif ($order->payment && $order->payment->payment_method === 'pay_on_delivery')
-                                الدفع عند التسليم
-                            @else
-                                <a href="{{ route('customer.payment.index', $order->id) }}"
-                                    style="color:rgb(255, 0, 0)">غير محدد</a>
-                            @endif
+                                                    {{-- {{ ucfirst($order->status) }} --}}
+                                                    </span>
+                                                </td>
+                                                <!--end::Category=-->
+                                                <!--begin::SKU=-->
+                                                <td class="text-end pe-0">
+                                                    {{-- {{ $order->payment->payment_method ?? 'غير محدد' }} --}}
+                                                    @if ($order->payment && $order->payment->payment_method === 'bank_transfer')
+                                                        التحويل البنكي
+                                                    @elseif ($order->payment && $order->payment->payment_method === 'credit_card')
+                                                        بطاقة الائتمان
+                                                    @elseif ($order->payment && $order->payment->payment_method === 'pay_on_delivery')
+                                                        الدفع عند التسليم
+                                                    @else
+                                                        <a href="{{ route('customer.payment.index', $order->id) }}"
+                                                            style="color:rgb(255, 0, 0)">غير محدد</a>
+                                                    @endif
 
-                        </td>
+                                                </td>
 
-                        <td class="text-end pe-0" data-order="25">
-                            {{ $item->quantity }}
-                        </td>
-                        <!--end::Qty=-->
-                        <!--begin::Price=-->
-                        <td class="text-end pe-0">
-                            {{ $order->total_amount }}
-                        </td>
-                        <!--end::Price=-->
-                        <!--begin::Rating-->
-                        <td class="text-end pe-0" data-order="rating-5">
-                            <p class="text-muted mb-0">
-                                {{ $order->created_at->locale('ar')->diffForHumans() }}
-                            </p>
-                        </td>
-                        <!--end::Rating-->
+                                                <td class="text-end pe-0" data-order="25">
+                                                    {{ $item->quantity }}
+                                                </td>
+                                                <!--end::Qty=-->
+                                                <!--begin::Price=-->
+                                                <td class="text-end pe-0">
+                                                    {{ $order->total_amount }}
+                                                </td>
+                                                <!--end::Price=-->
+                                                <!--begin::Rating-->
+                                                <td class="text-end pe-0" data-order="rating-5">
+                                                    <p class="text-muted mb-0">
+                                                        {{ $order->created_at->locale('ar')->diffForHumans() }}
+                                                    </p>
+                                                </td>
+                                                <!--end::Rating-->
 
-                        <!--begin::Action=-->
-                        <td class="text-end">
+                                                <!--begin::Action=-->
+                                                <td class="text-end">
 
-                            @if (!in_array($order->status, ['delivered', 'refunded', 'cancelled']))
-                                <!-- زر إلغاء الطلب -->
-                                <form method="POST" action="{{ route('customer.orders.cancel', $order->id) }}"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button class="btn btn-danger btn-sm">إلغاء الطلب</button>
-                                </form>
-                            @endif
+                                                    @if (!in_array($order->status, ['delivered', 'refunded', 'cancelled']))
+                                                        <!-- زر إلغاء الطلب -->
+                                                        <form method="POST"
+                                                            action="{{ route('customer.orders.cancel', $order->id) }}"
+                                                            class="d-inline">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button class="btn btn-danger btn-sm">إلغاء الطلب</button>
+                                                        </form>
+                                                    @endif
 
-                            @if ($order->status === 'delivered')
-                                <form method="POST" action="{{ route('customer.orders.refund', $order->id) }}"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button class="btn btn-warning btn-sm">إرجاع الطلب</button>
-                                </form>
-                            @endif
+                                                    @if ($order->status === 'delivered')
+                                                        <form method="POST"
+                                                            action="{{ route('customer.orders.refund', $order->id) }}"
+                                                            class="d-inline">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button class="btn btn-warning btn-sm">إرجاع الطلب</button>
+                                                        </form>
+                                                    @endif
 
-                            @if ($order->status === 'delivered')
-                                {{-- <form method="POST"
+                                                    @if ($order->status === 'delivered')
+                                                        {{-- <form method="POST"
                                                                 action="{{ route('customer.orders.refund', $order->id) }}"
                                                                 class="d-inline">
                                                                 @csrf
@@ -358,43 +360,43 @@
                                                                 <button class="btn btn-warning btn-sm">إرجاع الطلب</button>
                                                             </form> --}}
 
-                                <!-- زر رضا المستخدم -->
-                                <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
-                                    class="btn btn-outline-primary btn-sm">
-                                    هل أنت راضٍ عن المنتج؟
-                                </a>
-                            @endif
-                            @if ($order->status === 'refunded')
-                                <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
-                                    class="btn btn-outline-primary btn-sm">
-                                    لست راض عن المنتج ؟
-                                </a>
-                            @endif
-                            @if ($order->status === 'cancelled')
-                                <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
-                                    class="btn btn-outline-primary btn-sm">
-                                    لست راض عن خدمة التوصيل ؟
-                                </a>
-                            @endif
+                                                        <!-- زر رضا المستخدم -->
+                                                        <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
+                                                            class="btn btn-outline-primary btn-sm">
+                                                            هل أنت راضٍ عن المنتج؟
+                                                        </a>
+                                                    @endif
+                                                    @if ($order->status === 'refunded')
+                                                        <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
+                                                            class="btn btn-outline-primary btn-sm">
+                                                            لست راض عن المنتج ؟
+                                                        </a>
+                                                    @endif
+                                                    @if ($order->status === 'cancelled')
+                                                        <a href="{{ route('customer.feedback.create', ['order_id' => $order->id, 'status' => $order->status]) }}"
+                                                            class="btn btn-outline-primary btn-sm">
+                                                            لست راض عن خدمة التوصيل ؟
+                                                        </a>
+                                                    @endif
 
-                            <!--end::Menu-->
-                        </td>
-                        <!--end::Action=-->
-                        </tr>
-                        @endforeach
-                        @endforeach
-                        <!--end::Table row-->
-                        </tbody>
-                        <!--end::Table body-->
-                        </table>
-                        <!--end::Table-->
+                                                    <!--end::Menu-->
+                                                </td>
+                                                <!--end::Action=-->
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                    <!--end::Table row-->
+                                </tbody>
+                                <!--end::Table body-->
+                            </table>
+                            <!--end::Table-->
+                        </div>
+                        <!--end::Card body-->
                     </div>
-                    <!--end::Card body-->
+                    <!--end::Products-->
                 </div>
-                <!--end::Products-->
+                <!--end::Container-->
             </div>
-            <!--end::Container-->
-        </div>
 
 
 
