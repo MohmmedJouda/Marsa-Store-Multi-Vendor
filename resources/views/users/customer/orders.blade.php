@@ -224,13 +224,12 @@
                                 <tbody class="fw-bold text-gray-600">
                                     <!--begin::Table row-->
 
-                                    <tr>
-                                        @foreach ($orders as $order)
-                                            <td>
-                                                <p>{{ $order->order_number }}</p>
-                                            </td>
-
+                                    @foreach ($orders as $order)
+                                        <tr>
                                             @foreach ($order->items as $item)
+                                                <td>
+                                                    <p>{{ $order->order_number }}</p>
+                                                </td>
                                                 <td>
                                                     <div class="d-flex align-items-center justify-content-start">
                                                         <!--begin::Thumbnail-->
@@ -303,7 +302,7 @@
                                                 <!--begin::Rating-->
                                                 <td class="text-end pe-0" data-order="rating-5">
                                                     <p class="text-muted mb-0">
-                                                        تم إنشاء الطلب {{ $order->created_at->diffForHumans() }}
+                                                        {{ $order->created_at->locale('ar')->diffForHumans() }}
                                                     </p>
                                                 </td>
                                                 <!--end::Rating-->
@@ -363,7 +362,7 @@
                                                     <!--end::Menu-->
                                                 </td>
                                                 <!--end::Action=-->
-                                    </tr>
+                                        </tr>
                                     @endforeach
                                     @endforeach
                                     <!--end::Table row-->
@@ -624,7 +623,7 @@
             if (!userIcon || !dropdown) {
                 console.warn(
                     'userIcon or userDropdown element not found. تأكد من وجود العنصرين ومعرفاتهما id="userIcon" و id="userDropdown".'
-                    );
+                );
                 return;
             }
 
