@@ -213,7 +213,7 @@
                                 </a>
                                 <div class="title">{{ $item->name }} </div>
                                 {{-- <span class="category">{{ $item->subcategory->name }}</span> --}}
-                                <div class="price" data-symbol="$">Price: {{ $item->price }}</div>
+                                <div class="price" data-symbol="$">السعر: {{ $item->price }}₪</div>
                                 <div class="seller"></div>
                                 <div class="actions">
                                     <button class="btn-cart"> <a style="color:white"
@@ -436,50 +436,6 @@
             </div>
         </div>
     </div>
-
-
-
-    <!-- سلة جانبية -->
-    <div id="cart-panel" class="cart-panel" style="display:none;">
-        <button class="close-panel" id="close-cart">&times;</button>
-        <h3>سلة المشتريات</h3>
-        <div id="cart-items" class="cart-items"></div>
-
-        <div class="cart-footer">
-            <div>
-                <input type="checkbox" id="select-all"> <label for="select-all">تحديد الكل</label>
-            </div>
-            <div class="total">المجموع: $<span id="cart-total">0.00</span></div>
-            <div class="cart-actions">
-                <button id="buy-selected">شراء الآن</button>
-                <button id="delete-selected">حذف المحدد</button>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <!-- لوحة المفضلة -->
-    <div class="fav-panel" id="fav-panel" style="display:none;">
-        <button class="close-panel" id="close-fav">&times;</button>
-        <h3>المفضلة</h3>
-        <div class="fav-items" id="fav-items">
-            <!-- المنتجات المضافة للمفضلة ستُدرج هنا عبر JavaScript -->
-        </div>
-        <div class="fav-footer">
-            <button class="clear-fav">إزالة الكل</button>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
 
     <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets2/js/glightbox.min.js')}}"></script>

@@ -157,7 +157,8 @@ Route::middleware([
     Route::get('/get-subcategories', [ProductController::class, 'getSubcategories'])->name('getSubcategories');
     Route::get('/orders', [vendorController::class, 'index'])->name('orders');
     Route::delete('/orders/{id}', [vendorController::class, 'destroy'])->name('orders.destroy');
-
+    Route::post('/store/{store}/update-slogan', [vendorController::class, 'updateSlogan'])
+         ->name('store.updateSlogan');
 });
 
 Route::get('vendor/register-request/{status}', function ($status) {
@@ -186,8 +187,6 @@ Route::middleware([
         ->where('role', 'vendor|customer') // تأكد أن القيمة صحيحة فقط
         ->name('users.byRole');
 
-
-
     Route::post('/vendor', [ModeratorController::class, 'store'])->name('vendorStore');
     Route::get('/create', [ModeratorController::class, 'create'])->name('createVendor');
     Route::get('/vendor/{vendor}/edit', [ModeratorController::class, 'edit'])->name('vendors.edit');
@@ -201,8 +200,7 @@ Route::middleware([
     Route::get('/vendors/search', [ModeratorController::class, 'ajaxSearch'])->name('vendors.ajaxSearch');
     Route::patch('/vendor-documents/{document}/status', [VendorAuthController::class, 'updateStatus'])->name('vendor-documents.updateStatus');
 
-    // Customer
-    // Route::get('/{role}', [ModeratorController::class, 'indexByRole'])->name('customer');
+
 });
 
 //  admin

@@ -206,7 +206,10 @@
                             <!-- البطاقة الأولى: المتجر -->
                             <a href="{{ route('customer.stores.show', $store->id) }}" class="seller-card">
                                 <div class="seller-info">
-                                    <img class="seller-image" src="/assets2/images/store-logo.jpg" alt="شعار المتجر" />
+                                    <img class="seller-image"
+                                        src="{{ $store->logo ? asset('storage/' . $store->logo) : asset('img/store-logo.jpg') }}"
+                                        alt="Store Logo">
+
                                     <h3 class="seller-name">{{ $store->name }}</h3>
                                     @php
                                         $averageRate = $store->ratings->avg('rate'); // ✅ لكل منتج
@@ -487,36 +490,13 @@
                 <input id="select-all" type="checkbox" />
                 <span>تحديد الكل</span>
             </label> --}}
-            <div class="total">المجموع: $<span id="cart-total">{{ $totalPrice }}</span></div>
+            <div class="total">المجموع: ₪<span id="cart-total">{{ $totalPrice }}</span></div>
             <div class="cart-actions">
                 <button type="button" id="buy-selected">شراء الآن</button>
                 {{-- <button type="submit" id="delete-selected" class="danger">حذف المحدد</button> --}}
             </div>
         </div>
     </div>
-
-
-
-
-
-    <!-- لوحة المفضلة -->
-    <div class="fav-panel" id="fav-panel" style="display:none;">
-        <button class="close-panel" id="close-fav">&times;</button>
-        <h3>المفضلة</h3>
-        <div class="fav-items" id="fav-items">
-            <!-- المنتجات المضافة للمفضلة ستُدرج هنا عبر JavaScript -->
-        </div>
-        <div class="fav-footer">
-            <button class="clear-fav">إزالة الكل</button>
-        </div>
-    </div>
-
-
-
-
-
-
-
 
 
     <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>

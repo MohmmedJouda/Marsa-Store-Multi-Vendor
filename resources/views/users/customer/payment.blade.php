@@ -596,7 +596,7 @@
             <div>
                 <input type="checkbox" id="select-all"> <label for="select-all">تحديد الكل</label>
             </div>
-            <div class="total">المجموع: $<span id="cart-total">0.00</span></div>
+            <div class="total">المجموع: ₪<span id="cart-total">0.00</span></div>
             <div class="cart-actions">
                 <button id="buy-selected">شراء الآن</button>
                 <button id="delete-selected">حذف المحدد</button>

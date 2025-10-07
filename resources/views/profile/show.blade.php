@@ -15,8 +15,8 @@
                                 @csrf
                                 <label class="relative cursor-pointer group">
                                     <img src="{{ auth()->user()->profile_photo_path
-                    ? asset('storage/' . auth()->user()->profile_photo_path)
-                    : asset('assets2/images/default-avatar.png') }}"
+                    ? asset('img/default-avatar.png')
+                    : asset('img/default-avatar.png') }}"
                                         class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
 
                                     <input type="file" name="photo" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -49,8 +49,8 @@
                                     @csrf
                                     <label class="relative cursor-pointer group">
                                         <img src="{{ auth()->user()->profile_photo_path
-                    ? asset('storage/' . auth()->user()->profile_photo_path)
-                    : asset('assets2/images/default-avatar.png') }}"
+                    ? asset('img/default-avatar.png')
+                    : asset('img/default-avatar.png') }}"
                                             class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
 
                                         <input type="file" name="photo"
@@ -113,6 +113,57 @@
 
 
             <hr style="margin-bottom: 30px">
+
+
+            @if (Auth::user()->role === 'vendor')
+
+
+                <div class="bg-white shadow rounded-lg p-6 max-w-2xl mx-auto">
+                    <div class="grid grid-cols-12 gap-6">
+                        <!-- العنوان والوصف -->
+                        <div class="col-span-12 md:col-span-4 flex flex-col justify-center">
+                            <h2 class="text-lg font-semibold">العبارة الدعائية للمتجر</h2>
+                            <p class="text-gray-500 text-sm mt-1">
+                                قم بوضع عبارة دعائية خاصة بالمتجر (Slogan).
+                            </p>
+                        </div>
+
+
+                        <!-- النموذج -->
+                        <div class="col-span-12 md:col-span-8">
+                            <form method="POST" action="{{ route('vendor.store.updateSlogan', $user->store->id) }}">
+                                @csrf
+                                @method('POST') <!-- أو PUT حسب الـRoute -->
+
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">العبارة الدعائية
+                                        للمتجر</label>
+                                    <input type="text" name="slogan" class=" block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500
+                                            focus:ring-indigo-500 sm:text-sm p-2" style="color: black"
+                                        placeholder="مثلاً: الجودة أولاً" value="{{$user->store->slogan}}">
+                                </div>
+
+                                <div class="flex justify-end">
+                                    <button type="submit"
+                                        class="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-900">
+                                        تحديث
+                                    </button>
+                                </div>
+                            </form>
+                            @error('store_slogan')
+                                <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
+                            @enderror
+
+                            @if (session()->has('success'))
+                                <span class="text-green-600 text-sm mt-2">{{ session('success') }}</span>
+                            @endif
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr style="margin-top:30px;margin-bottom:30px">
+            @endif
 
             {{-- تحديث المعلومات الشخصية --}}
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())

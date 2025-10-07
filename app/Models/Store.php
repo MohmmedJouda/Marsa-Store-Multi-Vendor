@@ -10,7 +10,7 @@ class Store extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id', 'name', 'slug', 'description', 'logo', 'phone', 'address', 'status'];
+    protected $fillable = ['user_id', 'name', 'slug', 'slogan','description', 'logo', 'phone', 'address', 'status'];
 
     public function user()
     {

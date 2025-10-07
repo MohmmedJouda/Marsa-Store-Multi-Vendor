@@ -791,7 +791,7 @@
                 <input id="select-all" type="checkbox" />
                 <span>تحديد الكل</span>
             </label> --}}
-                <div class="total">المجموع: $<span id="cart-total">{{ $totalPrice }}</span></div>
+                <div class="total">المجموع: ₪<span id="cart-total">{{ $totalPrice }}</span></div>
                 <div class="cart-actions">
                     <button type="button" id="buy-selected">شراء الآن</button>
                     {{-- <button type="submit" id="delete-selected" class="danger">حذف المحدد</button> --}}
@@ -799,17 +799,7 @@
             </div>
         </div>
 
-        <!-- لوحة المفضلة -->
-        <div class="fav-panel" id="fav-panel" style="display:none;">
-            <button class="close-panel" id="close-fav">×</button>
-            <h3>المفضلة</h3>
-            <div class="fav-items" id="fav-items">
-                <!-- المنتجات المضافة للمفضلة ستُدرج هنا عبر JavaScript -->
-            </div>
-            <div class="fav-footer">
-                <button class="clear-fav">إزالة الكل</button>
-            </div>
-        </div>
+        
         <script src="{{ asset('assets2/js/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets2/js/glightbox.min.js') }}"></script>
         <script src="{{ asset('assets2/js/main.js') }}"></script>
@@ -912,18 +902,6 @@
 
             });
 
-            // نفذ عند تحميل الصفحة
-            // document.addEventListener('DOMContentLoaded', updateAllCounts);
-
-            // استدعِ هذه الوظيفة عند إضافة/إزالة أي منتج للسلة أو المفضلة
-            // مثال:
-            // بعد إضافة منتج:
-            // localStorage.setItem('cart', JSON.stringify(cartItems));
-            // updateCartCount();
-
-            // بعد إزالة من المفضلة:
-            // localStorage.setItem('favorites', JSON.stringify(favItems));
-            // updateFavCount();
         </script>
         <!-- Dropdown عام (ضعه مرة واحدة في الـ layout قبل </body>) -->
         @auth
