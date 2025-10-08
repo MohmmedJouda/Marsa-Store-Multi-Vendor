@@ -1,8 +1,8 @@
 @extends('layout')
-@section('pageTitle', 'Edit Product')
-@section('subTitle', 'Products')
-@section('currentTitle', 'Edit')
-@section('nameButton', 'All Products')
+@section('pageTitle', 'تعديل المنتج')
+@section('subTitle', 'المنتجات')
+@section('currentTitle', 'تعديل')
+@section('nameButton', 'جميع المنتجات')
 @section('routeButton', route('vendor.products.index'))
 @section('content')
     <div class="card card-flush">
@@ -15,13 +15,13 @@
                 <div class="row">
                     <!-- Product Name and Status -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="name">Product Name</label>
+                        <label for="name">اسم المنتج</label>
                         <input type="text" name="name" id="name" class="form-control" value="{{ $product->name }}"
                             required>
                     </div>
 
                     <div class="form-group col-md-6 mt-3">
-                        <label for="status">Status</label>
+                        <label for="status">الحالة</label>
                         <select name="status" id="status" class="form-control" required>
                             <option value="active" {{ $product->status == 'active' ? 'selected' : '' }}>Active</option>
                             <option value="inactive" {{ $product->status == 'inactive' ? 'selected' : '' }}>Inactive
@@ -31,19 +31,19 @@
 
                     <!-- Description -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="description">Description</label>
+                        <label for="description">الوصف</label>
                         <textarea name="description" id="description" class="form-control" required>{{ $product->description }}</textarea>
                     </div>
 
                     <!-- Discount -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="discount">Discount (%)</label>
+                        <label for="discount">الخصم (%)</label>
                         <input type="number" name="discount" id="discount" class="form-control"
-                            value="{{ $product->discount }}" min="0" max="100" step="0.01">
+                            value="{{ $product->discount }}" min="0" max="100" step="0.01" style="text-align: right">
                     </div>
 
                     <!-- Price and Stock -->
-                    <div class="form-group col-md-6 mt-3">
+                    {{-- <div class="form-group col-md-6 mt-3">
                         <label for="price">Price ($)</label>
                         <input type="number" name="price" id="price" class="form-control"
                             value="{{ $product->price }}" step="0.01" required>
@@ -53,14 +53,14 @@
                         <label for="stock">Stock Quantity</label>
                         <input type="number" name="stock" id="stock" class="form-control"
                             value="{{ $product->stock }}" required>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Images Section -->
                 <div class="row mt-3">
                     <!-- Main Image -->
                     <div class="form-group col-md-6">
-                        <label>Current Main Image</label>
+                        <label>الصورة الرئيسية الحالية</label>
                         <div class="current-images-container mb-2 ">
                             @php
                                 $mainImage = $product->images->firstWhere('is_main', true);
@@ -69,18 +69,18 @@
                                 <img src="{{ asset('storage/' . $mainImage->image_path) }}" class="img-thumbnail"
                                     style="max-height: 150px;">
                             @else
-                                <p>No main image available.</p>
+                                <p>لا يوجد صورة رئيسية متاحة</p>
                             @endif
 
 
                         </div>
-                        <label for="main_image">Update Main Image</label>
+                        <label for="main_image">تحديث  الصورة الرئيسية</label>
                         <input type="file" name="main_image" id="main_image" class="form-control">
                     </div>
 
                     <!-- Additional Images -->
                     <div class="form-group col-md-6">
-                        <label>Current Additional Images</label>
+                        <label>الصور الفرعية الحالية</label>
                         <div class="current-images-container mb-2 d-flex flex-wrap">
                             @foreach ($product->images->where('is_main', false) as $image)
                                 <div class="position-relative me-2 mb-2">
@@ -91,7 +91,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <label for="additional_images">Add More Images</label>
+                        <label for="additional_images">أضف المزيد من الصور</label>
                         <input type="file" name="additional_images[]" id="additional_images" class="form-control"
                             multiple>
                     </div>
@@ -100,9 +100,9 @@
                 <!-- Category and Subcategory -->
                 <div class="row mt-3">
                     <div class="form-group col-md-6">
-                        <label for="category_id">Category</label>
+                        <label for="category_id">القسم</label>
                         <select name="category_id" id="category_id" class="form-control" required>
-                            <option value="">Select Category</option>
+                            <option value="">اختر القسم</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
                                     {{ $product->subcategory ? ($product->subcategory->category_id == $category->id ? 'selected' : '') : '' }}>
@@ -112,10 +112,9 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="subcategory_id">SubCategory</label>
+                    <div class="form-group col-md-6">القسم الفرعي</label>
                         <select name="subcategory_id" id="subcategory_id" class="form-control" required>
-                            <option value="">Select SubCategory</option>
+                            <option value=""> اختر القسم الفرعي</option>
                             @foreach ($categories as $category)
                                 @foreach ($category->subcategories as $subcategory)
                                     <option value="{{ $subcategory->id }}" data-category-id="{{ $category->id }}"
@@ -134,48 +133,48 @@
                 <div class="form-group row mt-3" id="other_subcategory_field"
                     style="{{ !$product->subcategory ? '' : 'display: none;' }}">
                     <div class="col-md-6">
-                        <label for="new_subcategory_name">New SubCategory Name</label>
+                        <label for="new_subcategory_name">اسم القسم الفرعي الجديد</label>
                         <input type="text" name="new_subcategory_name" id="new_subcategory_name" class="form-control"
                             value="{{ $product->subcategory->name ?? '' }}">
                     </div>
                     <div class="col-md-6">
-                        <label for="subcategory_image">SubCategory Image</label>
+                        <label for="subcategory_image">صورة للقسم الفرعي</label>
                         <input type="file" name="subcategory_image" id="subcategory_image" class="form-control">
                     </div>
                 </div>
 
                 <!-- Attributes Section -->
-                <label class="mt-5 form-label">Product Attributes</label>
+                <label class="mt-5 form-label">سمات المنتج</label>
                 <div class="row" id="attribute-container">
                     @foreach ($product->attributes as $index => $attribute)
                         <div class="col-md-4 mb-4">
                             <div class="attribute p-3 border rounded shadow-sm">
                                 <div class="form-group mb-3">
-                                    <label class="form-label">Attribute Name</label>
+                                    <label class="form-label">اسم السمة</label>
                                     <input type="text" name="attributes[{{ $index }}][name]"
-                                        class="form-control attribute-name mb-2" value="{{ $attribute->name }}" required>
+                                        class="form-control attribute-name mb-2" placeholder="مثال: اللون" value="{{ $attribute->name }}" required>
                                 </div>
 
                                 @foreach ($attribute->values as $valueIndex => $value)
                                     <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                        <label class="form-label">Value</label>
+                                        <label class="form-label">القيمة</label>
                                         <input type="text" name="attributes[{{ $index }}][values][]"
-                                            class="form-control attribute-value mb-2" value="{{ $value->value }}"
+                                            class="form-control attribute-value mb-2" placeholder="مثال: أحمر" value="{{ $value->value }}"
                                             required>
                                     </div>
                                 @endforeach
 
                                 <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100"
-                                    data-attribute-index="{{ $index }}">Add Value</button>
+                                    data-attribute-index="{{ $index }}"> أضف قيمة</button>
                             </div>
                         </div>
                     @endforeach
                 </div>
-                <button type="button" class="btn btn-sm btn-success my-5" id="add-attribute">Add Attribute</button>
+                <button type="button" class="btn btn-sm btn-success my-5" id="add-attribute">أضف سمة </button>
 
                 <!-- Variants Section -->
                 <button type="button" class="btn btn-secondary mb-3" onclick="generateVariants()">
-                    Generate Variants
+                    توليد التشكيلات
                 </button>
                 <div id="variant-container">
                     @foreach ($product->variants as $variant)
@@ -191,19 +190,19 @@
 
 
                                     <div class="form-group mb-2">
-                                        <label>Price</label>
+                                        <label>السعر</label>
                                         <input type="number" class="form-control variant-price"
                                             value="{{ $variant->price }}" step="0.01" required>
                                     </div>
 
                                     <div class="form-group mb-2">
-                                        <label>Quantity</label>
+                                        <label>الكمية</label>
                                         <input type="number" class="form-control variant-quantity"
                                             value="{{ $variant->quantity }}" required>
                                     </div>
 
                                     <div class="form-group mb-2">
-                                        <label>Image</label>
+                                        <label>الصورة</label>
                                         @if ($variant->image)
                                             <div class="current-image-container mb-2">
                                                 <img src="{{ asset('storage/' . $variant->image) }}"
@@ -222,7 +221,7 @@
                 </div>
 
                 <button type="button" onclick="updateProduct()" id="update-product-btn"
-                    class="btn btn-primary mt-5">Update Product</button>
+                    class="btn btn-primary mt-5"> تحديث المنتج</button>
             </form>
         </div>
     </div>
@@ -324,7 +323,7 @@
         function loadSubcategories(categoryId) {
             if (!categoryId) {
                 $('#subcategory_id').prop('disabled', true).empty().append(
-                    '<option value="">Select SubCategory</option>');
+                    '<option value=""> اخر القسم الفرعي</option>');
                 return;
             }
 
@@ -336,12 +335,12 @@
                     category_id: categoryId
                 },
                 success: function(response) {
-                    $('#subcategory_id').empty().append('<option value="">Select SubCategory</option>');
+                    $('#subcategory_id').empty().append('<option value=""> اختر القسم الفرعي</option>');
                     $.each(response.subcategories, function(key, subcategory) {
                         $('#subcategory_id').append(
                             `<option value="${subcategory.id}">${subcategory.name}</option>`);
                     });
-                    $('#subcategory_id').append('<option value="other">Other</option>');
+                    $('#subcategory_id').append('<option value="other">غير</option>');
 
                     // Preselect the current subcategory
                     const currentSubcategoryId = '{{ $product->subcategory_id }}';
@@ -418,15 +417,15 @@
                         ${variantIdInput}
                         <p>${comboText}</p>
                         <div class="form-group mb-2">
-                            <label>Price</label>
-                            <input type="number" class="form-control variant-price" required>
+                            <label>السعر</label>
+                            <input type="number" style="text-align: right" class="form-control variant-price" style="text-align: right" required>
                         </div>
                         <div class="form-group mb-2">
-                            <label>Quantity</label>
-                            <input type="number" class="form-control variant-quantity" required>
+                            <label>الكمية</label>
+                            <input type="number" class="form-control variant-quantity" style="text-align: right" required>
                         </div>
                         <div class="form-group mb-2">
-                            <label>Image</label>
+                            <label>الصورة</label>
                             <input type="file" class="form-control variant-image">
                         </div>
                     </div>
@@ -468,10 +467,10 @@
                 axios.delete(`/vendor/product-images/${imageId}`)
                     .then(response => {
                         $(`[data-image-id="${imageId}"]`).remove();
-                        toastr.success('Image removed successfully');
+                        toastr.success('تم ازالة الصورة بنجاح');
                     })
                     .catch(error => {
-                        toastr.error('Error removing image');
+                        toastr.error('حدث خطأ اثناء ازالة الصورة');
                     });
             }
         }
@@ -497,13 +496,13 @@
                 // اسم موجود بدون قيم
                 if (name !== "" && values.length === 0) {
                     validationFailed = true;
-                    errorMessage = `Attribute #${idx + 1}: name entered but no values provided.`;
+                    errorMessage = `Attribute #${idx + 1}: يرجى ادخال قيم للسمة`;
                 }
 
                 // قيم موجودة بدون اسم
                 if (name === "" && values.length > 0) {
                     validationFailed = true;
-                    errorMessage = `Attribute #${idx + 1}: values entered but attribute name is missing.`;
+                    errorMessage = `Attribute #${idx + 1}: تم ادخال قيم للسمة لكن اسم السمة مفقود`;
                 }
 
                 attributes.push({
@@ -547,14 +546,14 @@
             // ✅ إرسال التحديث
             update('/vendor/products/' + {{ $product->id }}, formData)
                 .then(() => {
-                    toastr.success('Product updated successfully');
+                    toastr.success('تم تحديث المنتج بنجاح');
                     setTimeout(() => {
                         window.location.href = '{{ route('vendor.products.index') }}';
                     }, 1500);
                 })
                 .catch(error => {
-                    console.error("Error updating product:", error);
-                    toastr.error('Error updating product');
+                    console.error("حدث خطأ في تحديث المنتج:", error);
+                    toastr.error('حدث خطأ في تحديث المنتج');
                 });
         }
     </script>

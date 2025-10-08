@@ -41,11 +41,11 @@
                                 src="{{ asset('img/logo.svg') }}" /></a></li>
                     <li><a href="#">السوق العام</a>
                         <div class="dropdown-menu">
-                            <a href="product_page.html"> السوق العام &amp; المنتجات</a>
-                            <a href="#new-products">آخر المنتجات المعروضة</a>
-                            <a href="#Featured-Categories">الأصناف الاعلى طلباَ</a>
-                            <a href="#Suggested-for-you">مقترح لك</a>
-                            <a href="#Special-Offer">عروض و تنزيلات</a>
+                            <a href=""> السوق العام &amp; المنتجات</a>
+                            <a href="#">آخر المنتجات المعروضة</a>
+                            <a href="#">الأصناف الاعلى طلباَ</a>
+                            <a href="#">مقترح لك</a>
+                            <a href="#">عروض و تنزيلات</a>
                         </div>
                     </li>
                     <li>
@@ -134,14 +134,15 @@
 
     </div>
     <!-- اخر المنتجات -->
-    <div class="fade-in-up" id="new-products">
+    <div class="fade-in-up" id="new-products" >
         <section>
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>أخر المنتجات المعروضة حالياَ</h2>
-                        <p>مرر للحصول على اخر ما أتيح في السوق</p>
-                    </div>
+                            <h2>عروض و
+                                تنزيلات</h2>
+                            <p></p>
+                        </div>
                 </div>
             </div>
             <div class="slider-wrapper" style="position: relative;">
@@ -151,7 +152,7 @@
                 <button class="arrow-btn slideRight left">❯</button>
                 <div class="slider-container">
 
-                    @foreach ($latest as $product)
+                    @foreach ($products as $product)
                         <div class="product-card" data-id="1">
                             <a href="{{ route('customer.product.show', $product->id) }}">
                                 @php
@@ -165,8 +166,11 @@
                             </a>
 
                             <div class="title"> {{ $product->name }}</div>
-                            <span class="category">{{ $product->subcategory->name }}</span>
-                            <div class="price" data-symbol="₪">₪{{ $product->price }}</div>
+                            <span class="category mb-2">{{ $product->subcategory->name }}</span>
+                            <div  data-symbol="₪"> السعر قبل: <del>{{ $product->price }}₪</del></div>
+                            <div class="price" data-symbol="₪">
+                                السعر بعد: {{ number_format($product->price * (1 - $product->discount / 100), 2) }} ₪
+                            </div>
                             @php
                                 $averageRate = $product->ratings->avg('rate');
                             @endphp
@@ -210,11 +214,9 @@
             </div>
         </section>
     </div>
-    <section>
-        <div class="container"> </div>
-    </section>
+
     <!-- Start Featured Categories Area -->
-    <div class="fade-in-up" id="Featured-Categories">
+    <div class="fade-in-up" id="Featured-Categories" style="margin-bottom: -50px">
         <section class="featured-categories section">
             <div class="container">
                 <div class="row">
@@ -261,10 +263,8 @@
 
             </div>
     </div>
-    </section>
     <!-- End Features Area -->
-    </div>
-    <!-- مقترح لك -->
+        <!-- مقترح لك -->
     <div class="fade-in-up" id="Suggested-for-you">
         <section>
             <div class="row">
@@ -293,9 +293,16 @@
                             </a>
 
                             <div class="title"> {{ $mostOrdered->name }}</div>
-                            <span class="category">{{ $mostOrdered->subcategory->name }}</span>
-                            <div class="price" data-symbol="₪">₪{{ $mostOrdered->price }}</div>
-
+                            <span class="category mb-2">{{ $mostOrdered->subcategory->name }}</span>
+                            {{-- <div class="price" data-symbol="₪">₪{{ $mostOrdered->price }}</div> --}}
+                            @if ($mostOrdered->discount > 0)
+                            <div  data-symbol="₪"> السعر قبل: <del>{{ $mostOrdered->price }}₪</del></div>
+                            <div class="price" data-symbol="₪">
+                                السعر بعد: {{ number_format($mostOrdered->price * (1 - $mostOrdered->discount / 100), 2) }} ₪
+                            </div>
+                            @else
+                            <div  data-symbol="₪"> السعر {{ $mostOrdered->price }}₪</div>
+                            @endif
                             @php
                                 $averageRate = $mostOrdered->ratings->avg('rate'); // ✅ لكل منتج
                             @endphp
@@ -342,152 +349,89 @@
     <!-- Start Special Offer -->
     <div class="fade-in-up" id="Special-Offer">
         <section class="special-offer section">
-            <div class="container">
+            {{-- <div class="container"> --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="section-title">
-                            <h2 onclick="window.location.href='/product_page.html'" style="color: #fafafa;">عروض و
-                                تنزيلات</h2>
-                            <p></p>
-                        </div>
+                        <h2 style="color: #fafafa;">أخر المنتجات المعروضة حالياَ</h2>
+                        <p>مرر للحصول على اخر ما أتيح في السوق</p>
+                    </div>
+                        
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8 col-md-12 col-12">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-image">
-                                        <img alt="#" src="{{ asset('img/Group 1.png') }}" />
-                                        <div class="button">
-                                            <a class="btn" href="product-details.html"><i
-                                                    class="lni lni-cart"></i>شراء
-                                                الآن</a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <span class="category">Camera</span>
-                                        <h4 class="title">
-                                            <a href="product-grids.html">WiFi Security Camera</a>
-                                        </h4>
-                                        <div class="rating">★★★★★</div>
-                                        <div class="price">
-                                            <span>₪ٍ399.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Product -->
+                <div class="slider-wrapper" style="position: relative;">
+                <button class="arrow-btn slideRight left">❯</button>
+                <button class="arrow-btn slideLeft right">❮</button>
+                <div class="slider-container">
+                        @foreach ($latest as $product)
+                        <div class="product-card" data-id="1">
+                            <a href="{{ route('customer.product.show', $product->id) }}">
+                                @php
+                                    $mainImage = $product->images()->where('is_main', true)->first();
+                                @endphp
+
+                                <img alt="منتج"
+                                    src="{{ $mainImage ? asset('storage/' . $mainImage->image_path) : asset('images/no-image.png') }}"
+                                    onclick="window.location.href='/product_details.html'" />
+
+                            </a>
+
+                            <div class="title"> {{ $product->name }}</div>
+                            <span class="category mb-2">{{ $product->subcategory->name }}</span>
+                            @if ($product->discount > 0)
+                            <div  data-symbol="₪"> السعر قبل: <del>{{ $product->price }}₪</del></div>
+                            <div class="price" data-symbol="₪">
+                                السعر بعد: {{ number_format($product->price * (1 - $product->discount / 100), 2) }} ₪
                             </div>
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-image">
-                                        <img alt="#" src="{{ asset('img/Group 1.png') }}" />
-                                        <div class="button">
-                                            <a class="btn" href="product-details.html"><i
-                                                    class="lni lni-cart"></i> شراء
-                                                الآن</a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <span class="category">Laptop</span>
-                                        <h4 class="title">
-                                            <a href="product-grids.html">Apple MacBook Air</a>
-                                        </h4>
-                                        <div class="rating">★★★★★</div>
-                                        <div class="price">
-                                            <span>₪899.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Product -->
+                            @else
+                            <div  data-symbol="₪"> السعر {{ $product->price }}₪</div>
+                            @endif
+                            
+
+                            @php
+                                $averageRate = $product->ratings->avg('rate'); // ✅ لكل منتج
+                            @endphp
+
+                            <div class="product-rating" style="display:flex; justify-content:center; gap:2px;">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <span style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
+                                        &#9733;
+                                    </span>
+                                @endfor
                             </div>
-                            <div class="col-lg-4 col-md-4 col-12">
-                                <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-image">
-                                        <img alt="#" src="{{ asset('img/Group 1.png') }}" />
-                                        <div class="button">
-                                            <a class="btn" href="product-details.html"><i
-                                                    class="lni lni-cart"></i> شراء
-                                                الآن</a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <span class="category">Speaker</span>
-                                        <h4 class="title">
-                                            <a href="product-grids.html">Bluetooth Speaker</a>
-                                        </h4>
-                                        <div class="rating">★★★★★</div>
-                                        <div class="price">
-                                            <span>₪70.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Product -->
+
+                            <div class="seller">عدد المبيعات: <span>{{ $product->total_sales }}
+                                   </span> </div>
+                            <div class="seller">المتجر:
+                                <span>
+                                    <a href="{{ route('customer.stores.show', $product->store->id) }}">{{ $product->store->name }}
+                                    </a>
+                                </span>
+                            </div>
+
+                            <div class="actions">
+                                <button class="btn-cart"> <a style="color:white"
+                                        href="{{ route('customer.product.show', $product->id) }}">
+                                        شراء الان </a></button>
+                                {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
+                                <form action="{{ route('customer.cart.add') }}" method="POST" class="inline">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="qty" value="1">
+                                    <i class="fa-solid fa-cart-shopping" onclick="this.closest('form').submit()"></i>
+                                </form>
+                            </div>
+                            <div class="published-time" data-time="2025-07-30T10:30:00Z" style="text-align: center">
+                                {{ $product->created_at }}
                             </div>
                         </div>
-                        <!-- Start Banner -->
-                        <div class="single-banner right"
-                            style="background-image:url('{{ asset('img/Group\ 1.png') }}');margin-top: 30px;">
-                            <div class="content">
-                                <h2>Samsung Notebook 9 </h2>
-                                <p>Lorem ipsum dolor sit amet, <br />eiusmod tempor
-                                    incididunt ut labore.</p>
-                                <div class="price">
-                                    <span>₪590.00</span>
-                                </div>
-                                <div class="button">
-                                    <a class="btn" href="product-grids.html">شراء الآن </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Banner -->
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-12">
-                        <div class="offer-content">
-                            <div class="image">
-                                <img alt="#" src="{{ asset('img/Group 1.png') }}" />
-                                <span class="sale-tag">50%</span>
-                            </div>
-                            <div class="text">
-                                <h2><a href="product-grids.html">Bluetooth Headphone</a></h2>
-                                <div class="rating">★★★★★</div>
-                                <div class="price">
-                                    <span>₪200.00</span>
-                                    <span class="discount-price">₪400.00</span>
-                                </div>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry incididunt
-                                    ut
-                                    eiusmod tempor labores.</p>
-                            </div>
-                            <div class="box-head">
-                                <div class="box">
-                                    <h1 id="days">000</h1>
-                                    <h2 id="daystxt">Days</h2>
-                                </div>
-                                <div class="box">
-                                    <h1 id="hours">00</h1>
-                                    <h2 id="hourstxt">Hours</h2>
-                                </div>
-                                <div class="box">
-                                    <h1 id="minutes">00</h1>
-                                    <h2 id="minutestxt">Minutes</h2>
-                                </div>
-                                <div class="box">
-                                    <h1 id="seconds">00</h1>
-                                    <h2 id="secondstxt">Secondes</h2>
-                                </div>
-                            </div>
-                            <div class="alert" style="background: rgb(204, 24, 24);">
-                                <h1 style="padding: 50px 80px;color: white;">We are sorry, Event ended ! </h1>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
+            
         </section>
+       
         <!-- End Special Offer -->
     </div>
     <!-- how us -->

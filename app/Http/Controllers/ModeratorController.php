@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Store;
+use App\Models\order;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -264,13 +265,17 @@ class ModeratorController extends Controller
         $html = view('users.moderator.table_rows', compact('users'))->render();
         return response()->json(['html' => $html]);
     }
-    // End Vendors
 
-    // Start Customer
-    // public function indexCustomers()
-    // {
-    //     $users = User::Where("role", "customer")->get();
-    //     return view("users.moderator.index", compact("users"));
 
-    // }
+    public function orders_in_admin(){
+        
+    $orders = Order::whereHas('items.product')
+    ->with(['items.product', 'payment'])
+    ->get();
+
+    return view('users.admin.orders', compact('orders'));    
+
+    }
+
+
 }

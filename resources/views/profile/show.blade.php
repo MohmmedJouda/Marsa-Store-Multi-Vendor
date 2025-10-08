@@ -8,14 +8,14 @@
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center mb-10">
-                @if (Auth()->user()->role === 'customer')
+                @if (Auth()->user()->role !== 'vendor')
                             {{-- 🌟 نموذج الزبون --}}
-                            <form action="{{ route('customer.update-photo') }}" method="POST" enctype="multipart/form-data"
+                            <form action="{{ route('user.update-photo') }}" method="POST" enctype="multipart/form-data"
                                 class="flex flex-col items-center">
                                 @csrf
                                 <label class="relative cursor-pointer group">
                                     <img src="{{ auth()->user()->profile_photo_path
-                    ? asset('img/default-avatar.png')
+                    ? asset('storage/' . auth()->user()->profile_photo_path)
                     : asset('img/default-avatar.png') }}"
                                         class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
 
@@ -31,25 +31,25 @@
                                 <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">تحديث
                                     الصورة</button>
 
-                                @error('photo')
-                                    <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
-                                @enderror
+                                                                   @error('photo')
+                                        <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
+                                    @enderror
 
-                                @if (session()->has('success'))
-                                    <span class="text-green-600 text-sm mt-2">{{ session('success') }}</span>
-                                @endif
+                                    @if (session()->has('success'))
+                                        <span class="text-green-600 text-sm mt-2">{{ session('success') }}</span>
+                                    @endif
                             </form>
-                @elseif (Auth()->user()->role === 'vendor')
+                @else
                             {{-- 🌟 نموذج البائع --}}
                             <div class="flex flex-wrap justify-center gap-12">
 
                                 {{-- 🧍‍♂️ صورة الحساب --}}
-                                <form action="{{ route('vendor.update-photo') }}" method="POST" enctype="multipart/form-data"
+                                <form action="{{ route('user.update-photo') }}" method="POST" enctype="multipart/form-data"
                                     class="flex flex-col items-center">
                                     @csrf
                                     <label class="relative cursor-pointer group">
                                         <img src="{{ auth()->user()->profile_photo_path
-                    ? asset('img/default-avatar.png')
+                    ? asset('storage/' . auth()->user()->profile_photo_path)
                     : asset('img/default-avatar.png') }}"
                                             class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
 
@@ -66,13 +66,6 @@
                                         class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">تحديث الصورة
                                         الشخصية</button>
 
-                                    @error('photo')
-                                        <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
-                                    @enderror
-
-                                    @if (session()->has('success_user_photo'))
-                                        <span class="text-green-600 text-sm mt-2">{{ session('success_user_photo') }}</span>
-                                    @endif
                                 </form>
 
                                 {{-- 🏪 صورة المتجر --}}
@@ -98,13 +91,7 @@
                                         class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">تحديث صورة
                                         المتجر</button>
 
-                                    @error('store_photo')
-                                        <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
-                                    @enderror
 
-                                    @if (session()->has('success_store_photo'))
-                                        <span class="text-green-600 text-sm mt-2">{{ session('success_store_photo') }}</span>
-                                    @endif
                                 </form>
                             </div>
                 @endif
@@ -139,8 +126,9 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-1">العبارة الدعائية
                                         للمتجر</label>
                                     <input type="text" name="slogan" class=" block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500
-                                            focus:ring-indigo-500 sm:text-sm p-2" style="color: black"
-                                        placeholder="مثلاً: الجودة أولاً" value="{{$user->store->slogan}}">
+                                                                                focus:ring-indigo-500 sm:text-sm p-2"
+                                        style="color: black" placeholder="مثلاً: الجودة أولاً"
+                                        value="{{$user->store->slogan}}">
                                 </div>
 
                                 <div class="flex justify-end">

@@ -50,7 +50,7 @@ class ProductController extends Controller
         $validator = Validator($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric',
+            // 'price' => 'required|numeric',
             // 'stock' => 'required|integer',
             'status' => 'required|in:active,inactive',
             'category_id' => 'required|exists:categories,id',
@@ -113,7 +113,7 @@ class ProductController extends Controller
             $product = Product::create([
                 'name' => $request->name,
                 'description' => $request->description,
-                'price' => $request->price,
+                'price' => 0,
                 'stock' => 0,
                 'status' => $request->status,
                 'category_id' => $request->category_id,
@@ -216,9 +216,11 @@ class ProductController extends Controller
                 }
             }
 
-            
+            $minPrice = ProductVariant::where('product_id', $product->id)->min('price');
+
             $product->update([
                 'stock' => $totalQuantity,
+                'price' => $minPrice,
             ]);
 
 });
@@ -226,12 +228,12 @@ class ProductController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => 'Product created successfully!',
+                'message' => 'تم اضافة منتج بنجاح',
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
-                'message' => 'An error occurred while creating the product.',
+                'message' => 'حدث خطأ اثناء اضافة المنتج',
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -281,236 +283,219 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Product $product)
-    {
-        $validator = Validator($request->all(), [
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            // 'stock' => 'required|integer',
-            'status' => 'required|in:active,inactive',
-            'category_id' => 'required|exists:categories,id',
-            'subcategory_id' => 'required',
-            'main_image' => 'nullable|image|mimes:jpg,jpeg,png',
-            'additional_images' => 'nullable|array|max:3',
-            'additional_images.*' => 'image|mimes:jpg,jpeg,png',
-            'subcategory_image' => 'nullable|image|mimes:jpg,jpeg,png',
-            'discount' => 'nullable|numeric|min:0|max:100',
-            'attributes' => 'nullable',
-            'attributes.*.name' => 'required|string|max:255',
-            'attributes.*.values' => 'required|array|min:1',
-            'attributes.*.values.*' => 'required|string|max:255',
-            'variants' => 'nullable|array',
-            'variants.*.price' => 'nullable|numeric',
-            'variants.*.quantity' => 'nullable|integer',
-            'variants.*.attributes' => 'nullable|string',
-            'variants.*.id' => 'nullable|integer|exists:product_variants,id',
-            'variants.*.image' => 'nullable|file|image|mimes:jpg,jpeg,png',
+{
+    $validator = Validator($request->all(), [
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'status' => 'required|in:active,inactive',
+        'category_id' => 'required|exists:categories,id',
+        'subcategory_id' => 'required',
+        'main_image' => 'nullable|image|mimes:jpg,jpeg,png',
+        'additional_images' => 'nullable|array|max:3',
+        'additional_images.*' => 'image|mimes:jpg,jpeg,png',
+        'subcategory_image' => 'nullable|image|mimes:jpg,jpeg,png',
+        'discount' => 'nullable|numeric|min:0|max:100',
+        'attributes' => 'nullable',
+        'attributes.*.name' => 'required|string|max:255',
+        'attributes.*.values' => 'required|array|min:1',
+        'attributes.*.values.*' => 'required|string|max:255',
+        'variants' => 'nullable|array',
+        'variants.*.price' => 'nullable|numeric',
+        'variants.*.quantity' => 'nullable|integer',
+        'variants.*.attributes' => 'nullable|string',
+        'variants.*.id' => 'nullable|integer|exists:product_variants,id',
+        'variants.*.image' => 'nullable|file|image|mimes:jpg,jpeg,png',
+    ]);
 
+    if ($validator->fails()) {
+        return response()->json(['message' => $validator->getMessageBag()->first()], 400);
+    }
 
-        ]);
+    DB::beginTransaction();
 
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->getMessageBag()->first()], 400);
+    try {
+        // ✅ إنشاء slug فريد
+        $slug = Str::slug($request->name);
+        $count = Product::where('slug', $slug)->where('id', '!=', $product->id)->count();
+        $originalSlug = $slug;
+        while ($count > 0) {
+            $slug = $originalSlug . '-' . ($count + 1);
+            $count = Product::where('slug', $slug)->where('id', '!=', $product->id)->count();
         }
 
-        DB::beginTransaction();
-
-        try {
-            // Slug
-            $slug = Str::slug($request->name);
-            $count = Product::where('slug', $slug)->where('id', '!=', $product->id)->count();
-            $originalSlug = $slug;
-            while ($count > 0) {
-                $slug = $originalSlug . '-' . ($count + 1);
-                $count = Product::where('slug', $slug)->where('id', '!=', $product->id)->count();
+        // ✅ معالجة الفئة الفرعية
+        if ($request->subcategory_id == 'other') {
+            $subcategoryImagePath = 'images/iphone.png';
+            if ($request->hasFile('subcategory_image')) {
+                $subcategoryImagePath = $request->file('subcategory_image')->store('subcategories', 'public');
             }
 
-            // Subcategory
-            if ($request->subcategory_id == 'other') {
-                $subcategoryImagePath = 'images/iphone.png';
-                if ($request->hasFile('subcategory_image')) {
-                    $subcategoryImagePath = $request->file('subcategory_image')->store('subcategories', 'public');
-                }
-
-                $subcategory = Subcategory::create([
-                    'name' => $request->new_subcategory_name,
-                    'category_id' => $request->category_id,
-                    'image' => $subcategoryImagePath,
-                ]);
-                $subcategory_id = $subcategory->id;
-            } else {
-                $subcategory_id = $request->subcategory_id;
-            }
-
-            // Update product
-            $product->update([
-                'name' => $request->name,
-                'description' => $request->description,
-                'price' => $request->price,
-                'stock' => ProductVariant::where('product_id', $product->id)->sum('quantity'),
-                'status' => $request->status,
+            $subcategory = Subcategory::create([
+                'name' => $request->new_subcategory_name,
                 'category_id' => $request->category_id,
-                'subcategory_id' => $subcategory_id,
-                'slug' => $slug,
-                'discount' => $request->discount ?? 0,
+                'image' => $subcategoryImagePath,
             ]);
+            $subcategory_id = $subcategory->id;
+        } else {
+            $subcategory_id = $request->subcategory_id;
+        }
 
-            // الصور
-            if ($request->hasFile('main_image')) {
-                // حذف الصورة القديمة
-                $oldMain = $product->images()->where('is_main', true)->first();
-                if ($oldMain) {
-                    Storage::disk('public')->delete($oldMain->image_path);
-                    $oldMain->delete();
-                }
+        // ✅ تحديث المنتج الأساسي
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => 0,
+            'stock' => 0,
+            'status' => $request->status,
+            'category_id' => $request->category_id,
+            'subcategory_id' => $subcategory_id,
+            'slug' => $slug,
+            'discount' => $request->discount ?? 0,
+        ]);
 
-                $mainImagePath = $request->file('main_image')->store('products', 'public');
-                $product->images()->create(['image_path' => $mainImagePath, 'is_main' => true]);
+        // ✅ تحديث الصور
+        if ($request->hasFile('main_image')) {
+            $oldMain = $product->images()->where('is_main', true)->first();
+            if ($oldMain) {
+                Storage::disk('public')->delete($oldMain->image_path);
+                $oldMain->delete();
             }
+            $mainImagePath = $request->file('main_image')->store('products', 'public');
+            $product->images()->create(['image_path' => $mainImagePath, 'is_main' => true]);
+        }
 
-            if ($request->hasFile('additional_images')) {
-                $product->images()->where('is_main', false)->delete();
-                foreach ($request->file('additional_images') as $image) {
-                    $imagePath = $image->store('products', 'public');
-                    $product->images()->create(['image_path' => $imagePath, 'is_main' => false]);
-                }
+        if ($request->hasFile('additional_images')) {
+            $product->images()->where('is_main', false)->delete();
+            foreach ($request->file('additional_images') as $image) {
+                $imagePath = $image->store('products', 'public');
+                $product->images()->create(['image_path' => $imagePath, 'is_main' => false]);
             }
+        }
 
-            // حذف السمات القديمة
-            $product->attributes()->delete();
+        // ✅ حذف السمات القديمة والقيم التابعة لها
+        foreach ($product->attributes as $attribute) {
+            $attribute->values()->delete();
+        }
+        $product->attributes()->delete();
 
-            // إضافة السمات الجديدة
-            if ($request->input('attributes')) {
-                $attributes = json_decode($request->input('attributes'), true);
-                if (json_last_error() === JSON_ERROR_NONE && is_array($attributes)) {
-                    foreach ($attributes as $attribute) {
-                        if (!empty($attribute['name'])) {
-                            $productAttribute = ProductAttribute::create([
-                                'product_id' => $product->id,
-                                'name' => $attribute['name'],
-                            ]);
+        // ✅ إعادة إنشاء السمات الجديدة
+        if ($request->input('attributes')) {
+            $attributes = json_decode($request->input('attributes'), true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($attributes)) {
+                foreach ($attributes as $attribute) {
+                    if (!empty($attribute['name'])) {
+                        $productAttribute = ProductAttribute::create([
+                            'product_id' => $product->id,
+                            'name' => $attribute['name'],
+                        ]);
 
-                            foreach ($attribute['values'] as $value) {
-                                if (!empty($value)) {
-                                    ProductAttributeValue::create([
-                                        'product_attribute_id' => $productAttribute->id,
-                                        'value' => $value,
-                                    ]);
-                                }
+                        foreach ($attribute['values'] as $value) {
+                            if (!empty($value)) {
+                                ProductAttributeValue::create([
+                                    'product_attribute_id' => $productAttribute->id,
+                                    'value' => $value,
+                                ]);
                             }
                         }
                     }
                 }
             }
+        }
 
-            // حذف المتغيرات القديمة التي لم يتم إرسالها
-            $sentIds = collect($request->variants)->pluck('id')->filter();
+        // ✅ حذف المتغيرات غير المرسلة
+        $sentIds = collect($request->variants)->pluck('id')->filter();
+        ProductVariant::where('product_id', $product->id)
+            ->whereNotIn('id', $sentIds)
+            ->delete();
 
-            if ($sentIds->isEmpty() && ProductVariant::where('product_id', $product->id)->exists()) {
-                return response()->json(['message' => 'No variant IDs were sent, cannot safely delete.'], 400);
-            }
+        // ✅ معالجة المتغيرات الجديدة والمحدثة
+        $totalQuantity = 0;
 
-            ProductVariant::where('product_id', $product->id)
-                ->whereNotIn('id', $sentIds)
-                ->delete();
-
-                
-           DB::transaction(function () use ($request, $product) {
-
-    $totalQuantity = 0; 
-
-    // تحديث أو إنشاء المتغيرات
-    if ($request->has('variants') && is_array($request->variants)) {
-
-        foreach ($request->variants as $index => $variant) {
-            $combination = json_decode($variant['attributes'], true);
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                return response()->json(['message' => 'Invalid combination JSON format.'], 400);
-            }
-
-            $sku = $this->generateSku($product->name, $combination);
-
-            $variantModel = isset($variant['id']) ? ProductVariant::find($variant['id']) : null;
-
-            // تحديد الصورة
-            $variantImagePath = null;
-            if ($request->hasFile("variants.{$index}.image")) {
-                $variantImagePath = $request->file("variants.{$index}.image")->store('variant_images', 'public');
-            } elseif ($variantModel && $variantModel->image) {
-                $variantImagePath = $variantModel->image;
-            }
-
-            // تحديث أو إنشاء
-            if ($variantModel) {
-                $updateData = [
-                    'combination' => $combination,
-                    'price' => $variant['price'],
-                    'quantity' => $variant['quantity'],
-                    'sku' => $sku,
-                ];
-
-                if (!empty($variantImagePath)) {
-                    $updateData['image'] = $variantImagePath;
+        if ($request->has('variants') && is_array($request->variants)) {
+            foreach ($request->variants as $index => $variant) {
+                $combination = json_decode($variant['attributes'], true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    return response()->json(['message' => 'Invalid combination JSON format.'], 400);
                 }
 
-                $variantModel->update($updateData);
-            } else {
-                $variantModel = ProductVariant::create([
-                    'product_id' => $product->id,
-                    'combination' => $combination,
-                    'price' => $variant['price'],
-                    'quantity' => $variant['quantity'],
-                    'sku' => $sku,
-                    'image' => $variantImagePath,
-                ]);
-            }
+                $sku = $this->generateSku($product->name, $combination);
 
-            // ✅ هنا نجمع الكميات
-            $totalQuantity += $variant['quantity'];
+                $variantModel = isset($variant['id']) ? ProductVariant::find($variant['id']) : null;
 
-            // حفظ القيم المرتبطة بالـ variant (مثل الخصائص)
-            DB::table('product_variant_attribute_value')->where('product_variant_id', $variantModel->id)->delete();
+                $variantImagePath = null;
+                if ($request->hasFile("variants.{$index}.image")) {
+                    $variantImagePath = $request->file("variants.{$index}.image")->store('variant_images', 'public');
+                } elseif ($variantModel && $variantModel->image) {
+                    $variantImagePath = $variantModel->image;
+                }
 
-            foreach ($combination as $attributeName => $valueName) {
-                $attribute = ProductAttribute::where('product_id', $product->id)
-                    ->where('name', $attributeName)->first();
+                if ($variantModel) {
+                    $updateData = [
+                        'combination' => $combination,
+                        'price' => $variant['price'],
+                        'quantity' => $variant['quantity'],
+                        'sku' => $sku,
+                    ];
+                    if (!empty($variantImagePath)) {
+                        $updateData['image'] = $variantImagePath;
+                    }
+                    $variantModel->update($updateData);
+                } else {
+                    $variantModel = ProductVariant::create([
+                        'product_id' => $product->id,
+                        'combination' => $combination,
+                        'price' => $variant['price'],
+                        'quantity' => $variant['quantity'],
+                        'sku' => $sku,
+                        'image' => $variantImagePath,
+                    ]);
+                }
 
-                if ($attribute) {
-                    $value = ProductAttributeValue::where('product_attribute_id', $attribute->id)
-                        ->where('value', $valueName)->first();
+                $totalQuantity += $variant['quantity'];
 
-                    if ($value) {
-                        DB::table('product_variant_attribute_value')->insert([
-                            'product_variant_id' => $variantModel->id,
-                            'product_attribute_id' => $attribute->id,
-                            'product_attribute_value_id' => $value->id,
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ]);
+                // حذف القيم القديمة المرتبطة بالمتغير
+                DB::table('product_variant_attribute_value')->where('product_variant_id', $variantModel->id)->delete();
+
+                foreach ($combination as $attributeName => $valueName) {
+                    $attribute = ProductAttribute::where('product_id', $product->id)
+                        ->where('name', $attributeName)->first();
+
+                    if ($attribute) {
+                        $value = ProductAttributeValue::where('product_attribute_id', $attribute->id)
+                            ->where('value', $valueName)->first();
+
+                        if ($value) {
+                            DB::table('product_variant_attribute_value')->insert([
+                                'product_variant_id' => $variantModel->id,
+                                'product_attribute_id' => $attribute->id,
+                                'product_attribute_value_id' => $value->id,
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ]);
+                        }
                     }
                 }
             }
         }
+
+        // ✅ تحديث السعر والمخزون حسب المتغيرات
+        $minPrice = ProductVariant::where('product_id', $product->id)->min('price');
+        $product->update([
+            'stock' => $totalQuantity,
+            'price' => $minPrice,
+        ]);
+
+        DB::commit();
+        return response()->json(['message' => 'تم تحديث المنتج بنجاح']);
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json([
+            'message' => 'حدث خطأ أثناء تحديث المنتج',
+            'error' => $e->getMessage(),
+        ], 500);
     }
-
-    // ✅ بعد انتهاء الحلقة نحدث كمية المنتج مرة واحدة فقط
-    $product->update([
-        'stock' => $totalQuantity,
-    ]);
-});
-
-
-
-            DB::commit();
-            return response()->json(['message' => 'Product updated successfully!']);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json([
-                'message' => 'An error occurred while updating the product.',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-    }
+}
 
 
     protected function processProductAttributes(Product $product, array $attributesData)

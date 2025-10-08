@@ -155,7 +155,7 @@ Route::middleware([
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubCategoryController::class);
     Route::get('/get-subcategories', [ProductController::class, 'getSubcategories'])->name('getSubcategories');
-    Route::get('/orders', [vendorController::class, 'index'])->name('orders');
+    Route::get('/orders', action: [vendorController::class, 'index'])->name('orders');
     Route::delete('/orders/{id}', [vendorController::class, 'destroy'])->name('orders.destroy');
     Route::post('/store/{store}/update-slogan', [vendorController::class, 'updateSlogan'])
          ->name('store.updateSlogan');
@@ -199,6 +199,7 @@ Route::middleware([
     // routes/web.php
     Route::get('/vendors/search', [ModeratorController::class, 'ajaxSearch'])->name('vendors.ajaxSearch');
     Route::patch('/vendor-documents/{document}/status', [VendorAuthController::class, 'updateStatus'])->name('vendor-documents.updateStatus');
+    Route::get('/orders', action: [ModeratorController::class, 'orders_in_admin'])->name('orders');
 
 
 });
@@ -213,8 +214,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('users.admin.dashboard');
     })->name('dashboard');
+        Route::get('/orders', action: [ModeratorController::class, 'orders_in_admin'])->name('orders');
+
 });
 //
+        Route::post('/user/update-photo', [UserController::class, 'updateProfilePhoto'])->name('user.update-photo');
+
 
 // Google
 Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle']);

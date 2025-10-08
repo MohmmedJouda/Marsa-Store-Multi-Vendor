@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('feed_backs', function (Blueprint $table) {
+
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade'); // ربط مع الطلب
-            $table->enum('status', ['cancelled', 'refunded', 'delivered']); // حالة الطلب
-            $table->text('feedback');
+            $table->text('message');
+            $table->enum('status', allowed: ['cancelled', 'refunded', 'delivered']); // حالة الطلب
+            $table->text('admin_response')->nullable();
             $table->timestamps();
         });
     }

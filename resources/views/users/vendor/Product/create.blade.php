@@ -29,28 +29,28 @@
 
                     <!-- Description below Name and Status -->
                     <div class="form-group col-md-6 mt-3">
-                        <label for="description">Description</label>
-                        <textarea name="description" id="description" class="form-control"
-                            placeholder="Enter product description" required></textarea>
+                        <label for="description">الوصف</label>
+                        <textarea name="description" id="description" class="form-control" placeholder="أكتب وصف المنتج"
+                            required></textarea>
                     </div>
 
                     <!-- Discount -->
                     <div class="form-group col-md-6 mt-3">
                         <label for="discount">الخصم (%)</label>
                         <input type="number" name="discount" id="discount" class="form-control"
-                            placeholder="ادخل الخصم (0-100)" min="0" max="100" step="0.01">
+                            placeholder="ادخل الخصم (0-100)" min="0" max="100" step="0.01" style="text-align: right">
                     </div>
 
                     <!-- Price -->
-                    <div class="form-group col-md-6 mt-3">
+                    {{-- <div class="form-group col-md-6 mt-3">
                         <label for="price">السعر (₪)</label>
                         <input type="number" name="price" id="price" class="form-control" placeholder="ادخل سعر المنتج"
                             step="0.01" required>
-                    </div>
+                    </div> --}}
 
                     <!-- Stock -->
-                    <div class="form-group col-md-6 mt-3">
-                        <label for="stock">كمية المخزون</label>
+                    {{-- <div class="form-group col-md-6 mt-3">
+                        <label for="stock">كمية المخزون</label> --}}
                         {{-- <div class="form-group col-md-6 mt-3">
                             <label for="stock">Stock Quantity</label>
                             <input type="number" name="stock" id="stock" class="form-control"
@@ -86,7 +86,7 @@
                     <div class="form-group col-md-6 mt-3">
                         <label for="category_id">القسم</label>
                         <select name="category_id" id="category_id" class="form-control" required>
-                            <option value="">Select القسم</option>
+                            <option value="">اختر القسم</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
@@ -97,7 +97,7 @@
                     <div class="form-group col-md-6 mt-3">
                         <label for="subcategory_id">القسم الفرعي</label>
                         <select name="subcategory_id" id="subcategory_id" class="form-control" required>
-                            <option value="">اختيار القسم الفرعي</option>
+                            <option value="">اختر القسم الفرعي</option>
                             @foreach ($categories as $category)
                                 @foreach ($category->subcategories as $subcategory)
                                     <option value="{{ $subcategory->id }}" data-category-id="{{ $category->id }}">
@@ -115,7 +115,7 @@
                     <div class="col-md-6">
                         <label for="new_subcategory_name" class="mt-3">اسم القسم الفرعية الجديدة</label>
                         <input type="text" name="new_subcategory_name" id="new_subcategory_name" class="form-control"
-                            placeholder="أدخل اسم القسم الفرعية الجديدة">
+                            placeholder="أدخل اسم القسم الفرعي الجديدة">
                     </div>
 
                     <!-- Field to upload image for the new subcategory -->
@@ -156,7 +156,7 @@
                 <button type="button" class="btn btn-sm btn-success my-5" id="add-attribute">اضافة سمة جديدة</button>
 
                 <button type="button" class="btn btn-sm btn-secondary my-5" onclick="generateVariants()"> توليد
-                    التركيبات</button>
+                    التشكيلات</button>
                 <div id="variant-container"></div>
 
                 <button type="button" onclick="createProduct()" id="add-product-btn" class="btn btn-primary mt-5">
@@ -215,7 +215,7 @@
 
                 if (!categoryId) {
                     $('#subcategory_id').prop('disabled', true).empty().append(
-                        '<option value="">Select SubCategory</option>');
+                        '<option value=""> القسم الفرعي</option>');
                     $('#other_subcategory_field').hide();
                 } else {
                     $('#subcategory_id').prop('disabled', false);
@@ -227,13 +227,13 @@
                         },
                         success: function (response) {
                             $('#subcategory_id').empty().append(
-                                '<option value="">Select SubCategory</option>');
+                                '<option value="">اختر القسم الفرعي </option>');
                             $.each(response.subcategories, function (key, subcategory) {
                                 $('#subcategory_id').append('<option value="' +
                                     subcategory.id + '">' + subcategory.name +
                                     '</option>');
                             });
-                            $('#subcategory_id').append('<option value="other">Other</option>');
+                            $('#subcategory_id').append('<option value="other">غير</option>');
                         }
                     });
                 }
@@ -249,21 +249,21 @@
                 const newAttributeIndex = $('.attribute').length; // تحديد الفهرس للسمات المضافة
 
                 const field = `
-                                                    <div class="col-md-4 mb-4">
-                                                        <div class="attribute p-3 border rounded shadow-sm">
-                                                            <div class="form-group mb-3">
-                                                                <label for="attributes" class="form-label">Attribute Name</label>
-                                                                <input type="text" name="attributes[${newAttributeIndex}][name]" class="form-control attribute-name mb-2" placeholder="Attribute name" required>
-                                                            </div>
+                                                                                                                                            <div class="col-md-4 mb-4">
+                                                                                                                                                <div class="attribute p-3 border rounded shadow-sm">
+                                                                                                                                                    <div class="form-group mb-3">
+                                                                                                                                                        <label for="attributes" class="form-label">السمة</label>
+                                                                                                                                                        <input type="text" name="attributes[${newAttributeIndex}][name]" class="form-control attribute-name mb-2" placeholder="اسم السمة" required>
+                                                                                                                                                    </div>
 
-                                                            <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                                                <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
-                                                                <input type="text" name="attributes[${newAttributeIndex}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
-                                                            </div>
+                                                                                                                                                    <div class="value-container mb-3 p-3 border rounded shadow-sm">
+                                                                                                                                                        <label for="new_subcategory_name" class="mt-3 form-label">القيمة</label>
+                                                                                                                                                        <input type="text" name="attributes[${newAttributeIndex}][values][]" class="form-control attribute-value mb-2" placeholder="اسم القيمة" required>
+                                                                                                                                                    </div>
 
-                                                            <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100" data-attribute-index="${newAttributeIndex}">Add Value</button>
-                                                        </div>
-                                                    </div>`;
+                                                                                                                                                    <button type="button" class="btn btn-sm btn-info mt-2 add-value w-100" data-attribute-index="${newAttributeIndex}">أضف قيمة</button>
+                                                                                                                                                </div>
+                                                                                                                                            </div>`;
                 $('#attribute-container').append(field); // إضافة السمة إلى الـ DOM
             });
 
@@ -272,10 +272,10 @@
                 const index = $(this).data('attribute-index');
                 const newValue =
                     `
-                                                                                                                                    <div class="value-container mb-3 p-3 border rounded shadow-sm">
-                                                                                                                                        <label for="new_subcategory_name" class="mt-3 form-label">Value</label>
-                                                                                                                                        <input type="text" name="attributes[${index}][values][]" class="form-control attribute-value mb-2" placeholder="Value" required>
-                                                                                                                                    </div>`;
+                                                                                                                                                                                                                            <div class="value-container mb-3 p-3 border rounded shadow-sm">
+                                                                                                                                                                                                                                <label for="new_subcategory_name" class="mt-3 form-label">قيمة</label>
+                                                                                                                                                                                                                                <input type="text" name="attributes[${index}][values][]" class="form-control attribute-value mb-2" placeholder="قيمة" required>
+                                                                                                                                                                                                                            </div>`;
                 $(this).before(newValue); // إضافة الحقل الجديد قبل الزر
             });
 
@@ -336,7 +336,7 @@
                     })
                     .catch(error => {
                         console.error(error);
-                        alert('Error occurred while submitting.');
+                        alert('حدث خطأ خلال تقديم الطلب');
                     });
 
             });
@@ -370,13 +370,13 @@
                 // 🔴 الحالة 1: اسم موجود لكن ما في قيم
                 if (name !== "" && values.length === 0) {
                     validationFailed = true;
-                    errorMessage = `Attribute #${idx + 1}: name entered but no values provided.`;
+                    errorMessage = `Attribute #${idx + 1}: يرجى ادخال قيم للسمة`;
                 }
 
                 // 🔴 الحالة 2: قيم موجودة لكن الاسم فارغ
                 if (name === "" && values.length > 0) {
                     validationFailed = true;
-                    errorMessage = `Attribute #${idx + 1}: values entered but attribute name is missing.`;
+                    errorMessage = `Attribute #${idx + 1}: تم ادخال قيم للسمة لكن اسم السمة مفقود`;
                 }
 
                 attributes.push({
@@ -456,31 +456,31 @@
 
                     // إضافة كل تركيبة إلى الحاوية
                     container.insertAdjacentHTML('beforeend', `
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="variant-item p-3 mb-3 border rounded shadow-sm variant-row" data-attributes='${JSON.stringify(combo)}'>
-                                                            <p>${comboText}</p>
+                                                                                                                                        <div class="row">
+                                                                                                                                            <div class="col-md-6">
+                                                                                                                                                <div class="variant-item p-3 mb-3 border rounded shadow-sm variant-row" data-attributes='${JSON.stringify(combo)}'>
+                                                                                                                                                    <p>${comboText}</p>
 
-                                                            <!-- حقل السعر -->
-                                                            <div class="form-group mb-2">
-                                                                <label>Price</label>
-                                                                <input type="number" class="form-control variant-price" placeholder="Variant Price" step="0.01" required>
-                                                            </div>
+                                                                                                                                                    <!-- حقل السعر -->
+                                                                                                                                                    <div class="form-group mb-2">
+                                                                                                                                                        <label>السعر(₪)</label>
+                                                                                                                                                        <input type="number" class="form-control variant-price" style="text-align:right" placeholder=" سعر التشكيلة" step="0.01" required>
+                                                                                                                                                    </div>
 
-                                                            <!-- حقل الكمية -->
-                                                            <div class="form-group mb-2">
-                                                                <label>Quantity</label>
-                                                                <input type="number" class="form-control variant-quantity" placeholder="Variant Quantity" required>
-                                                            </div>
+                                                                                                                                                    <!-- حقل الكمية -->
+                                                                                                                                                    <div class="form-group mb-2">
+                                                                                                                                                        <label>الكمية</label>
+                                                                                                                                                        <input type="number" class="form-control variant-quantity" style="text-align:right" placeholder="كمية التشكيلة " required>
+                                                                                                                                                    </div>
 
-                                                            <!-- حقل الصورة -->
-                                                            <div class="form-group mb-2">
-                                                                <label>Image</label>
-                                                                <input type="file" class="form-control variant-image" accept="image/*">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>`);
+                                                                                                                                                    <!-- حقل الصورة -->
+                                                                                                                                                    <div class="form-group mb-2">
+                                                                                                                                                        <label>الصورة</label>
+                                                                                                                                                        <input type="file" class="form-control variant-image" accept="image/*">
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div>`);
                 });
             }
 

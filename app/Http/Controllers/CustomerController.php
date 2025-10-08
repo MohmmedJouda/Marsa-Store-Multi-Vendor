@@ -26,6 +26,12 @@ class CustomerController extends Controller
         ->orderByDesc('order_items_count')           // ترتيب حسب الأكثر طلبًا
         ->take(7)                                     // أعلى 7 منتجات
         ->get();
+        $products = Product::where('status', 'active')
+        ->with('store.user', 'subcategory', 'ratings')
+        ->orderBy('discount', 'desc') // ترتيب حسب أكبر خصم أولًا
+        ->take(7)
+        ->get();
+
 
 foreach ($latest as $latests) {
     $latests->total_sales = $latests->orderItems()->sum('quantity');
@@ -54,7 +60,7 @@ foreach ($mostOrdereds as $mostOrdered) {
     } else {
         $username = 'Guest'; // أو أي قيمة افتراضية
     }
-        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories','username','mostOrdereds'));
+        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories','username','mostOrdereds','products'));
     }
 
         public function guest()

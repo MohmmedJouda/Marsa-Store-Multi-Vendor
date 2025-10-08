@@ -39,7 +39,7 @@ class FeedBackController extends Controller
     Feedback::create([
         'order_id' => $request->order_id,
         'status' => $request->status,
-        'feedback' => $request->feedback,
+        'message' => $request->feedback,
     ]);
 
     return redirect()->back()->with('success', 'تم الارسال بنجاح!');

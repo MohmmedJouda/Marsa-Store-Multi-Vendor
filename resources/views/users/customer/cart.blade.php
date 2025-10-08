@@ -172,7 +172,14 @@
                                 </a>
                                 <div class="title">{{ $item->name }} </div>
                                 {{-- <span class="category">{{ $item->subcategory->name }}</span> --}}
-                                <div class="price" data-symbol="$">السعر: {{ $item->price }}₪</div>
+                                @if ($item->product->discount > 0)
+                                    <div data-symbol="₪"> السعر قبل: <del>{{ $item->price }}₪</del></div>
+                                    <div class="price" data-symbol="₪">
+                                        السعر بعد: {{ number_format($item->price * (1 - $item->product->discount / 100), 2) }} ₪
+                                    </div>
+                                @else
+                                    <div data-symbol="₪"> السعر {{ $item->price }}₪</div>
+                                @endif
                                 <div class="seller"></div>
                                 <div class="actions">
                                     <button class="btn-cart"> <a style="color:white"

@@ -311,7 +311,7 @@
                                                     <p> <strong>اسم الحساب:</strong><span id="acc-name">نادر عبدالعليم فؤاد فارس</span> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
                                                     <p><strong>(₪)IBAN:</strong> <span id="iban">PS46PALS044612840270993100000</span> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
                                                     <p> <strong>SWIFT:</strong><span id="bic">PALSPS22</span> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
-                                                    <p> <strong>المرجع:</strong><<strong id="pay-ref">{{ $paymentReference }}</strong> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
+                                                    <p> <strong>المرجع:</strong><strong id="pay-ref">{{ $paymentReference }}</strong> <i class="fa-solid fa-copy btn-copy" data-copy="pay-ref"></i></p>
 
                                                     {{-- QR (اختياري) --}}
                                                     <div id="bank-qr">

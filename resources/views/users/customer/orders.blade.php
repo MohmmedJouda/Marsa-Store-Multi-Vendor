@@ -247,13 +247,13 @@
                                                 <td class="text-end " data-order="Published">
                                                     <span
                                                         class="badge 
-                                                                                                                                @if($order->status == 'pending') bg-warning   
-                                                                                                                                @elseif($order->status == 'shipping') bg-info 
-                                                                                                                                @elseif($order->status == 'shipped') bg-primary 
-                                                                                                                                @elseif($order->status == 'delivered') bg-success 
-                                                                                                                                @elseif($order->status == 'cancelled') bg-danger 
-                                                                                                                                @elseif($order->status == 'refunded') bg-secondary 
-                                                                                                                                @endif">
+                                                                                                                                        @if($order->status == 'pending') bg-warning   
+                                                                                                                                        @elseif($order->status == 'shipping') bg-info 
+                                                                                                                                        @elseif($order->status == 'shipped') bg-primary 
+                                                                                                                                        @elseif($order->status == 'delivered') bg-success 
+                                                                                                                                        @elseif($order->status == 'cancelled') bg-danger 
+                                                                                                                                        @elseif($order->status == 'refunded') bg-secondary 
+                                                                                                                                        @endif">
 
 
                                                         @if ($order->status == 'pending' && (!$order->payment || is_null($order->payment->payment_method)))
@@ -277,8 +277,8 @@
                                                 </td>
                                                 <!--end::Category=-->
                                                 <!--begin::SKU=-->
-                                                <td class="text-end pe-0">
-                                                    {{-- {{ $order->payment->payment_method ?? 'غير محدد' }} --}}
+                                                {{-- {{ $order->payment->payment_method ?? 'غير محدد' }} --}}
+                                                {{-- <td class="text-end pe-0">
                                                     @if ($order->payment && $order->payment->payment_method === 'bank_transfer')
                                                         التحويل البنكي
                                                     @elseif ($order->payment && $order->payment->payment_method === 'credit_card')
@@ -290,9 +290,9 @@
                                                             style="color:rgb(255, 0, 0)">غير محدد</a>
                                                     @endif
 
-                                                    {{-- {{ ucfirst($order->status) }} --}}
-                                                    </span>
-                                                </td>
+                                                </span>
+                                                </td> --}}
+                                                {{-- {{ ucfirst($order->status) }} --}}
                                                 <!--end::Category=-->
                                                 <!--begin::SKU=-->
                                                 <td class="text-end pe-0">
@@ -316,7 +316,7 @@
                                                 <!--end::Qty=-->
                                                 <!--begin::Price=-->
                                                 <td class="text-end pe-0">
-                                                    {{ $order->total_amount }}
+                                                    {{ $order->total_amount }}₪
                                                 </td>
                                                 <!--end::Price=-->
                                                 <!--begin::Rating-->

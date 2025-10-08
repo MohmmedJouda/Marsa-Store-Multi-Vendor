@@ -212,8 +212,15 @@
                                     onclick="window.location.href='/product_details.html'" />
                             </a>
                             <div class="title"> {{ $product->name }}</div>
-                            <span class="category">{{ $product->subcategory->name }}</span>
-                            <div class="price" data-symbol="$">₪{{ $product->price }}</div>
+                            <span class="category mb-2">{{ $product->subcategory->name }}</span>
+                            @if ($product->discount > 0)
+                                <div data-symbol="₪"> السعر قبل: <del>{{ $product->price }}₪</del></div>
+                                <div class="price" data-symbol="₪">
+                                    السعر بعد: {{ number_format($product->price * (1 - $product->discount / 100), 2) }} ₪
+                                </div>
+                            @else
+                                <div data-symbol="₪"> السعر {{ $product->price }}₪</div>
+                            @endif
                             @php
                                 $averageRate = $product->ratings->avg('rate'); // ✅ لكل منتج
                             @endphp

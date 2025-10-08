@@ -600,7 +600,14 @@
                 </div>
             </div>
 
-            <p class="product-price">السعر: <strong>{{ $product->price }}₪</strong></p>
+            @if ($product->discount > 0)
+                <div data-symbol="₪"> السعر قبل: <del>{{ $product->price }}₪</del></div>
+                <div class="price" data-symbol="₪">
+                    السعر بعد: {{ number_format($product->price * (1 - $product->discount / 100), 2) }} ₪
+                </div>
+            @else
+                <div data-symbol="₪"> السعر {{ $product->price }}₪</div>
+            @endif
             <div class="seller">عدد المبيعات: <span>{{ $product->total_sales }} </span>
             </div>
             <p class="product-date">تاريخ الطرح: <strong>{{ $product->created_at }}</strong></p>
@@ -638,8 +645,16 @@
                                     </h6>
 
                                     <img src="{{ asset('storage/' . $variant->image) }}">
-                                    <p class="variant-price mt-4"><strong>السعر:</strong> <span>{{ $variant->price }}</span>
-                                        ₪</p>
+                                    @if ($variant->product->discount > 0)
+                                        <div data-symbol="₪"> السعر قبل: <del>{{ $variant->price }}₪</del></div>
+                                        <div class="price" data-symbol="₪">
+                                            السعر بعد:
+                                            {{ number_format($variant->price * (1 - $variant->product->discount / 100), 2) }}
+                                            ₪
+                                        </div>
+                                    @else
+                                        <div data-symbol="₪"> السعر {{ $product->price }}₪</div>
+                                    @endif
                                     <p class="variant-quantity"><strong>الكمية:</strong>
                                         <span>{{ $variant->quantity }}</span>
                                     </p>
