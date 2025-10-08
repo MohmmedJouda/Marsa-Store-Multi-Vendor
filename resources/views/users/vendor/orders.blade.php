@@ -47,103 +47,104 @@
                                     </td>
 
                                     @foreach ($order->items as $item)
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <!--begin::Thumbnail-->
-                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
-                                                    class="symbol symbol-50px">
-                                                    <span class="symbol-label"
-                                                        style="background-image:url({{ asset('storage/' . $item->product->images()->where('is_main', true)->first()->image_path) }});">
-                                                    </span>
-                                                </a>
-                                                <div class="ms-5">
-                                                    {{ $item->product->name }}
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <!--begin::Thumbnail-->
+                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+                                                        class="symbol symbol-50px">
+                                                        <span class="symbol-label"
+                                                            style="background-image:url({{ asset('storage/' . $item->product->images()->where('is_main', true)->first()->image_path) }});">
+                                                        </span>
+                                                    </a>
+                                                    <div class="ms-5">
+                                                        {{ $item->product->name }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <!--end::Category=-->
-                                        <!--begin::SKU=-->
-                                        <td class="text-end pe-0">
-                                            {{-- {{ $order->payment->payment_method ?? 'غير محدد' }} --}}
-                                            @if ($order->payment && $order->payment->payment_method === 'bank_transfer')
-                                                التحويل البنكي
-                                            @elseif ($order->payment && $order->payment->payment_method === 'credit_card')
-                                                بطاقة الائتمان
-                                            @elseif ($order->payment && $order->payment->payment_method === 'pay_on_delivery')
-                                                الدفع عند التسليم
-                                            @else
-                                                غير محدد
-                                            @endif
-
-                                        </td>
-
-                                        <td class="text-end pe-0" data-order="25">
-                                            {{ $item->quantity }}
-                                        </td>
-                                        <!--end::Qty=-->
-                                        <!--begin::Price=-->
-                                        <td class="text-end pe-0">
-                                            ₪{{ $order->total_amount }}
-                                        </td>
-                                        <!--end::Price=-->
-                                        <!--begin::Rating-->
-                                        <td class="text-end pe-0" data-order="rating-5">
-                                            <p class="text-muted mb-0">
-                                                {{ $order->created_at->locale('ar')->diffForHumans() }}
-                                            </p>
-                                        </td>
-                                        <!--end::Rating-->
-                                        <!--begin::Status=-->
-                                        <td class="text-end " data-order="Published">
-                                            <span
-                                                class="badge
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @if ($order->status == 'pending') bg-warning
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'shipping') bg-info
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'shipped') bg-primary
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'delivered') bg-success
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'cancelled') bg-danger
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'refunded') bg-secondary @endif">
-
-                                                @if ($order->status == 'pending')
-                                                    قيد العمل
-                                                @elseif($order->status == 'shipping')
-                                                    جاري الشحن
-                                                @elseif($order->status == 'shipped')
-                                                    تم الشحن
-                                                @elseif($order->status == 'delivered')
-                                                    تم التوصيل
-                                                @elseif($order->status == 'cancelled')
-                                                    ملغي
-                                                @elseif($order->status == 'refunded')
-                                                    مسترد
+                                            </td>
+                                            <!--end::Category=-->
+                                            <!--begin::SKU=-->
+                                            <td class="text-end pe-0">
+                                                {{-- {{ $order->payment->payment_method ?? 'غير محدد' }} --}}
+                                                @if ($order->payment && $order->payment->payment_method === 'bank_transfer')
+                                                    التحويل البنكي
+                                                @elseif ($order->payment && $order->payment->payment_method === 'credit_card')
+                                                    بطاقة الائتمان
+                                                @elseif ($order->payment && $order->payment->payment_method === 'pay_on_delivery')
+                                                    الدفع عند التسليم
+                                                @else
+                                                    غير محدد
                                                 @endif
-                                                {{-- {{ ucfirst($order->status) }} --}}
-                                            </span>
-                                        </td>
-                                        <!--end::Status=-->
-                                        <!--begin::Action=-->
-                                        <td class="text-end">
 
-                                            <div class="menu-item px-3">
-                                                <form action="{{ route('vendor.orders.destroy', $order->id) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('هل أنت متأكد من حذف هذا الطلب؟')">
-                                                    @csrf
-                                                    @method('DELETE')
+                                            </td>
 
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        حذف
-                                                    </button>
+                                            <td class="text-end pe-0" data-order="25">
+                                                {{ $item->quantity }}
+                                            </td>
+                                            <!--end::Qty=-->
+                                            <!--begin::Price=-->
+                                            <td class="text-end pe-0">
+                                                ₪{{ $order->total_amount }}
+                                            </td>
+                                            <!--end::Price=-->
+                                            <!--begin::Rating-->
+                                            <td class="text-end pe-0" data-order="rating-5">
+                                                <p class="text-muted mb-0">
+                                                    {{ $order->created_at->locale('ar')->diffForHumans() }}
+                                                </p>
+                                            </td>
+                                            <!--end::Rating-->
+                                            <!--begin::Status=-->
+                                            <td class="text-end " data-order="Published">
+                                                <span
+                                                    class="badge
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @if ($order->status == 'pending') bg-warning
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'shipping') bg-info
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'shipped') bg-primary
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'delivered') bg-success
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'cancelled') bg-danger
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @elseif($order->status == 'refunded') bg-secondary @endif">
 
-                                                </form>
-                                            </div>
+                                                    @if ($order->status == 'pending' && (!$order->payment || is_null($order->payment->payment_method)))
+                                                        معلق
+                                                    @elseif($order->status == 'pending')
+                                                        قيد العمل
+                                                    @elseif($order->status == 'shipping')
+                                                        جاري الشحن
+                                                    @elseif($order->status == 'shipped')
+                                                        تم الشحن
+                                                    @elseif($order->status == 'delivered')
+                                                        تم التوصيل
+                                                    @elseif($order->status == 'cancelled')
+                                                        ملغي
+                                                    @elseif($order->status == 'refunded')
+                                                        مسترد
+                                                    @endif
+                                                    {{-- {{ ucfirst($order->status) }} --}}
+                                                </span>
+                                            </td>
+                                            <!--end::Status=-->
+                                            <!--begin::Action=-->
+                                            <td class="text-end">
 
-                                            <!--end::Menu-->
-                                        </td>
-                                        <!--end::Action=-->
-                            </tr>
-                            @endforeach
-                            @endforeach
+                                                <div class="menu-item px-3">
+                                                    <form action="{{ route('vendor.orders.destroy', $order->id) }}" method="POST"
+                                                        onsubmit="return confirm('هل أنت متأكد من حذف هذا الطلب؟')">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            حذف
+                                                        </button>
+
+                                                    </form>
+                                                </div>
+
+                                                <!--end::Menu-->
+                                            </td>
+                                            <!--end::Action=-->
+                                        </tr>
+                                    @endforeach
+                                @endforeach
                             <!--end::Table row-->
                         </tbody>
                         <!--end::Table body-->

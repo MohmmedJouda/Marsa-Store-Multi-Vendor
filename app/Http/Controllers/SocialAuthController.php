@@ -1,62 +1,76 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Exception;
 
 class SocialAuthController extends Controller
 {
+    /**
+     * توجيه المستخدم إلى صفحة تسجيل الدخول في Google
+     */
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
-
+    /**
+     * استقبال رد Google بعد تسجيل الدخول
+     */
     public function handleGoogleCallback()
     {
-        $googleUser = Socialite::driver('google')->stateless()->user();
+        try {
+            // استخدم stateless لتفادي مشكلة state mismatch
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
-        $user = $this->getOrCreateSocialUser($googleUser);
+            $user = $this->getOrCreateSocialUser($googleUser);
 
-        Auth::login($user);
+            Auth::login($user);
 
-        return redirect('/customer/main-page');
+            return redirect('/customer/main-page');
+        } catch (Exception $e) {
+            // طباعة الخطأ لمعرفة السبب الحقيقي إن حدث فشل
+            return redirect('/')
+                ->with('error', 'فشل تسجيل الدخول عبر Google: ' . $e->getMessage());
+        }
     }
 
+    /**
+     * إنشاء أو جلب مستخدم من بيانات Google
+     */
     protected function getOrCreateSocialUser($googleUser)
-{
-    $user = User::where('email', $googleUser->getEmail())->first();
-
-    if ($user) {
-        return $user;
-    }
-
-    return User::create([
-        'name' => $googleUser->getName(),
-        'email' => $googleUser->getEmail(),
-        'google_id' => $googleUser->getId(),
-        'password' => bcrypt(Str::random(24)),
-        'email_verified_at' => now(),
-    ]);
-    dd($user->email_verified_at);
-}
-
-
-
-    public function redirectToFacebook()
     {
-        return Socialite::driver('facebook')->redirect();
+        $user = User::where('email', $googleUser->getEmail())->first();
+
+        if ($user) {
+            // إذا كان المستخدم موجود مسبقًا، حدث فقط google_id إن لم يكن موجودًا
+            if (!$user->google_id) {
+                $user->update(['google_id' => $googleUser->getId()]);
+            }
+            return $user;
+        }
+
+        // إنشاء مستخدم جديد
+return User::create([
+    'name' => $googleUser->getName(),
+    'email' => $googleUser->getEmail(),
+    'provider' => 'google',
+    'provider_id' => $googleUser->getId(),
+    'password' => bcrypt(Str::random(24)),
+    'email_verified_at' => now(),
+]);
+
     }
 
-    public function handleFacebookCallback()
-    {
-        $fbUser = Socialite::driver('facebook')->user();
-        $user = $this->findOrCreateUser($fbUser, 'facebook');
-        Auth::login($user);
-        return redirect('/dashboard');
-    }
+
+
+    /**
+     * استقبال رد Facebook
+     */
 
     protected function findOrCreateUser($socialUser, $provider)
     {
@@ -75,4 +89,3 @@ class SocialAuthController extends Controller
         return $user;
     }
 }
-

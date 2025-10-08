@@ -1,10 +1,10 @@
 @extends('layout')
 @section('pageTitle')
-    {{ $role === 'vendor' ? 'Vendors Listing' : 'Customers Listing' }}
+    {{ $role === 'vendor' ? 'قائمة التجار' : 'قائمة الزبائن' }}
 @endsection
-@section('subTitle', 'Users')
+@section('subTitle', 'مستخدمين')
 @section('currentTitle')
-    {{ $role === 'vendor' ? 'Vendors' : 'Customers' }}
+    {{ $role === 'vendor' ? 'تجار' : 'زبائن' }}
 @endsection
 @section('content')
     <!--begin::Content-->
@@ -35,7 +35,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" id="searchInput" data-kt-vendor-table-filter="search"
-                                    class="form-control form-control-solid w-250px ps-15" placeholder="Search Vendors" />
+                                    class="form-control form-control-solid w-250px ps-15" placeholder="ابحث عن تاجر" />
                             </div>
                             <!--end::Search-->
                         </div>
@@ -48,13 +48,13 @@
                                 <div class="w-150px me-3">
                                     <!--begin::Select2-->
                                     <select class="form-select form-select-solid" id="statusFilter" data-control="select2"
-                                        data-hide-search="true" data-placeholder="Status"
+                                        data-hide-search="true" data-placeholder="الحالة"
                                         data-kt-ecommerce-order-filter="status">
                                         <option></option>
-                                        <option value="all">All</option>
-                                        <option value="pending">pending</option>
-                                        <option value="rejected">rejected</option>
-                                        <option value="approved">approved</option>
+                                        <option value="all">الكل</option>
+                                        <option value="pending">قيد العمل</option>
+                                        <option value="rejected">مرفوض</option>
+                                        <option value="approved">مقبول</option>
                                     </select>
                                     <!--end::Select2-->
                                 </div>
@@ -76,7 +76,7 @@
                                                 fill="#C4C4C4" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->Export</button>
+                                    <!--end::Svg Icon-->تصدير</button>
                                 <!--begin::Menu toggle-->
                                 <a href="{{ route('moderator.vendor.trashed') }}"
                                     class="btn btn-sm btn-flex btn-light btn-active-danger fw-bolder"
@@ -100,7 +100,7 @@
                                 <!--end::Export-->
                                 <!--begin::Add vendor-->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#kt_modal_add_vendor">Add Vendor</button>
+                                    data-bs-target="#kt_modal_add_vendor">أضف تاجر</button>
                                 <!--end::Add vendor-->
 
                             </div>
@@ -109,10 +109,10 @@
                             <div class="d-flex justify-content-end align-items-center d-none"
                                 data-kt-vendor-table-toolbar="selected">
                                 <div class="fw-bolder me-5">
-                                    <span class="me-2" data-kt-vendor-table-select="selected_count"></span>Selected
+                                    <span class="me-2" data-kt-vendor-table-select="selected_count"></span>تم اختياره
                                 </div>
                                 <button type="button" class="btn btn-danger"
-                                    data-kt-vendor-table-select="delete_selected">Delete Selected</button>
+                                    data-kt-vendor-table-select="delete_selected">حذف المحدد</button>
                             </div>
                             <!--end::Group actions-->
                         </div>
@@ -134,12 +134,12 @@
                                         </div>
                                     </th>
 
-                                    <th class="min-w-125px">Vendor Name</th>
-                                    <th class="min-w-125px">Email</th>
-                                    <th class="min-w-125px">Status</th>
-                                    <th class="min-w-125px">Store Name</th>
-                                    <th class="min-w-125px">Created Date</th>
-                                    <th class="text-end min-w-70px">Actions</th>
+                                    <th class="min-w-125px">اسم التاجر</th>
+                                    <th class="min-w-125px">البريد الالكتروني</th>
+                                    <th class="min-w-125px">الحالة</th>
+                                    <th class="min-w-125px">اسم المتجر</th>
+                                    <th class="min-w-125px">وقت الانشاء</th>
+                                    <th class="text-end min-w-70px">التفاعلات</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -168,7 +168,7 @@
                                 <!--begin::Modal header-->
                                 <div class="modal-header" id="kt_modal_add_vendor_header">
                                     <!--begin::Modal title-->
-                                    <h2 class="fw-bolder">Add a Vendor</h2>
+                                    <h2 class="fw-bolder">اضافة تاجر</h2>
                                     <!--end::Modal title-->
                                     <!--begin::Close-->
                                     <div id="kt_modal_add_vendor_close" data-bs-dismiss="modal"
@@ -199,7 +199,7 @@
                                         <!--begin::Input group-->
                                         <div class="fv-row mb-7">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                                            <label class="required fs-6 fw-bold mb-2">الاسم</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input type="text" class="form-control form-control-solid" placeholder=""
@@ -211,7 +211,7 @@
                                         <div class="fv-row mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-bold mb-2">
-                                                <span class="required">Email</span>
+                                                <span class="required">البريد الالكتروني</span>
                                                 <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                                     title="Email address must be active"></i>
                                             </label>
@@ -225,8 +225,7 @@
                                         <!--begin::Billing toggle-->
                                         <div class="fw-bolder fs-3 rotate collapsible mb-7" data-bs-toggle="collapse"
                                             href="#kt_modal_add_vendor_billing_info" role="button" aria-expanded="false"
-                                            aria-controls="kt_vendor_view_details">Store
-                                            Information
+                                            aria-controls="kt_vendor_view_details">معلومات المتجر
                                             <span class="ms-2 rotate-180">
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                                 <span class="svg-icon svg-icon-3">
@@ -246,7 +245,7 @@
                                             <!--begin::Input group-->
                                             <div class="d-flex flex-column mb-7 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="required fs-6 fw-bold mb-2">Store Name</label>
+                                                <label class="required fs-6 fw-bold mb-2">اسم المتجر</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input class="form-control form-control-solid" placeholder=""
@@ -257,7 +256,7 @@
                                             <!--begin::Input group-->
                                             <div class="d-flex flex-column mb-7 fv-row">
                                                 <!--begin::Label-->
-                                                <label class="fs-6 fw-bold mb-2">Description</label>
+                                                <label class="fs-6 fw-bold mb-2">الوصف</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input class="form-control form-control-solid" placeholder=""
@@ -270,10 +269,10 @@
                                                 <!--begin::Col-->
                                                 <div class="col-md-6 fv-row">
                                                     <!--begin::Label-->
-                                                    <label class="required fs-6 fw-bold mb-2">Phone Number</label>
+                                                    <label class="required fs-6 fw-bold mb-2">رقم الهاتف</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input class="form-control form-control-solid" placeholder="+972******"
+                                                    <input class="form-control form-control-solid" placeholder="05/"
                                                         name="phone" />
                                                     <!--end::Input-->
                                                 </div>
@@ -281,7 +280,7 @@
                                                 <!--begin::Col-->
                                                 <div class="col-md-6 fv-row">
                                                     <!--begin::Label-->
-                                                    <label class="required fs-6 fw-bold mb-2">Address</label>
+                                                    <label class="required fs-6 fw-bold mb-2">العنوان</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <input class="form-control form-control-solid" placeholder=""
@@ -296,7 +295,7 @@
                                             <div class="d-flex flex-column mb-7 fv-row">
                                                 <!--begin::Label-->
                                                 <label class="fs-6 fw-bold mb-2">
-                                                    <span class="required">Status</span>
+                                                    <span class="required">الحالة</span>
 
                                                 </label>
                                                 <!--end::Label-->
@@ -305,9 +304,9 @@
                                                     data-placeholder="Select a Status..."
                                                     data-dropdown-parent="#kt_modal_add_vendor"
                                                     class="form-select form-select-solid fw-bolder">
-                                                    <option value="pending">pending</option>
-                                                    <option value="approved">approved</option>
-                                                    <option value="rejected">rejected</option>
+                                                    <option value="pending">قيد العمل</option>
+                                                    <option value="approved">مقبول</option>
+                                                    <option value="rejected">مرفوض</option>
 
                                                 </select>
                                                 <!--end::Input-->
@@ -323,13 +322,13 @@
                                 <div class="modal-footer flex-center">
                                     <!--begin::Button-->
                                     <button type="reset" id="kt_modal_add_vendor_cancel" class="btn btn-light me-3"
-                                        data-bs-dismiss="modal">Discard</button>
+                                        data-bs-dismiss="modal">تجاهل</button>
                                     <!--end::Button-->
                                     <!--begin::Button-->
                                     <button type="button" onclick="createItem()" class="btn btn-primary"
                                         id="kt_modal_add_vendor_submit">
-                                        <span class="indicator-label">Submit</span>
-                                        <span class="indicator-progress">Please wait...
+                                        <span class="indicator-label">تقديم</span>
+                                        <span class="indicator-progress">يرجة الانتظار ......
                                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                         </span>
                                     </button>
@@ -360,7 +359,7 @@
                                 <!--begin::Modal header-->
                                 <div class="modal-header" id="kt_modal_edit_vendor_header">
                                     <!--begin::Modal title-->
-                                    <h2 class="fw-bolder">Edit Vendor</h2>
+                                    <h2 class="fw-bolder">تعديل التاجر</h2>
                                     <!--end::Modal title-->
                                     <!--begin::Close-->
                                     <div id="kt_modal_edit_vendor_close" data-bs-dismiss="modal"
@@ -391,7 +390,7 @@
 
                                         <!--begin::Input group-->
                                         <div class="fv-row mb-7">
-                                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                                            <label class="required fs-6 fw-bold mb-2">الاسم</label>
                                             <input type="text" class="form-control form-control-solid" placeholder=""
                                                 name="name" id="edit_name" value=" " />
                                         </div>
@@ -400,7 +399,7 @@
                                         <!--begin::Input group-->
                                         <div class="fv-row mb-7">
                                             <label class="fs-6 fw-bold mb-2">
-                                                <span class="required">Email</span>
+                                                <span class="required">البريد الالكتروني</span>
                                                 <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                                     title="Email address must be active"></i>
                                             </label>
@@ -412,7 +411,7 @@
                                         <!--begin::Billing toggle-->
                                         <div class="fw-bolder fs-3 rotate collapsible mb-7" data-bs-toggle="collapse"
                                             href="#kt_modal_edit_vendor_billing_info" role="button" aria-expanded="false"
-                                            aria-controls="kt_vendor_view_details">Store Information
+                                            aria-controls="kt_vendor_view_details">معلومات المتجر
                                             <span class="ms-2 rotate-180">
                                                 <span class="svg-icon svg-icon-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -430,7 +429,7 @@
                                         <div id="kt_modal_edit_vendor_billing_info" class="collapse show">
                                             <!--begin::Input group-->
                                             <div class="d-flex flex-column mb-7 fv-row">
-                                                <label class="required fs-6 fw-bold mb-2">Store Name</label>
+                                                <label class="required fs-6 fw-bold mb-2">اسم المتجر</label>
                                                 <input class="form-control form-control-solid" placeholder=""
                                                     name="store_name" id="edit_store_name" value=" " />
                                             </div>
@@ -438,7 +437,7 @@
 
                                             <!--begin::Input group-->
                                             <div class="d-flex flex-column mb-7 fv-row">
-                                                <label class="fs-6 fw-bold mb-2">Description</label>
+                                                <label class="fs-6 fw-bold mb-2">الوصف</label>
                                                 <input class="form-control form-control-solid" placeholder=""
                                                     name="description" id="edit_description" value=" " />
                                             </div>
@@ -447,12 +446,12 @@
                                             <!--begin::Input group-->
                                             <div class="row g-9 mb-7">
                                                 <div class="col-md-6 fv-row">
-                                                    <label class="required fs-6 fw-bold mb-2">Phone Number</label>
-                                                    <input class="form-control form-control-solid" placeholder="+972******"
+                                                    <label class="required fs-6 fw-bold mb-2">رقم الهاتف</label>
+                                                    <input class="form-control form-control-solid" placeholder="05/"
                                                         name="phone" id="edit_phone" value=" " />
                                                 </div>
                                                 <div class="col-md-6 fv-row">
-                                                    <label class="required fs-6 fw-bold mb-2">Address</label>
+                                                    <label class="required fs-6 fw-bold mb-2">العنوان</label>
                                                     <input class="form-control form-control-solid" placeholder=""
                                                         name="address" id="edit_address" value="" />
                                                 </div>
@@ -462,15 +461,15 @@
                                             <!--begin::Input group-->
                                             <div class="d-flex flex-column mb-7 fv-row">
                                                 <label class="fs-6 fw-bold mb-2">
-                                                    <span class="required">Status</span>
+                                                    <span class="required">الحالة</span>
                                                 </label>
                                                 <select name="status" id="edit_status" data-control="select2"
                                                     data-placeholder="Select a Status..."
                                                     data-dropdown-parent="#kt_modal_edit_vendor"
                                                     class="form-select form-select-solid fw-bolder">
-                                                    <option value="pending">pending</option>
-                                                    <option value="approved">approved</option>
-                                                    <option value="rejected">rejected</option>
+                                                    <option value="pending">جاري العمل</option>
+                                                    <option value="approved">مقبول</option>
+                                                    <option value="rejected">مرفوض</option>
                                                 </select>
                                             </div>
                                             <!--end::Input group-->
@@ -484,10 +483,10 @@
                                 <!--begin::Modal footer-->
                                 <div class="modal-footer flex-center">
                                     <button type="reset" id="kt_modal_edit_vendor_cancel" class="btn btn-light me-3"
-                                        data-bs-dismiss="modal">Discard</button>
+                                        data-bs-dismiss="modal">تجاهل</button>
                                     <button type="button" onclick="updateItem()" class="btn btn-primary">
-                                        <span class="indicator-label">Update</span>
-                                        <span class="indicator-progress">Please wait...
+                                        <span class="indicator-label">تحديث</span>
+                                        <span class="indicator-progress">يرجى الانتظار ......
                                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                         </span>
                                     </button>
@@ -510,7 +509,7 @@
                             <!--begin::Modal header-->
                             <div class="modal-header">
                                 <!--begin::Modal title-->
-                                <h2 class="fw-bolder">Export Vendors</h2>
+                                <h2 class="fw-bolder">تصدير التجار</h2>
                                 <!--end::Modal title-->
                                 <!--begin::Close-->
                                 <div id="kt_vendors_export_close" class="btn btn-icon btn-sm btn-active-icon-primary">
@@ -536,7 +535,7 @@
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-10">
                                         <!--begin::Label-->
-                                        <label class="fs-5 fw-bold form-label mb-5">Select Export Format:</label>
+                                        <label class="fs-5 fw-bold form-label mb-5">اختر صيغة التصدير:</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select data-control="select2" data-placeholder="Select a format"
@@ -552,7 +551,7 @@
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-10">
                                         <!--begin::Label-->
-                                        <label class="fs-5 fw-bold form-label mb-5">Select Date Range:</label>
+                                        <label class="fs-5 fw-bold form-label mb-5">اختر متوسط الوقت:</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input class="form-control form-control-solid" placeholder="Pick a date"
@@ -563,7 +562,7 @@
                                     <!--begin::Row-->
                                     <div class="row fv-row mb-15">
                                         <!--begin::Label-->
-                                        <label class="fs-5 fw-bold form-label mb-5">Payment Type:</label>
+                                        <label class="fs-5 fw-bold form-label mb-5">طريقة الدفع:</label>
                                         <!--end::Label-->
                                         <!--begin::Radio group-->
                                         <div class="d-flex flex-column">
@@ -571,7 +570,7 @@
                                             <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
                                                 <input class="form-check-input" type="checkbox" value="1" checked="checked"
                                                     name="payment_type" />
-                                                <span class="form-check-label text-gray-600 fw-bold">All</span>
+                                                <span class="form-check-label text-gray-600 fw-bold">الكل</span>
                                             </label>
                                             <!--end::Radio button-->
                                             <!--begin::Radio button-->
@@ -603,10 +602,10 @@
                                     <!--begin::Actions-->
                                     <div class="text-center">
                                         <button type="reset" id="kt_vendors_export_cancel"
-                                            class="btn btn-light me-3">Discard</button>
+                                            class="btn btn-light me-3">تجاهل</button>
                                         <button type="submit" id="kt_vendors_export_submit" class="btn btn-primary">
-                                            <span class="indicator-label">Submit</span>
-                                            <span class="indicator-progress">Please wait...
+                                            <span class="indicator-label">تقديم</span>
+                                            <span class="indicator-progress">يرجى الانتظار ......
                                                 <span
                                                     class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                         </button>

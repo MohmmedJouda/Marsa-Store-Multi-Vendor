@@ -23,7 +23,7 @@ use App\Http\Controllers\ProductRatingController;
 use App\Http\Controllers\ProductCommentController;
 
 
-Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
+// Route::get('/main-page', [CustomerController::class, 'index'])->name('guest.main-page');
 
 Route::get('/layout', function () {
     return view('layout');
@@ -224,6 +224,4 @@ Route::middleware([
 // Google
 Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback']);
-// Facebook
-Route::get('/auth/facebook', [SocialAuthController::class, 'redirectToFacebook']);
-Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
+

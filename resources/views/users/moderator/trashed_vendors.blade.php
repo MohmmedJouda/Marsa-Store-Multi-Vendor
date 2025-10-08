@@ -1,7 +1,7 @@
 @extends('layout')
-@section('pageTitle', 'Vendors Trashed')
-@section('subTitle', 'Vendors')
-@section('currentTitle', 'Trashed')
+@section('pageTitle', 'التجار المحذوفين')
+@section('subTitle', 'التجار')
+@section('currentTitle', 'سلة الحذوفات')
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -30,7 +30,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-vendor-table-filter="search"
-                                    class="form-control form-control-solid w-250px ps-15" placeholder="Search Vendors" />
+                                    class="form-control form-control-solid w-250px ps-15" placeholder="البحث عن تجار" />
                             </div>
                             <!--end::Search-->
                         </div>
@@ -43,12 +43,12 @@
                                 <div class="w-150px me-3">
                                     <!--begin::Select2-->
                                     <select class="form-select form-select-solid" data-control="select2"
-                                        data-hide-search="true" data-placeholder="Status"
+                                        data-hide-search="true" data-placeholder="الحالة"
                                         data-kt-ecommerce-order-filter="status">
                                         <option></option>
-                                        <option value="all">All</option>
-                                        <option value="active">Active</option>
-                                        <option value="locked">Locked</option>
+                                        <option value="all">الكل</option>
+                                        <option value="active">قعال</option>
+                                        <option value="locked">مقفل</option>
                                     </select>
                                     <!--end::Select2-->
                                 </div>
@@ -57,7 +57,7 @@
                                 <a href="{{ route('moderator.dashboard') }}" class="btn btn-light-primary me-3">
 
 
-                                    <!--end::Svg Icon-->Home</a>
+                                    <!--end::Svg Icon-->الصفحة الرئيسية</a>
                                 <!--end::Home-->
 
                             </div>
@@ -80,12 +80,12 @@
                                                 data-kt-check-target="#kt_vendors_table .form-check-input" value="1" />
                                         </div>
                                     </th>
-                                    <th class="min-w-125px">Vendor Name</th>
-                                    <th class="min-w-125px">Email</th>
-                                    <th class="min-w-125px">Status</th>
-                                    <th class="min-w-125px">Store Name</th>
-                                    <th class="min-w-125px">Deleted Date</th>
-                                    <th class="text-end min-w-70px">Actions</th>
+                                    <th class="min-w-125px">اسم التاجر</th>
+                                    <th class="min-w-125px">البريد الالكتروني</th>
+                                    <th class="min-w-125px">الحالة</th>
+                                    <th class="min-w-125px">اسم المتجر</th>
+                                    <th class="min-w-125px">وقت الحذف</th>
+                                    <th class="text-end min-w-70px">التفاعل</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -118,9 +118,9 @@
                                             <!--begin::Badges-->
                                             <div
                                                 class="badge
-                                        @if ($user->store->status == 'pending') badge-light-warning
-                                        @elseif($user->store->status == 'approved') badge-light-success
-                                        @elseif($user->store->status == 'rejected') badge-light-danger @endif>
+                                        @if ($user->store->status == 'قيد العمل') badge-light-warning
+                                        @elseif($user->store->status == 'مقبول') badge-light-success
+                                        @elseif($user->store->status == 'مرفوض') badge-light-danger @endif>
                                             ">
                                                 {{ $user->store->status }}</div>
                                             <!--end::Badges-->
@@ -203,8 +203,8 @@
 <script>
     function confirmForceDestroy(id, reference) {
         const result = Swal.fire({
-            title: 'Are you sure?',
-            text: "You will not be able to recover this data!",
+            title: 'هل أنت متأكد؟',
+            text: "لن تستطيع استرجاع هذه البيانات!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

@@ -72,7 +72,11 @@ foreach ($mostOrdereds as $mostOrdered) {
         ->orderByDesc('order_items_count')           // ترتيب حسب الأكثر طلبًا
         ->take(7)                                     // أعلى 7 منتجات
         ->get();
-
+        $products = Product::where('status', 'active')
+        ->with('store.user', 'subcategory', 'ratings')
+        ->orderBy('discount', 'desc') // ترتيب حسب أكبر خصم أولًا
+        ->take(7)
+        ->get();
         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
 
@@ -90,7 +94,7 @@ foreach ($mostOrdereds as $mostOrdered) {
     } else {
         $username = 'Guest'; // أو أي قيمة افتراضية
     }
-        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories','username','mostOrdereds'));
+        return view('users.customer.main-page',compact('latest','carts','totalPrice','categories','username','mostOrdereds','products'));
     }
 
     public function product_index(Request $request)

@@ -21,8 +21,8 @@
                             <span class="svg-icon svg-icon-1 position-absolute ms-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none">
-                                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"
-                                        rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+                                        transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
                                     <path
                                         d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
                                         fill="currentColor" />
@@ -82,7 +82,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <!--begin::Thumbnail-->
-                                            <a href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html"
+                                            <a href="{{ route('vendor.subcategories.show', $subcategory->id) }}"
                                                 class="symbol symbol-50px">
                                                 <span class="symbol-label"
                                                     style="background-image:url({{ asset('storage/' . $subcategory->image) }}"
@@ -91,7 +91,7 @@
                                             <!--end::Thumbnail-->
                                             <div class="ms-5">
                                                 <!--begin::Title-->
-                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html"
+                                                <a href="{{ route('vendor.subcategories.show', $subcategory->id) }}"
                                                     class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1"
                                                     data-kt-ecommerce-category-filter="category_name">{{ $subcategory->name }}</a>
                                                 <!--end::Title-->
@@ -128,7 +128,8 @@
                                             <!--end::Svg Icon-->
                                         </a>
                                         <!--begin::Menu-->
-                                        {{-- <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                        {{-- <div
+                                            class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
