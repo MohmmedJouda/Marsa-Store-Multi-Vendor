@@ -1,8 +1,8 @@
 @extends('layout')
-@section('pageTitle', 'Categories')
-@section('subTitle', 'eCommerce')
-@section('currentTitle', 'Categories')
-@section('nameButton', 'add products')
+@section('pageTitle', 'الأقسام')
+@section('subTitle', 'المتجر')
+@section('currentTitle', 'الأقسام')
+@section('nameButton', 'اضافة المنتجات')
 @section('routeButton', route('vendor.products.create'))
 @section('content')
 
@@ -30,7 +30,7 @@
                             </span>
                             <!--end::Svg Icon-->
                             <input type="text" data-kt-ecommerce-category-filter="search"
-                                class="form-control form-control-solid w-250px ps-14" placeholder="Search Category" />
+                                class="form-control form-control-solid w-250px ps-14" placeholder="البحث عن الأقسام" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -38,7 +38,7 @@
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
                         <!--begin::Add customer-->
-                        <a href="{{ route('vendor.products.index') }}" class="btn btn-primary">All products</a>
+                        <a href="{{ route('vendor.products.index') }}" class="btn btn-primary">جميع المنتجات</a>
                         <!--end::Add customer-->
                     </div>
                     <!--end::Card toolbar-->
@@ -59,9 +59,9 @@
                                             value="1" />
                                     </div>
                                 </th>
-                                <th class="min-w-250px">SubCategory</th>
-                                <th class="min-w-150px">Category Type</th>
-                                <th class="text-end min-w-70px">Action</th>
+                                <th class="min-w-250px">الأقسام الفرعية</th>
+                                <th class="min-w-150px">نوع القسم</th>
+                                <th class="text-end min-w-70px">الأحداث</th>
                             </tr>
                             <!--end::Table row-->
                         </thead>
@@ -96,7 +96,7 @@
                                                     data-kt-ecommerce-category-filter="category_name">{{ $subcategory->name }}</a>
                                                 <!--end::Title-->
                                                 <!--begin::Description-->
-                                                <div class="text-muted fs-7 fw-bolder">Number of products:
+                                                <div class="text-muted fs-7 fw-bolder">عدد المنتجات:
                                                     <span
                                                         class="badge badge-light-primary fs-8 fw-bolder">{{ $subcategory->products->count() }}</span>
                                                 </div>
@@ -115,7 +115,7 @@
                                     <!--begin::Action=-->
                                     <td class="text-end">
                                         <a href="{{ route('vendor.subcategories.show', $subcategory->id) }}"
-                                            class="badge-light-primary" data-kt-menu-placement="bottom-end">Products
+                                            class="badge-light-primary" data-kt-menu-placement="bottom-end">عرض المنتجات
                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                             <span class="svg-icon svg-icon-5 m-0 ">
                                                 {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
