@@ -568,6 +568,7 @@
         <div class="product-box dark-box">
             <div style="display: flex; justify-content: space-between;">
                 <h1 class="product-title"> {{ $product->name }}</h1>
+
                 <div class="rating" style="margin-top: -10px">
                     <form action="{{ route('customer.product.rate', $product->id) }}" method="POST" id="rating-form">
                         @csrf
@@ -600,6 +601,8 @@
             </div>
 
             <p class="product-price">السعر: <strong>{{ $product->price }}₪</strong></p>
+            <div class="seller">عدد المبيعات: <span>{{ $product->total_sales }} </span>
+            </div>
             <p class="product-date">تاريخ الطرح: <strong>{{ $product->created_at }}</strong></p>
             <div class="product-gallery">
                 <img src="{{asset('storage/' . $product->images()->where('is_main', true)->first()->image_path)}}"
@@ -748,12 +751,12 @@
                                 @endfor
                             </div>
 
-
+                            <div class="seller">عدد المبيعات: <span><a href="#">{{ $product->total_sales }}
+                                    </a></span> </div>
                             <div class="seller">المتجر: <span><a
                                         href="{{ route('customer.stores.show', $product->store->id) }}">{{ $product->store->name }}
                                     </a></span> </div>
-                            <div class="seller">البائع: <span><a href="#">{{ $product->store->user->name }}
-                                    </a></span> </div>
+
                             <div class="actions">
                                 <button class="btn-cart">شراء الآن</button>
                                 {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}

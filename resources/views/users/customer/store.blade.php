@@ -346,8 +346,6 @@
                                 <div class="title"> {{ $product->name }}</div>
                                 <span class="category">{{ $product->subcategory->name }}</span>
                                 <div class="price" data-symbol="$">${{ $product->price }}</div>
-                                {{-- <div class="rating">★★★★★</div> --}}
-                                {{-- Blade: افترض أن $rating يحتوي التقييم كـ 0..5 (مثال: 3.5) --}}
                                 @php
                                     $averageRate = $product->ratings->avg('rate');
                                 @endphp
@@ -359,7 +357,8 @@
                                         </span>
                                     @endfor
                                 </div>
-
+                                <div class="seller">عدد المبيعات: <span>{{ $product->total_sales }}
+                                    </span> </div>
                                 <div class="actions">
                                     <button class="btn-cart"> <a style="color:white"
                                             href="{{ route('customer.product.show', $product->id) }}">
@@ -641,86 +640,6 @@
         <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
         <script>AOS.init();</script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-
-
-        <script>
-            function updateCartCount() {
-                const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-                document.getElementById('cart-count').textContent = cartItems.length || 0;
-            }
-
-            function updateFavCount() {
-                const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-                document.getElementById('fav-count').textContent = favItems.length || 0;
-            }
-
-            function updateAllCounts() {
-                updateCartCount();
-                updateFavCount();
-            }
-
-            // نفذ عند تحميل الصفحة
-            document.addEventListener('DOMContentLoaded', updateAllCounts);
-
-            // استدعِ هذه الوظيفة عند إضافة/إزالة أي منتج للسلة أو المفضلة
-            // مثال:
-            // بعد إضافة منتج:
-            // localStorage.setItem('cart', JSON.stringify(cartItems));
-            // updateCartCount();
-
-            // بعد إزالة من المفضلة:
-            // localStorage.setItem('favorites', JSON.stringify(favItems));
-            // updateFavCount();
-        </script>
-
-
-
-
-
-
-        {{--
-        <script>
-            function addComment() {
-                const input = document.getElementById("comment-input");
-                const commentText = input.value.trim();
-
-                const ratingInputs = document.querySelectorAll('input[name="rating"]');
-                let selectedRating = 0;
-                for (let i = 0; i < ratingInputs.length; i++) {
-                    if (ratingInputs[i].checked) {
-                        selectedRating = ratingInputs[i].value;
-                        break;
-                    }
-                }
-
-                if (commentText === "" || selectedRating == 0) {
-                    alert("يرجى كتابة تعليق واختيار تقييم");
-                    return;
-                }
-
-                const commentList = document.getElementById("comments-list");
-                const li = document.createElement("li");
-
-                // إضافة النجوم حسب التقييم
-                const stars = "★".repeat(selectedRating) + "☆".repeat(5 - selectedRating);
-
-                li.innerHTML = `
-        <div class="comment-text">💬 ${commentText}</div>
-        <div class="rating-stars">${stars}</div>
-      `;
-
-                commentList.appendChild(li);
-                input.value = "";
-
-                // إعادة تعيين النجوم
-                ratingInputs.forEach(input => input.checked = false);
-
-                commentList.scrollTop = commentList.scrollHeight;
-            }
-        </script> --}}
 
 
         <script>

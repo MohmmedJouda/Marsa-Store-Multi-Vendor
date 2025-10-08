@@ -152,47 +152,6 @@
     <main class="container py-5">
         <div class="row">
             <!-- Sidebar: Categories -->
-            <sidebar class="sidebar">
-                <h3>التصنيفات</h3>
-                <select id="category-filter">
-                    <option value="all">الكل</option>
-                    <option value="">الكترونيات</option>
-                    <option value="">موضة</option>
-                    <option value="">الجمال والعناية</option>
-                    <option value="">الكتب والقرطاسية</option>
-                    <option value="">الألعاب</option>
-                    <option value="">رياضة</option>
-                    <option value="">إكسسورات & ساعات</option>
-                    <option value="">مستلزمات صحية</option>
-                    <option value="">سيارات & مركبات</option>
-                    <option value="">أخرى</option>
-                </select>
-
-                <h3>بحث</h3>
-                <input type="text" id="search-input" placeholder="ابحث عن منتج...">
-
-                <h3>تصفية <i class="fa-solid fa-filter"></i></h3>
-                <select id="sort-filter">
-                    <option value="default">الافتراضي</option>
-                    <option value="rating">الأعلى تقييماً</option>
-                    <option value="price-asc">من الأرخص</option>
-                    <option value="price-desc">من الأغلى</option>
-                    <option value="sales">الأكثر مبيعاً</option>
-                    <option value="sales">الأحدث - للأقدم</option>
-                </select>
-
-
-
-                <div class="single-widget range">
-                    <h3> قيمة السلع </h3>
-                    <input type="range" class="form-range" name="range" step="1" min="100" max="10000" value="10"
-                        onchange="rangePrimary.value=value">
-                    <div class="range-inner">
-                        <label style="margin-bottom: -45px; margin-right: -10px; display:flex ; ">$</label>
-                        <input type="text" id="rangePrimary" placeholder="100" />
-                    </div>
-                </div>
-            </sidebar>
 
 
 
@@ -206,7 +165,7 @@
 
                         <div class="col-md-6 col-lg-4 mb-4">
                             <div class="product-card" data-id="1">
-                                <a href="{{ route('customer.product.show', $item->id) }}">
+                                <a href="{{ route('customer.product.show', $item->product_id) }}">
                                     <img alt="منتج"
                                         src="{{asset('storage/' . $item->product->images()->where('is_main', true)->first()->image_path)}}"
                                         onclick="window.location.href='/product_details.html'" />

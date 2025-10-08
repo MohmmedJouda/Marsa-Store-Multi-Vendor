@@ -225,12 +225,12 @@
                                     </span>
                                 @endfor
                             </div>
+                            <div class="seller">عدد المبيعات: <span>{{ $product->total_sales }} </span>
+                            </div>
                             <div class="seller">المتجر: <span><a
                                         href="{{ route('customer.stores.show', $product->store->id) }}">{{ $product->store->name }}
                                     </a></span> </div>
-                            <div class="seller">البائع: <span><a
-                                        href="merchant_details.html">{{ $product->store->user->name }} </a></span>
-                            </div>
+
                             <div class="actions">
                                 <button class="btn-cart"> <a style="color:white"
                                         href="{{ route('customer.product.show', $product->id) }}">

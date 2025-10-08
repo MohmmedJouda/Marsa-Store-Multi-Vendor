@@ -73,6 +73,10 @@ public function orderItems()
     return $this->hasMany(OrderItem::class); // كل OrderItem مرتبط بمنتج واحد عبر product_id
 }
 
-
+// لحساب مجموع الكمية المباعة
+public function getTotalSalesAttribute()
+{
+    return $this->orderItems()->sum('quantity');
+}
 
 }

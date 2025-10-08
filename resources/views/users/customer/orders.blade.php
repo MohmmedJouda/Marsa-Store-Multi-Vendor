@@ -244,13 +244,13 @@
 
                                                     <td class="text-end " data-order="Published">
                                                         <span class="badge 
-                                                                                    @if($order->status == 'pending') bg-warning   
-                                                                                    @elseif($order->status == 'shipping') bg-info 
-                                                                                    @elseif($order->status == 'shipped') bg-primary 
-                                                                                    @elseif($order->status == 'delivered') bg-success 
-                                                                                    @elseif($order->status == 'cancelled') bg-danger 
-                                                                                    @elseif($order->status == 'refunded') bg-secondary 
-                                                                                    @endif">
+                                                                                                                        @if($order->status == 'pending') bg-warning   
+                                                                                                                        @elseif($order->status == 'shipping') bg-info 
+                                                                                                                        @elseif($order->status == 'shipped') bg-primary 
+                                                                                                                        @elseif($order->status == 'delivered') bg-success 
+                                                                                                                        @elseif($order->status == 'cancelled') bg-danger 
+                                                                                                                        @elseif($order->status == 'refunded') bg-secondary 
+                                                                                                                        @endif">
 
 
                                                             @if($order->status == 'pending' && (!$order->payment || is_null($order->payment->payment_method)))
@@ -301,7 +301,7 @@
                                                     <!--begin::Rating-->
                                                     <td class="text-end pe-0" data-order="rating-5">
                                                         <p class="text-muted mb-0">
-                                                            تم إنشاء الطلب منذ {{ $order->created_at->diffForHumans() }}
+                                                            تم إنشاء الطلب {{ $order->created_at->diffForHumans() }}
                                                         </p>
                                                     </td>
                                                     <!--end::Rating-->

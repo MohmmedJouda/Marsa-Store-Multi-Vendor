@@ -27,6 +27,14 @@ class CustomerController extends Controller
         ->take(7)                                     // أعلى 7 منتجات
         ->get();
 
+foreach ($latest as $latests) {
+    $latests->total_sales = $latests->orderItems()->sum('quantity');
+}
+
+foreach ($mostOrdereds as $mostOrdered) {
+    $mostOrdered->total_sales = $mostOrdered->orderItems()->sum('quantity');
+}
+
         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
 
@@ -35,7 +43,9 @@ class CustomerController extends Controller
 
         foreach ($carts as $cart) {
             foreach ($cart->items as $item) {
-                $totalPrice += $item->qty * $item->product->price;
+                if ($item->product) { // ✅ تحقق أن المنتج موجود
+            $totalPrice += $item->qty * $item->product->price;
+        }
             }
         }
 
@@ -100,6 +110,10 @@ class CustomerController extends Controller
             }
         }
 
+        foreach ($products as $product) {
+        $product->total_sales = $product->orderItems()->sum('quantity');
+}
+
         if (Auth::check()) {
             $username = Auth::user()->name;
         } else {
@@ -124,6 +138,9 @@ class CustomerController extends Controller
                        ->take(12) // عدد المنتجات اللي بدك تعرضه
                        ->get();
 
+foreach ($products as $product) {
+    $product->total_sales = $product->orderItems()->sum('quantity');
+}
         $carts = Cart::with(['items.product.mainImage'])->where('user_id', Auth::id())
         ->where('status', 'open')->get();
 
@@ -162,6 +179,11 @@ class CustomerController extends Controller
                 $totalPrice += $item->qty * $item->product->price;
             }
         }
+
+
+        foreach ($relevantProducts as $relevantProduct) {
+        $relevantProduct->total_sales = $relevantProduct->orderItems()->sum('quantity');
+}
 
         if (Auth::check()) {
             $username = Auth::user()->name;
@@ -210,6 +232,10 @@ class CustomerController extends Controller
         $totalPrice = 0;
         $categories = Category::with('subcategories')->get();
         // $averageRate = $products->ratings->avg('rate'); // قيمة بين 1 و 5
+
+        foreach ($products as $product) {
+            $product->total_sales = $product->orderItems()->sum('quantity');
+        }
 
         foreach ($carts as $cart) {
             foreach ($cart->items as $item) {
