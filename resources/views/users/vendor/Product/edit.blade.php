@@ -7,7 +7,7 @@
 @section('content')
     <div class="card card-flush">
         <div class="container" style="margin-top: 40px;">
-            <h2>Edit Product: {{ $product->name }}</h2>
+            <h2>تعديل المنتج: {{ $product->name }}</h2>
             <form id="edit_product" enctype="multipart/form-data" class="form">
                 @csrf
                 @method('PUT')

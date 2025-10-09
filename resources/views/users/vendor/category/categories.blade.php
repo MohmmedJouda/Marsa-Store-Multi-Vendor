@@ -13,8 +13,13 @@
             <div class="card card-flush">
                 <!--begin::Card header-->
                 <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                    <div class="card-toolbar">
+                        <!--begin::Add customer-->
+                        <a href="{{ route('vendor.products.index') }}" class="btn btn-primary">جميع المنتجات</a>
+                        <!--end::Add customer-->
+                    </div>
                     <!--begin::Card title-->
-                    <div class="card-title">
+                    {{-- <div class="card-title">
                         <!--begin::Search-->
                         <div class="d-flex align-items-center position-relative my-1">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
@@ -33,14 +38,10 @@
                                 class="form-control form-control-solid w-250px ps-14" placeholder="البحث عن الأقسام" />
                         </div>
                         <!--end::Search-->
-                    </div>
+                    </div> --}}
                     <!--end::Card title-->
                     <!--begin::Card toolbar-->
-                    <div class="card-toolbar">
-                        <!--begin::Add customer-->
-                        <a href="{{ route('vendor.products.index') }}" class="btn btn-primary">جميع المنتجات</a>
-                        <!--end::Add customer-->
-                    </div>
+
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
@@ -52,16 +53,16 @@
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                <th class="w-10px pe-2">
+                                {{-- <th class="w-10px pe-2">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                         <input class="form-check-input" type="checkbox" data-kt-check="true"
                                             data-kt-check-target="#kt_ecommerce_category_table .form-check-input"
                                             value="1" />
                                     </div>
-                                </th>
+                                </th> --}}
                                 <th class="min-w-250px">الأقسام الفرعية</th>
                                 <th class="min-w-150px">نوع القسم</th>
-                                <th class="text-end min-w-70px">الأحداث</th>
+                                <th class="text-end min-w-70px">عرض المنتجات</th>
                             </tr>
                             <!--end::Table row-->
                         </thead>
@@ -72,11 +73,11 @@
                                 <!--begin::Table row-->
                                 <tr>
                                     <!--begin::Checkbox-->
-                                    <td>
+                                    {{-- <td>
                                         <div class="form-check form-check-sm form-check-custom form-check-solid">
                                             <input class="form-check-input" type="checkbox" value="1" />
                                         </div>
-                                    </td>
+                                    </td> --}}
                                     <!--end::Checkbox-->
                                     <!--begin::Category=-->
                                     <td>

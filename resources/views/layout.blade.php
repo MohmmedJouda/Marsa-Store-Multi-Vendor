@@ -42,7 +42,7 @@ License: For each use you must have a valid license purchased only from above li
     </style>
 
     <base href="../">
-    <title>Metronic</title>
+    <title>مرساة</title>
     <meta charset="utf-8" />
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
@@ -53,10 +53,10 @@ License: For each use you must have a valid license purchased only from above li
     <meta property="og:type" content="article" />
     <meta property="og:title" content="مرساة" />
     <meta property="og:url" content="https://keenthemes.com/metronic" />
-    <meta property="og:site_name" content="Keenthemes | Metronic" />
+    <meta property="og:site_name" content="مرساة" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <link href="{{ asset('assets2/images/logo/logo.svg') }}" rel="icon" type="image/png" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -164,7 +164,7 @@ License: For each use you must have a valid license purchased only from above li
                                     </a>
                                     <div class="menu-item">
                                         <div class="menu-content pt-8 pb-2">
-                                            <span class="menu-section text-muted text-uppercase fs-8 ls-1">Apps</span>
+                                            <span class="menu-section text-muted text-uppercase fs-8 ls-1"></span>
                                         </div>
                                     </div>
 
@@ -341,20 +341,30 @@ License: For each use you must have a valid license purchased only from above li
                                             </span>
                                             <div class="menu-sub menu-sub-accordion">
                                                 <div class="menu-item">
-                                                    <a class="menu-link"
-                                                        href="{{ route('moderator.users.byRole', 'vendor') }}">
-                                                        <span class="menu-bullet"><span
-                                                                class="bullet bullet-dot"></span></span>
-                                                        <span class="menu-title">التجار</span>
-                                                    </a>
+                                                    @if(Auth::user()->role === 'moderator')
+                                                        <a class="menu-link"
+                                                            href="{{ route('moderator.users.byRole', 'vendor') }}">
+                                                    @elseif(Auth::user()->role === 'super_admin')
+                                                            <a class="menu-link"
+                                                                href="{{ route('admin.users.byRole', 'vendor') }}">
+                                                        @endif
+                                                            <span class="menu-bullet"><span
+                                                                    class="bullet bullet-dot"></span></span>
+                                                            <span class="menu-title">التجار</span>
+                                                        </a>
                                                 </div>
                                                 <div class="menu-item">
-                                                    <a class="menu-link"
-                                                        href="{{ route('moderator.users.byRole', 'customer') }}">
-                                                        <span class="menu-bullet"><span
-                                                                class="bullet bullet-dot"></span></span>
-                                                        <span class="menu-title">الزبائن</span>
-                                                    </a>
+                                                    @if(Auth::user()->role === 'moderator')
+                                                        <a class="menu-link"
+                                                            href="{{ route('moderator.users.byRole', 'customer') }}">
+                                                    @elseif(Auth::user()->role === 'super_admin')
+                                                            <a class="menu-link"
+                                                                href="{{ route('admin.users.byRole', 'customer') }}">
+                                                        @endif
+                                                            <span class="menu-bullet"><span
+                                                                    class="bullet bullet-dot"></span></span>
+                                                            <span class="menu-title">الزبائن</span>
+                                                        </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -423,7 +433,51 @@ License: For each use you must have a valid license purchased only from above li
                                                 <span class="menu-title">الطلبات</span>
                                             </a>
                                         </div>
+                                    @endif
 
+
+                                    @if (Auth::user()->role == 'moderator')
+                                        <div class="menu-item">
+                                            <a href="{{ route('moderator.feedbacks') }}" class="menu-link">
+                                                <span class="menu-icon">
+                                                    <span class="svg-icon svg-icon-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
+                                                            <path opacity="0.3"
+                                                                d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z"
+                                                                fill="currentColor" />
+                                                            <rect x="6" y="12" width="7" height="2" rx="1"
+                                                                fill="currentColor" />
+                                                            <rect x="6" y="7" width="12" height="2" rx="1"
+                                                                fill="currentColor" />
+                                                        </svg>
+                                                    </span>
+                                                </span>
+                                                <span class="menu-title">رسائل الزبائن</span>
+                                            </a>
+                                        </div>
+                                    @endif
+
+                                    @if (Auth::user()->role == 'super_admin')
+                                        <div class="menu-item">
+                                            <a href="{{ route('admin.feedbacks') }}" class="menu-link">
+                                                <span class="menu-icon">
+                                                    <span class="svg-icon svg-icon-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none">
+                                                            <path opacity="0.3"
+                                                                d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z"
+                                                                fill="currentColor" />
+                                                            <rect x="6" y="12" width="7" height="2" rx="1"
+                                                                fill="currentColor" />
+                                                            <rect x="6" y="7" width="12" height="2" rx="1"
+                                                                fill="currentColor" />
+                                                        </svg>
+                                                    </span>
+                                                </span>
+                                                <span class="menu-title">رسائل الزبائن</span>
+                                            </a>
+                                        </div>
                                     @endif
                                     <div class="menu-item">
                                         <div class="menu-content">
@@ -2460,9 +2514,18 @@ License: For each use you must have a valid license purchased only from above li
                                 <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="." class="text-muted text-hover-primary">
-                                            @yield('subTitle', 'الرئيسية')
-                                        </a>
+                                        @if (Auth::user()->role === 'super_admin')
+                                            <a href="{{ route(name: 'admin.dashboard') }}"
+                                                class="text-muted text-hover-primary">
+                                        @elseif (Auth::user()->role === 'moderator')
+                                                <a href="{{ route(name: 'moderator.dashboard') }}"
+                                                    class="text-muted text-hover-primary">
+                                            @elseif (Auth::user()->role === 'vendor')
+                                                    <a href="{{ route(name: 'vendor.categories.index') }}"
+                                                        class="text-muted text-hover-primary">
+                                                @endif
+                                                    @yield('subTitle', 'الرئيسية')
+                                                </a>
                                     </li>
                                     <!--end::Item-->
                                     <!--begin::Item-->

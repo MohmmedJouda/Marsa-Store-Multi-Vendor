@@ -1,4 +1,9 @@
 @extends('layout')
+@if (Auth::user()->role === 'moderator')
+@section('routeButton', route('moderator.dashboard'))
+@elseif (Auth::user()->role === 'super_admin')
+@section('routeButton', route('admin.dashboard'))
+@endif
 @section('pageTitle', 'التجار المحذوفين')
 @section('subTitle', 'التجار')
 @section('currentTitle', 'سلة الحذوفات')
@@ -157,7 +162,7 @@
                                                         <span class="me-2">
                                                             <i class="fas fa-eye"></i>
                                                         </span>
-                                                        Restore
+                                                        الغاء الحذف
                                                     </a>
                                                 </div>
                                                 <div class="menu-item px-3">
@@ -166,7 +171,7 @@
                                                         <span class="me-2">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
-                                                        Delete
+                                                        حذف نهائي
                                                     </a>
                                                     {{-- <form method="POST" class="delete_vendor_form">
                                                         @csrf

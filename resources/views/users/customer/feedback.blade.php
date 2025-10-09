@@ -207,7 +207,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group button">
-                                                <button type="submit" class="btn">ارسال الطلب</button>
+                                                <button type="submit" class="btn">ارسال </button>
                                             </div>
                                         </div>
                                     </div>

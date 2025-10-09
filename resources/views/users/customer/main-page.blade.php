@@ -106,18 +106,44 @@
                 title="قائمة المستخدم">
                 <i class="fa-solid fa-user"></i>
             </div>
-        @endauth
 
         <div class="right">
-            <i class="fa-solid fa-heart" id="fav-icon">
-                <span class="badge" id="fav-count"></span>
-            </i>
+    <!-- أيقونة المفضلة -->
+    <i class="fa-solid fa-heart" id="fav-icon">
+        <span class="badge" id="fav-count"></span>
+    </i>
 
-            <i class="fa-solid fa-cart-shopping" id="cart-icon">
-                <span class="badge" id="cart-count"></span>
-            </i>
+    <!-- أيقونة السلة -->
+    <i class="fa-solid fa-cart-shopping" id="cart-icon">
+        <span class="badge" id="cart-count"></span>
+    </i>
 
-        </div>
+    <!-- أيقونة الإشعارات -->
+    
+        <i class="fa-solid fa-bell dropdown-toggle" id="notifDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="badge ">{{ Auth::user()->unreadNotifications->count() }}</span>
+        </i>
+        <ul class="dropdown-menu dropdown-menu-end" style="color:white" >
+            @forelse (Auth::user()->unreadNotifications as $notification)
+                <li> 
+                    {{-- <a class="dropdown-item" href="{{ url('/customer/feedback_response/' . $notification->data['feedback_id']) }}"> --}}
+                    <a class="container" >
+                        <strong>فريق الدعم</strong> - {{ $notification->data['message'] }}
+                    </a>
+                    @if(isset($notification->data['reply']))
+                        <p style="text-align: right; margin-right: 25px;"><strong>رد الإدارة:</strong> {{ $notification->data['reply'] }}</p>
+                    @endif
+                    <p style="text-align: right; margin-right: 25px;">{{ $notification->created_at }}</p>
+                    <hr>
+                </li>
+            @empty
+                <li style="color:white"><span class="dropdown-item" style="color:white">لا توجد إشعارات جديدة</span></li>
+            @endforelse
+        </ul>
+    
+</div>
+        @endauth
+
     </div>
     <div class="hero-banner">
         <div class="fade-in-up">

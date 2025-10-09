@@ -25,7 +25,7 @@ class ProductController extends Controller
     public function index()
     {
         $storeId = Auth::user()->store->id;
-        $products = Product::where('store_id', $storeId)->latest()->get();
+        $products = Product::with('ratings')->where('store_id', $storeId)->latest()->get();
         return view('users.vendor.Product.products', compact('products'));
     }
 

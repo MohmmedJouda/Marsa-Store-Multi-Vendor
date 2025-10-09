@@ -16,7 +16,7 @@
                                 <label class="relative cursor-pointer group">
                                     <img src="{{ auth()->user()->profile_photo_path
                     ? asset('storage/' . auth()->user()->profile_photo_path)
-                    : asset('img/default-avatar.png') }}"
+                    : asset('images/default-avatar.png') }}"
                                         class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
 
                                     <input type="file" name="photo" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -31,13 +31,13 @@
                                 <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">تحديث
                                     الصورة</button>
 
-                                                                   @error('photo')
-                                        <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
-                                    @enderror
+                                @error('photo')
+                                    <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
+                                @enderror
 
-                                    @if (session()->has('success'))
-                                        <span class="text-green-600 text-sm mt-2">{{ session('success') }}</span>
-                                    @endif
+                                @if (session()->has('success'))
+                                    <span class="text-green-600 text-sm mt-2">{{ session('success') }}</span>
+                                @endif
                             </form>
                 @else
                             {{-- 🌟 نموذج البائع --}}
@@ -50,7 +50,7 @@
                                     <label class="relative cursor-pointer group">
                                         <img src="{{ auth()->user()->profile_photo_path
                     ? asset('storage/' . auth()->user()->profile_photo_path)
-                    : asset('img/default-avatar.png') }}"
+                    : asset('images/default-avatar.png') }}"
                                             class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
 
                                         <input type="file" name="photo"
@@ -64,8 +64,15 @@
 
                                     <button type="submit"
                                         class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">تحديث الصورة
-                                        الشخصية</button>
+                                        الشخصية
+                                    </button>
+                                    @error('photo')
+                                        <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
+                                    @enderror
 
+                                    @if (session()->has('user_photo_success'))
+                                        <span class="text-green-600 text-sm mt-2">{{ session('user_photo_success') }}</span>
+                                    @endif
                                 </form>
 
                                 {{-- 🏪 صورة المتجر --}}
@@ -91,7 +98,13 @@
                                         class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">تحديث صورة
                                         المتجر</button>
 
+                                    @error('photo')
+                                        <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
+                                    @enderror
 
+                                    @if (session()->has('store_photo_success'))
+                                        <span class="text-green-600 text-sm mt-2">{{ session('store_photo_success') }}</span>
+                                    @endif
                                 </form>
                             </div>
                 @endif
@@ -125,8 +138,9 @@
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-700 mb-1">العبارة الدعائية
                                         للمتجر</label>
-                                    <input type="text" name="slogan" class=" block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500
-                                                                                focus:ring-indigo-500 sm:text-sm p-2"
+                                    <input type="text" name="slogan"
+                                        class=" block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500
+                                                                                                                                focus:ring-indigo-500 sm:text-sm p-2"
                                         style="color: black" placeholder="مثلاً: الجودة أولاً"
                                         value="{{$user->store->slogan}}">
                                 </div>

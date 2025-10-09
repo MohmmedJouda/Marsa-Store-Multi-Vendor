@@ -56,7 +56,7 @@ class vendorController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'تم تحديث الصور بنجاح!');
+        return redirect()->back()->with('store_photo_success', 'تم تحديث صورة المتجر بنجاح!');
     }
 
     public function updateSlogan(Request $request){
@@ -74,7 +74,7 @@ class vendorController extends Controller
         'slogan' => $request->slogan
     ]);
 
-    return redirect()->back()->with('success', 'تم تحديث الشعار بنجاح!');
+    return redirect()->back()->with('success', 'تم تحديث العبارة الدعائية بنجاح!');
 }
 
 

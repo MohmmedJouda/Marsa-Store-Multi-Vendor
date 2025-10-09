@@ -1,4 +1,9 @@
 @extends('layout')
+@if (Auth::user()->role === 'moderator')
+@section('routeButton', route('moderator.dashboard'))
+@elseif (Auth::user()->role === 'super_admin')
+@section('routeButton', route('admin.dashboard'))
+@endif
 @section('pageTitle')
     {{ $role === 'vendor' ? 'قائمة التجار' : 'قائمة الزبائن' }}
 @endsection

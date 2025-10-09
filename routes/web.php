@@ -200,9 +200,14 @@ Route::middleware([
     Route::get('/vendors/search', [ModeratorController::class, 'ajaxSearch'])->name('vendors.ajaxSearch');
     Route::patch('/vendor-documents/{document}/status', [VendorAuthController::class, 'updateStatus'])->name('vendor-documents.updateStatus');
     Route::get('/orders', action: [ModeratorController::class, 'orders_in_admin'])->name('orders');
-
+    Route::get('/feedbacks', action: [ModeratorController::class, 'feedbacks_in_admin'])->name('feedbacks');
+    Route::delete('/feedbacks/{id}', action: [ModeratorController::class, 'feedback_destroy'])->name('feedbacks.destroy');
+    Route::get('/feedback/{id}', [ModeratorController::class, 'feedback_show'])->name('feedback.show');
+    Route::post('/feedback/{id}/reply', [ModeratorController::class, 'reply'])->name('feedback.reply');
 
 });
+
+
 
 //  admin
 Route::middleware([
@@ -215,7 +220,16 @@ Route::middleware([
         return view('users.admin.dashboard');
     })->name('dashboard');
         Route::get('/orders', action: [ModeratorController::class, 'orders_in_admin'])->name('orders');
+        Route::get('/feedbacks', action: [ModeratorController::class, 'feedbacks_in_admin'])->name('feedbacks');
+    Route::delete('/feedbacks/{id}', action: [ModeratorController::class, 'feedback_destroy'])->name('feedbacks.destroy');
+    Route::get('/feedback/{id}', [ModeratorController::class, 'feedback_show'])->name('feedback.show');
+    Route::post('/feedback/{id}/reply', [ModeratorController::class, 'reply'])->name('feedback.reply');
 
+
+        
+        Route::get('/{role}', [ModeratorController::class, 'indexByRole'])
+        ->where('role', 'vendor|customer') // تأكد أن القيمة صحيحة فقط
+        ->name('users.byRole');
 });
 //
         Route::post('/user/update-photo', [UserController::class, 'updateProfilePhoto'])->name('user.update-photo');

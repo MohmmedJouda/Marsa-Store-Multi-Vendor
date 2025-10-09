@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\order;
+use App\Models\FeedBack;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\FeedbackReplyNotification;
 
 class ModeratorController extends Controller
 {
@@ -276,6 +278,46 @@ class ModeratorController extends Controller
     return view('users.admin.orders', compact('orders'));    
 
     }
+
+    public function feedbacks_in_admin(){
+        $feedbacks = FeedBack::with('order.user','order.payment')->get();
+    return view('users.admin.feedbacks', compact('feedbacks'));    
+    }
+
+    public function feedback_show($id){
+        $feedback = FeedBack::find($id);
+        return view('users.admin.feedback',compact('feedback'));
+    }
+
+    public function reply(Request $request, $id)
+{
+    $request->validate([
+        'reply' => 'required|string|max:1000',
+    ]);
+
+    $feedback = Feedback::findOrFail($id);
+    $feedback->admin_response = $request->reply;
+    $feedback->save();
+
+    if ($feedback->order && $feedback->order->user) {
+        $feedback->order->user->notify(new FeedbackReplyNotification($feedback));
+    }
+    return redirect()->back()->with('success', 'تم إرسال الرد بنجاح ✅');
+}
+
+     public function feedback_destroy($id)
+    {
+        $feedback = FeedBack::findOrFail($id);
+
+        if (!$feedback) {
+            return redirect()->back()->with('error', 'الرسالة غير موجودة.');
+        }
+
+        $feedback->delete();
+
+        return redirect()->back()->with('success', 'تم حذف الرسالة بنجاح.');
+    }
+
 
 
 }

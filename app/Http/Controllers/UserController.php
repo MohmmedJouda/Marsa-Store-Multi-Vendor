@@ -28,6 +28,6 @@ class UserController extends Controller
             'profile_photo_path' => $path,
         ]);
 
-        return redirect()->back()->with('success', 'تم تحديث الصورة بنجاح!');
+        return redirect()->back()->with('user_photo_success', 'تم تحديث الصورة الشخصية بنجاح!');
     }
 }

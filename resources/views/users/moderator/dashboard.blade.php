@@ -1,4 +1,6 @@
 @extends('layout')
+@section('routeButton', route('moderator.dashboard'))
+
 @section('content')
   <!--begin::Content-->
   <h1 style="margin-right: 50px">مدير</h1>
