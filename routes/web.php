@@ -204,6 +204,10 @@ Route::middleware([
     Route::delete('/feedbacks/{id}', action: [ModeratorController::class, 'feedback_destroy'])->name('feedbacks.destroy');
     Route::get('/feedback/{id}', [ModeratorController::class, 'feedback_show'])->name('feedback.show');
     Route::post('/feedback/{id}/reply', [ModeratorController::class, 'reply'])->name('feedback.reply');
+    Route::get('/orders/bank-transfers', [StripeController::class, 'bankTransferOrders'])
+    ->name('orders.bankTransfers');
+    Route::post('/bank-transfers/{bankTransfer}/decision', [PaymentMethodController::class, 'decision'])
+    ->name('bankTransfer.decision');
 
 });
 
@@ -224,13 +228,32 @@ Route::middleware([
     Route::delete('/feedbacks/{id}', action: [ModeratorController::class, 'feedback_destroy'])->name('feedbacks.destroy');
     Route::get('/feedback/{id}', [ModeratorController::class, 'feedback_show'])->name('feedback.show');
     Route::post('/feedback/{id}/reply', [ModeratorController::class, 'reply'])->name('feedback.reply');
+    Route::get('/orders/bank-transfers', [StripeController::class, 'bankTransferOrders'])
+    ->name('orders.bankTransfers');
+    Route::post('/bank-transfers/{bankTransfer}/decision', [PaymentMethodController::class, 'decision'])
+    ->name('bankTransfer.decision');
+    Route::get('/users/moderators', [UserController::class, 'moderators_show'])
+    ->name('moderators.show');    
+    Route::delete('/moderator/{id}', [UserController::class, 'deleteModerator'])->name('moderator.delete');
+    Route::post('/moderator/add', [UserController::class, 'addModerator'])->name('moderator.add');
 
 
-        
+        Route::post('/vendor', [ModeratorController::class, 'store'])->name('vendorStore');
+    Route::get('/create', [ModeratorController::class, 'create'])->name('createVendor');
+    Route::get('/vendor/{vendor}/edit', [ModeratorController::class, 'edit'])->name('vendors.edit');
+    Route::get('/vendor/trashed', [ModeratorController::class, 'trashed'])->name('vendor.trashed');
+    Route::get('/vendor/{id}', [ModeratorController::class, 'show'])->name('vendors.show');
+    Route::put('/vendor/{vendor}', [ModeratorController::class, 'update'])->name('vendors.update');
+    Route::delete('/vendor/{id}', [ModeratorController::class, 'destroy'])->name('delete');
+    Route::get('/vendor/restore/{id}', [ModeratorController::class, 'restore'])->name('vendor.restore');
+    Route::delete('/vendor/trashed/{id}', [ModeratorController::class, 'forceDelete'])->name('forceDelete');
         Route::get('/{role}', [ModeratorController::class, 'indexByRole'])
         ->where('role', 'vendor|customer') // تأكد أن القيمة صحيحة فقط
         ->name('users.byRole');
+    Route::patch('/vendor-documents/{document}/status', [VendorAuthController::class, 'updateStatus'])->name('vendor-documents.updateStatus');
+
 });
+
 //
         Route::post('/user/update-photo', [UserController::class, 'updateProfilePhoto'])->name('user.update-photo');
 

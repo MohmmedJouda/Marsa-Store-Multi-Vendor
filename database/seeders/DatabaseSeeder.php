@@ -16,16 +16,16 @@ class DatabaseSeeder extends Seeder
             CategoriesSeeder::class,
         ]);
 
-        $vendors = \App\Models\User::factory()->count(5)->create([
-            'role' => 'vendor', 
-        ]);
+        // $vendors = \App\Models\User::factory()->count(5)->create([
+        //     'role' => 'vendor', 
+        // ]);
 
-        foreach ($vendors as $vendor) {
-            \App\Models\Store::factory()->create([
-                'user_id' => $vendor->id,  // ربط المتجر بالمستخدم
-            ]);
-        }
+        // foreach ($vendors as $vendor) {
+        //     \App\Models\Store::factory()->create([
+        //         'user_id' => $vendor->id,  // ربط المتجر بالمستخدم
+        //     ]);
+        // }
 
-        $this->call(ProductSeeder::class);
+        // $this->call(ProductSeeder::class);
     }
 }

@@ -65,7 +65,7 @@
                                 </div>
                                 <!--end::Filter-->
                                 <!--begin::Export-->
-                                <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
+                                {{-- <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
                                     data-bs-target="#kt_vendors_export_modal">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                     <span class="svg-icon svg-icon-2">
@@ -81,27 +81,8 @@
                                                 fill="#C4C4C4" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->تصدير</button>
-                                <!--begin::Menu toggle-->
-                                <a href="{{ route('moderator.vendor.trashed') }}"
-                                    class="btn btn-sm btn-flex btn-light btn-active-danger fw-bolder"
-                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
-                                    <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                            fill="none">
-                                            <path
-                                                d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                                fill="currentColor"></path>
-                                            <path opacity="0.5"
-                                                d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                                fill="currentColor"></path>
-                                            <path opacity="0.5"
-                                                d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                                fill="currentColor"></path>
-                                        </svg>
-                                    </span>
-                                    <!--end::Svg Icon-->{{ $usersDeleted }}</a>
+                                    <!--end::Svg Icon-->تصدير</button> --}}
+
                                 <!--end::Export-->
                                 <!--begin::Add vendor-->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -144,7 +125,7 @@
                                     <th class="min-w-125px">الحالة</th>
                                     <th class="min-w-125px">اسم المتجر</th>
                                     <th class="min-w-125px">وقت الانشاء</th>
-                                    <th class="text-end min-w-70px">التفاعلات</th>
+                                    <th class="text-end min-w-70px">اجراء</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -669,22 +650,38 @@
         //     destroy('/moderator/vendor/' + id, userId);
         // }
 
+        const userRole = "{{ Auth::user()->role }}";
+
         function confirmDestroy(id, reference) {
-            const result = Swal.fire({
-                title: 'Are you sure?',
-                text: "You will not be able to recover this data!",
+            Swal.fire({
+                title: 'هل أنت متأكد؟',
+                text: "لن تستطيع استرجاع هذه البيانات بعد الحذف!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete!',
-                cancelButtonText: 'Close',
+                confirmButtonText: 'نعم، احذف!',
+                cancelButtonText: 'إغلاق',
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    destroy('/moderator/vendor/' + id, reference);
+                    // تحديد الرابط بناءً على الدور
+                    let url = '';
+
+                    if (userRole === 'super_admin') {
+                        url = '/admin/vendor/' + id;
+                    } else if (userRole === 'moderator') {
+                        url = '/moderator/vendor/' + id;
+                    } else {
+                        Swal.fire('خطأ', 'غير مصرح لك بتنفيذ هذه العملية', 'error');
+                        return;
+                    }
+
+                    // تنفيذ الحذف
+                    destroy(url, reference);
                 }
             });
         }
     </script>
+
 @endsection

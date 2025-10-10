@@ -47,9 +47,9 @@
                         <strong>رد المدير</strong>
                     </div>
                     <div class="card-body">
-                        @if ($feedback->response)
+                        @if ($feedback->admin_response)
                             <div class="alert alert-success">
-                                <strong>تم الرد:</strong> {{ $feedback->response }}
+                                <strong>تم الرد:</strong> {{ $feedback->admin_response }}
                             </div>
                         @else
                             @if (Auth::user()->role === 'super_admin')

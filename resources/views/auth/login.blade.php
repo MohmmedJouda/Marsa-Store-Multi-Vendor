@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>نموذج التسجيل والدخول</title>
+    <link href="{{ asset('assets2/images/logo/logo.svg') }}" rel="icon" type="image/png" />
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -59,7 +60,7 @@
                 الدخول</label>
             <input id="tab-3" type="radio" name="tab" class="sign-third">
             <label for="tab-3" class="tab">مشترٍ جديد</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up">
+            <input id="tab-2" name="tab" class="sign-up">
 
             <label for="tab-2" class="tab">
                 <a href="{{ route('vendor.register') }}">
@@ -169,13 +170,31 @@
                         </div>
                     </form>
 
-                    <button class="google-btn ">
+                    <button class="google-btn">
                         <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo">
                         <a href="{{ url('/auth/google') }}"> التسجيل عبر Google </a>
                     </button>
 
                 </div>
+                <style>
+                    .google-btn {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 15px auto;
+                        /* يجعل الزر في المنتصف */
+                        padding: 10px 0px;
+                        border: none;
+                        border-radius: 5px;
+                        background-color: #fff;
+                        cursor: pointer;
+                    }
 
+                    .google-btn img {
+                        width: 20px;
+                        margin-right: 8px;
+                    }
+                </style>
 
 
 

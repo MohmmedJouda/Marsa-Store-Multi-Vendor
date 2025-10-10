@@ -12,15 +12,28 @@
 
             <!--begin::Vendor Name-->
             <td>
-                <a href="{{ route('moderator.vendors.show', $user->id) }}"
-                    class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
+                @if(Auth::user()->role === 'moderator')
+                    <a href="{{ route('moderator.vendors.show', $user->id) }}"
+                        class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
+                @elseif (Auth::user()->role === 'super_admin')
+                    <a href="{{ route('admin.vendors.show', $user->id) }}"
+                        class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
+                @endif
             </td>
             <!--end::Vendor Name-->
 
             <!--begin::Email-->
             <td>
-                <a href="{{ route('moderator.vendors.show', $user->id) }}"
-                    class="text-gray-600 text-hover-primary mb-1">{{ $user->email }}</a>
+                @if(Auth::user()->role === 'moderator')
+
+                    <a href="{{ route('moderator.vendors.show', $user->id) }}"
+                        class="text-gray-600 text-hover-primary mb-1">{{ $user->email }}</a>
+                @elseif (Auth::user()->role === 'super_admin')
+
+                    <a href="{{ route('admin.vendors.show', $user->id) }}"
+                        class="text-gray-600 text-hover-primary mb-1">{{ $user->email }}</a>
+                @endif
+
             </td>
             <!--end::Email-->
 
@@ -55,7 +68,7 @@
             <td class="text-end">
                 <button type="button" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click"
                     data-kt-menu-placement="bottom-end">
-                    Actions
+                    اجراءات
                     <span class="svg-icon svg-icon-5 m-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
@@ -66,34 +79,39 @@
                 </button>
 
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600
-                                                                    menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                                                                                                                    menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                     data-kt-menu="true">
 
                     <div class="menu-item px-3">
-                        <a href="{{ route('moderator.vendors.show', $user->id) }}" class="menu-link px-3">
-                            <span class="me-2">
-                                <i class="fas fa-eye"></i>
-                            </span>
-                            View
-                        </a>
+                        @if(Auth::user()->role === 'moderator')
+
+                            <a href="{{ route('moderator.vendors.show', $user->id) }}" class="menu-link px-3">
+                        @elseif (Auth::user()->role === 'super_admin')
+                                <a href="{{ route('admin.vendors.show', $user->id) }}" class="menu-link px-3">
+                            @endif
+                                <span class="me-2">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                                معاينة
+                            </a>
                     </div>
 
-                    <div class="menu-item px-3">
+                    {{-- <div class="menu-item px-3">
                         <a href="#" class="menu-link px-3" data-id="{{ $user->id }}" data-bs-toggle="modal"
                             data-bs-target="#kt_modal_edit_vendor">
                             <span class="me-2">
                                 <i class="fas fa-edit"></i>
                             </span>
-                            Edit
+                            تعديل
                         </a>
-                    </div>
+                    </div> --}}
 
                     <div class="menu-item px-3">
                         <a onclick="confirmDestroy({{ $user->id }},this)" class="menu-link px-3">
                             <span class="me-2">
                                 <i class="fas fa-trash"></i>
                             </span>
-                            Delete
+                            حذف
                         </a>
 
                     </div>

@@ -228,12 +228,12 @@ class ModeratorController extends Controller
 
         if ($deleted) {
             return response()->json([
-                'title' => 'Deleted successfully',
+                'title' => 'تم الحذف بنجاح',
                 'icon' => 'success'
             ]);
         } else {
             return response()->json([
-                'title' => 'Deleted Failed',
+                'title' => 'فشل الحذق',
                 'icon' => 'danger'
             ]);
         }

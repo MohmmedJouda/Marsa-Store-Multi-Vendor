@@ -58,12 +58,7 @@
                                     <!--end::Select2-->
                                 </div>
                                 <!--end::Filter-->
-                                <!--begin::Home-->
-                                <a href="{{ route('moderator.dashboard') }}" class="btn btn-light-primary me-3">
 
-
-                                    <!--end::Svg Icon-->الصفحة الرئيسية</a>
-                                <!--end::Home-->
 
                             </div>
 
@@ -141,7 +136,7 @@
                                         <td class="text-end">
                                             <button type="button" class="btn btn-sm btn-light btn-active-light-primary"
                                                 data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                Actions
+                                                اجراءات
                                                 <span class="svg-icon svg-icon-5 m-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none">
@@ -157,8 +152,12 @@
                                                 data-kt-menu="true">
 
                                                 <div class="menu-item px-3">
-                                                    <a href="{{ route('moderator.vendor.restore', $user->id) }}"
-                                                        class="menu-link px-3">
+                                                    @if (Auth::user()->role === 'moderator')
+                                                    <a href="{{ route('moderator.vendor.restore', $user->id) }}"  class="menu-link px-3">
+                                                    @elseif (Auth::user()->role === 'super_admin')
+                                                    <a href="{{ route('admin.vendor.restore', $user->id) }}"  class="menu-link px-3">
+                                                    @endif
+                                                       
                                                         <span class="me-2">
                                                             <i class="fas fa-eye"></i>
                                                         </span>
@@ -205,54 +204,75 @@
 
 <script src="{{ asset('assets/js/axios.min.js') }}"></script>
 <script src="{{ asset('js/crud.js') }}"></script>
-<script>
+    <script>
+    // تمرير الدور من Laravel إلى JavaScript
+    const userRole = "{{ Auth::user()->role }}";
+
+    // دالة الحذف النهائي (Force Delete)
     function confirmForceDestroy(id, reference) {
-        const result = Swal.fire({
+        Swal.fire({
             title: 'هل أنت متأكد؟',
-            text: "لن تستطيع استرجاع هذه البيانات!",
+            text: "لن تستطيع استرجاع هذه البيانات بعد الحذف!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete!',
-            cancelButtonText: 'Close',
+            confirmButtonText: 'نعم، احذف!',
+            cancelButtonText: 'إغلاق',
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                axios
-                    .delete('/moderator/vendor/trashed/' + id, {
-                        headers: {
-                            "X-CSRF-TOKEN": document
-                                .querySelector('meta[name="csrf-token"]')
-                                .getAttribute("content"),
-                            "X-HTTP-Method-Override": "DELETE",
-                        },
-                    })
-                    .then(function(response) {
 
+                // تحديد الرابط حسب الدور
+                let url = '';
+
+                if (userRole === 'super_admin') {
+    url = '/admin/vendor/trashed/' + id;
+} else if (userRole === 'moderator') {
+    url = '/moderator/vendor/trashed/' + id;
+}
+
+
+                // تنفيذ الطلب عبر Axios
+                axios.delete(url, {
+                    headers: {
+                        "X-CSRF-TOKEN": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
+                        "X-HTTP-Method-Override": "DELETE",
+                    },
+                })
+                .then(function (response) {
+                    if (typeof KTMenu !== 'undefined') {
                         KTMenu.createInstances();
-                        showMessage(response.data);
-                        const row = reference.closest("tr");
-                        row.remove();
-                    })
-                    .catch(function(error) {
-                        if (error) {
-                            showMessage(error.response.data);
-                        } else {
-                            console.log("Error In Data Deleted");
-                        }
-                    });
-            }
+                    }
 
-            function showMessage(data) {
-                Swal.fire({
-                    icon: data.icon,
-                    title: data.title,
-                    showConfirmButton: false,
-                    timer: 1500,
+                    showMessage(response.data);
+
+                    // إزالة الصف من الجدول بعد الحذف
+                    const row = reference.closest("tr");
+                    if (row) row.remove();
+                })
+                .catch(function (error) {
+                    if (error.response) {
+                        showMessage(error.response.data);
+                    } else {
+                        Swal.fire('خطأ', 'حدث خلل أثناء تنفيذ العملية', 'error');
+                        console.log("خطأ في البيانات المحذوفة");
+                    }
                 });
             }
         });
-
     }
+
+    // دالة عرض الرسائل
+    function showMessage(data) {
+        Swal.fire({
+            icon: data.icon || 'success',
+            title: data.title || 'تمت العملية بنجاح',
+            showConfirmButton: false,
+            timer: 1500,
+        });
+    }
+
 </script>

@@ -96,9 +96,21 @@
 
         @guest
             <div class="centardiv" onclick="openModal()">
+
                 <i class="fa-solid fa-user"></i>
             </div>
+            
+                    <div class="right">
+    <!-- أيقونة المفضلة -->
+    <i class="fa-solid fa-heart" id="fav-icon">
+        <span class="badge" id="fav-count"></span>
+    </i>
+        <i class="fa-solid fa-cart-shopping" id="cart-icon">
+        <span class="badge" id="cart-count"></span>
+    </i>
+                    </div>
         @endguest
+
 
         @auth
             <!-- أيقونة المستخدم -->
@@ -120,26 +132,44 @@
 
     <!-- أيقونة الإشعارات -->
     
+
+
+<!-- أيقونة الجرس مع العد -->
         <i class="fa-solid fa-bell dropdown-toggle" id="notifDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="badge ">{{ Auth::user()->unreadNotifications->count() }}</span>
-        </i>
-        <ul class="dropdown-menu dropdown-menu-end" style="color:white" >
-            @forelse (Auth::user()->unreadNotifications as $notification)
-                <li> 
-                    {{-- <a class="dropdown-item" href="{{ url('/customer/feedback_response/' . $notification->data['feedback_id']) }}"> --}}
-                    <a class="container" >
-                        <strong>فريق الدعم</strong> - {{ $notification->data['message'] }}
-                    </a>
-                    @if(isset($notification->data['reply']))
-                        <p style="text-align: right; margin-right: 25px;"><strong>رد الإدارة:</strong> {{ $notification->data['reply'] }}</p>
-                    @endif
-                    <p style="text-align: right; margin-right: 25px;">{{ $notification->created_at }}</p>
-                    <hr>
-                </li>
-            @empty
-                <li style="color:white"><span class="dropdown-item" style="color:white">لا توجد إشعارات جديدة</span></li>
-            @endforelse
-        </ul>
+    <span class="badge bg-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
+</i>
+
+    <ul class="dropdown-menu dropdown-menu-end p-2 shadow" style="width: 350px; max-height: 400px; overflow-y: auto; background-color:#1e1e2f; color:white;">
+        @forelse (Auth::user()->unreadNotifications as $notification)
+            @php
+                $status = $notification->data['status'] ?? null;
+                $badgeClass = $status === 'approved' ? 'text-success' : ($status === 'rejected' ? 'text-danger' : 'text-light');
+                $icon = $status === 'approved' ? '✅' : ($status === 'rejected' ? '❌' : '🔔');
+            @endphp
+
+            <li class="dropdown-item d-flex flex-column align-items-start" style="white-space: normal; word-break: break-word; padding: 10px; background-color: #2a2a3d; margin-bottom: 5px; border-radius:5px;">
+                <div class="d-flex align-items-center w-100">
+                    <span style="margin-right:5px;">{!! $icon !!}</span>
+                    <strong class="{{ $badgeClass }}" style="margin-right:5px;">فريق الدعم</strong>
+                    <span style="color:white;">{{ $notification->data['message'] }}</span>
+                </div>
+
+                @if(isset($notification->data['reply']))
+                    <p class="text-end my-1" style="margin-right: 25px; color:white;">
+                        <strong>رد الإدارة:</strong> {{ $notification->data['reply'] }}
+                    </p>
+                @endif
+
+                <small class="text-muted text-end w-100" style="margin-right: 25px;">
+                    {{ $notification->created_at->diffForHumans() }}
+                </small>
+            </li>
+        @empty
+            <li class="dropdown-item text-center text-muted py-2" style="color:white;">لا توجد إشعارات جديدة</li>
+        @endforelse
+    </ul>
+
+
     
 </div>
         @endauth

@@ -208,12 +208,13 @@
                                     <!--begin::Table row-->
                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
 
-                                        <th class="text-end min-w-20px">رقم الطلب</th>
+                                        <th class="text-end min-w-20px"> #</th>
                                         <th class="text-end min-w-20px">الطلب</th>
                                         <th class="text-end min-w-100px">حالة الطلب</th>
                                         <th class="text-end min-w-30px">طريقة الدفع</th>
                                         <th class="text-end min-w-40px">الكمية</th>
                                         <th class="text-end min-w-100px">السعر الاجمالي</th>
+                                        <th class="text-end min-w-100px"> رقم الطلب</th>
                                         <th class="text-end min-w-100px">وقت تنفيذ الطلب</th>
                                         <th class="text-end min-w-70px"> العمليات على الطلب</th>
                                     </tr>
@@ -247,13 +248,13 @@
                                                 <td class="text-end " data-order="Published">
                                                     <span
                                                         class="badge 
-                                                                                                                                                                                @if($order->status == 'pending') bg-warning   
-                                                                                                                                                                                @elseif($order->status == 'shipping') bg-info 
-                                                                                                                                                                                @elseif($order->status == 'shipped') bg-primary 
-                                                                                                                                                                                @elseif($order->status == 'delivered') bg-success 
-                                                                                                                                                                                @elseif($order->status == 'cancelled') bg-danger 
-                                                                                                                                                                                @elseif($order->status == 'refunded') bg-secondary 
-                                                                                                                                                                                @endif">
+                                                                                                                                                                                                                @if($order->status == 'pending') bg-warning   
+                                                                                                                                                                                                                @elseif($order->status == 'shipping') bg-info 
+                                                                                                                                                                                                                @elseif($order->status == 'shipped') bg-primary 
+                                                                                                                                                                                                                @elseif($order->status == 'delivered') bg-success 
+                                                                                                                                                                                                                @elseif($order->status == 'cancelled') bg-danger 
+                                                                                                                                                                                                                @elseif($order->status == 'refunded') bg-secondary 
+                                                                                                                                                                                                                @endif">
 
 
                                                         @if ($order->status == 'pending' && (!$order->payment || is_null($order->payment->payment_method)))
@@ -320,8 +321,9 @@
                                                 <td class="text-end pe-0">
                                                     {{ $order->total_amount }}₪
                                                 </td>
-                                                <!--end::Price=-->
-                                                <!--begin::Rating-->
+                                                <td class="text-end pe-0">
+                                                    {{ $order->id }}
+                                                </td>
                                                 <td class="text-end pe-0" data-order="rating-5">
                                                     <p class="text-muted mb-0">
                                                         تم إنشاء الطلب {{ $order->created_at->diffForHumans() }}

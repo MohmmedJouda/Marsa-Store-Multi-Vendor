@@ -14,7 +14,9 @@ class PaymentMethod extends Model
             'payment_confirmed_at',
             'order_id',
         ];
-
+protected $casts = [
+    'payment_confirmed_at' => 'datetime',
+];
         public function order()
     {
         return $this->belongsTo(Order::class);

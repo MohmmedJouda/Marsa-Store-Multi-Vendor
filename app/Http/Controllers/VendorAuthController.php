@@ -99,6 +99,6 @@ class VendorAuthController extends Controller
             'status' => $request->status,
         ]);
 
-        return back()->with('success', 'تم تحديث حالة المستند بنجاح ✅');
+        return back()->with('success', 'تم تحديث حالة الطلب بنجاح ✅');
     }
 }

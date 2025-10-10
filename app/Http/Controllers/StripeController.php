@@ -99,6 +99,18 @@ class StripeController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function bankTransferOrders()
+{
+    $orders = Order::whereHas('payment', function ($query) {
+        $query->where('payment_method', 'bank_transfer');
+    })
+    ->with('payment', 'user')
+    ->latest()
+    ->get();
+
+    return view('users.admin.bank_transfers', compact('orders'));
+}
+
 
     /**
      * Show the form for creating a new resource.

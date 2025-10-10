@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
             $table->enum('payment_method', ['pay_on_delivery','credit_card','bank_transfer'])->default('pay_on_delivery');
-            $table->string('bank_reference')->nullable();       // المرجع الذي أعطيته للعميل أو المعرف الذي أدخله هو
+            $table->string('bank_reference')->nullable();      
             $table->string('transaction_id')->nullable();       // رقم التحويل من البنك (يدخله العميل)
             $table->string('receipt_path')->nullable();         // مسار الملف المرفوع (أيصال)
             $table->timestamp('payment_confirmed_at')->nullable();

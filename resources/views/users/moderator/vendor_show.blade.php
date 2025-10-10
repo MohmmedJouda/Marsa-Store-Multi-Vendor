@@ -1,9 +1,13 @@
 @extends('layout')
-@section('routeButton', route('moderator.dashboard'))
 
-@section('pageTitle', 'Vendors Show')
-@section('subTitle', 'Vendors')
-@section('currentTitle', 'Show')
+@if (Auth::user()->role === 'moderator')
+@section('routeButton', route('moderator.dashboard'))
+@elseif (Auth::user()->role === 'super_admin')
+@section('routeButton', route('admin.dashboard'))
+@endif
+@section('pageTitle', 'عرض طلبات التجار')
+@section('subTitle', 'التجار')
+@section('currentTitle', 'عرض')
 @section('content')
 
     <!--end::Card-->
@@ -13,16 +17,16 @@
         <div class="card-header border-0">
             <!--begin::Card title-->
             <div class="card-title">
-                <h2>Documents</h2>
+                <h2>وثائق</h2>
             </div>
             <!--end::Card title-->
             <!--begin::Card toolbar-->
             {{-- @foreach ($user->documents as $document)
             <div class="badge
-                                            @if ($user->store->status == 'pending') badge-light-warning
-                                            @elseif($user->store->status == 'approved') badge-light-success
-                                            @elseif($user->store->status == 'rejected') badge-light-danger @endif>
-                                                ">
+                                                                                        @if ($user->store->status == 'pending') badge-light-warning
+                                                                                        @elseif($user->store->status == 'approved') badge-light-success
+                                                                                        @elseif($user->store->status == 'rejected') badge-light-danger @endif>
+                                                                                            ">
                 {{ $user->store->status }}
             </div>
             @endforeach --}}
@@ -53,10 +57,10 @@
                         <table class="table table-hover align-middle">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Type document</th>
-                                    <th>Extention Type</th>
-                                    <th>Documents</th>
-                                    <th>Status</th>
+                                    <th>نوع الوثيقة</th>
+                                    <th>نوع الامتداد</th>
+                                    <th>الوثائق</th>
+                                    <th>الحالة</th>
 
                                 </tr>
                             </thead>
@@ -66,12 +70,12 @@
                                         <td>{{ $document->document_type }}</td>
 
                                         <td>{{ pathinfo($document->document_url, PATHINFO_EXTENSION)
-                                                                                                                                                                                                                                        }}
+                                                                                                                                                                                                                                                                                                                                }}
                                         </td>
                                         <td>
                                             <a href="{{ asset('storage/' . $document->document_url) }}"
                                                 class="btn btn-sm btn-light-info" target="_blank">
-                                                <i class="fas fa-eye"></i> Show
+                                                <i class="fas fa-eye"></i> عرض
                                             </a>
 
                                         </td>
@@ -88,39 +92,65 @@
                                             <div class="dropdown">
                                                 <button class="btn btn-sm {{ $btnClass }} dropdown-toggle" type="button"
                                                     data-bs-toggle="dropdown">
-                                                    {{ ucfirst($document->status) }}
+                                                    @if ($document->status === 'pending')
+                                                        {{ ucfirst('قيد المراجعة')}}
+                                                    @elseif ($document->status === 'approved')
+                                                        {{ ucfirst('موافقة')}}
+                                                    @elseif($document->status === 'rejected')
+                                                        {{ ucfirst('رفض')}}
+                                                    @endif
+                                                    {{-- {{ ucfirst($document->status) }} --}}
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <form
-                                                            action="{{ route('moderator.vendor-documents.updateStatus', $document->id) }}"
-                                                            method="POST">
-                                                            @csrf @method('PATCH')
-                                                            <input type="hidden" name="status" value="pending">
-                                                            <button type="submit" class="dropdown-item text-warning">
-                                                                <i class="fas fa-clock"></i> Pending
-                                                            </button>
-                                                        </form>
+                                                        @if(Auth::user()->role === 'moderator')
+                                                            <form
+                                                                action="{{ route('moderator.vendor-documents.updateStatus', $document->id) }}"
+                                                                method="POST">
+                                                        @elseif (Auth::user()->role === 'super_admin')
+                                                                <form
+                                                                    action="{{ route('admin.vendor-documents.updateStatus', $document->id) }}"
+                                                                    method="POST">
+                                                            @endif
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <input type="hidden" name="status" value="pending">
+                                                                <button type="submit" class="dropdown-item text-warning">
+                                                                    <i class="fas fa-clock"></i> قيد المراجعة
+                                                                </button>
+                                                            </form>
                                                     </li>
                                                     <li>
-                                                        <form
-                                                            action="{{ route('moderator.vendor-documents.updateStatus', $document->id) }}"
-                                                            method="POST">
+                                                        @if(Auth::user()->role === 'moderator')
+                                                            <form
+                                                                action="{{ route('moderator.vendor-documents.updateStatus', $document->id) }}"
+                                                                method="POST">
+                                                        @elseif (Auth::user()->role === 'super_admin')
+                                                                <form
+                                                                    action="{{ route('admin.vendor-documents.updateStatus', $document->id) }}"
+                                                                    method="POST">
+                                                            @endif
                                                             @csrf @method('PATCH')
                                                             <input type="hidden" name="status" value="approved">
                                                             <button type="submit" class="dropdown-item text-success">
-                                                                <i class="fas fa-check"></i> Approved
+                                                                <i class="fas fa-check"></i>قبول
                                                             </button>
                                                         </form>
                                                     </li>
                                                     <li>
-                                                        <form
-                                                            action="{{ route('moderator.vendor-documents.updateStatus', $document->id) }}"
-                                                            method="POST">
+                                                        @if(Auth::user()->role === 'moderator')
+                                                            <form
+                                                                action="{{ route('moderator.vendor-documents.updateStatus', $document->id) }}"
+                                                                method="POST">
+                                                        @elseif (Auth::user()->role === 'super_admin')
+                                                                <form
+                                                                    action="{{ route('admin.vendor-documents.updateStatus', $document->id) }}"
+                                                                    method="POST">
+                                                            @endif
                                                             @csrf @method('PATCH')
                                                             <input type="hidden" name="status" value="rejected">
                                                             <button type="submit" class="dropdown-item text-danger">
-                                                                <i class="fas fa-times"></i> Rejected
+                                                                <i class="fas fa-times"></i> رفض
                                                             </button>
                                                         </form>
                                                     </li>
@@ -132,8 +162,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center">No documents
-                                            available at this time</td>
+                                        <td colspan="4" class="text-center">لا توجد أي وثائق متاحة الان</td>
                                     </tr>
                                 @endforelse
                             </tbody>
