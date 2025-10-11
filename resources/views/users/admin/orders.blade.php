@@ -20,6 +20,9 @@
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
+                    @if($feedbacks->isEmpty())
+                        <div class="alert alert-info">لا توجد طلبات من الزبائن حالياً.</div>
+                    @else
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table"
                         style="text-align: right">
                         <!--begin::Table head-->

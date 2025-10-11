@@ -50,8 +50,7 @@ class ProductController extends Controller
         $validator = Validator($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            // 'price' => 'required|numeric',
-            // 'stock' => 'required|integer',
+            'product_type' => 'required|in:with_attributes,without_attributes',
             'status' => 'required|in:active,inactive',
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'required',
@@ -60,6 +59,12 @@ class ProductController extends Controller
             'additional_images.*' => 'mimes:jpg,jpeg,png|required',
             'subcategory_image' => 'nullable|image|mimes:jpg,jpeg,png',
             'discount' => 'nullable|numeric|min:0|max:100',
+
+        ]);
+
+        if ($request->product_type === 'with_attributes') {
+
+            $validator = Validator($request->all(), [             
             'attributes' => 'nullable',
             'attributes.*.name' => 'required|string|max:255',
             'attributes.*.values' => 'required|array|min:1',
@@ -69,8 +74,16 @@ class ProductController extends Controller
             'variants.*.quantity' => 'required|integer',
             'variants.*.attributes' => 'required|string',
             'variants.*.id' => 'nullable|integer|exists:product_variants,id',
-            'variants.*.image' => 'nullable|file|image|mimes:jpg,jpeg,png',
+            'variants.*.image' => 'nullable|file|image|mimes:jpg,jpeg,png', ]);
+            
+        }else{
+
+        $validator = Validator($request->all(), [            
+            'price' => 'required|numeric',
+            'stock' => 'required|integer'
         ]);
+
+        }
 
         if ($validator->fails()) {
             return response()->json([
@@ -110,18 +123,38 @@ class ProductController extends Controller
             }
 
             // إنشاء المنتج
-            $product = Product::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'price' => 0,
-                'stock' => 0,
-                'status' => $request->status,
-                'category_id' => $request->category_id,
-                'subcategory_id' => $subcategory_id,
-                'slug' => $slug,
-                'store_id' => $store_id,
-                'discount' => $request->discount ?? 0,
-            ]);
+           // سعر وكمية افتراضية
+$price = 0;
+$stock = 0;
+
+// إذا المنتج يحتوي على سمات/تشكيلات
+if ($request->product_type === 'with_attributes' && isset($request->variants) && count($request->variants) > 0) {
+    // أقل سعر من التركيبات
+    $prices = array_column($request->variants, 'price');
+    $price = min($prices);
+
+    // مجموع كمية التركيبات
+    $quantities = array_column($request->variants, 'quantity');
+    $stock = array_sum($quantities);
+} else {
+    // المنتج دون سمات → استخدم السعر والكمية المدخلة مباشرة
+    $price = $request->price ?? 0;
+    $stock = $request->stock ?? 0;
+}
+
+// إنشاء المنتج
+$product = Product::create([
+    'name' => $request->name,
+    'description' => $request->description,
+    'price' => $price,
+    'stock' => $stock,
+    'status' => $request->status,
+    'category_id' => $request->category_id,
+    'subcategory_id' => $subcategory_id,
+    'slug' => $slug,
+    'store_id' => $store_id,
+    'discount' => $request->discount ?? 0,
+]);
 
             // الصور
             if ($request->hasFile('main_image')) {
@@ -161,69 +194,78 @@ class ProductController extends Controller
                 }
             }
 
-            DB::transaction(function () use ($request, $product) {
+           DB::transaction(function () use ($request, $product) {
+    $totalQuantity = 0;
 
-            $totalQuantity = 0; 
+    if ($request->has('variants') && is_array($request->variants) && count($request->variants) > 0) {
+        foreach ($request->variants as $variant) {
+            $combination = json_decode($variant['attributes'], true);
 
-            if ($request->has('variants') && is_array($request->variants)) {
-                foreach ($request->variants as $variant) {
-                    $combination = json_decode($variant['attributes'], true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return response()->json([
+                    'message' => 'Invalid combination JSON format.',
+                ], 400);
+            }
 
-                    if (json_last_error() !== JSON_ERROR_NONE) {
-                        return response()->json([
-                            'message' => 'Invalid combination JSON format.',
-                        ], 400);
-                    }
+            $sku = $this->generateSku($product->name, $combination);
 
-                    $sku = $this->generateSku($product->name, $combination);
+            $imagePath = null;
+            if (isset($variant['image']) && $variant['image'] instanceof \Illuminate\Http\UploadedFile) {
+                $imagePath = $variant['image']->store('variant_images', 'public');
+            }
 
-                    $imagePath = null;
-                    if (isset($variant['image']) && $variant['image'] instanceof \Illuminate\Http\UploadedFile) {
-                        $imagePath = $variant['image']->store('variant_images', 'public');
-                    }
+            if ($variant['quantity'] > 0) {
+                $variantModel = ProductVariant::create([
+                    'product_id' => $product->id,
+                    'combination' => $combination,
+                    'price' => $variant['price'],
+                    'quantity' => $variant['quantity'],
+                    'sku' => $sku,
+                    'image' => $imagePath,
+                ]);
+                $totalQuantity += $variant['quantity'];
+            }
 
-                    if ($variant['quantity'] > 0) {
-                        $variantModel = ProductVariant::create([
-                            'product_id' => $product->id,
-                            'combination' => $combination,
-                            'price' => $variant['price'],
-                            'quantity' => $variant['quantity'],
-                            'sku' => $sku,
-                            'image' => $imagePath,
+            // ربط السمات بالvariant
+            foreach ($combination as $attributeName => $valueName) {
+                $attribute = ProductAttribute::where('product_id', $product->id)
+                    ->where('name', $attributeName)->first();
+
+                if ($attribute) {
+                    $value = ProductAttributeValue::where('product_attribute_id', $attribute->id)
+                        ->where('value', $valueName)->first();
+
+                    if ($value) {
+                        DB::table('product_variant_attribute_value')->insert([
+                            'product_variant_id' => $variantModel->id,
+                            'product_attribute_id' => $attribute->id,
+                            'product_attribute_value_id' => $value->id,
+                            'created_at' => now(),
+                            'updated_at' => now(),
                         ]);
-                    $totalQuantity += $variant['quantity'];
-                    }
-
-                    foreach ($combination as $attributeName => $valueName) {
-                        $attribute = ProductAttribute::where('product_id', $product->id)
-                            ->where('name', $attributeName)->first();
-
-                        if ($attribute) {
-                            $value = ProductAttributeValue::where('product_attribute_id', $attribute->id)
-                                ->where('value', $valueName)->first();
-
-                            if ($value) {
-                                DB::table('product_variant_attribute_value')->insert([
-                                    'product_variant_id' => $variantModel->id,
-                                    'product_attribute_id' => $attribute->id,
-                                    'product_attribute_value_id' => $value->id,
-                                    'created_at' => now(),
-                                    'updated_at' => now(),
-                                ]);
-                            }
-                        }
                     }
                 }
             }
+        }
 
-            $minPrice = ProductVariant::where('product_id', $product->id)->min('price');
+        // فقط إذا توجد variant
+        $minPrice = ProductVariant::where('product_id', $product->id)->min('price');
 
-            $product->update([
-                'stock' => $totalQuantity,
-                'price' => $minPrice,
-            ]);
+        $product->update([
+            'stock' => $totalQuantity,
+            'price' => $minPrice,
+        ]);
+
+    } else {
+        // المنتج دون سمات → استخدم السعر والكمية المدخلة مباشرة
+        $product->update([
+            'stock' => $request->stock ?? 0,
+            'price' => $request->price ?? 0,
+        ]);
+    }
 
 });
+
 
             DB::commit();
 

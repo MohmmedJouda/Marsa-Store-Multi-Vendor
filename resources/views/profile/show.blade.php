@@ -16,7 +16,7 @@
                                 <label class="relative cursor-pointer group">
                                     <img src="{{ auth()->user()->profile_photo_path
                     ? asset('storage/' . auth()->user()->profile_photo_path)
-                    : asset('images/default-avatar.png') }}"
+                    : asset('img/default-avatar.png') }}"
                                         class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
 
                                     <input type="file" name="photo" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -50,7 +50,7 @@
                                     <label class="relative cursor-pointer group">
                                         <img src="{{ auth()->user()->profile_photo_path
                     ? asset('storage/' . auth()->user()->profile_photo_path)
-                    : asset('images/default-avatar.png') }}"
+                    : asset('img/default-avatar.png') }}"
                                             class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
 
                                         <input type="file" name="photo"
@@ -80,9 +80,9 @@
                                     class="flex flex-col items-center">
                                     @csrf
                                     <label class="relative cursor-pointer group">
-                                        <img src="{{ auth()->user()->store && auth()->user()->store->logo
-                    ? asset('storage/' . auth()->user()->store->logo)
-                    : asset('assets2/images/store-logo.jpg') }}"
+                                        <img src="{{ auth()->user()->profile_photo_path
+                    ? asset('storage/' . auth()->user()->profile_photo_path)
+                    : asset('img/default-avatar.png') }}"
                                             class="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-sm transition group-hover:opacity-80" />
 
                                         <input type="file" name="store_photo"
@@ -140,7 +140,7 @@
                                         للمتجر</label>
                                     <input type="text" name="slogan"
                                         class=" block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500
-                                                                                                                                focus:ring-indigo-500 sm:text-sm p-2"
+                                                                                                                                                focus:ring-indigo-500 sm:text-sm p-2"
                                         style="color: black" placeholder="مثلاً: الجودة أولاً"
                                         value="{{$user->store->slogan}}">
                                 </div>

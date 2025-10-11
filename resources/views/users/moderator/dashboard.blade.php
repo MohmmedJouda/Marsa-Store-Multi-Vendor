@@ -5,25 +5,25 @@
   <!--begin::Content-->
   <h1 style="margin-right: 50px">مدير</h1>
   <div class="dashboard-container" style="
-                                                              display: grid;
-                                                              grid-template-columns: repeat(2, 250px); /* كل مربع 250px */
-                                                              gap: 15px; /* المسافة بين المربعات */
-                                                              justify-content: center; /* لتوسيط المجموعتين في الصفحة */
-                                                              padding: 20px;
-                                                          ">
-    <!-- المربع الأول -->
-    <div class="card" style="
-                                                                  background: white;
-                                                                  border-radius: 15px;
-                                                                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                                                                  display: flex;
-                                                                  flex-direction: column;
-                                                                  align-items: center;
-                                                                  justify-content: center;
-                                                                  aspect-ratio: 1 / 1; /* مربعات حقيقية */
-                                                                  text-align: center;
+                                                                  display: grid;
+                                                                  grid-template-columns: repeat(2, 250px); /* كل مربع 250px */
+                                                                  gap: 15px; /* المسافة بين المربعات */
+                                                                  justify-content: center; /* لتوسيط المجموعتين في الصفحة */
                                                                   padding: 20px;
                                                               ">
+    <!-- المربع الأول -->
+    <div class="card" style="
+                                                                      background: white;
+                                                                      border-radius: 15px;
+                                                                      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                                                                      display: flex;
+                                                                      flex-direction: column;
+                                                                      align-items: center;
+                                                                      justify-content: center;
+                                                                      aspect-ratio: 1 / 1; /* مربعات حقيقية */
+                                                                      text-align: center;
+                                                                      padding: 20px;
+                                                                  ">
 
       <a href="{{ route('moderator.users.byRole', 'vendor') }} "
         class="menu-icon bg-white rounded-xl shadow-lg hover:shadow-xl transition p-6" style="margin-bottom: 10px;">
@@ -31,23 +31,23 @@
           <i class="fas fa-users"></i>
 
         </span>
-        <span class="menu-title" style="font-size: 1.2rem; font-weight: bold; color: #008fee">طلبات التجار</span>
+        <span class="menu-title" style="font-size: 1.2rem; font-weight: bold; color: #008fee"> التجار</span>
       </a>
     </div>
 
     <!-- المربع الثاني -->
     <div class="card" style="
-                                                                  background: white;
-                                                                  border-radius: 15px;
-                                                                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                                                                  display: flex;
-                                                                  flex-direction: column;
-                                                                  align-items: center;
-                                                                  justify-content: center;
-                                                                  aspect-ratio: 1 / 1;
-                                                                  text-align: center;
-                                                                  padding: 20px;
-                                                              ">
+                                                                      background: white;
+                                                                      border-radius: 15px;
+                                                                      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                                                                      display: flex;
+                                                                      flex-direction: column;
+                                                                      align-items: center;
+                                                                      justify-content: center;
+                                                                      aspect-ratio: 1 / 1;
+                                                                      text-align: center;
+                                                                      padding: 20px;
+                                                                  ">
 
       <a href="{{ route('moderator.orders') }}"
         class="menu-link flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition">
@@ -56,23 +56,23 @@
 
         </span>
         <span class="menu-title text-lg font-bold text-center"
-          style="font-size: 1.2rem; font-weight: bold; color: #008fee"> الطلبات</span>
+          style="font-size: 1.2rem; font-weight: bold; color: #008fee"> طلبات الزبائن</span>
       </a>
     </div>
 
     <!-- المربع الثالث -->
     <div class="card" style="
-                                                                  background: white;
-                                                                  border-radius: 15px;
-                                                                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                                                                  display: flex;
-                                                                  flex-direction: column;
-                                                                  align-items: center;
-                                                                  justify-content: center;
-                                                                  aspect-ratio: 1 / 1;
-                                                                  text-align: center;
-                                                                  padding: 20px;
-                                                              ">
+                                                                      background: white;
+                                                                      border-radius: 15px;
+                                                                      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                                                                      display: flex;
+                                                                      flex-direction: column;
+                                                                      align-items: center;
+                                                                      justify-content: center;
+                                                                      aspect-ratio: 1 / 1;
+                                                                      text-align: center;
+                                                                      padding: 20px;
+                                                                  ">
 
       <a href="{{ route('moderator.feedbacks') }}"
         class="menu-link flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition">
@@ -88,17 +88,17 @@
 
     <!-- المربع الرابع -->
     <div class="card" style="
-                                                                  background: white;
-                                                                  border-radius: 15px;
-                                                                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                                                                  display: flex;
-                                                                  flex-direction: column;
-                                                                  align-items: center;
-                                                                  justify-content: center;
-                                                                  aspect-ratio: 1 / 1;
-                                                                  text-align: center;
-                                                                  padding: 20px;
-                                                              ">
+                                                                      background: white;
+                                                                      border-radius: 15px;
+                                                                      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                                                                      display: flex;
+                                                                      flex-direction: column;
+                                                                      align-items: center;
+                                                                      justify-content: center;
+                                                                      aspect-ratio: 1 / 1;
+                                                                      text-align: center;
+                                                                      padding: 20px;
+                                                                  ">
       <a href="{{ route('moderator.orders.bankTransfers') }}"
         class="menu-link flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition">
         <span class="menu-icon mb-4 text-4xl text-blue-500">
