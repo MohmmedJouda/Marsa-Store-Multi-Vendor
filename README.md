@@ -1,8 +1,6 @@
 ````markdown
 # 🌟 Marsa Store Multi-Vendor
 
-![Marsa Store](https://raw.githubusercontent.com/MohmmedJouda/Marsa-Store-Multi-Vendor/main/public/logo.png)  
-
 **Marsa Store Multi-Vendor** is a fully-featured multi-vendor e-commerce platform built with **Laravel 12** and **Vue.js**, providing a seamless shopping and store management experience. This project is designed to offer robust e-commerce solutions with full support for sales, shipping, and payments within a country.
 
 ---
