@@ -1,66 +1,124 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+````markdown
+# 🌟 Marsa Store Multi-Vendor
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Marsa Store Logo](https://raw.githubusercontent.com/MohmmedJouda/Marsa-Store-Multi-Vendor/main/public/logo.png)  
 
-## About Laravel
+**Marsa Store Multi-Vendor** is a fully-featured multi-vendor e-commerce platform built with **Laravel 12** and **Vue.js**, providing a seamless shopping and store management experience. This project is designed to offer robust e-commerce solutions with full support for sales, shipping, and payments within a country.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🏪 Multi-Vendor System
+- ✅ Register multiple vendors with individual stores.
+- ✅ Verify vendors with official documents for security and credibility.
+- ✅ Dedicated dashboard for each vendor to manage products, orders, and sales.
 
-## Learning Laravel
+### 📦 Advanced Product Management
+- ✅ Support for **Attributes** and **Product Variants**.
+- ✅ Add products with images, multiple features, and different prices per variant.
+- ✅ Multiple product options like color and size with separate stock management.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🛒 Smooth User Experience
+- ✅ Modern and fast interface using **Vue.js** and **Blade Templates**.
+- ✅ Fully responsive design for mobile and tablet devices.
+- ✅ Advanced search and product filtering by price, category, or attributes.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 💳 Shipping & Payment
+- ✅ Support for local shipping only with flexible cost options.
+- ✅ Cash on Delivery (COD) and local payment gateways supported.
+- ✅ Detailed order tracking for customers and vendors.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🔔 Notifications & Internal Chat
+- ✅ Real-time notifications for orders and promotions.
+- ✅ Internal messaging system between customers and vendors.
 
-## Laravel Sponsors
+### 👥 User Roles & Management
+- ✅ Role-based access: Super Admin, Admin, Vendor, Customer.
+- ✅ Redirect users after login based on role.
+- ✅ Secure routes and functions based on user role.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🎯 Additional Professional Features
+- ✅ Support tickets system for customers and vendors.
+- ✅ Full activity log for all operations.
+- ✅ Global settings and coupon management.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## ⚙️ Technology Stack
+- **Backend:** Laravel 12  
+- **Frontend:** Vue.js, Blade Templates, Bootstrap  
+- **Database:** MySQL  
+- **Realtime Features:** Laravel Echo / Pusher (optional)  
+- **Authentication & Roles:** Laravel Jetstream (Livewire)  
+- **Payment:** COD + local gateways  
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🛠 Installation & Setup
 
-## Code of Conduct
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/MohmmedJouda/Marsa-Store-Multi-Vendor.git
+cd Marsa-Store-Multi-Vendor
+````
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2️⃣ Install dependencies
 
-## Security Vulnerabilities
+```bash
+composer install
+npm install
+npm run dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3️⃣ Environment setup
 
-## License
+* Create a `.env` file and configure database and payment gateways.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4️⃣ Run migrations & seeders
+
+```bash
+php artisan migrate --seed
+```
+
+### 5️⃣ Start local development server
+
+```bash
+php artisan serve
+```
+
+---
+
+## 📂 Project Structure
+
+* `/app` – Core backend logic.
+* `/resources/views` – Blade templates for frontend.
+* `/resources/js` – Vue.js components for interactive UI.
+* `/routes` – Web and API routes.
+* `/database/migrations` – Database tables and schema.
+
+---
+
+## 🎯 Project Purpose
+
+**Marsa Store Multi-Vendor** is built to provide a ready-to-use, advanced e-commerce platform that serves:
+
+* Vendors who want an easy way to manage their stores.
+* Customers looking for a fast and secure shopping experience.
+* Organizations needing multi-role support and professional features.
+
+---
+
+## 🌐 Important Links
+
+* **GitHub Repository:** [Marsa Store Multi-Vendor](https://github.com/MohmmedJouda/Marsa-Store-Multi-Vendor)
+* **Developer CV:** [Mohammed Jouda](https://www.linkedin.com/in/mohammed-joudaa)
+
+---
+
+## 📜 License
+
+This project is developed for personal and educational purposes and can be customized for real projects as needed.
+
+```
+
