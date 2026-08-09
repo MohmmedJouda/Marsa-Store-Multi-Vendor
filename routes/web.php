@@ -23,21 +23,17 @@ use App\Http\Controllers\ProductRatingController;
 use App\Http\Controllers\ProductCommentController;
 
 
-// Route::get('/main-page', [CustomerController::class, 'index'])->name('guest.main-page');
+Route::get('/', [CustomerController::class, 'index'])->name('guest.main-page');
 
-Route::get('/layout', function () {
-    return view('layout');
-});
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
 
 Route::get('/vendor/register', [VendorAuthController::class, 'showRegistrationForm'])->name('vendor.register');
 Route::post('/vendor/register', [VendorAuthController::class, 'register']);
@@ -54,7 +50,11 @@ Route::middleware([
     'verified',
     'role:customer',
 ])->prefix('customer')->name('customer.')->group(function () {
-    Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
+    // Route::get('/main-page', [CustomerController::class, 'index'])->name('main-page');
+    Route::get('/', [CustomerController::class, 'index'])->name('main-page');
+
+    Route::post('/wishlist/toggle', [CustomerController::class, 'toggleWishlist'])->name('wishlist.toggle');
+    Route::post('/wishlist/move-to-cart', [CustomerController::class, 'moveToCart'])->name('wishlist.moveToCart');
 
     Route::post('/update-photo', [UserController::class, 'updateProfilePhoto'])->name('update-photo');
 
@@ -81,11 +81,11 @@ Route::middleware([
     Route::put('/address/{address}', [AddressesController::class, 'update'])->name('address.update');
     Route::get('/checkout/{order}', [StripeController::class, 'index'])->name('payment.index');
     Route::post('/checkout/{order}/bank-transfer', [PaymentMethodController::class, 'storeBankTransfer'])
-    ->middleware('auth')
-    ->name('checkout.bank_transfer');
+        ->middleware('auth')
+        ->name('checkout.bank_transfer');
     Route::post('/checkout/{order}/pay-on-delivery', [PaymentMethodController::class, 'storePayOnDelivery'])
-    ->middleware('auth')
-    ->name('checkout.pay_on_delivery');
+        ->middleware('auth')
+        ->name('checkout.pay_on_delivery');
     Route::post('/checkout/process', [StripeController::class, 'process'])
         ->middleware('auth')->name('checkout.process');
     // Route::post('/orders/{order}/bank_transfer', [StripeController::class, 'bank_transfer'])
@@ -106,8 +106,8 @@ Route::middleware([
 
     // web.php
     Route::post('/orders/{order}/update-status', [StripeController::class, 'updateOrderStatus'])
-    ->middleware('auth')
-    ->name('checkout.update_status');
+        ->middleware('auth')
+        ->name('checkout.update_status');
 
     // صفحة الفورم
     Route::get('/feedback/create/{order_id}/{status}', [FeedBackController::class, 'create'])->name('feedback.create');
@@ -115,7 +115,7 @@ Route::middleware([
     Route::post('/feedback/store', [FeedBackController::class, 'store'])->name('feedback.store');
 });
 
-Route::get('/main-page', [CustomerController::class, 'guest'])->middleware('guest')->name('guest.main-page');
+// Route::get('/main-page', [CustomerController::class, 'guest'])->middleware('guest')->name('guest.main-page');
 
 Route::prefix('customer')->name('customer.')->group(function () {
 
@@ -138,13 +138,10 @@ Route::middleware([
     'role:vendor',
     // \App\Http\Middleware\VerifiedVendor::class, // التأكد من أن المستخدم له صلاحية 'vendor'
 ])->prefix('vendor')->name('vendor.')->group(function () {
-    // التوجيه إلى لوحة التحكم الخاصة بالتاجر
-    Route::get('/dashboard', function () {
-        return view('users.vendor.dashboard'); // التأكد من أن العرض الخاص بـ vendor موجود
-    })->name('dashboard');
+    Route::get('/dashboard', [vendorController::class, 'dashboard'])->name('dashboard');
 
-        Route::post('/update-photo', [UserController::class, 'updateProfilePhoto'])->name('update-photo');
-        Route::post('/store/update-photo', [vendorController::class, 'updateStorePhoto'])->name('store.update-photo');
+    Route::post('/update-photo', [UserController::class, 'updateProfilePhoto'])->name('update-photo');
+    Route::post('/store/update-photo', [vendorController::class, 'updateStorePhoto'])->name('store.update-photo');
 
     // باقي المسارات الخاصة بـ vendor
     Route::resource('products', ProductController::class);
@@ -158,7 +155,7 @@ Route::middleware([
     Route::get('/orders', action: [vendorController::class, 'index'])->name('orders');
     Route::delete('/orders/{id}', [vendorController::class, 'destroy'])->name('orders.destroy');
     Route::post('/store/{store}/update-slogan', [vendorController::class, 'updateSlogan'])
-         ->name('store.updateSlogan');
+        ->name('store.updateSlogan');
 });
 
 Route::get('vendor/register-request/{status}', function ($status) {
@@ -205,10 +202,9 @@ Route::middleware([
     Route::get('/feedback/{id}', [ModeratorController::class, 'feedback_show'])->name('feedback.show');
     Route::post('/feedback/{id}/reply', [ModeratorController::class, 'reply'])->name('feedback.reply');
     Route::get('/orders/bank-transfers', [StripeController::class, 'bankTransferOrders'])
-    ->name('orders.bankTransfers');
+        ->name('orders.bankTransfers');
     Route::post('/bank-transfers/{bankTransfer}/decision', [PaymentMethodController::class, 'decision'])
-    ->name('bankTransfer.decision');
-
+        ->name('bankTransfer.decision');
 });
 
 
@@ -223,22 +219,22 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('users.admin.dashboard');
     })->name('dashboard');
-        Route::get('/orders', action: [ModeratorController::class, 'orders_in_admin'])->name('orders');
-        Route::get('/feedbacks', action: [ModeratorController::class, 'feedbacks_in_admin'])->name('feedbacks');
+    Route::get('/orders', action: [ModeratorController::class, 'orders_in_admin'])->name('orders');
+    Route::get('/feedbacks', action: [ModeratorController::class, 'feedbacks_in_admin'])->name('feedbacks');
     Route::delete('/feedbacks/{id}', action: [ModeratorController::class, 'feedback_destroy'])->name('feedbacks.destroy');
     Route::get('/feedback/{id}', [ModeratorController::class, 'feedback_show'])->name('feedback.show');
     Route::post('/feedback/{id}/reply', [ModeratorController::class, 'reply'])->name('feedback.reply');
     Route::get('/orders/bank-transfers', [StripeController::class, 'bankTransferOrders'])
-    ->name('orders.bankTransfers');
+        ->name('orders.bankTransfers');
     Route::post('/bank-transfers/{bankTransfer}/decision', [PaymentMethodController::class, 'decision'])
-    ->name('bankTransfer.decision');
+        ->name('bankTransfer.decision');
     Route::get('/users/moderators', [UserController::class, 'moderators_show'])
-    ->name('moderators.show');    
+        ->name('moderators.show');
     Route::delete('/moderator/{id}', [UserController::class, 'deleteModerator'])->name('moderator.delete');
     Route::post('/moderator/add', [UserController::class, 'addModerator'])->name('moderator.add');
 
 
-        Route::post('/vendor', [ModeratorController::class, 'store'])->name('vendorStore');
+    Route::post('/vendor', [ModeratorController::class, 'store'])->name('vendorStore');
     Route::get('/create', [ModeratorController::class, 'create'])->name('createVendor');
     Route::get('/vendor/{vendor}/edit', [ModeratorController::class, 'edit'])->name('vendors.edit');
     Route::get('/vendor/trashed', [ModeratorController::class, 'trashed'])->name('vendor.trashed');
@@ -247,18 +243,16 @@ Route::middleware([
     Route::delete('/vendor/{id}', [ModeratorController::class, 'destroy'])->name('delete');
     Route::get('/vendor/restore/{id}', [ModeratorController::class, 'restore'])->name('vendor.restore');
     Route::delete('/vendor/trashed/{id}', [ModeratorController::class, 'forceDelete'])->name('forceDelete');
-        Route::get('/{role}', [ModeratorController::class, 'indexByRole'])
+    Route::get('/{role}', [ModeratorController::class, 'indexByRole'])
         ->where('role', 'vendor|customer') // تأكد أن القيمة صحيحة فقط
         ->name('users.byRole');
     Route::patch('/vendor-documents/{document}/status', [VendorAuthController::class, 'updateStatus'])->name('vendor-documents.updateStatus');
-
 });
 
 //
-        Route::post('/user/update-photo', [UserController::class, 'updateProfilePhoto'])->name('user.update-photo');
+Route::post('/user/update-photo', [UserController::class, 'updateProfilePhoto'])->name('user.update-photo');
 
 
 // Google
 Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback']);
-
