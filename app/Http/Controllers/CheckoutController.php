@@ -17,24 +17,51 @@ class CheckoutController extends Controller
     public function showCheckout(Request $request)
     {
         $variantId = $request->query('variant_id');
-        $qty = $request->query('qty');
+        $qty = (int) $request->query('qty', 1);
 
-        $variant = ProductVariant::with('product.store','attributeValues.attribute')->findOrFail($variantId);
+        $variant = null;
+        $cartItems = collect();
 
-        if ($qty > $variant->quantity) {
-            return redirect()->back()->with('error', 'الكمية المطلوبة أكبر من المتوفرة.');
+        if ($variantId) {
+            $variant = ProductVariant::with('product.store', 'attributeValues.attribute')->find($variantId);
+            if (!$variant) {
+                return redirect()->route('customer.cart.index')->with('error', 'المنتج المطلوب غير موجود.');
+            }
+
+            if ($qty > $variant->quantity) {
+                return redirect()->back()->with('error', 'الكمية المطلوبة أكبر من المتوفرة.');
+            }
+
+            $subtotalPrice = $variant->price * $qty;
+            $discountPercent = $variant->product->discount ?? 0;
+            $discountAmount = ($subtotalPrice * $discountPercent) / 100;
+            $totalPriceAfterDiscount = $subtotalPrice - $discountAmount;
+        } else {
+            // الشراء من سلة المشتريات
+            $cart = \App\Models\Cart::with(['items.product.store', 'items.product.images'])
+                ->where('user_id', Auth::id())
+                ->where('status', 'open')
+                ->first();
+
+            $cartItems = $cart?->items ?? collect();
+
+            if ($cartItems->isEmpty()) {
+                return redirect()->route('customer.cart.index')->with('error', 'سلة المشتريات فارغة.');
+            }
+
+            $qty = $cartItems->sum('qty');
+            $subtotalPrice = $cartItems->sum(fn($it) => $it->qty * $it->price);
+            $discountAmount = 0;
+            foreach ($cartItems as $it) {
+                $dp = $it->product->discount ?? 0;
+                $discountAmount += ($it->qty * $it->price * $dp) / 100;
+            }
+            $totalPriceAfterDiscount = $subtotalPrice - $discountAmount;
         }
 
-        $subtotalPrice = $variant->price * $qty;
-
-        $discountPercent = $variant->product->discount ?? 0;
-        $discountAmount = ($subtotalPrice * $discountPercent) / 100;
-        $totalPriceAfterDiscount = $subtotalPrice - $discountAmount;
-
-       // الشحن والضرائب
+        // الشحن والضرائب
         $shippingMethod = $request->shipping_method ?? 'standard';
 
-        // حساب السعر حسب طريقة الشحن
         if ($shippingMethod === 'express') {
             $shippingAmount = 30;
         } elseif ($shippingMethod === 'standard') {
@@ -45,26 +72,24 @@ class CheckoutController extends Controller
             $shippingAmount = 15; // fallback
         }
 
-        // لتحديد الخيار المحدد مسبقاً في الواجهة
         $selectedShipping = $request->input('shipping_method', 'standard');
-
-        $taxAmount = 5;      // مثال ثابت
+        $taxAmount = 5;
 
         $addresses = Address::where('user_id', Auth::id())->get();
-
-        if (Auth::check()) {
-            $username = Auth::user()->name;
-        } else {
-            $username = 'Guest'; // أو أي قيمة افتراضية
-        }
+        $username = Auth::check() ? Auth::user()->name : 'Guest';
 
         return view('users.customer.checkout', compact(
             'variant',
-            'qty','subtotalPrice',
-                    'discountAmount','totalPriceAfterDiscount',
-                    'shippingAmount','taxAmount',
-                    'selectedShipping','addresses',
-                    'username'
+            'cartItems',
+            'qty',
+            'subtotalPrice',
+            'discountAmount',
+            'totalPriceAfterDiscount',
+            'shippingAmount',
+            'taxAmount',
+            'selectedShipping',
+            'addresses',
+            'username'
         ));
     }
 

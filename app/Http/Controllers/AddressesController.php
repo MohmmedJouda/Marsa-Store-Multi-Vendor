@@ -61,7 +61,6 @@ class AddressesController extends Controller
         if ($request->filled('variant_id')) {
             $variant = ProductVariant::with('product')->findOrFail($request->variant_id);
             $qty = $request->input('qty', 1);
-            $unitPrice = $request->input('price', 1);
 
             $items[] = [
                 'product_id' => $variant->product->id,
@@ -71,6 +70,26 @@ class AddressesController extends Controller
                 'quantity' => $qty,
                 'product_discount' => $variant->product->discount ?? 0,
             ];
+        } else {
+            // كود جلب عناصر سلة المشتريات
+            $cart = \App\Models\Cart::with('items.product')
+                ->where('user_id', Auth::id())
+                ->where('status', 'open')
+                ->first();
+
+            if ($cart && $cart->items->isNotEmpty()) {
+                foreach ($cart->items as $cartItem) {
+                    $items[] = [
+                        'product_id' => $cartItem->product_id,
+                        'variant_id' => null,
+                        'name' => $cartItem->name,
+                        'price' => $cartItem->price,
+                        'quantity' => $cartItem->qty,
+                        'product_discount' => $cartItem->product->discount ?? 0,
+                    ];
+                }
+                $cart->update(['status' => 'completed']);
+            }
         }
 
         $subtotal = 0;
