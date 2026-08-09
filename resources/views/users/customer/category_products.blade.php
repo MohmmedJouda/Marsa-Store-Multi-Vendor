@@ -1,656 +1,520 @@
 <!DOCTYPE html>
-<html class="no-js" lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المنتجات</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="منتجات تصنيف {{ $name ?? 'القسم' }} - مرساة للتسوق الرقمي والبيع المباشر المضمون" />
+    <link href="{{ asset('assets2/images/logo/logo.svg') }}" rel="icon" type="image/png" />
+    <title>منتجات {{ $name ?? 'القسم' }} | مرساة Store</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            400: '#38bdf8',
+                            500: '#0066ff',
+                            600: '#0052cc',
+                            700: '#003d99',
+                            800: '#0b192c',
+                            900: '#1e1e2f',
+                            950: '#0f0f1a',
+                        },
+                        accent: {
+                            gold: '#ffb703',
+                            amber: '#f59e0b',
+                            orange: '#fb8500',
+                            coral: '#ff4d6d',
+                            emerald: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome 6 & LineIcons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <!-- AOS Animation -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-    <!-- AOS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: #0b192c;
+            color: #f1f5f9;
+        }
 
-    <!-- Google Font: Tajawal -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+        .glass-header {
+            background: rgba(11, 25, 44, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-    <!-- Main CSS -->
+        .glass-card {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-    <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link href="{{asset('assets2/css/bootstrap.min.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets2/css/tiny-slider.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets2/css/main.css')}}" rel="stylesheet" />
-    <link href="{{asset('style.css')}}" rel="stylesheet" />
+        .glass-card:hover {
+            border-color: rgba(0, 102, 255, 0.45);
+            box-shadow: 0 20px 40px -15px rgba(0, 102, 255, 0.3);
+        }
 
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
 
+        ::-webkit-scrollbar-track {
+            background: #0b192c;
+        }
 
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0066ff;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
 
-    <header id="main-header" class="apple-header">
-        <nav class="nav">
-            <ul class="nav-list">
-                <li class="logoheader"><a href="{{ route('customer.main-page')}}"><img
-                            src="{{asset('assets2/images/logo/logo.svg')}}" /></a></li>
-                <li><a href="#">السوق العام</a>
-                    <div class="dropdown-menu">
-                        <a href="product_page.html"> السوق العام & المنتجات</a>
-                        <a href="product_page.html">آخر المنتجات المعروضة</a>
-                        <a href="product_page.html">الأصناف الاعلى طلباَ</a>
-                        <a href="product_page.html">مقترح لك</a>
-                        <a href="product_page.html">عروض و تنزيلات</a>
-
-
-                    </div>
-                </li>
-                <li>
-                    <a href="{{ route('customer.stores.index') }}">المتاجر</a>
-
-                </li>
-                </li>
-                <li><a href="#">المنتجات</a>
-                    <div class="dropdown-menu">
-                        @foreach ($categories as $category)
-                            <a
-                                href="{{ route('customer.category_products.index', $category->id)}}">{{ $category->name }}</a>
-                        @endforeach
-                    </div>
-                </li>
-
-                <!-- <li><a href="#">الدعم الفني</a></li> -->
-                <li><a href="about-us.html">من نحن</a></li>
-
-                <li class="search-bar">
-                    <input type="text" placeholder="ابحث عن منتج...">
-                </li>
-
-                <div class="lefticons">
-                    <li><a href="#"><i class="fa-solid fa-filter"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">الصنف</a>
-                            <a href="#">التقييم</a>
-                            <a href="#">الأرخص</a>
-                            <a href="#">الأجدد</a>
-                        </div>
-                    </li>
-                    <li><a href="#"><i class="fa-solid fa-language"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">English</a>
-                            <a href="#">العربية</a>
-                        </div>
-                    </li>
-
-                </div>
-
-
-            </ul>
-        </nav>
-    </header>
-
-    <div class="secondary-nav">
-        <div class="left">
-            <span class="site-name">مرساة | تسوق آمن مع اريحية الشراء المضمون</span>
-        </div>
-
-        @guest
-            <div class="centardiv" onclick="openModal()">
-                <i class="fa-solid fa-user"></i>
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-brand-950 via-slate-900 to-brand-950 text-xs py-2 border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="flex items-center gap-4 text-slate-300">
+                <span class="inline-flex items-center gap-1.5 text-accent-gold font-bold">
+                    <i class="fa-solid fa-shield-halved text-xs"></i>
+                    مرساة | تسوق آمن وحماية كاملة للمشترين 100%
+                </span>
             </div>
-        @endguest
-
-        @auth
-            <!-- أيقونة المستخدم -->
-            <div class="centardiv" id="userIcon" role="button" aria-haspopup="true" aria-expanded="false"
-                title="قائمة المستخدم">
-                <i class="fa-solid fa-user"></i>
-            </div>
-        @endauth
-
-        <div class="right">
-
-            <i class="fa-solid fa-cart-shopping" id="cart-icon">
-                <span class="badge" id="cart-count">0</span>
-            </i>
-        </div>
-
-    </div>
-
-    @if(request()->has('subcategory'))
-        <h2>المنتجات في {{ \App\Models\Subcategory::find(request()->subcategory)->name }}</h2>
-    @endif
-
-    <!-- Start Breadcrumbs -->
-    <div class="breadcrumbs" lang="en" dir="rtl">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="breadcrumbs-content">
-                        <h1 class="page-title">السوق العام و المنتجات</h1>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <ul class="breadcrumb-nav">
-                        <li>{{ $name }} </li>
-                        <li>
-                            <a style="margin-right: 5px" href="{{ route('customer.main-page')}}"> الرئيسية </a>
-                            <i class="lni lni-home"> </i>
-                        </li>
-                    </ul>
+            <div class="flex items-center gap-5 text-slate-300">
+                <div class="flex items-center gap-1.5 cursor-pointer hover:text-white transition">
+                    <i class="fa-solid fa-globe text-brand-400"></i>
+                    <span class="font-medium">العربية (₪)</span>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Breadcrumbs -->
 
-    <!-- Main Content -->
-    <main class="container py-5">
-        <div class="row">
-            <!-- Sidebar: Categories -->
-            {{-- <sidebar class="sidebar">
-                <h3>التصنيفات</h3>
-                <select id="category-filter">
-                    <option value="all">الكل</option>
-                    <option value="">الكترونيات</option>
-                    <option value="">موضة</option>
-                    <option value="">الجمال والعناية</option>
-                    <option value="">الكتب والقرطاسية</option>
-                    <option value="">الألعاب</option>
-                    <option value="">رياضة</option>
-                    <option value="">إكسسورات & ساعات</option>
-                    <option value="">مستلزمات صحية</option>
-                    <option value="">سيارات & مركبات</option>
-                    <option value="">أخرى</option>
-                </select>
+    <!-- MAIN STICKY NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 glass-header shadow-2xl transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 gap-4">
 
-                <h3>بحث</h3>
-                <input type="text" id="search-input" placeholder="ابحث عن منتج...">
-
-                <h3>تصفية <i class="fa-solid fa-filter"></i></h3>
-                <select id="sort-filter">
-                    <option value="default">الافتراضي</option>
-                    <option value="rating">الأعلى تقييماً</option>
-                    <option value="price-asc">من الأرخص</option>
-                    <option value="price-desc">من الأغلى</option>
-                    <option value="sales">الأكثر مبيعاً</option>
-                    <option value="sales">الأحدث - للأقدم</option>
-                </select>
-
-
-
-                <div class="single-widget range">
-                    <h3> قيمة السلع </h3>
-                    <input type="range" class="form-range" name="range" step="1" min="100" max="10000" value="10"
-                        onchange="rangePrimary.value=value">
-                    <div class="range-inner">
-                        <label style="margin-bottom: -45px; margin-right: -10px; display:flex ; ">₪</label>
-                        <input type="text" id="rangePrimary" placeholder="100" />
-                    </div>
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('customer.main-page') }}" class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center p-2 shadow-lg shadow-brand-500/30 group-hover:scale-105 transition duration-300">
+                            <img src="{{ asset('img/logo.svg') }}" alt="Marsa Logo" class="w-full h-full object-contain filter brightness-200" />
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-2xl font-black gradient-text tracking-tight leading-none">
+                                مرساة
+                            </span>
+                            <span class="text-[10px] text-slate-400 font-semibold tracking-wider">MARSA STORE</span>
+                        </div>
+                    </a>
                 </div>
-            </sidebar> --}}
 
-
-
-            <!-- Product Grid -->
-            <section class="col-lg-9">
-                <div class="row">
-                    <!-- Product Card -->
-
-
-                    @foreach ($products as $product)
-                        <div class="product-card" data-id="1">
-                            <a href="{{ route('customer.product.show', $product->id) }}">
-                                <img alt="منتج"
-                                    src="{{asset('storage/' . $product->images()->where('is_main', true)->first()->image_path)}}"
-                                    onclick="window.location.href='/product_details.html'" />
-                            </a>
-                            <div class="title"> {{ $product->name }}</div>
-                            <span class="category">{{ $product->subcategory->name }}</span>
-                            @if ($product->discount > 0)
-                                <div data-symbol="₪"> السعر قبل: <del>{{ $product->price }}₪</del></div>
-                                <div class="price" data-symbol="₪">
-                                    السعر بعد: {{ number_format($product->price * (1 - $product->discount / 100), 2) }} ₪
-                                </div>
-                            @else
-                                <div data-symbol="₪"> السعر {{ $product->price }}₪</div>
-                            @endif
-                            <div class="product-rating"
-                                style="display:flex; justify-content:center; gap: 2px; margin: 5px 0;">
-                                @php
-                                    $averageRate = $product->store->ratings->avg('rate'); // ✅ لكل منتج
-                                @endphp
-
-                                @for($i = 1; $i <= 5; $i++)
-                                    <span class="stars" style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
-                                        &#9733;
-                                    </span>
-                                @endfor
-                            </div>
-                            <div class="seller">عدد المبيعات: <span>
-                                    {{ $product->total_sales }}</span>
-                            </div>
-                            <div class="seller">المتجر: <span><a
-                                        href="{{ route('customer.stores.show', $product->store->id) }}">{{ $product->store->name }}
-                                    </a></span> </div>
-
-                            <div class="actions">
-                                <button class="btn-cart"> <a style="color:white"
-                                        href="{{ route('customer.product.show', $product->id) }}">
-                                        شراء الان </a></button>
-                                {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
-                                <form action="{{ route('customer.cart.add') }}" method="POST" class="inline">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <input type="hidden" name="qty" value="1">
-                                    <i class="fa-solid fa-cart-shopping" onclick="this.closest('form').submit()"></i>
-                                </form>
-                            </div>
-                            <div class="published-time" data-time="2025-07-30T10:30:00Z"> {{ $product->created_at }}
-                            </div>
-                        </div>
-                    @endforeach
-
-
-
-                </div>
-            </section>
-        </div>
-    </main>
-
-
-
-    <a href="#" class="scroll-top">
-        <i class="lni lni-chevron-up"></i>
-    </a>
-
-
-
-
-
-    <!-- Start Footer Area -->
-    <footer class="footer">
-        <!-- Start Footer Top -->
-        <div class="footer-top">
-            <div class="container">
-                <div class="inner-content">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="footer-logo" style="margin-top: 10px;">
-                                <a href="">
-                                    <img src="{{asset('assets2/images/logo/logo.svg')}}" alt="#">
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-9 col-md-8 col-12">
-                            <div class="footer-newsletter">
-                                <h4 class="title" style="  float: none !important;
-                                    text-align: center !important;
-                                    margin-left: -450px;
-                                    margin-right: auto;
-                                    margin-top: 30px;
-                                    margin-bottom: -55px;
-                                    ">
-                                    اشترك في نشرتنا الإخبارية
-                                    <span>واحصل على أحدث المعلومات والتخفيضات والعروض</span>
-                                </h4>
-                                <div class="newsletter-form-head">
-                                    <form action="#" method="get" target="_blank" class="newsletter-form">
-                                        <input name="EMAIL" placeholder="Email address here..." type="email">
-                                        <div class="button">
-                                            <button class="btn">اشتراك<span class="dir-part"></span></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Top -->
-        <!-- Start Footer Middle -->
-        <div class="footer-middle" dir="ltr">
-            <div class="container">
-                <div class="bottom-inner">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-contact">
-                                <h3>تواصل معنا</h3>
-                                <p class="phone">Phone: +970 59 5570612</p>
-                                <ul>
-                                    <li><span>الاحد-الخميس: </span> 9.00 am - 8.00 pm</li>
-                                    <li><span>السبت: </span> 10.00 am - 6.00 pm</li>
-                                </ul>
-                                <p class="mail">
-                                    <a href="mailto:support@shopgrids.com">support@shopgrids.com</a>
-                                </p>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer our-app">
-                                <h3>تطبيقاتنا</h3>
-                                <ul class="app-btn">
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-apple"></i>
-                                            <span class="small-title">Not available now</span>
-                                            <span class="big-title">App Store</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-play-store"></i>
-                                            <span class="small-title">Not available now</span>
-                                            <span class="big-title">Google Play</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-link">
-                                <h3>معلومات</h3>
-                                <ul>
-                                    <li><a href="about-us.html">من نحن</a></li>
-                                    <li><a href="{{ route('customer.contact') }}">تواصل معنا</a></li>
-                                    <li><a href="{{ route('customer.faq') }}">أسئلة شائعة</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-link">
-                                <h3> أقسام المتجر الأساسية</h3>
-                                <ul>
-                                    <li><a href="product_page.html">الكترونيات</a></li>
-                                    <li><a href="product_page.html">موضة</a></li>
-                                    <li><a href="product_page.html">الجمال و العناية</a></li>
-                                    <li><a href="product_page.html">الألعاب</a></li>
-                                    <li><a href="product_page.html">رياضة</a></li>
-                                    <li><a href="product_page.html">سيارات و مركبات</a></li>
-                                    <li><a href="product_page.html">إكسسورات & ساعات</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Middle -->
-        <!-- Start Footer Bottom -->
-        <div class="footer-bottom" dir="ltr">
-            <div class="container">
-                <div class="inner-content">
-                    <div class="row align-items-center">
-                        <div class="col-lg-4 col-12">
-                            <div class="payment-gateway">
-                                <span>We Accept:</span>
-                                <img src="{{asset('assets2/images/footer/credit-cards-footer.png')  }}" alt="#">
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <div class="copyright">
-                                <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow"
-                                        target="_blank">WIC std</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <ul class="socila">
-                                <li>
-                                    <span>Follow Us On:</span>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
-
-                                <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-google"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Bottom -->
-    </footer>
-    <!--/ End Footer Area -->
-
-
-
-
-    <div id="customModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal()">✖</button>
-            <div class="modal-content">
-                <h2>تسجيل الدخول</h2>
-                <form>
-                    <label for="email">البريد الإلكتروني</label>
-                    <input type="email" id="email" placeholder="example@email.com" required>
-
-                    <label for="password">كلمة المرور</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
-
-                    <button type="submit" class="submit-btn">دخول</button>
-                    <p class="link"><a href="#">نسيت كلمة المرور؟</a></p>
-
-                    <div class="or-divider">أو</div>
-
-                    <button class="google-btn">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo">
-                        التسجيل عبر Google
+                <!-- Cart Button & User Actions -->
+                <div class="flex items-center gap-3">
+                    <button id="open-cart-btn" class="relative flex items-center gap-2.5 bg-brand-600/20 hover:bg-brand-600/30 text-brand-400 border border-brand-500/40 px-4 py-2.5 rounded-full transition group">
+                        <i class="fa-solid fa-cart-shopping text-base group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-bold hidden sm:inline-block">السلة</span>
+                        <span id="cart-count-badge" class="bg-brand-500 text-white text-[11px] font-black px-2.5 py-0.5 rounded-full shadow">
+                            {{ isset($carts) ? count($carts->flatMap->items) : 0 }}
+                        </span>
                     </button>
 
-                </form>
+                    @guest
+                    <button onclick="openModal()" class="bg-slate-800/90 hover:bg-slate-700 text-white text-xs font-bold px-4 py-2.5 rounded-full border border-slate-700 transition">
+                        تسجيل دخول
+                    </button>
+                    @endguest
+
+                    @auth
+                    <div class="flex items-center gap-2 p-1.5 pl-3.5 bg-slate-800/80 border border-slate-700/80 rounded-full">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-accent-orange flex items-center justify-center text-white font-black text-xs shadow">
+                            {{ mb_substr(Auth::user()->name, 0, 1) }}
+                        </div>
+                        <span class="text-xs font-bold text-slate-200 hidden md:inline-block">{{ Auth::user()->name }}</span>
+                    </div>
+                    @endauth
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMBS -->
+    <div class="bg-slate-950/60 border-b border-slate-800/80 py-3 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="flex items-center gap-2 text-slate-400">
+                <a href="{{ route('customer.main-page') }}" class="hover:text-white transition flex items-center gap-1">
+                    <i class="fa-solid fa-house text-brand-400"></i> الرئيسية
+                </a>
+                <span>/</span>
+                <span class="text-slate-200 font-bold">تصنيف: {{ $name ?? 'القسم' }}</span>
             </div>
         </div>
     </div>
 
+    <!-- CATEGORY PRODUCTS CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 w-full">
 
+        <!-- CATEGORY HERO BANNER SHOWCASE -->
+        @php
+        $cName = mb_strtolower($name ?? '');
+        if (str_contains($cName, 'الكترون') || str_contains($cName, 'إلكترون') || str_contains($cName, 'تقن') || str_contains($cName, 'جهاز') || str_contains($cName, 'هاتف')) {
+        $catHeroImg = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80';
+        } elseif (str_contains($cName, 'موضة') || str_contains($cName, 'أزياء') || str_contains($cName, 'ملابس') || str_contains($cName, 'fashion')) {
+        $catHeroImg = 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1400&q=80';
+        } elseif (str_contains($cName, 'بيت') || str_contains($cName, 'مطبخ') || str_contains($cName, 'منزل') || str_contains($cName, 'أثاث')) {
+        $catHeroImg = 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1400&q=80';
+        } elseif (str_contains($cName, 'جمال') || str_contains($cName, 'عناية') || str_contains($cName, 'تجميل') || str_contains($cName, 'beauty')) {
+        $catHeroImg = 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1400&q=80';
+        } elseif (str_contains($cName, 'كتب') || str_contains($cName, 'مكتب') || str_contains($cName, 'قرطاسية') || str_contains($cName, 'book')) {
+        $catHeroImg = 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1400&q=80';
+        } elseif (str_contains($cName, 'ألعاب') || str_contains($cName, 'العاب') || str_contains($cName, 'قيم') || str_contains($cName, 'game')) {
+        $catHeroImg = 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=1400&q=80';
+        } elseif (str_contains($cName, 'رياض') || str_contains($cName, 'outdoor') || str_contains($cName, 'لياقة') || str_contains($cName, 'sport')) {
+        $catHeroImg = 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1400&q=80';
+        } elseif (str_contains($cName, 'سيار') || str_contains($cName, 'مركب') || str_contains($cName, 'أغراض') || str_contains($cName, 'car')) {
+        $catHeroImg = 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1400&q=80';
+        } else {
+        $catHeroImg = 'https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1400&q=80';
+        }
+        $prodCount = isset($products) ? $products->count() : 0;
+        @endphp
+        <section class="glass-card rounded-3xl relative overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl min-h-[220px] flex items-center p-8 sm:p-12" data-aos="fade-up">
+            <img src="{{ $catHeroImg }}" alt="{{ $name ?? 'قسم' }}" class="absolute inset-0 w-full h-full object-cover opacity-25 filter brightness-90 blur-[1px]" />
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
 
-    <!-- سلة جانبية -->
-    <div class="cart-panel" id="cart-panel" style="display:none;">
+            <div class="relative z-10 max-w-2xl space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center gap-1.5 bg-brand-500/20 border border-brand-500/40 text-brand-300 text-xs font-extrabold px-3.5 py-1.5 rounded-full shadow">
+                        <i class="fa-solid fa-layer-group"></i> قسم معتمد
+                    </span>
+                    <span class="bg-slate-900/80 border border-slate-700/80 text-emerald-400 text-xs font-extrabold px-3 py-1 rounded-full shadow">
+                        <i class="fa-solid fa-boxes-stacked me-1"></i> {{ $prodCount }} منتج متاح
+                    </span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight drop-shadow-lg">
+                    جميع منتجات قسم <span class="gradient-text">{{ $name ?? 'القسم' }}</span>
+                </h1>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-xl font-medium">
+                    تصفح التشكيلة الكاملة والحصرية لجميع المنتجات والماركات المتاحة تحت تصنيف {{ $name ?? 'القسم' }}.
+                </p>
+            </div>
+        </section>
 
-        <button type="button" class="close-panel" id="close-cart">×</button>
-        <h3> <a href="{{ route('customer.cart.index') }}"> سلة المشتريات </a></h3>
+        <!-- SUBCATEGORIES SHOWCASE SECTION -->
+        @if(isset($category) && $category->subcategories && $category->subcategories->count() > 0)
+        <section class="space-y-6" data-aos="fade-up">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-brand-400 mb-1 block flex items-center gap-1.5">
+                        <i class="fa-solid fa-tags"></i> الفئات الفرعية التابعة للقسم
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white">الأقسام التابعة لتصنيف {{ $name ?? '' }}</h2>
+                </div>
+                <span class="text-xs font-bold text-slate-300 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-full shadow-sm">
+                    {{ $category->subcategories->count() }} فئات فرعية
+                </span>
+            </div>
 
-        <div class="cart-items" id="cart-items">
-            @foreach ($carts as $cart)
-                @forelse ($cart->items as $item)
-                    @php
-                        $img = $item->product->images()->where('is_main', 1)->first();
-                    @endphp
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($category->subcategories as $sub)
+                @php
+                $sName = mb_strtolower($sub->name);
+                if (str_contains($sName, 'هاتف') || str_contains($sName, 'لوحي') || str_contains($sName, 'جوال') || str_contains($sName, 'موبايل') || str_contains($sName, 'ذكي')) {
+                $subImg = 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'أحدث الهواتف الذكية والأجهزة اللوحية من كبرى الشركات العالمية بضمان رسمي.';
+                } elseif (str_contains($sName, 'لابتوب') || str_contains($sName, 'كمبيوتر') || str_contains($sName, 'حاسوب') || str_contains($sName, 'مكتب')) {
+                $subImg = 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'أجهزة لابتوب وحواسيب مكتبية فائقة الأداء للأعمال والألعاب.';
+                } elseif (str_contains($sName, 'سماعة') || str_contains($sName, 'صوت') || str_contains($sName, 'مكبر')) {
+                $subImg = 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'سماعات رأس لاسلكية ونظامات صوتية ونقية لأفضل تجربة استماع.';
+                } elseif (str_contains($sName, 'كاميرا') || str_contains($sName, 'تصوير')) {
+                $subImg = 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'كاميرات احترافية وعدسات تصوير رقمية بدقة عالية.';
+                } elseif (str_contains($sName, 'تلفاز') || str_contains($sName, 'شاشة')) {
+                $subImg = 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'شاشات ذكية وتلفزيونات فائقة الوضوح بتناغم ألوان مذهل.';
+                } elseif (str_contains($sName, 'رجالي') || str_contains($sName, 'رجال')) {
+                $subImg = 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'أحدث الموضة والأزياء الرجالية العصرية والكلاسيكية.';
+                } elseif (str_contains($sName, 'نسائي') || str_contains($sName, 'نساء') || str_contains($sName, 'فساتين')) {
+                $subImg = 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'تشكيلات راقية من ملابس النساء والفساتين لمختلف المناسبات.';
+                } elseif (str_contains($sName, 'أحذية') || str_contains($sName, 'احذية') || str_contains($sName, 'جزم')) {
+                $subImg = 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'أحذية رياضية ورسمية مصممة للراحة والأناقة اليومية.';
+                } elseif (str_contains($sName, 'حقائب') || str_contains($sName, 'شنط')) {
+                $subImg = 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'حقائب جلدية فاخرة وحقائب ظهر عملية لمختلف الاحتياجات.';
+                } elseif (str_contains($sName, 'ساعات') || str_contains($sName, 'ساعة')) {
+                $subImg = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'ساعات يد قيمة وساعات ذكية تناسب كافة الأذواق.';
+                } elseif (str_contains($sName, 'أثاث') || str_contains($sName, 'اثاث')) {
+                $subImg = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'أثاث منزلي مودرن يضفي لمسة فخامة وراحة على منزلك.';
+                } elseif (str_contains($sName, 'مطبخ') || str_contains($sName, 'طهي')) {
+                $subImg = 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'معدات وأدوات مطبخ حديثة لسهولة تحضير أشهى الوجبات.';
+                } elseif (str_contains($sName, 'بشرة') || str_contains($sName, 'ماكياج') || str_contains($sName, 'مكياج')) {
+                $subImg = 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'منتجات العناية بالبشرة والمكياج الطبيعي لإطلالة ساحرة.';
+                } elseif (str_contains($sName, 'عطور') || str_contains($sName, 'عطر')) {
+                $subImg = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'عطور شرقية وغربية تشيع الانتعاش والفخامة طوال اليوم.';
+                } else {
+                $subImg = !empty($sub->image) ? asset('storage/' . $sub->image) : 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80';
+                $subDesc = 'مجموعة مختارة ومميزة من أفضل المنتجات التابعة لفئة ' . $sub->name . '.';
+                }
 
-                    <div class="cart-item">
-                        {{-- <input type="checkbox" name="selected_items[]" value="{{ $item->id }}" class="select-item"> --}}
+                $subProductCount = $sub->products ? $sub->products->count() : 0;
+                @endphp
+                <div class="glass-card rounded-3xl overflow-hidden group hover:border-brand-500/50 transition duration-500 flex flex-col justify-between shadow-xl">
+                    <!-- Subcategory Image Header -->
+                    <div class="relative h-52 overflow-hidden bg-slate-900">
+                        <img src="{{ $subImg }}" alt="{{ $sub->name }}"
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80';"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100 filter brightness-95" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
 
-                        <div class="thumb"
-                            style="background: url('{{ asset('storage/' . $img->image_path) }}') center / cover no-repeat;">
+                        <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md border border-slate-700/80 text-brand-400 text-[11px] font-extrabold px-3 py-1 rounded-full shadow-lg">
+                            <i class="fa-solid fa-box-open me-1"></i> {{ $subProductCount }} منتج متوفر
+                        </span>
+
+                        <div class="absolute bottom-4 right-4 left-4">
+                            <span class="text-[10px] font-extrabold text-brand-400 tracking-wider uppercase block mb-1">فئة معتمدة</span>
+                            <h3 class="text-xl font-black text-white drop-shadow-md group-hover:text-brand-300 transition">
+                                {{ $sub->name }}
+                            </h3>
+                        </div>
+                    </div>
+
+                    <!-- Subcategory Info & Action Button -->
+                    <div class="p-5 bg-slate-900/90 space-y-4 border-t border-slate-800/80 flex-1 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <p class="text-xs text-slate-300 leading-relaxed font-medium">
+                                {{ $subDesc }}
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <span class="text-[10px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700/60 font-semibold">
+                                    <i class="fa-solid fa-shield-halved text-emerald-400 me-1"></i> ضمان الجودة
+                                </span>
+                                <span class="text-[10px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700/60 font-semibold">
+                                    <i class="fa-solid fa-truck-fast text-brand-400 me-1"></i> توصيل سريع
+                                </span>
+                            </div>
                         </div>
 
-                        <div class="cart-info">
-                            <h4 class="cart-title">{{ $item->name }}</h4>
-                            <div class="price">{{ number_format($item->price, 2) }}</div>
-                            <div class="date">{{ $item->created_at?->format('Y-m-d H:i') }}</div>
+                        <div class="space-y-3 pt-3 border-t border-slate-800/80">
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+                                    <i class="fa-solid fa-circle-check text-[9px]"></i> فئة معتمدة في {{ $name ?? '' }}
+                                </span>
+                                <span class="text-slate-300 font-bold">{{ $subProductCount }} منتج</span>
+                            </div>
+
+                            <a href="{{ route('customer.products.index', ['subcategory' => $sub->id]) }}"
+                                class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-extrabold text-xs py-3 px-4 rounded-2xl shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2 transition hover:scale-[1.02]">
+                                <span>عرض منتجات {{ $sub->name }}</span>
+                                <i class="fa-solid fa-arrow-left text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </section>
+        @endif
+
+        <!-- PRODUCTS GRID -->
+        <section class="space-y-6" data-aos="fade-up">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-brand-400 mb-1 block flex items-center gap-1.5">
+                        <i class="fa-solid fa-boxes-stacked"></i> المعروضات والمنتجات
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white">منتجات قسم {{ $name ?? 'القسم' }}</h2>
+                </div>
+                <span class="text-xs font-bold text-emerald-400 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-full">
+                    {{ $prodCount }} منتج معروض
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @forelse ($products ?? [] as $product)
+                @php
+                $mainImage = $product->mainImage ?? ($product->images ? $product->images->first() : null);
+                $productImg = $mainImage ? asset('storage/' . $mainImage->image_path) : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80';
+                $averageRate = ($product->ratings && $product->ratings->count() > 0) ? $product->ratings->avg('rate') : 5.0;
+                $finalPrice = number_format($product->price * (1 - ($product->discount ?? 0) / 100), 2);
+                @endphp
+                <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group transition-all duration-300 shadow-xl">
+                    <div class="relative aspect-square overflow-hidden bg-slate-900/80">
+                        @if(($product->discount ?? 0) > 0)
+                        <span class="absolute top-3 right-3 z-10 bg-rose-600 text-white font-black text-xs px-2.5 py-1 rounded-full shadow-lg">
+                            -{{ round($product->discount) }}%
+                        </span>
+                        @endif
+
+                        <a href="{{ route('customer.product.show', $product->id) }}" class="block w-full h-full">
+                            <img src="{{ $productImg }}"
+                                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80';"
+                                alt="{{ $product->name }}"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </a>
+                    </div>
+
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+                                <span class="bg-slate-800 px-2.5 py-0.5 rounded-md text-slate-300 font-medium">
+                                    {{ $product->subcategory->name ?? 'قسم عام' }}
+                                </span>
+                                <button type="button"
+                                    onclick="toggleWishlist(this, {{ $product->id }})"
+                                    title="قائمة الرغبات"
+                                    class="group/wishlist h-9 px-2.5 hover:px-3 rounded-full bg-slate-800/80 hover:bg-rose-500/20 text-slate-400 hover:text-rose-500 border border-slate-700/60 hover:border-rose-500/40 flex items-center justify-center gap-0 group-hover/wishlist:gap-1.5 shadow transition-all duration-300 ease-out hover:scale-105 shrink-0">
+                                    <i class="{{ in_array($product->id, $userWishlistIds ?? []) ? 'fa-solid fa-heart text-rose-500' : 'fa-regular fa-heart text-slate-400 group-hover/wishlist:text-rose-500' }} text-xs shrink-0 transition-colors"></i>
+                                    <span class="wishlist-text max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover/wishlist:max-w-[100px] group-hover/wishlist:opacity-100 transition-all duration-300 text-[11px] font-bold">
+                                        {{ in_array($product->id, $userWishlistIds ?? []) ? 'في المفضلة' : 'أضف للمفضلة' }}
+                                    </span>
+                                </button>
+                            </div>
+
+                            <h3 class="font-bold text-white text-base line-clamp-1 hover:text-brand-400 transition">
+                                <a href="{{ route('customer.product.show', $product->id) }}">{{ $product->name }}</a>
+                            </h3>
+
+                            @php
+                            $cAvgRate = round($averageRate > 0 ? $averageRate : 5.0, 1);
+                            $cFullStars = floor($cAvgRate);
+                            $cHasHalf = ($cAvgRate - $cFullStars) >= 0.5;
+                            @endphp
+                            <a href="{{ route('customer.product.show', $product->id) }}#reviews" title="عرض التقييمات والمراجعات" class="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-accent-gold transition mt-1">
+                                <div class="flex items-center gap-0.5 text-accent-gold text-[11px]">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <=$cFullStars)
+                                        <i class="fa-solid fa-star text-accent-gold"></i>
+                                        @elseif ($i == $cFullStars + 1 && $cHasHalf)
+                                        <i class="fa-solid fa-star-half-stroke text-accent-gold"></i>
+                                        @else
+                                        <i class="fa-regular fa-star text-slate-600"></i>
+                                        @endif
+                                        @endfor
+                                </div>
+                                <span class="font-bold text-slate-300 text-[11px]">({{ number_format($cAvgRate, 1) }})</span>
+                            </a>
+
+                            @if($product->store)
+                            <div class="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                                <span>البائع:</span>
+                                <a href="{{ route('customer.stores.show', $product->store->id) }}" class="text-brand-400 font-semibold hover:underline">
+                                    {{ $product->store->name }}
+                                </a>
+                            </div>
+                            @endif
                         </div>
 
-                        <div class="cart-controls">
-                            <!-- زر حذف فردي -->
-                            <form action="{{ route('customer.cart.remove', $item->id) }}" method="POST" class="inline">
+                        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                            <div>
+                                @if(($product->discount ?? 0) > 0)
+                                <span class="text-xs text-slate-500 line-through block">{{ $product->price }} ₪</span>
+                                <span class="text-lg font-black text-emerald-400">{{ $finalPrice }} <span class="text-xs">₪</span></span>
+                                @else
+                                <span class="text-lg font-black text-emerald-400">{{ $product->price }} <span class="text-xs">₪</span></span>
+                                @endif
+                            </div>
+
+                            <form action="{{ route('customer.cart.add') }}" method="POST" class="inline">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="delete" title="حذف"
-                                    style="padding:5px 8px; background:red; color:white; border:none; cursor:pointer;">
-                                    <i class="fa-solid fa-trash"></i>
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="qty" value="1">
+                                <button type="submit" title="أضف للسلة"
+                                    class="group/btn h-10 px-3 hover:px-4 rounded-full bg-brand-600 hover:bg-brand-500 text-white flex items-center justify-center gap-0 group-hover/btn:gap-2 shadow-lg shadow-brand-600/30 transition-all duration-300 ease-out hover:scale-105">
+                                    <i class="fa-solid fa-cart-plus text-sm shrink-0"></i>
+                                    <span class="max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover/btn:max-w-[100px] group-hover/btn:opacity-100 transition-all duration-300 text-xs font-bold">
+                                        أضف للسلة
+                                    </span>
                                 </button>
                             </form>
                         </div>
                     </div>
+                </div>
                 @empty
-                    <p class="empty">السلة فارغة.</p>
+                <div class="col-span-full py-16 text-center text-slate-400 glass-card rounded-3xl space-y-3">
+                    <i class="fa-solid fa-box-open text-4xl text-slate-600 block"></i>
+                    <p class="text-sm">لا توجد منتجات في هذا التصنيف حالياً</p>
+                </div>
                 @endforelse
-            @endforeach
-        </div>
-
-        <div class="cart-footer">
-            {{-- <label class="select-all">
-                <input id="select-all" type="checkbox" />
-                <span>تحديد الكل</span>
-            </label> --}}
-            <div class="total">المجموع: ₪<span id="cart-total">{{ $totalPrice }}</span></div>
-            <div class="cart-actions">
-                <button type="button" id="buy-selected">شراء الآن</button>
-                {{-- <button type="submit" id="delete-selected" class="danger">حذف المحدد</button> --}}
             </div>
-        </div>
-    </div>
+        </section>
 
-    <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets2/js/glightbox.min.js')}}"></script>
-    <script src="{{asset('assets2/js/main.js')}}"></script>
-    <script src="{{asset('assets2/js/jsmain.js')}}"></script>
-    <script src="{{asset('assets2/js/js/tiny-slider.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 text-xs mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© {{ date('Y') }} جميع الحقوق محفوظة - مرساة Store</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>AOS.init();</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const userIcon = document.getElementById('userIcon');
-            const dropdown = document.getElementById('userDropdown');
-
-            if (!userIcon || !dropdown) {
-                console.warn('userIcon or userDropdown element not found. تأكد من وجود العنصرين ومعرفاتهما id="userIcon" و id="userDropdown".');
-                return;
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: true
+                });
             }
-
-            // تأكد أن الـ dropdown طفل مباشر للـ body حتى لا يتأثر بـ overflow/transform من والدين آخرين
-            if (dropdown.parentElement !== document.body) {
-                document.body.appendChild(dropdown);
-            }
-
-            // إعدادات أولية
-            dropdown.style.position = 'absolute';
-            dropdown.style.display = 'none';
-            dropdown.style.zIndex = 9999;
-
-            function positionDropdown() {
-                // نظهر مؤقتاً مخفياً لقياس الأبعاد بدون فلاش
-                dropdown.style.display = 'block';
-                dropdown.style.visibility = 'hidden';
-                dropdown.classList.add('open'); // يضيف أي ستايل عرض لو حاطه
-                const iconRect = userIcon.getBoundingClientRect();
-                const ddRect = dropdown.getBoundingClientRect();
-                const gap = 8; // مسافة بين الأيقونة والقائمة
-
-                // محاذاة يمين القائمة مع يمين الأيقونة (مناسب للـ RTL)
-                let left = window.scrollX + iconRect.right - ddRect.width;
-                let top = window.scrollY + iconRect.bottom + gap;
-
-                const margin = 8;
-                if (left < margin) left = margin;
-                if (left + ddRect.width > window.innerWidth - margin) left = window.innerWidth - ddRect.width - margin;
-
-                // إذا ما فيه مساحة تحت، اعرض فوق الأيقونة
-                if (top + ddRect.height > window.scrollY + window.innerHeight - margin) {
-                    top = window.scrollY + iconRect.top - ddRect.height - gap;
-                }
-
-                dropdown.style.left = Math.round(left) + 'px';
-                dropdown.style.top = Math.round(top) + 'px';
-
-                // أظهر بشكل نهائي
-                dropdown.style.visibility = 'visible';
-            }
-
-            function openDropdown() {
-                positionDropdown();
-                dropdown.classList.add('open');
-                userIcon.setAttribute('aria-expanded', 'true');
-                dropdown.setAttribute('aria-hidden', 'false');
-
-                window.addEventListener('resize', positionDropdown);
-                window.addEventListener('scroll', positionDropdown, true);
-            }
-
-            function closeDropdown() {
-                dropdown.classList.remove('open');
-                dropdown.style.display = 'none';
-                userIcon.setAttribute('aria-expanded', 'false');
-                dropdown.setAttribute('aria-hidden', 'true');
-
-                window.removeEventListener('resize', positionDropdown);
-                window.removeEventListener('scroll', positionDropdown, true);
-            }
-
-            userIcon.addEventListener('click', function (e) {
-                e.stopPropagation();
-                if (dropdown.classList.contains('open')) closeDropdown();
-                else openDropdown();
-            });
-
-            // غلق عند النقر خارج القائمة أو عند الضغط على Esc
-            document.addEventListener('click', function (e) {
-                if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
-                    closeDropdown();
-                }
-            });
-
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') closeDropdown();
-            });
-
         });
-
     </script>
-    @auth
-        <div id="userDropdown" class="user-dropdown" role="menu" aria-hidden="true">
-            <div class="user-header d-flex align-items-center px-3 py-2 mb-2">
-                <i class="fa-solid fa-user fa-lg me-2"></i>
-                <span class="username">{{ $username ?? 'Guest' }}</span>
-            </div>
-
-            <hr class="dropdown-divider" style="margin:0; border-color: rgba(255,255,255,0.1)">
-            <a class="user-item" href="{{ route('profile.show') }}">
-                <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
-            </a>
-            <a class="user-item" href="{{ route('customer.orders.show') }}">
-                <i class="fa-solid fa-box fa-lg me-2"></i>&nbsp; طلباتك
-            </a>
-            <a class="user-item" href="#">
-                <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
-            </a>
-
-            <form method="POST" action="{{ route('logout') }}" class="m-0">
-                @csrf
-                <button type="submit" class="user-item text-danger"
-                    style="border:none; background:transparent; width:100%; text-align:right;">
-                    <i class="fa-solid fa-right-from-bracket"></i>&nbsp;خروج
-                </button>
-            </form>
-        </div>
-    @endauth
 </body>
 
 </html>

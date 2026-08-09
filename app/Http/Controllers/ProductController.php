@@ -683,12 +683,33 @@ $product = Product::create([
     // app/Http/Controllers/ProductController.php
     public function search(Request $request)
     {
-        $query = $request->get('query');
+        $queryStr = $request->get('query');
+        $categoryId = $request->get('category_id');
 
-        $products = Product::where('name', 'like', "%{$query}%")
-            ->limit(5)
-            ->get(['name','price']);
+        $productsQuery = Product::where('status', 'active');
 
-        return response()->json($products);
+        if ($queryStr) {
+            $productsQuery->where('name', 'like', "%{$queryStr}%");
+        }
+
+        if ($categoryId && $categoryId !== 'all') {
+            $productsQuery->whereHas('subcategory', function ($q) use ($categoryId) {
+                $q->where('category_id', $categoryId);
+            });
+        }
+
+        $products = $productsQuery->with(['images', 'mainImage'])->limit(6)->get();
+
+        $results = $products->map(function ($product) {
+            $mainImg = $product->mainImage ?? ($product->images ? $product->images->first() : null);
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'image_url' => $mainImg ? asset('storage/' . $mainImg->image_path) : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80',
+            ];
+        });
+
+        return response()->json($results);
     }
 }
