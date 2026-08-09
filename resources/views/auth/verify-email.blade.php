@@ -1,45 +1,134 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Before continuing, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="تأكيد البريد الإلكتروني - مرساة" />
+    <link href="{{ asset('assets2/images/logo/logo.svg') }}" rel="icon" type="image/png" />
+    <title>تأكيد البريد الإلكتروني | مرساة Store</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            400: '#38bdf8',
+                            500: '#0066ff',
+                            600: '#0052cc',
+                            700: '#003d99',
+                            800: '#0b192c',
+                            900: '#1e1e2f',
+                            950: '#0f0f1a',
+                        },
+                        accent: {
+                            gold: '#ffb703',
+                            amber: '#f59e0b',
+                            orange: '#fb8500',
+                            coral: '#ff4d6d',
+                            emerald: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: #0b192c;
+            color: #f1f5f9;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col justify-center items-center p-4 selection:bg-brand-500 selection:text-white">
+
+    <div class="w-full max-w-md my-8 space-y-6 relative z-10" data-aos="fade-up">
+
+        <!-- Logo Header -->
+        <div class="text-center space-y-2">
+            <a href="{{ route('guest.main-page') }}" class="inline-flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center p-2.5 shadow-xl shadow-brand-500/30">
+                    <img src="{{ asset('img/logo.svg') }}" alt="Marsa Logo" class="w-full h-full object-contain filter brightness-200" />
+                </div>
+                <div class="flex flex-col text-right">
+                    <span class="text-3xl font-black gradient-text">مرساة</span>
+                    <span class="text-[10px] text-slate-400 font-semibold tracking-wider">EMAIL VERIFICATION</span>
+                </div>
+            </a>
         </div>
 
         @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ __('A new verification link has been sent to the email address you provided in your profile settings.') }}
+            <div class="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-xs font-bold">
+                تم إرسال رابط التفعيل الجديد إلى عنوان بريدك الإلكتروني بنجاح.
             </div>
         @endif
 
-        <div class="mt-4 flex items-center justify-between">
-            <form method="POST" action="{{ route('verification.send') }}">
-                @csrf
+        <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 text-center">
+            <div class="w-16 h-16 rounded-full bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mx-auto border border-brand-500/30">
+                <i class="fa-solid fa-envelope-circle-check"></i>
+            </div>
 
-                <div>
-                    <x-button type="submit">
-                        {{ __('Resend Verification Email') }}
-                    </x-button>
-                </div>
-            </form>
+            <div class="space-y-2 text-xs">
+                <h2 class="text-xl font-bold text-white">تأكيد وتفعيل البريد الإلكتروني</h2>
+                <p class="text-slate-400 leading-relaxed">
+                    شكراً لتسجيلك! يرجى النقر على رابط التفعيل الذي تم إرساله إلى بريدك الإلكتروني لإكمال التسجيل.
+                </p>
+            </div>
 
-            <div>
-                <a
-                    href="{{ route('profile.show') }}"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    {{ __('Edit Profile') }}</a>
-
-                <form method="POST" action="{{ route('logout') }}" class="inline">
+            <div class="space-y-3 pt-2">
+                <form method="POST" action="{{ route('verification.send') }}">
                     @csrf
-
-                    <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ms-2">
-                        {{ __('Log Out') }}
+                    <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-black py-3.5 rounded-xl shadow-lg shadow-brand-600/30 transition text-xs">
+                        إعادة إرسال رابط التفعيل <i class="fa-solid fa-rotate-right ms-2"></i>
                     </button>
                 </form>
+
+                <div class="flex items-center justify-between text-xs pt-2">
+                    <a href="{{ route('profile.show') }}" class="text-slate-300 hover:text-white font-bold underline">الملف الشخصي</a>
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="text-rose-400 hover:underline font-bold">تسجيل الخروج</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </x-authentication-card>
-</x-guest-layout>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: true });</script>
+</body>
+
+</html>

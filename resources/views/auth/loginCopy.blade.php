@@ -1,153 +1,130 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
 
-        <x-validation-errors class="mb-4" />
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="تسجيل الدخول - مرساة" />
+    <link href="{{ asset('assets2/images/logo/logo.svg') }}" rel="icon" type="image/png" />
+    <title>تسجيل الدخول | مرساة Store</title>
 
-        @session('status')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ $value }}
-            </div>
-        @endsession
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            400: '#38bdf8',
+                            500: '#0066ff',
+                            600: '#0052cc',
+                            700: '#003d99',
+                            800: '#0b192c',
+                            900: '#1e1e2f',
+                            950: '#0f0f1a',
+                        },
+                        accent: {
+                            gold: '#ffb703',
+                            amber: '#f59e0b',
+                            orange: '#fb8500',
+                            coral: '#ff4d6d',
+                            emerald: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
+    <style>
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: #0b192c;
+            color: #f1f5f9;
+        }
 
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
 
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
+<body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col justify-center items-center p-4 selection:bg-brand-500 selection:text-white">
 
-            <!-- زر Google -->
-            <div class="flex flex-col space-y-3 mt-4">
-                <a href="{{ url('/auth/google') }}" class="flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-300 rounded-md px-4 py-2 shadow hover:bg-gray-100">
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google Logo">
-                    <span>تسجيل الدخول بواسطة Google</span>
-                </a>
+    <div class="w-full max-w-md my-8 space-y-6 relative z-10" data-aos="fade-up">
 
-                <!-- زر Facebook -->
-                <a href="{{ url('/auth/facebook') }}" class="flex items-center justify-center gap-2 bg-blue-600 text-white rounded-md px-4 py-2 shadow hover:bg-blue-700">
-                    <img src="https://www.svgrepo.com/show/475645/facebook-color.svg" class="w-5 h-5 bg-white rounded-full p-0.5" alt="Facebook Logo">
-                    <span>تسجيل الدخول بواسطة Facebook</span>
-                </a>
-
-                <div class="text-center mt-4">
-                    <p class="text-sm text-gray-600">
-                        {{ __('Not registered yet?') }}
-                        <a href="#" id="show-register-options" class="text-blue-600 hover:text-blue-700">{{ __('Register here') }}</a>
-                    </p>
+        <!-- Logo Header -->
+        <div class="text-center space-y-2">
+            <a href="{{ route('guest.main-page') }}" class="inline-flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center p-2.5 shadow-xl shadow-brand-500/30">
+                    <img src="{{ asset('img/logo.svg') }}" alt="Marsa Logo" class="w-full h-full object-contain filter brightness-200" />
                 </div>
-            </div>
-
-        </form>
-
-        <!-- Modal for Register options -->
-        <div id="register-modal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div class="modal-content bg-white p-6 rounded-lg shadow-lg w-1/3">
-                <h3 class="text-lg font-semibold mb-4 text-center">اختر نوع التسجيل</h3>
-                <div class="flex justify-center space-x-4 mt-3">
-                    <!-- تسجيل كزبون -->
-                    <a href="{{ route('register') }}" class="flex items-center justify-center gap-2 bg-green-600 text-white rounded-md px-4 py-2 shadow hover:bg-green-700">
-                        <span>تسجيل كزبون</span>
-                    </a>
-
-                    <!-- تسجيل كتاجر -->
-                    <a href="{{ route('vendor.register') }}" class="flex items-center justify-center gap-2 bg-yellow-600 text-white rounded-md px-4 py-2 shadow hover:bg-yellow-700">
-                        <span>تسجيل كتاجر</span>
-                    </a>
+                <div class="flex flex-col text-right">
+                    <span class="text-3xl font-black gradient-text">مرساة</span>
+                    <span class="text-[10px] text-slate-400 font-semibold tracking-wider">MARSA STORE</span>
                 </div>
-                <button id="close-modal" class="mt-4 text-center w-full bg-gray-300 text-gray-700 py-2 rounded-lg">إغلاق</button>
-            </div>
+            </a>
         </div>
 
+        <x-validation-errors class="mb-4 text-xs text-rose-400 bg-rose-500/10 p-4 rounded-2xl border border-rose-500/30" />
 
-        <style>
-            /* Hide the modal by default */
-.modal.hidden {
-    display: none;
-}
+        <!-- Form Card -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+            <h2 class="text-xl font-bold text-white text-center border-b border-slate-800 pb-3">تسجيل الدخول</h2>
 
-/* Basic styling for modal */
-.modal-content {
-    max-width: 500px;
-    width: 100%;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-}
+            <form method="POST" action="{{ route('login') }}" class="space-y-4 text-xs">
+                @csrf
 
-.modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-}
+                <div class="space-y-1.5">
+                    <label for="email" class="text-slate-300 font-semibold">البريد الإلكتروني</label>
+                    <input id="email" name="email" type="email" required autofocus placeholder="example@email.com"
+                        class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 outline-none focus:border-brand-500 text-left transition" />
+                </div>
 
-.modal-content {
-    max-width: 500px;
-    width: 80%;
-    margin: auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
+                <div class="space-y-1.5">
+                    <label for="password" class="text-slate-300 font-semibold">كلمة المرور</label>
+                    <input id="password" name="password" type="password" required placeholder="••••••••"
+                        class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 outline-none focus:border-brand-500 text-left transition" />
+                </div>
 
-button {
-    cursor: pointer;
-}
+                <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-black py-3.5 rounded-xl shadow-lg shadow-brand-600/30 transition">
+                    تسجيل الدخول
+                </button>
+            </form>
 
-.bg-gray-300 {
-    background-color: #d1d5db;
-}
+            <a href="{{ url('/auth/google') }}" class="flex items-center justify-center gap-3 bg-slate-950 hover:bg-slate-800 text-slate-200 border border-slate-800 rounded-xl py-3 text-xs font-bold transition shadow">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo" class="w-5 h-5" />
+                <span>التسجيل عبر Google</span>
+            </a>
+        </div>
+    </div>
 
-.bg-opacity-50 {
-    background-color: rgba(0, 0, 0, 0.5);
-}
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: true });</script>
+</body>
 
-        </style>
-
-        <script>
-            document.getElementById('show-register-options').addEventListener('click', function(e) {
-    e.preventDefault();  // Prevent default link action
-    document.getElementById('register-modal').classList.remove('hidden');  // Show the modal
-});
-
-document.getElementById('close-modal').addEventListener('click', function() {
-    document.getElementById('register-modal').classList.add('hidden');  // Close the modal
-});
-
-        </script>
-
-    </x-authentication-card>
-</x-guest-layout>
+</html>

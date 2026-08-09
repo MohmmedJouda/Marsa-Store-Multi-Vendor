@@ -1,139 +1,210 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل بائع جديد</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="تسجيل بائع جديد وانضمام المتاجر - منصة مرساة" />
+    <link href="{{ asset('assets2/images/logo/logo.svg') }}" rel="icon" type="image/png" />
+    <title>تسجيل بائع جديد | مرساة Store</title>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            400: '#38bdf8',
+                            500: '#0066ff',
+                            600: '#0052cc',
+                            700: '#003d99',
+                            800: '#0b192c',
+                            900: '#1e1e2f',
+                            950: '#0f0f1a',
+                        },
+                        accent: {
+                            gold: '#ffb703',
+                            amber: '#f59e0b',
+                            orange: '#fb8500',
+                            coral: '#ff4d6d',
+                            emerald: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: #0b192c;
+            color: #f1f5f9;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="bg-blue-600 py-4 px-6">
-                <h1 class="text-white text-2xl font-bold">تسجيل بائع جديد</h1>
+<body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col justify-center items-center p-4 selection:bg-brand-500 selection:text-white">
+
+    <div class="w-full max-w-lg my-8 space-y-6 relative z-10" data-aos="fade-up">
+
+        <!-- Header Logo -->
+        <div class="text-center space-y-2">
+            <a href="{{ route('guest.main-page') }}" class="inline-flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center p-2.5 shadow-xl shadow-brand-500/30">
+                    <img src="{{ asset('img/logo.svg') }}" alt="Marsa Logo" class="w-full h-full object-contain filter brightness-200" />
+                </div>
+                <div class="flex flex-col text-right">
+                    <span class="text-3xl font-black gradient-text">مرساة</span>
+                    <span class="text-[10px] text-slate-400 font-semibold tracking-wider">MARSA MERCHANT</span>
+                </div>
+            </a>
+            <p class="text-xs text-slate-400">انضم للتجار وانشئ متجرك الرقمي في خطوات بسيطة</p>
+        </div>
+
+        <!-- Form Card -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+
+            <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                <h2 class="text-xl font-black text-white flex items-center gap-2">
+                    <i class="fa-solid fa-store text-brand-400"></i> طلب الانضمام كتاجر / بائع
+                </h2>
+                <span class="bg-brand-500/10 border border-brand-500/30 text-brand-400 text-[10px] font-bold px-2.5 py-0.5 rounded-full">
+                    بوابة التجار
+                </span>
             </div>
 
-            <form action="{{ route('vendor.register') }}" method="POST" enctype="multipart/form-data" class="p-6">
+            <form action="{{ route('vendor.register') }}" method="POST" enctype="multipart/form-data" class="space-y-6 text-xs">
                 @csrf
 
-                <!-- معلومات الشخصية -->
-                <div class="mb-6">
-                    <h2 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">المعلومات الشخصية</h2>
+                <!-- Section 1: Personal Info -->
+                <div class="space-y-3">
+                    <h3 class="font-bold text-slate-300 border-b border-slate-800 pb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-user text-brand-400"></i> المعلومات الشخصية للبائع
+                    </h3>
 
-                    <div class="mb-4">
-                        <label for="name" class="block text-gray-700 mb-2">الاسم الكامل</label>
-                        <input type="text" id="name" name="name" required
-                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="أدخل اسمك الكامل">
-                        @error('name')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
+                    <div class="space-y-1.5">
+                        <label for="name" class="text-slate-300 font-semibold">الاسم الكامل</label>
+                        <input type="text" id="name" name="name" required placeholder="اسم التاجر/المسؤول"
+                            class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 outline-none focus:border-brand-500 transition" />
+                        @error('name') <span class="text-rose-400 text-[11px]">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-700 mb-2">البريد الإلكتروني</label>
-                        <input type="email" id="email" name="email" required
-                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="example@domain.com">
-                        @error('email')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
+                    <div class="space-y-1.5">
+                        <label for="email" class="text-slate-300 font-semibold">البريد الإلكتروني</label>
+                        <input type="email" id="email" name="email" required placeholder="merchant@domain.com"
+                            class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 outline-none focus:border-brand-500 text-left transition" />
+                        @error('email') <span class="text-rose-400 text-[11px]">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="password" class="block text-gray-700 mb-2">كلمة المرور</label>
-                        <input type="password" id="password" name="password" required
-                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="8 أحرف على الأقل">
-                        @error('password')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="password_confirmation" class="block text-gray-700 mb-2">تأكيد كلمة المرور</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation" required
-                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="أعد إدخال كلمة المرور">
-                    </div>
-                </div>
-
-                <!-- معلومات المتجر -->
-                <div class="mb-6">
-                    <h2 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">معلومات المتجر</h2>
-
-                    <div class="mb-4">
-                        <label for="store_name" class="block text-gray-700 mb-2">اسم المتجر</label>
-                        <input type="text" id="store_name" name="store_name" required
-                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="اسم المتجر كما سيظهر للعملاء">
-                        @error('store_name')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-                <!-- الوثائق المطلوبة -->
-                <div class="mb-6">
-                    <h2 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">الوثائق المطلوبة</h2>
-
-                    <div class="mb-4">
-                        <label for="document_file" class="block text-gray-700 mb-2">رفع السجل التجاري</label>
-                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-                            <input type="file" id="document_file" name="document_file" required class="hidden"
-                                accept=".pdf,.jpg,.png">
-                            <div id="file-upload-area" class="cursor-pointer">
-                                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                    </path>
-                                </svg>
-                                <p class="mt-1 text-sm text-gray-600">اسحب وأسقط الملف هنا أو انقر للاختيار</p>
-                                <p class="text-xs text-gray-500">PDF, JPG, PNG (حجم أقصى 2MB)</p>
-                            </div>
-                            <div id="file-name" class="mt-2 text-sm font-medium text-gray-700 hidden"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="space-y-1.5">
+                            <label for="password" class="text-slate-300 font-semibold">كلمة المرور</label>
+                            <input type="password" id="password" name="password" required placeholder="••••••••"
+                                class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 outline-none focus:border-brand-500 text-left transition" />
+                            @error('password') <span class="text-rose-400 text-[11px]">{{ $message }}</span> @enderror
                         </div>
-                        @error('document_file')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
+
+                        <div class="space-y-1.5">
+                            <label for="password_confirmation" class="text-slate-300 font-semibold">تأكيد كلمة المرور</label>
+                            <input type="password" id="password_confirmation" name="password_confirmation" required placeholder="••••••••"
+                                class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 outline-none focus:border-brand-500 text-left transition" />
+                        </div>
                     </div>
                 </div>
 
-                <!-- شروط وأحكام -->
-                <div class="mb-6">
-                    <div class="flex items-start">
-                        <div class="flex items-center h-5">
-                            <input id="terms" name="terms" type="checkbox" required
-                                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300">
-                        </div>
-                        <label for="terms" class="mr-2 text-sm text-gray-700">
-                            أوافق على <a href="#" class="text-blue-600 hover:underline">الشروط والأحكام</a> و <a
-                                href="#" class="text-blue-600 hover:underline">سياسة الخصوصية</a>
+                <!-- Section 2: Store Info -->
+                <div class="space-y-3">
+                    <h3 class="font-bold text-slate-300 border-b border-slate-800 pb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-shop text-brand-400"></i> تفاصيل المتجر والنشاط
+                    </h3>
+
+                    <div class="space-y-1.5">
+                        <label for="store_name" class="text-slate-300 font-semibold">اسم المتجر / العلامة التجارية</label>
+                        <input type="text" id="store_name" name="store_name" required placeholder="مثال: متجر الأناقة الرقمية"
+                            class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 outline-none focus:border-brand-500 transition" />
+                        @error('store_name') <span class="text-rose-400 text-[11px]">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+
+                <!-- Section 3: Document Upload -->
+                <div class="space-y-3">
+                    <h3 class="font-bold text-slate-300 border-b border-slate-800 pb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-file-contract text-brand-400"></i> التوثيق والسجل التجاري
+                    </h3>
+
+                    <div class="border-2 border-dashed border-slate-800 hover:border-brand-500/50 rounded-2xl p-4 text-center bg-slate-950/60 transition">
+                        <input type="file" id="document_file" name="document_file" required class="hidden" accept=".pdf,.jpg,.png" />
+                        <label for="document_file" class="cursor-pointer block space-y-2">
+                            <i class="fa-solid fa-cloud-arrow-up text-3xl text-brand-400 block"></i>
+                            <span class="font-bold text-white block">انقر لاختيار ملف السجل التجاري أو الهوية</span>
+                            <span class="text-[11px] text-slate-500 block">الصيغ المقبولة: PDF, JPG, PNG (حد أقصى 2MB)</span>
                         </label>
+                        <div id="file-name-display" class="mt-2 text-xs font-bold text-emerald-400 hidden"></div>
                     </div>
-                    @error('terms')
-                        <span class="text-red-500 text-sm">يجب الموافقة على الشروط والأحكام</span>
-                    @enderror
                 </div>
 
-                <!-- زر التسجيل -->
-                <button type="submit"
-                    class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150">
-                    تسجيل الحساب
+                <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-black py-4 rounded-xl shadow-lg shadow-brand-600/30 transition text-sm">
+                    إرسال طلب الانضمام كبائع <i class="fa-solid fa-arrow-left ms-2"></i>
                 </button>
-
-                <!-- رابط تسجيل الدخول -->
-                <div class="mt-4 text-center">
-                    <p class="text-gray-600">لديك حساب بالفعل؟ <a href="{{ route('login') }}"
-                            class="text-blue-600 hover:underline">سجل الدخول</a></p>
-                </div>
             </form>
+
+            <div class="pt-3 border-t border-slate-800 text-center">
+                <p class="text-xs text-slate-400">
+                    لديك حساب بائع بالفعل؟
+                    <a href="{{ route('login') }}" class="text-brand-400 font-bold hover:underline me-1">
+                        تسجيل الدخول
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
+        AOS.init({ duration: 800, once: true });
+
+        const docInput = document.getElementById('document_file');
+        const fileNameDisplay = document.getElementById('file-name-display');
+
+        if (docInput) {
+            docInput.addEventListener('change', function () {
+                if (this.files && this.files[0]) {
+                    fileNameDisplay.textContent = 'تم اختيار الملف: ' + this.files[0].name;
+                    fileNameDisplay.classList.remove('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
