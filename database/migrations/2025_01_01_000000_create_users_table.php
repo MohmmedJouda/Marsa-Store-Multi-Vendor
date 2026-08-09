@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role', ['customer', 'vendor', 'moderator', 'gest', 'super_admin'])->default('customer');
+            $table->enum('role', ['customer', 'vendor', 'moderator', 'guest', 'super_admin'])->default('customer');
             $table->boolean('is_active')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

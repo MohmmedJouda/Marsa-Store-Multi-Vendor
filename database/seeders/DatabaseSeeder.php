@@ -11,21 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // أولاً، إنشاء الفئات
         $this->call([
             CategoriesSeeder::class,
+            UserSeeder::class,
+            VendorSeeder::class,
         ]);
-
-        // $vendors = \App\Models\User::factory()->count(5)->create([
-        //     'role' => 'vendor', 
-        // ]);
-
-        // foreach ($vendors as $vendor) {
-        //     \App\Models\Store::factory()->create([
-        //         'user_id' => $vendor->id,  // ربط المتجر بالمستخدم
-        //     ]);
-        // }
-
-        // $this->call(ProductSeeder::class);
     }
 }

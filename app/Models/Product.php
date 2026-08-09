@@ -20,7 +20,6 @@ class Product extends Model
         'description',
         'price',
         'status',
-        'is_active',
         'is_featured',
         'discount',
     ];
@@ -77,6 +76,11 @@ public function orderItems()
 public function getTotalSalesAttribute()
 {
     return $this->orderItems()->sum('quantity');
+}
+
+public function wishlistedByUsers()
+{
+    return $this->belongsToMany(User::class, 'wishlists', 'product_id', 'user_id')->withTimestamps();
 }
 
 }

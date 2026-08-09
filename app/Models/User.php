@@ -108,6 +108,11 @@ class User extends Authenticatable
         return $this->hasMany(VendorDocument::class, 'user_id');
     }
 
+    public function wishlistProducts()
+    {
+        return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'product_id')->withTimestamps();
+    }
+
     // public function getProfilePhotoUrlAttribute()
     // {
     //     return $this->profile_photo_path

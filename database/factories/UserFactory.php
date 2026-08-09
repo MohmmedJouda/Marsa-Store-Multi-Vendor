@@ -49,6 +49,39 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function superAdmin(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'super_admin',
+        ]);
+    }
+
+    public function administrator(): static
+    {
+        return $this->superAdmin();
+    }
+
+    public function moderator(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'moderator',
+        ]);
+    }
+
+    public function vendor(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'vendor',
+        ]);
+    }
+
+    public function customer(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'customer',
+        ]);
+    }
+
     /**
      * Indicate that the user should have a personal team.
      */
