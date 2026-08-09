@@ -1,569 +1,206 @@
 <!DOCTYPE html>
-<html class="no-js" lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>السلة</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="سلة المشتريات - مرساة للتسوق الرقمي" />
+    <link href="{{ asset('assets2/images/logo/logo.svg') }}" rel="icon" type="image/png" />
+    <title>سلة المشتريات | مرساة Store</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            400: '#38bdf8',
+                            500: '#0066ff',
+                            600: '#0052cc',
+                            700: '#003d99',
+                            800: '#0b192c',
+                            900: '#1e1e2f',
+                            950: '#0f0f1a',
+                        },
+                        accent: {
+                            gold: '#ffb703',
+                            amber: '#f59e0b',
+                            orange: '#fb8500',
+                            coral: '#ff4d6d',
+                            emerald: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome 6 & LineIcons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-    <!-- AOS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: #0b192c;
+            color: #f1f5f9;
+        }
 
-    <!-- Google Font: Tajawal -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+        .glass-header {
+            background: rgba(11, 25, 44, 0.88);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-    <!-- Main CSS -->
+        .glass-card {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-    <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link href="{{asset('assets2/css/bootstrap.min.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets2/css/tiny-slider.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets2/css/main.css')}}" rel="stylesheet" />
-    <link href="{{asset('style.css')}}" rel="stylesheet" />
-
-
-
-
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
 
-    <header id="main-header" class="apple-header">
-        <nav class="nav">
-            <ul class="nav-list">
-                <li class="logoheader"><a href="{{ route('customer.main-page')}}"><img
-                            src="{{asset('assets2/images/logo/logo.svg')}}" /></a></li>
-                <li><a href="#">السوق العام</a>
-                    <div class="dropdown-menu">
-                        <a href="product_page.html"> السوق العام & المنتجات</a>
-                        <a href="product_page.html">آخر المنتجات المعروضة</a>
-                        <a href="product_page.html">الأصناف الاعلى طلباَ</a>
-                        <a href="product_page.html">مقترح لك</a>
-                        <a href="product_page.html">عروض و تنزيلات</a>
-
-
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 glass-header shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="{{ route('customer.main-page') }}" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center p-2 shadow-lg">
+                        <img src="{{ asset('img/logo.svg') }}" alt="Marsa Logo" class="w-full h-full object-contain filter brightness-200" />
                     </div>
-                </li>
-                <li>
-                    <a href="{{ route('customer.stores.index') }}">المتاجر</a>
-
-                </li>
-                </li>
-                <li><a href="#">المنتجات</a>
-                    <div class="dropdown-menu">
-                        @foreach ($categories as $category)
-                            <a
-                                href="{{ route('customer.category_products.index', $category->id)}}">{{ $category->name }}</a>
-                        @endforeach
-                    </div>
-                </li>
-
-                <!-- <li><a href="#">الدعم الفني</a></li> -->
-                <li><a href="about-us.html">من نحن</a></li>
-
-                <li class="search-bar">
-                    <input type="text" placeholder="ابحث عن منتج...">
-                </li>
-
-                <div class="lefticons">
-                    <li><a href="#"><i class="fa-solid fa-filter"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">الصنف</a>
-                            <a href="#">التقييم</a>
-                            <a href="#">الأرخص</a>
-                            <a href="#">الأجدد</a>
-                        </div>
-                    </li>
-                    <li><a href="#"><i class="fa-solid fa-language"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">English</a>
-                            <a href="#">العربية</a>
-                        </div>
-                    </li>
-
-                </div>
-
-
-            </ul>
-        </nav>
+                    <span class="text-2xl font-black gradient-text">مرساة</span>
+                </a>
+                <a href="{{ route('customer.main-page') }}" class="text-xs font-bold text-slate-300 hover:text-white transition flex items-center gap-2">
+                    متابعة التسوق <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
     </header>
 
-    <div class="secondary-nav">
-        <div class="left">
-            <span class="site-name">مرساة | تسوق آمن مع اريحية الشراء المضمون</span>
-        </div>
-
-        @guest
-            <div class="centardiv" onclick="openModal()">
-                <i class="fa-solid fa-user"></i>
+    <!-- BREADCRUMBS -->
+    <div class="bg-slate-950/60 border-b border-slate-800/80 py-3 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-2 text-slate-400">
+                <a href="{{ route('customer.main-page') }}" class="hover:text-white">الرئيسية</a>
+                <span>/</span>
+                <span class="text-slate-200 font-bold">سلة المشتريات</span>
             </div>
-        @endguest
-
-        @auth
-            <!-- أيقونة المستخدم -->
-            <div class="centardiv" id="userIcon" role="button" aria-haspopup="true" aria-expanded="false"
-                title="قائمة المستخدم">
-                <i class="fa-solid fa-user"></i>
-            </div>
-        @endauth
-
-        <div class="right">
-
-
         </div>
-
     </div>
 
+    <!-- MAIN CART CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8">
+        <div class="border-b border-slate-800 pb-4">
+            <h1 class="text-3xl font-black text-white flex items-center gap-3">
+                <i class="fa-solid fa-cart-shopping text-brand-400"></i> سلة المشتريات
+            </h1>
+        </div>
 
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" data-aos="fade-up">
+            <!-- Items List -->
+            <div class="lg:col-span-2 space-y-4">
+                @forelse ($items as $item)
+                @php
+                $mainImg = $item->product?->images()->where('is_main', true)->first();
+                @endphp
+                <div class="glass-card rounded-3xl p-5 flex flex-col sm:flex-row items-center justify-between gap-5 bg-slate-900/70 border border-slate-800 hover:border-brand-500/30 transition">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <img src="{{ $mainImg ? asset('storage/' . $mainImg->image_path) : asset('images/no-image.png') }}"
+                            alt="{{ $item->name }}" class="w-20 h-20 object-cover rounded-2xl bg-slate-950 shrink-0" />
+                        <div>
+                            <h3 class="font-bold text-white text-base hover:text-brand-400 transition">
+                                <a href="{{ route('customer.product.show', $item->product_id) }}">{{ $item->name }}</a>
+                            </h3>
+                            <div class="text-xs text-slate-400 mt-1">تاريخ الإضافة: {{ $item->created_at?->format('Y-m-d') }}</div>
+                        </div>
+                    </div>
 
-    <!-- Start Breadcrumbs -->
-    <div class="breadcrumbs" lang="en" dir="rtl">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="breadcrumbs-content">
-                        <h1 class="page-title">السوق العام و المنتجات</h1>
+                    <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800">
+                        <span class="text-xl font-black text-emerald-400 me-2">{{ number_format($item->price, 2) }} ₪</span>
+                        <form action="{{ route('customer.cart.remove', $item->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="w-10 h-10 rounded-full bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white flex items-center justify-center transition" title="حذف المنتح">
+                                <i class="fa-solid fa-trash-can text-sm"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <ul class="breadcrumb-nav">
-                        <li><a href="{{ route('customer.main-page')}}"><i class="lni lni-home"></i> الرئيسية</a></li>
-                        <li> سلة المشتريات</li>
-                    </ul>
+                @empty
+                <div class="glass-card rounded-3xl py-16 text-center text-slate-400 space-y-4">
+                    <i class="fa-solid fa-cart-flatbed text-5xl text-slate-600 block"></i>
+                    <p class="text-sm font-semibold">سلة المشتريات فارغة حالياً</p>
+                    <a href="{{ route('customer.main-page') }}" class="inline-block bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs px-6 py-3 rounded-full transition shadow-lg">
+                        العودة للتسوق
+                    </a>
                 </div>
+                @endforelse
             </div>
-        </div>
-    </div>
-    <!-- End Breadcrumbs -->
 
-    <!-- Main Content -->
-    <main class="container py-5">
-        <div class="row">
-            <!-- Sidebar: Categories -->
+            <!-- Order Summary Sidebar -->
+            <div class="glass-card rounded-3xl p-6 bg-slate-900/90 border border-slate-800 space-y-6 h-fit">
+                <h3 class="text-xl font-bold text-white border-b border-slate-800 pb-3">ملخص الطلب</h3>
 
-
-
-            <!-- Product Grid -->
-            <section class="col-lg-9">
-                <div class="row">
-                    <!-- Product Card -->
-
-
-                    @foreach ($items as $item)
-
-                        <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="product-card" data-id="1">
-                                <a href="{{ route('customer.product.show', $item->product_id) }}">
-                                    <img alt="منتج"
-                                        src="{{asset('storage/' . $item->product->images()->where('is_main', true)->first()->image_path)}}"
-                                        onclick="window.location.href='/product_details.html'" />
-                                </a>
-                                <div class="title">{{ $item->name }} </div>
-                                {{-- <span class="category">{{ $item->subcategory->name }}</span> --}}
-                                @if ($item->product->discount > 0)
-                                    <div data-symbol="₪"> السعر قبل: <del>{{ $item->price }}₪</del></div>
-                                    <div class="price" data-symbol="₪">
-                                        السعر بعد: {{ number_format($item->price * (1 - $item->product->discount / 100), 2) }} ₪
-                                    </div>
-                                @else
-                                    <div data-symbol="₪"> السعر {{ $item->price }}₪</div>
-                                @endif
-                                <div class="seller"></div>
-                                <div class="actions">
-                                    <button class="btn-cart"> <a style="color:white"
-                                            href="{{ route('customer.product.show', $item->id) }}">
-                                            شراء الان </a></button>
-                                    <form action="{{ route('customer.cart.remove', $item->id) }}" method="POST"
-                                        class="inline">
-                                        @csrf @method('DELETE')
-                                        <button class="delete" style="padding: 5px;background:red" title="حذف">
-                                            <i class="fa-solid fa-trash" style="padding:0px;margin:0%"></i></button>
-                                    </form>
-                                </div>
-
-                                <h6 data-time="2025-07-30T10:30:00Z" style="margin-top: 20px; color:white;">
-                                    {{ $item->created_at }}
-                                </h6>
-
-                            </div>
-                        </div>
-                    @endforeach
-
-
-
+                <div class="space-y-3 text-xs">
+                    <div class="flex justify-between text-slate-300">
+                        <span>عدد العناصر:</span>
+                        <span class="font-bold text-white">{{ $items->count() }} منتجات</span>
+                    </div>
+                    <div class="flex justify-between text-slate-300">
+                        <span>الشحن والخدمات:</span>
+                        <span class="font-bold text-emerald-400">يحدد عند الدفع</span>
+                    </div>
+                    <hr class="border-slate-800">
+                    <div class="flex justify-between text-sm font-bold">
+                        <span class="text-white">الإجمالي:</span>
+                        <span class="text-xl font-black text-emerald-400">{{ number_format($items->sum('price'), 2) }} ₪</span>
+                    </div>
                 </div>
-            </section>
+
+                @if($items->count() > 0)
+                <a href="{{ route('customer.checkout.show') }}" class="block w-full text-center bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-black py-4 rounded-full shadow-lg shadow-brand-600/30 transition text-xs">
+                    الانتقال لإتمام الدفع والطلب <i class="fa-solid fa-arrow-left ms-2"></i>
+                </a>
+                @endif
+            </div>
         </div>
     </main>
 
-
-
-    <a href="#" class="scroll-top">
-        <i class="lni lni-chevron-up"></i>
-    </a>
-
-
-
-
-
-    <!-- Start Footer Area -->
-    <footer class="footer">
-        <!-- Start Footer Top -->
-        <div class="footer-top">
-            <div class="container">
-                <div class="inner-content">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="footer-logo" style="margin-top: 10px;">
-                                <a href="">
-                                    <img src="{{asset('assets2/images/logo/logo.svg')}}" alt="#">
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-9 col-md-8 col-12">
-                            <div class="footer-newsletter">
-                                <h4 class="title" style="  float: none !important;
-                                    text-align: center !important;
-                                    margin-left: -450px;
-                                    margin-right: auto;
-                                    margin-top: 30px;
-                                    margin-bottom: -55px;
-                                    ">
-                                    اشترك في نشرتنا الإخبارية
-                                    <span>واحصل على أحدث المعلومات والتخفيضات والعروض</span>
-                                </h4>
-                                <div class="newsletter-form-head">
-                                    <form action="#" method="get" target="_blank" class="newsletter-form">
-                                        <input name="EMAIL" placeholder="Email address here..." type="email">
-                                        <div class="button">
-                                            <button class="btn">اشتراك<span class="dir-part"></span></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 text-xs mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex items-center justify-between">
+            <p>© {{ date('Y') }} جميع الحقوق محفوظة - مرساة Store</p>
         </div>
-        <!-- End Footer Top -->
-        <!-- Start Footer Middle -->
-        <div class="footer-middle" dir="ltr">
-            <div class="container">
-                <div class="bottom-inner">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-contact">
-                                <h3>تواصل معنا</h3>
-                                <p class="phone">Phone: +970 59 5570612</p>
-                                <ul>
-                                    <li><span>الاحد-الخميس: </span> 9.00 am - 8.00 pm</li>
-                                    <li><span>السبت: </span> 10.00 am - 6.00 pm</li>
-                                </ul>
-                                <p class="mail">
-                                    <a href="mailto:support@shopgrids.com">support@shopgrids.com</a>
-                                </p>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer our-app">
-                                <h3>تطبيقاتنا</h3>
-                                <ul class="app-btn">
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-apple"></i>
-                                            <span class="small-title">Not available now</span>
-                                            <span class="big-title">App Store</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-play-store"></i>
-                                            <span class="small-title">Not available now</span>
-                                            <span class="big-title">Google Play</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-link">
-                                <h3>معلومات</h3>
-                                <ul>
-                                    <li><a href="about-us.html">من نحن</a></li>
-                                    <li><a href="{{ route('customer.contact') }}">تواصل معنا</a></li>
-                                    <li><a href="{{ route('customer.faq') }}">أسئلة شائعة</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-link">
-                                <h3> أقسام المتجر الأساسية</h3>
-                                <ul>
-                                    <li><a href="product_page.html">الكترونيات</a></li>
-                                    <li><a href="product_page.html">موضة</a></li>
-                                    <li><a href="product_page.html">الجمال و العناية</a></li>
-                                    <li><a href="product_page.html">الألعاب</a></li>
-                                    <li><a href="product_page.html">رياضة</a></li>
-                                    <li><a href="product_page.html">سيارات و مركبات</a></li>
-                                    <li><a href="product_page.html">إكسسورات & ساعات</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Middle -->
-        <!-- Start Footer Bottom -->
-        <div class="footer-bottom" dir="ltr">
-            <div class="container">
-                <div class="inner-content">
-                    <div class="row align-items-center">
-                        <div class="col-lg-4 col-12">
-                            <div class="payment-gateway">
-                                <span>We Accept:</span>
-                                <img src="{{asset('assets2/images/footer/credit-cards-footer.png')  }}" alt="#">
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <div class="copyright">
-                                <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow"
-                                        target="_blank">WIC std</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <ul class="socila">
-                                <li>
-                                    <span>Follow Us On:</span>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
-
-                                <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-google"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Bottom -->
     </footer>
-    <!--/ End Footer Area -->
 
-
-
-
-    <div id="customModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal()">✖</button>
-            <div class="modal-content">
-                <h2>تسجيل الدخول</h2>
-                <form>
-                    <label for="email">البريد الإلكتروني</label>
-                    <input type="email" id="email" placeholder="example@email.com" required>
-
-                    <label for="password">كلمة المرور</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
-
-                    <button type="submit" class="submit-btn">دخول</button>
-                    <p class="link"><a href="#">نسيت كلمة المرور؟</a></p>
-
-                    <div class="or-divider">أو</div>
-
-                    <button class="google-btn">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo">
-                        التسجيل عبر Google
-                    </button>
-
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets2/js/glightbox.min.js')}}"></script>
-    <script src="{{asset('assets2/js/main.js')}}"></script>
-    <script src="{{asset('assets2/js/jsmain.js')}}"></script>
-    <script src="{{asset('assets2/js/js/tiny-slider.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>AOS.init();</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-
-
     <script>
-
-
-        function updateCartCount() {
-            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-            document.getElementById('cart-count').textContent = cartItems.length || 0;
-        }
-
-        function updateFavCount() {
-            const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-            document.getElementById('fav-count').textContent = favItems.length || 0;
-        }
-
-        function updateAllCounts() {
-            updateCartCount();
-            updateFavCount();
-        }
-
-        // نفذ عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', updateAllCounts);
-
-        // استدعِ هذه الوظيفة عند إضافة/إزالة أي منتج للسلة أو المفضلة
-        // مثال:
-        // بعد إضافة منتج:
-        // localStorage.setItem('cart', JSON.stringify(cartItems));
-        // updateCartCount();
-
-        // بعد إزالة من المفضلة:
-        // localStorage.setItem('favorites', JSON.stringify(favItems));
-        // updateFavCount();
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const userIcon = document.getElementById('userIcon');
-            const dropdown = document.getElementById('userDropdown');
-
-            if (!userIcon || !dropdown) {
-                console.warn('userIcon or userDropdown element not found. تأكد من وجود العنصرين ومعرفاتهما id="userIcon" و id="userDropdown".');
-                return;
-            }
-
-            // تأكد أن الـ dropdown طفل مباشر للـ body حتى لا يتأثر بـ overflow/transform من والدين آخرين
-            if (dropdown.parentElement !== document.body) {
-                document.body.appendChild(dropdown);
-            }
-
-            // إعدادات أولية
-            dropdown.style.position = 'absolute';
-            dropdown.style.display = 'none';
-            dropdown.style.zIndex = 9999;
-
-            function positionDropdown() {
-                // نظهر مؤقتاً مخفياً لقياس الأبعاد بدون فلاش
-                dropdown.style.display = 'block';
-                dropdown.style.visibility = 'hidden';
-                dropdown.classList.add('open'); // يضيف أي ستايل عرض لو حاطه
-                const iconRect = userIcon.getBoundingClientRect();
-                const ddRect = dropdown.getBoundingClientRect();
-                const gap = 8; // مسافة بين الأيقونة والقائمة
-
-                // محاذاة يمين القائمة مع يمين الأيقونة (مناسب للـ RTL)
-                let left = window.scrollX + iconRect.right - ddRect.width;
-                let top = window.scrollY + iconRect.bottom + gap;
-
-                const margin = 8;
-                if (left < margin) left = margin;
-                if (left + ddRect.width > window.innerWidth - margin) left = window.innerWidth - ddRect.width - margin;
-
-                // إذا ما فيه مساحة تحت، اعرض فوق الأيقونة
-                if (top + ddRect.height > window.scrollY + window.innerHeight - margin) {
-                    top = window.scrollY + iconRect.top - ddRect.height - gap;
-                }
-
-                dropdown.style.left = Math.round(left) + 'px';
-                dropdown.style.top = Math.round(top) + 'px';
-
-                // أظهر بشكل نهائي
-                dropdown.style.visibility = 'visible';
-            }
-
-            function openDropdown() {
-                positionDropdown();
-                dropdown.classList.add('open');
-                userIcon.setAttribute('aria-expanded', 'true');
-                dropdown.setAttribute('aria-hidden', 'false');
-
-                window.addEventListener('resize', positionDropdown);
-                window.addEventListener('scroll', positionDropdown, true);
-            }
-
-            function closeDropdown() {
-                dropdown.classList.remove('open');
-                dropdown.style.display = 'none';
-                userIcon.setAttribute('aria-expanded', 'false');
-                dropdown.setAttribute('aria-hidden', 'true');
-
-                window.removeEventListener('resize', positionDropdown);
-                window.removeEventListener('scroll', positionDropdown, true);
-            }
-
-            userIcon.addEventListener('click', function (e) {
-                e.stopPropagation();
-                if (dropdown.classList.contains('open')) closeDropdown();
-                else openDropdown();
-            });
-
-            // غلق عند النقر خارج القائمة أو عند الضغط على Esc
-            document.addEventListener('click', function (e) {
-                if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
-                    closeDropdown();
-                }
-            });
-
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') closeDropdown();
-            });
-
+        AOS.init({
+            duration: 800,
+            once: true
         });
-
     </script>
-    @auth
-        <div id="userDropdown" class="user-dropdown" role="menu" aria-hidden="true">
-            <div class="user-header d-flex align-items-center px-3 py-2 mb-2">
-                <i class="fa-solid fa-user fa-lg me-2"></i>
-                <span class="username">{{ $username ?? 'Guest' }}</span>
-            </div>
-
-            <hr class="dropdown-divider" style="margin:0; border-color: rgba(255,255,255,0.1)">
-            <a class="user-item" href="{{ route('profile.show') }}">
-                <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
-            </a>
-            <a class="user-item" href="{{ route('customer.orders.show') }}">
-                <i class="fa-solid fa-box fa-lg me-2"></i>&nbsp; طلباتك
-            </a>
-            <a class="user-item" href="#">
-                <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
-            </a>
-
-            <form method="POST" action="{{ route('logout') }}" class="m-0">
-                @csrf
-                <button type="submit" class="user-item text-danger"
-                    style="border:none; background:transparent; width:100%; text-align:right;">
-                    <i class="fa-solid fa-right-from-bracket"></i>&nbsp;خروج
-                </button>
-            </form>
-        </div>
-    @endauth
 </body>
 
 </html>
