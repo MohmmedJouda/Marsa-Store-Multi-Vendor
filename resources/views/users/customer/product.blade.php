@@ -1,1313 +1,925 @@
 <!DOCTYPE html>
-<html dir="rtl">
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تفاصيل المنتج</title>
-<link rel="stylesheet" href="{{asset('assets2/css/bootstrap.min.css')}}">
-<link rel="stylesheet" href="{{asset('assets2/css/main.css')}}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<!-- Animate.css -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
-<!-- AOS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-
-<!-- Google Font: Tajawal -->
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-
-<!-- Main CSS -->
-
-<link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<link href="{{asset('assets2/css/bootstrap.min.css')}}" rel="stylesheet" />
-<link href="{{asset('assets2/css/tiny-slider.css')}}" rel="stylesheet" />
-<link href="{{asset('assets2/css/main.css')}}" rel="stylesheet" />
-<link href="{{asset('style.css')}}" rel="stylesheet" />
-
-<style>
-    .product-details-page {
-        padding: 30px 20px 80px;
-        max-width: 900px;
-        margin: auto;
-    }
-
-    .dark-box {
-        background-color: #1e1e1e;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 30px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    }
-
-    .seller-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    .profile-left {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .profile-img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid #0077b5;
-    }
-
-    .seller-name {
-        margin: 0;
-        font-size: 1.4rem;
-        color: #4da6ff;
-    }
-
-    .profile-actions {
-        display: flex;
-        gap: 10px;
-    }
-
-    .modern-btn {
-        padding: 10px 16px;
-        background: linear-gradient(145deg, #1f1f1f, #292929);
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-size: 0.95rem;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-
-    }
-
-    .modern-btn:hover {
-        background: #333;
-        transform: translateY(-2px);
-    }
-
-    .product-gallery {
-        text-align: center;
-    }
-
-    .main-img {
-        width: 80%;
-        border-radius: 8px;
-        margin-bottom: 15px;
-    }
-
-    .thumbs img {
-        width: 60px;
-        height: 60px;
-        margin: 5px;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: 0.3s;
-        object-fit: cover;
-    }
-
-    .thumbs img:hover {
-        transform: scale(1.05);
-    }
-
-    .product-title {
-        font-size: 1.8rem;
-        margin-bottom: 10px;
-        color: #00c8ff;
-    }
-
-    .product-price {
-        font-size: 1.2rem;
-        color: #ffb347;
-    }
-
-    .product-date {
-        font-size: 0.95rem;
-        color: #aaa;
-        margin-bottom: 15px;
-    }
-
-    .product-options label {
-        display: block;
-        margin-top: 10px;
-        font-weight: bold;
-    }
-
-    .product-options input,
-    .product-options select {
-        width: 100%;
-        padding: 8px;
-        margin-top: 5px;
-        border-radius: 6px;
-        border: 1px solid #444;
-        background-color: #2a2a2a;
-        color: #eee;
-    }
-
-    .product-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-    }
-
-    .seller-comments h3 {
-        border-bottom: 1px solid #444;
-        padding-bottom: 8px;
-    }
-
-    .comments-list {
-        list-style: none;
-        padding: 0;
-    }
-
-    .comments-list li {
-        margin: 10px 0;
-        padding: 8px;
-        background-color: #2a2a2a;
-        border-radius: 6px;
-    }
-
-    .add-comment textarea {
-        width: 100%;
-        height: 80px;
-        border-radius: 8px;
-        border: 1px solid #444;
-        background: #222;
-        color: #eee;
-        padding: 10px;
-        margin-top: 10px;
-    }
-
-    .rating-input {
-        margin: 10px 0;
-    }
-
-    .rating-input select {
-        width: 100%;
-        padding: 8px;
-        border-radius: 6px;
-        border: 1px solid #444;
-        background-color: #2a2a2a;
-        color: #fff;
-    }
-
-    .extra-info-box {
-        margin-top: 15px;
-        font-size: 0.95rem;
-        color: #ccc;
-        background-color: #1b1b1b;
-        padding: 10px;
-        border-radius: 8px;
-    }
-
-
-
-
-
-
-    .product-gallery {
-        max-width: 90%;
-        margin: auto;
-        padding: 15px;
-        /* background-color: #111; */
-        border-radius: 12px;
-        object-fit: contain;
-    }
-
-    .product-gallery .main-img {
-        width: 80%;
-        height: 400px;
-        /* ارتفاع ثابت يمنع تمدد/انكماش الصفحة */
-        object-fit: cover;
-        border-radius: 10px;
-        transition: opacity 0.3s ease-in-out;
-        background-color: #222;
-        /* لون تعبئة أثناء تحميل الصور */
-        object-fit: contain;
-    }
-
-    .product-gallery .thumbs {
-        margin-top: 15px;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    .product-gallery .thumbs img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 8px;
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: border 0.2s ease-in-out;
-    }
-
-    .product-gallery .thumbs img:hover {
-        border: 2px solid #00ffcc;
-    }
-
-    .product-options {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        background: #1a1a1a;
-        padding: 16px;
-        border-radius: 12px;
-        max-width: 820px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-
-    }
-
-    .option-group {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .product-options label {
-        color: #ccc;
-        font-size: 14px;
-        font-weight: 500;
-    }
-
-    .product-options input[type="number"] {
-        width: 80px;
-        padding: 6px 10px;
-        font-size: 14px;
-        border: 1px solid #333;
-        border-radius: 8px;
-        background-color: #121212;
-        color: #fff;
-        transition: 0.3s;
-    }
-
-    .product-options input[type="number"]:focus {
-        outline: none;
-        border-color: #00ffc3;
-        box-shadow: 0 0 5px #00ffc3aa;
-    }
-
-    /* أزرار الألوان */
-    .color-options {
-        display: flex;
-        gap: 10px;
-        margin-top: 4px;
-    }
-
-    .color-dot {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: transform 0.2s, border 0.2s;
-    }
-
-    .color-dot:hover {
-        transform: scale(1.1);
-        border-color: #00ffc3;
-    }
-
-
-
-
-
-
-
-
-    .quantity-control {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .quantity-control label {
-        color: #ccc;
-        font-size: 14px;
-        font-weight: 500;
-    }
-
-    .quantity-box {
-        display: flex;
-        align-items: center;
-        background-color: #1a1a1a;
-        border: 1px solid #333;
-        border-radius: 10px;
-        overflow: hidden;
-        width: fit-content;
-    }
-
-    .qty-btn {
-        background-color: #2b2b2b;
-        color: #00ffc3;
-        border: none;
-        padding: 6px 12px;
-        font-size: 18px;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-    }
-
-    .qty-btn:hover {
-        background-color: #00ffc3;
-        color: #000;
-    }
-
-    .quantity-box input[type="number"] {
-        width: 50px;
-        text-align: center;
-        padding: 6px;
-        font-size: 16px;
-        background-color: #121212;
-        color: #fff;
-        border: none;
-    }
-
-
-    /* إخفاء أسهم التحكم في المتصفحات الحديثة */
-    .quantity-box input[type="number"]::-webkit-inner-spin-button,
-    .quantity-box input[type="number"]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    .quantity-box input[type="number"] {
-        -moz-appearance: textfield;
-        /* لمتصفح Firefox */
-    }
-
-
-
-    .color-dot.selected {
-        outline: 3px solid #4caf50;
-        outline-offset: 2px;
-    }
-</style>
-
-
+<html lang="ar" dir="rtl" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{ $product->name }} - مرساة للتسوق الرقمي والبيع المباشر" />
+    <link href="{{ asset('assets2/images/logo/logo.svg') }}" rel="icon" type="image/png" />
+    <title>{{ $product->name }} | مرساة Store</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            400: '#38bdf8',
+                            500: '#0066ff',
+                            600: '#0052cc',
+                            700: '#003d99',
+                            800: '#0b192c',
+                            900: '#1e1e2f',
+                            950: '#0f0f1a',
+                        },
+                        accent: {
+                            gold: '#ffb703',
+                            amber: '#f59e0b',
+                            orange: '#fb8500',
+                            coral: '#ff4d6d',
+                            emerald: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome 6 & LineIcons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <!-- AOS Animation -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: #0b192c;
+            color: #f1f5f9;
+        }
+
+        .glass-header {
+            background: rgba(11, 25, 44, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 102, 255, 0.45);
+            box-shadow: 0 20px 40px -15px rgba(0, 102, 255, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0b192c;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0066ff;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
 
-    <header id="main-header" class="apple-header">
-        <nav class="nav">
-            <ul class="nav-list">
-                <li class="logoheader"><a href="{{ route('customer.main-page')}}"><img src="{{asset('img/logo.svg')}}"
-                            class="apple-logo" /></a></li>
-                <li><a href="#">السوق العام</a>
-                    <div class="dropdown-menu">
-                        <a href="product_page.html"> السوق العام & المنتجات</a>
-                        <a href="#">آخر المنتجات المعروضة</a>
-                        <a href="#">الأصناف الاعلى طلباَ</a>
-                        <a href="#">مقترح لك</a>
-                        <a href="#">عروض و تنزيلات</a>
-
-
-                    </div>
-                </li>
-                <li>
-                    <a href="{{ route('customer.stores.index') }}">المتاجر</a>
-                </li>
-                <li><a href="#">المنتجات</a>
-                    <div class="dropdown-menu">
-                        @foreach ($categories as $category)
-                            <a
-                                href="{{ route('customer.category_products.index', $category->id)}}">{{ $category->name }}</a>
-                        @endforeach
-                    </div>
-                </li>
-
-                <!-- <li><a href="#">الدعم الفني</a></li> -->
-                <li><a href="#">من نحن</a></li>
-
-                <li class="search-bar">
-                    <input type="text" placeholder="ابحث عن منتج...">
-                </li>
-
-                <div class="lefticons">
-                    <li><a href="#"><i class="fa-solid fa-filter"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">الصنف</a>
-                            <a href="#">التقييم</a>
-                            <a href="#">الأرخص</a>
-                            <a href="#">الأجدد</a>
-                        </div>
-                    </li>
-                    <li><a href="#"><i class="fa-solid fa-language"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">English</a>
-                            <a href="#">العربية</a>
-                        </div>
-                    </li>
-
-                </div>
-
-
-            </ul>
-        </nav>
-    </header>
-
-    <div class="secondary-nav">
-        <div class="left">
-            <span class="site-name">مرساة | تسوق آمن مع اريحية الشراء المضمون</span>
-        </div>
-
-        @guest
-            <div class="centardiv" onclick="openModal()">
-                <i class="fa-solid fa-user"></i>
+    <!-- 1. TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-brand-950 via-slate-900 to-brand-950 text-xs py-2 border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="flex items-center gap-4 text-slate-300">
+                <span class="inline-flex items-center gap-1.5 text-accent-gold font-bold">
+                    <i class="fa-solid fa-shield-halved text-xs"></i>
+                    مرساة | تسوق آمن وحماية كاملة للمشترين 100%
+                </span>
+                <span class="hidden md:inline-block text-slate-700">|</span>
+                <span class="hidden md:inline-flex items-center gap-1.5 text-slate-300">
+                    <i class="fa-solid fa-truck-fast text-brand-400"></i>
+                    شحن سريع لجميع المناطق
+                </span>
             </div>
-        @endguest
-
-        @auth
-            <!-- أيقونة المستخدم -->
-            <div class="centardiv" id="userIcon" role="button" aria-haspopup="true" aria-expanded="false"
-                title="قائمة المستخدم">
-                <i class="fa-solid fa-user"></i>
-            </div>
-        @endauth
-
-        <div class="right">
-            <i class="fa-solid fa-cart-shopping" id="cart-icon">
-                <span class="badge" id="cart-count">0</span>
-            </i>
-        </div>
-
-    </div>
-
-
-
-    <!-- Start Breadcrumbs -->
-    <div class="breadcrumbs" lang="en" dir="rtl">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="breadcrumbs-content">
-                        <h1 class="page-title">تفاصيل المنتج</h1>
-                    </div>
+            <div class="flex items-center gap-5 text-slate-300">
+                <div class="flex items-center gap-1.5 cursor-pointer hover:text-white transition">
+                    <i class="fa-solid fa-globe text-brand-400"></i>
+                    <span class="font-medium">العربية (₪)</span>
                 </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <ul class="breadcrumb-nav">
-                        <li><a href="{{ route('customer.main-page')}}"><i class="lni lni-home"></i> الرئيسية</a></li>
-                        <li>تفاصيل المنتج </li>
-                    </ul>
-                </div>
-
-
+                <a href="{{ route('customer.contact') }}" class="hover:text-white transition hidden sm:inline-block">مركز المساعدة</a>
             </div>
         </div>
     </div>
-    <!-- End Breadcrumbs -->
 
+    <!-- 2. MAIN STICKY NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 glass-header shadow-2xl transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 gap-4">
 
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 text-slate-300 hover:text-white rounded-xl bg-slate-800/50 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                    <a href="{{ route('customer.main-page') }}" class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center p-2 shadow-lg shadow-brand-500/30 group-hover:scale-105 transition duration-300">
+                            <img src="{{ asset('img/logo.svg') }}" alt="Marsa Logo" class="w-full h-full object-contain filter brightness-200" />
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-2xl font-black gradient-text tracking-tight leading-none">
+                                مرساة
+                            </span>
+                            <span class="text-[10px] text-slate-400 font-semibold tracking-wider">MARSA STORE</span>
+                        </div>
+                    </a>
+                </div>
 
-
-
-    <div class="product-details-page dark-theme">
-        <div class="seller-profile dark-box">
-            <div class="seller-header">
-                <div class="profile-left">
-                    <img class="seller-image"
-                        src="{{ $product->store->logo ? asset('storage/' . $product->store->logo) : asset('img/store-logo.jpg') }}"
-                        alt="Store Logo">
-                    <div class="profile-info">
-                        <h2 class="seller-name"> <a
-                                href="{{ route('customer.stores.show', $product->store_id) }}">{{ $product->store->name }}</a>
-                        </h2>
-                        <p>التاجر: {{ $product->store->user->name }}</p>
-                        <p>{{ $product->store->slogan }}</p>
-                        @php
-                            $averageRate = $product->store->ratings->avg('rate'); // ✅ لكل منتج
-                        @endphp
-
-                        <div class="product-rating"
-                            style="display:flex; justify-content:center; align-items:center; gap:10px;">
-                            <p style="margin:0;">تقييم المتجر:</p>
-
-                            @for ($i = 1; $i <= 5; $i++)
-                                <span style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }};">
-                                    &#9733;
-                                </span>
-                            @endfor
+                <!-- Live AJAX Smart Search Bar -->
+                <div class="flex-1 max-w-3xl relative hidden md:block">
+                    <form action="{{ route('customer.products.index') }}" method="GET" class="relative flex items-center bg-slate-900/90 rounded-full border border-slate-700/80 focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-500/30 transition-all duration-200 shadow-inner overflow-hidden">
+                        <!-- Category Selector Dropdown -->
+                        <div class="relative flex items-center border-l border-slate-700/80 bg-slate-800/60 hover:bg-slate-800 transition shrink-0">
+                            <select name="category" id="header-category-select" class="bg-transparent text-slate-200 text-xs font-semibold py-3.5 pr-4 pl-8 appearance-none outline-none cursor-pointer">
+                                <option value="all" class="bg-slate-900 text-white">كل الأقسام</option>
+                                @if(isset($categories))
+                                @foreach ($categories as $cat)
+                                <option value="{{ $cat->id }}" class="bg-slate-900 text-white" {{ request('category') == $cat->id ? 'selected' : '' }}>
+                                    {{ $cat->name }}
+                                </option>
+                                @endforeach
+                                @endif
+                            </select>
+                            <i class="fa-solid fa-chevron-down absolute left-3 text-slate-400 text-[10px] pointer-events-none"></i>
                         </div>
 
-
-
-                    </div>
-                </div>
-                <div class="profile-actions modern-actions">
-                    <button class="modern-btn chat-btn" title="تواصل مع التاجر">
-                        <i class="fas fa-message"></i> تواصل
-                    </button>
-                    <button class="modern-btn info-btn" title="معلومات إضافية" onclick="showSellerDetails()">
-                        <i class="fas fa-user-circle"></i> معلومات
-                    </button>
-                </div>
-            </div>
-            <div id="seller-extra-info" class="extra-info-box" style="display:none;">
-                <p><i class="fab fa-whatsapp"></i> <strong>واتساب:</strong> <span dir="ltr"
-                        style="unicode-bidi: embed;">{{ $product->store->phone }} </span> </p>
-                {{-- <p><i class="fab fa-facebook"></i> <strong>فيسبوك:</strong> <a href="https://facebook.com/seller"
-                        target="_blank">facebook.com/seller</a></p> --}}
-            </div>
-        </div>
-
-        <div class="product-box dark-box">
-            <div style="display: flex; justify-content: space-between;">
-                <h1 class="product-title"> {{ $product->name }}</h1>
-
-                <div class="rating" style="margin-top: -10px">
-                    <form action="{{ route('customer.product.rate', $product->id) }}" method="POST" id="rating-form">
-                        @csrf
-                        <div class="star-rating">
-                            @for($i = 5; $i >= 1; $i--)
-                                <input type="radio" id="star{{$i}}" name="rate" value="{{$i}}" style="display:none;">
-                                <label for="star{{$i}}" title="{{$i}} نجوم"
-                                    style="cursor:pointer; font-size:24px;">&#9733;</label>
-                            @endfor
+                        <!-- Search Input Field -->
+                        <div class="relative flex-1 flex items-center">
+                            <input type="text" name="search" id="search-input" autocomplete="off"
+                                value="{{ request('search') }}"
+                                placeholder="ابحث عن المنتجات، المتاجر، أو الفئات..."
+                                class="w-full bg-transparent text-white placeholder-slate-400 text-xs sm:text-sm py-3.5 pr-10 pl-24 outline-none" />
+                            <i class="fa-solid fa-magnifying-glass absolute right-3.5 text-slate-400 text-sm"></i>
+                            <button type="submit" class="absolute left-2 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white px-5 py-2 rounded-full text-xs font-bold transition shadow-md">
+                                بحث
+                            </button>
                         </div>
                     </form>
 
-                    <script>
-                        // نختار كل اللابلز داخل star-rating
-                        document.querySelectorAll('.star-rating label').forEach(label => {
-                            label.addEventListener('click', function () {
-                                // عند الضغط على النجمة، يتم اختيار الراديو المناسب
-                                const input = document.getElementById(this.getAttribute('for'));
-                                input.checked = true;
-                                // ثم إرسال الفورم
-                                document.getElementById('rating-form').submit();
-                            });
-                        });
-                    </script>
-
-                    <p>متوسط التقييم: {{ number_format($product->ratings()->avg('rate') ?? 0, 1) }} / 5
-                    </p>
-
-                </div>
-            </div>
-
-            @if ($product->discount > 0)
-                <div data-symbol="₪"> السعر قبل: <del>{{ $product->price }}₪</del></div>
-                <div class="price" data-symbol="₪">
-                    السعر بعد: {{ number_format($product->price * (1 - $product->discount / 100), 2) }} ₪
-                </div>
-            @else
-                <div data-symbol="₪"> السعر {{ $product->price }}₪</div>
-            @endif
-            <div class="seller">عدد المبيعات: <span>{{ $product->total_sales }} </span>
-            </div>
-            <p class="product-date">تاريخ الطرح: <strong>{{ $product->created_at }}</strong></p>
-            <div class="product-gallery">
-                <img src="{{asset('storage/' . $product->images()->where('is_main', true)->first()->image_path)}}"
-                    class="main-img" alt="الصورة الرئيسية">
-                @php
-                    $mainImage = $product->images()->where('is_main', true)->first();
-                    $otherImages = $product->images()->where('is_main', false)->get();
-                @endphp
-
-                <div class="thumbs">
-                    @if($mainImage)
-                        <img src="{{ asset('storage/' . $mainImage->image_path) }}" onclick="changeImage(this)">
-                    @endif
-
-                    @foreach($otherImages as $img)
-                        <img src="{{ asset('storage/' . $img->image_path) }}" onclick="changeImage(this)">
-                    @endforeach
-                </div>
-            </div>
-
-            <div class="product-options">
-                <h4 style="color: white;" class="my-4"> التشكيلة الخاصة بالمنتج:</h4>
-                <div class="row">
-                    @foreach ($product->variants as $variant)
-                        <div class="col-md-4 mb-3">
-                            <div class="card variant-card" data-id="{{ $variant->id }}" onclick="selectVariant(this)"
-                                style="cursor:pointer;">
-                                <div class="card-body text-center">
-                                    <h6 class="card-title">
-                                        @foreach ($variant->attributeValues as $value)
-                                            {{ $value->attribute->name }}: {{ $value->value }}<br>
-                                        @endforeach
-                                    </h6>
-
-                                    <img src="{{ asset('storage/' . $variant->image) }}">
-                                    @if ($variant->product->discount > 0)
-                                        <div data-symbol="₪"> السعر قبل: <del>{{ $variant->price }}₪</del></div>
-                                        <div class="price" data-symbol="₪">
-                                            السعر بعد:
-                                            {{ number_format($variant->price * (1 - $variant->product->discount / 100), 2) }}
-                                            ₪
-                                        </div>
-                                    @else
-                                        <div data-symbol="₪"> السعر {{ $product->price }}₪</div>
-                                    @endif
-                                    <p class="variant-quantity"><strong>الكمية:</strong>
-                                        <span>{{ $variant->quantity }}</span>
-                                    </p>
-
-                                    <div class="mt-2 quantity-selector" style="display:none;">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <label class="me-2 mb-0">الكمية المرادة:</label>
-                                            <input type="number" min="1" max="{{ $variant->quantity }}" value="1"
-                                                class="form-control quantity-input" style="width:80px; margin-right: 20px;">
-                                        </div>
-
-                                        <button class="btn btn-success buy-now-btn" data-variant-id="{{ $variant->id }}"
-                                            data-checkout-url="{{ route('customer.checkout.show') }}">
-                                            اختيار وشراء
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                    <!-- AJAX Live Results Dropdown -->
+                    <ul id="search-results" class="absolute top-full right-0 left-0 mt-2 bg-slate-900/95 backdrop-blur-2xl border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden z-50 hidden divide-y divide-slate-800 max-h-96 overflow-y-auto">
+                    </ul>
                 </div>
 
-            </div>
-        </div>
-    </div>
+                <!-- Navigation Actions -->
+                <div class="flex items-center gap-3">
+                    @auth
+                    <!-- Notifications Dropdown -->
+                    <div class="relative">
+                        <button id="notifDropdownBtn" class="relative p-3 text-slate-300 hover:text-white bg-slate-800/70 hover:bg-slate-800 rounded-full transition border border-slate-700/60">
+                            <i class="fa-solid fa-bell text-lg"></i>
+                            @if(Auth::user()->unreadNotifications->count() > 0)
+                            <span class="absolute -top-1 -right-1 bg-accent-coral text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full animate-pulse border-2 border-slate-900">
+                                {{ Auth::user()->unreadNotifications->count() }}
+                            </span>
+                            @endif
+                        </button>
 
-
-
-
-    <div class="seller-comments dark-box">
-        <h3>آراء العملاء</h3>
-
-        <!-- قائمة التعليقات السابقة -->
-        <ul class="comments-list" id="comments-list">
-            @foreach($product->comments as $comment)
-                <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-
-                    <!-- التعليق على أقصى اليمين -->
-                    <span style="text-align: right;">
-                        <strong>{{ $comment->user->name }}:</strong> {{ $comment->comment }}
-                    </span>
-
-                    <!-- التقييم على أقصى اليسار -->
-                    @if($comment->rating)
-                        <div class="stars-container" style="display:flex; gap: 2px;">
-                            @for($i = 1; $i <= 5; $i++)
-                                <span class="stars" style="color: {{ $i <= $comment->rating->rate ? 'gold' : '#ccc' }}">
-                                    &#9733;
-                                </span>
-                            @endfor
-                        </div>
-                    @endif
-
-                </li>
-            @endforeach
-        </ul>
-
-
-        <div class="comment-box">
-            <form action="{{ route('customer.products.comments.store', $product->id) }}" method="POST">
-                @csrf
-                <textarea id="comment-input" placeholder="أضف تعليقك..." rows="3" name="comment"></textarea>
-                {{-- <button style="margin-right: 810px;" onclick="addComment()">إرسال</button> --}}
-                <button style="margin-right: 10px;">إرسال</button>
-            </form>
-
-        </div>
-
-        <div class="comments-list" id="comments-list">
-            <!-- التعليقات ستظهر هنا -->
-        </div>
-
-
-
-
-
-
-
-
-        <div class="seller-products-slider">
-            <h3 style="color: azure;">منتجات ذات صلة</h3>
-
-            <div class="slider-wrapper" style="position: relative;">
-                <button class="arrow-btn slideRight left">&#10095;</button>
-                <button class="arrow-btn slideLeft right">&#10094;</button>
-
-                <div class="slider-container">
-
-
-
-                    @foreach ($relevantProducts as $product)
-
-                        <div class="product-card" data-id="1">
-                            <a href="{{ route('customer.product.show', $product->id) }}">
-                                <img alt="منتج"
-                                    src="{{asset('storage/' . $product->images()->where('is_main', true)->first()->image_path)}}"
-                                    onclick="window.location.href='/product_details.html'" />
-                            </a>
-
-                            <div class="title"> {{ $product->name }}</div>
-                            <span class="category">{{ $product->subcategory->name }}</span>
-                            <div class="price" data-symbol="$">${{ $product->price }}</div>
-                            <div class="product-rating"
-                                style="display:flex; justify-content:center; gap: 2px; margin: 5px 0;">
-                                @for($i = 1; $i <= 5; $i++)
-                                    <span class="stars" style="color: {{ $i <= round($averageRate) ? 'gold' : '#ccc' }}">
-                                        &#9733;
-                                    </span>
-                                @endfor
-                            </div>
-
-                            <div class="seller">عدد المبيعات: <span><a href="#">{{ $product->total_sales }}
-                                    </a></span> </div>
-                            <div class="seller">المتجر: <span><a
-                                        href="{{ route('customer.stores.show', $product->store->id) }}">{{ $product->store->name }}
-                                    </a></span> </div>
-
-                            <div class="actions">
-                                <button class="btn-cart">شراء الآن</button>
-                                {{-- <i class="fa-solid fa-heart btn-fav"></i> --}}
-                                <form action="{{ route('customer.cart.add') }}" method="POST" class="inline">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <input type="hidden" name="qty" value="1">
-                                    <i class="fa-solid fa-cart-shopping" onclick="this.closest('form').submit()"></i>
-                                </form>
-                            </div>
-                            <div class="published-time" data-time="2025-07-30T10:30:00Z">
-                                {{ $product->created_at }}
-                            </div>
-                        </div>
-                    @endforeach
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        const colorDots = document.querySelectorAll('.color-dot');
-        const selectedColorInput = document.getElementById('selectedColor');
-        const selectedColorLabel = document.querySelector('.selected-color-label');
-        const selectedColorName = document.getElementById('selected-color-name');
-
-        colorDots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                // إزالة التحديد من كل الدوائر
-                colorDots.forEach(d => d.classList.remove('selected'));
-
-                // تمييز الدائرة المختارة
-                dot.classList.add('selected');
-
-                // جلب اسم اللون
-                const color = dot.getAttribute('data-color');
-                selectedColorInput.value = color;
-                selectedColorName.textContent = color;
-                selectedColorLabel.style.display = 'block';
-            });
-        });
-    </script>
-
-
-
-    <script>
-        function increaseQty() {
-            const input = document.getElementById("quantity");
-            input.value = parseInt(input.value) + 1;
-        }
-
-        function decreaseQty() {
-            const input = document.getElementById("quantity");
-            if (parseInt(input.value) > 1) {
-                input.value = parseInt(input.value) - 1;
-            }
-        }
-    </script>
-
-
-    <script>
-        function addComment() {
-            const comment = document.getElementById("comment-input").value;
-            const rating = document.querySelector('input[name="rating"]:checked')?.value;
-            if (comment && rating) {
-                const stars = '★'.repeat(rating);
-                const li = document.createElement("li");
-                li.innerHTML = `<strong>أنت:</strong> ${comment} <span class="stars">${stars}</span>`;
-                document.getElementById("comments-list").appendChild(li);
-                document.getElementById("comment-input").value = "";
-                document.querySelectorAll('input[name="rating"]').forEach(el => el.checked = false);
-            }
-        }
-    </script>
-
-    <!-- ========================= scroll-top ========================= -->
-    <a href="#" class="scroll-top">
-        <i class="lni lni-chevron-up"></i>
-    </a>
-
-    <!-- Start Footer Area -->
-    <footer class="footer">
-        <!-- Start Footer Top -->
-        <div class="footer-top">
-            <div class="container">
-                <div class="inner-content">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="footer-logo" style="margin-top: 10px;">
-                                <a href="index.html">
-                                    <img src="{{asset('assets2/images/logo/logo.svg')}}" alt="#">
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-9 col-md-8 col-12">
-                            <div class="footer-newsletter">
-                                <h4 class="title" style="  float: none !important;
-                                    text-align: center !important;
-                                    margin-left: -450px;
-                                    margin-right: auto;
-                                    margin-top: 30px;
-                                    margin-bottom: -55px;
-                                    ">
-                                    اشترك في نشرتنا الإخبارية
-                                    <span>واحصل على أحدث المعلومات والتخفيضات والعروض</span>
+                        <div id="notifDropdownMenu" class="hidden absolute left-0 mt-3 w-80 sm:w-96 bg-slate-900/95 border border-slate-700/80 rounded-3xl shadow-2xl p-4 z-50 divide-y divide-slate-800 max-h-96 overflow-y-auto">
+                            <div class="flex items-center justify-between pb-3">
+                                <h4 class="font-bold text-sm text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-bell text-brand-400"></i> الإشعارات
                                 </h4>
-                                <div class="newsletter-form-head">
-                                    <form action="#" method="get" target="_blank" class="newsletter-form">
-                                        <input name="EMAIL" placeholder="Email address here..." type="email">
-                                        <div class="button">
-                                            <button class="btn">اشتراك<span class="dir-part"></span></button>
-                                        </div>
-                                    </form>
+                            </div>
+                            <div class="pt-3 space-y-2">
+                                @forelse (Auth::user()->unreadNotifications as $notification)
+                                <div class="p-3 bg-slate-800/80 rounded-2xl text-xs">
+                                    <p class="text-slate-200">{{ $notification->data['message'] ?? '' }}</p>
                                 </div>
+                                @empty
+                                <div class="py-6 text-center text-slate-400 text-xs">لا توجد إشعارات جديدة</div>
+                                @endforelse
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Top -->
-        <!-- Start Footer Middle -->
-        <div class="footer-middle" dir="ltr">
-            <div class="container">
-                <div class="bottom-inner">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-contact">
-                                <h3>تواصل معنا</h3>
-                                <p class="phone">Phone: +970 59 5570612</p>
-                                <ul>
-                                    <li><span>الاحد-الخميس: </span> 9.00 am - 8.00 pm</li>
-                                    <li><span>السبت: </span> 10.00 am - 6.00 pm</li>
-                                </ul>
-                                <p class="mail">
-                                    <a href="mailto:support@shopgrids.com">support@shopgrids.com</a>
-                                </p>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer our-app">
-                                <h3>تطبيقاتنا</h3>
-                                <ul class="app-btn">
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-apple"></i>
-                                            <span class="small-title">Not available now</span>
-                                            <span class="big-title">App Store</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-play-store"></i>
-                                            <span class="small-title">Not available now</span>
-                                            <span class="big-title">Google Play</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-link">
-                                <h3>معلومات</h3>
-                                <ul>
-                                    <li><a href="about-us.html">من نحن</a></li>
-                                    <li><a href="{{ route('customer.contact') }}">تواصل معنا</a></li>
-                                    <li><a href="{{ route('customer.faq') }}">أسئلة شائعة</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-link">
-                                <h3> أقسام المتجر الأساسية</h3>
-                                <ul>
-                                    <li><a href="product_page.html">الكترونيات</a></li>
-                                    <li><a href="product_page.html">موضة</a></li>
-                                    <li><a href="product_page.html">الجمال و العناية</a></li>
-                                    <li><a href="product_page.html">الألعاب</a></li>
-                                    <li><a href="product_page.html">رياضة</a></li>
-                                    <li><a href="product_page.html">سيارات و مركبات</a></li>
-                                    <li><a href="product_page.html">إكسسورات & ساعات</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Middle -->
-        <!-- Start Footer Bottom -->
-        <div class="footer-bottom" dir="ltr">
-            <div class="container">
-                <div class="inner-content">
-                    <div class="row align-items-center">
-                        <div class="col-lg-4 col-12">
-                            <div class="payment-gateway">
-                                <span>We Accept:</span>
-                                <img src="{{asset('assets2/images/footer/credit-cards-footer.png') }}" alt="#">
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <div class="copyright">
-                                <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow"
-                                        target="_blank">WIC std</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <ul class="socila">
-                                <li>
-                                    <span>Follow Us On:</span>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
+                    @endauth
 
-                                <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-google"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Bottom -->
-    </footer>
-    <!--/ End Footer Area -->
-
-
-
-
-
-    <div id="customModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal()">✖</button>
-            <div class="modal-content">
-                <h2>تسجيل الدخول</h2>
-                <form>
-                    <label for="email">البريد الإلكتروني</label>
-                    <input type="email" id="email" placeholder="example@email.com" required>
-
-                    <label for="password">كلمة المرور</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
-
-                    <button type="submit" class="submit-btn">دخول</button>
-                    <p class="link"><a href="#">نسيت كلمة المرور؟</a></p>
-
-                    <div class="or-divider">أو</div>
-
-                    <button class="google-btn">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo">
-                        التسجيل عبر Google
+                    <!-- Cart Trigger Button -->
+                    <button id="open-cart-btn" class="relative flex items-center gap-2.5 bg-brand-600/20 hover:bg-brand-600/30 text-brand-400 border border-brand-500/40 px-4 py-2.5 rounded-full transition group">
+                        <i class="fa-solid fa-cart-shopping text-base group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs font-bold hidden sm:inline-block">السلة</span>
+                        <span id="cart-count-badge" class="bg-brand-500 text-white text-[11px] font-black px-2.5 py-0.5 rounded-full shadow">
+                            {{ count($carts->flatMap->items) }}
+                        </span>
                     </button>
 
-                </form>
+                    @guest
+                    <button onclick="openModal()" class="bg-slate-800/90 hover:bg-slate-700 text-white text-xs font-bold px-4 py-2.5 rounded-full border border-slate-700 transition">
+                        تسجيل دخول
+                    </button>
+                    @endguest
+
+                    @auth
+                    <!-- User Menu Dropdown -->
+                    <div class="relative">
+                        <button id="userMenuBtn" class="flex items-center gap-2 p-1.5 pl-3.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 rounded-full transition">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-accent-orange flex items-center justify-center text-white font-black text-xs shadow">
+                                {{ mb_substr(Auth::user()->name, 0, 1) }}
+                            </div>
+                            <span class="text-xs font-bold text-slate-200 hidden md:inline-block max-w-[100px] truncate">
+                                {{ Auth::user()->name }}
+                            </span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                        </button>
+
+                        <div id="userMenuDropdown" class="hidden absolute left-0 mt-3 w-60 bg-slate-900/95 border border-slate-700/80 rounded-3xl shadow-2xl p-2.5 z-50 text-xs space-y-1">
+                            <div class="p-3 bg-slate-800/60 rounded-2xl mb-1">
+                                <p class="font-bold text-white text-sm truncate">{{ Auth::user()->name }}</p>
+                            </div>
+                            <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                                <i class="fa-solid fa-user-pen text-brand-400 w-4 text-center"></i> الملف الشخصي
+                            </a>
+                            <a href="{{ route('customer.orders.show') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                                <i class="fa-solid fa-box text-brand-400 w-4 text-center"></i> طلباتك
+                            </a>
+                            <hr class="border-slate-800 my-1">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-rose-400 hover:bg-rose-500/10 transition font-bold text-right">
+                                    <i class="fa-solid fa-right-from-bracket w-4 text-center"></i> تسجيل الخروج
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    @endauth
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMBS -->
+    <div class="bg-slate-950/60 border-b border-slate-800/80 py-3 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="flex items-center gap-2 text-slate-400">
+                <a href="{{ route('customer.main-page') }}" class="hover:text-white transition flex items-center gap-1">
+                    <i class="fa-solid fa-house text-brand-400"></i> الرئيسية
+                </a>
+                <span>/</span>
+                <a href="{{ route('customer.stores.show', $product->store_id) }}" class="hover:text-white transition">{{ $product->store->name }}</a>
+                <span>/</span>
+                <span class="text-slate-200 font-bold">{{ $product->name }}</span>
             </div>
         </div>
     </div>
 
+    <!-- MAIN PRODUCT DETAILS AREA -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 w-full">
 
+        <!-- PRODUCT MAIN CONTAINER (Gallery & Details Grid) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10" data-aos="fade-up">
+            <!-- Left Column: Gallery -->
+            <div class="space-y-4">
+                @php
+                $mainImage = $product->images()->where('is_main', true)->first();
+                $otherImages = $product->images()->where('is_main', false)->get();
+                $mainImgPath = $mainImage ? asset('storage/' . $mainImage->image_path) : asset('images/no-image.png');
+                @endphp
+                <div class="glass-card rounded-3xl p-4 bg-slate-900/80 border border-slate-800 overflow-hidden text-center aspect-square flex items-center justify-center relative group">
+                    <img id="main-product-img" src="{{ $mainImgPath }}" alt="{{ $product->name }}" class="max-h-full max-w-full object-contain rounded-2xl transition-all duration-300" />
+                </div>
 
-    <!-- سلة جانبية -->
-    <div class="cart-panel" id="cart-panel" style="display:none;">
+                <!-- Thumbnails Carousel -->
+                <div class="flex items-center justify-center gap-3 overflow-x-auto no-scrollbar py-1">
+                    @if($mainImage)
+                    <img src="{{ asset('storage/' . $mainImage->image_path) }}" onclick="changeProductImage(this)"
+                        class="w-16 h-16 object-cover rounded-2xl border-2 border-brand-500 cursor-pointer hover:scale-105 transition shrink-0" />
+                    @endif
+                    @foreach($otherImages as $img)
+                    <img src="{{ asset('storage/' . $img->image_path) }}" onclick="changeProductImage(this)"
+                        class="w-16 h-16 object-cover rounded-2xl border-2 border-slate-800 hover:border-brand-500 cursor-pointer hover:scale-105 transition shrink-0" />
+                    @endforeach
+                </div>
+            </div>
 
-        <button type="button" class="close-panel" id="close-cart">×</button>
-        <h3> <a href="{{ route('customer.cart.index') }}"> سلة المشتريات </a></h3>
+            <!-- Right Column: Details & Actions -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 bg-slate-900/70 border border-slate-800 space-y-5 flex flex-col justify-between">
+                <div class="space-y-4">
+                    <!-- Top Category & Rating Bar -->
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-bold px-3 py-1 rounded-full">
+                            {{ $product->subcategory->name ?? 'قسم عام' }}
+                        </span>
 
-        <div class="cart-items" id="cart-items">
-            @foreach ($carts as $cart)
-                @forelse ($cart->items as $item)
-                    <a href="{{ route('customer.product.show', $product->id) }}">
-                        @php
-                            $img = $item->product->images()->where('is_main', 1)->first();
-                        @endphp
-
-                        <div class="cart-item">
-                            {{-- <input type="checkbox" name="selected_items[]" value="{{ $item->id }}" class="select-item">
-                            --}}
-
-                            <div class="thumb"
-                                style="background: url('{{ asset('storage/' . $img->image_path) }}') center / cover no-repeat;">
+                        <!-- Product Rating Form -->
+                        <form action="{{ route('customer.product.rate', $product->id) }}" method="POST" id="rating-form" class="flex items-center gap-1 bg-slate-950/80 px-3 py-1 rounded-full border border-slate-800">
+                            @csrf
+                            <div class="flex flex-row-reverse gap-1 text-accent-gold cursor-pointer text-sm">
+                                @for($i = 5; $i >= 1; $i--)
+                                <input type="radio" id="star{{$i}}" name="rate" value="{{$i}}" class="hidden" />
+                                <label for="star{{$i}}" title="{{$i}} نجوم" class="hover:scale-125 transition cursor-pointer">&#9733;</label>
+                                @endfor
                             </div>
+                            <span class="text-xs font-bold text-white me-1">{{ number_format($product->ratings()->avg('rate') ?? 0, 1) }}</span>
+                        </form>
+                    </div>
 
-                            <div class="cart-info">
-                                <h4 class="cart-title">{{ $item->name }}</h4>
-                                <div class="price">{{ number_format($item->price, 2) }}</div>
-                                <div class="date">{{ $item->created_at?->format('Y-m-d H:i') }}</div>
-                            </div>
+                    <!-- Title -->
+                    <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight">{{ $product->name }}</h1>
 
-                            <div class="cart-controls">
-                                <!-- زر حذف فردي -->
-                                <form action="{{ route('customer.cart.remove', $item->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="delete" title="حذف"
-                                        style="padding:5px 8px; background:red; color:white; border:none; cursor:pointer;">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </form>
+                    <!-- Compact Vendor Info Component -->
+                    @if($product->store)
+                    <div class="flex items-center justify-between bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80">
+                        <div class="flex items-center gap-3">
+                            <img src="{{ $product->store->logo ? asset('storage/' . $product->store->logo) : asset('img/store-logo.jpg') }}"
+                                alt="{{ $product->store->name }}" class="w-10 h-10 rounded-xl object-cover border border-slate-700 bg-slate-900 shrink-0" />
+                            <div>
+                                <a href="{{ route('customer.stores.show', $product->store_id) }}" class="font-bold text-white text-xs sm:text-sm hover:text-brand-400 transition block leading-tight">
+                                    {{ $product->store->name }}
+                                </a>
+                                <span class="text-[11px] text-slate-400 block mt-0.5">التاجر: <strong class="text-slate-300 font-semibold">{{ $product->store->user->name ?? 'مرساة' }}</strong></span>
                             </div>
                         </div>
-                @empty
-                            <p class="empty">السلة فارغة.</p>
+                        <a href="{{ route('customer.stores.show', $product->store_id) }}" class="bg-brand-600/10 hover:bg-brand-600 text-brand-400 hover:text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full border border-brand-500/30 transition flex items-center gap-1.5 shrink-0">
+                            <span>زيارة المتجر</span>
+                            <i class="fa-solid fa-arrow-left text-[10px]"></i>
                         </a>
-                    @endforelse
-            @endforeach
-        </div>
+                    </div>
+                    @endif
 
-        <div class="cart-footer">
-            {{-- <label class="select-all">
-                <input id="select-all" type="checkbox" />
-                <span>تحديد الكل</span>
-            </label> --}}
-            <div class="total">المجموع: ₪<span id="cart-total">{{ $totalPrice }}</span></div>
-            <div class="cart-actions">
-                <button type="button" id="buy-selected">شراء الآن</button>
-                {{-- <button type="submit" id="delete-selected" class="danger">حذف المحدد</button> --}}
+                    <!-- Price & Stock Info Block -->
+                    <div class="flex flex-col gap-1 py-3 border-y border-slate-800/80">
+                        <div class="flex items-baseline gap-3">
+                            @if ($product->discount > 0)
+                            <span class="text-3xl sm:text-4xl font-black text-emerald-400" id="display-price">
+                                {{ number_format($product->price * (1 - $product->discount / 100), 2) }} <span class="text-base font-bold">₪</span>
+                            </span>
+                            <span class="text-sm text-slate-500 line-through">{{ $product->price }} ₪</span>
+                            <span class="bg-rose-500/10 text-rose-400 border border-rose-500/30 text-[11px] font-black px-2.5 py-0.5 rounded-full">
+                                خصم {{ $product->discount }}%
+                            </span>
+                            @else
+                            <span class="text-3xl sm:text-4xl font-black text-emerald-400" id="display-price">{{ $product->price }} <span class="text-base font-bold">₪</span></span>
+                            @endif
+                        </div>
+
+                        <div class="flex items-center gap-4 text-xs text-slate-400 mt-1">
+                            <span>المبيعات: <strong class="text-white">{{ $product->total_sales }}</strong></span>
+                            <span>•</span>
+                            <span>المخزون:
+                                @if($product->stock > 0)
+                                <strong class="text-emerald-400">متوفر ({{ $product->stock }})</strong>
+                                @else
+                                <strong class="text-rose-400">نفذت الكمية</strong>
+                                @endif
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Short Description Snippet -->
+                    @if($product->description)
+                    <div class="text-slate-300 text-xs sm:text-sm leading-relaxed bg-slate-950/40 p-3.5 rounded-2xl border border-slate-800/60">
+                        {{ Str::limit(strip_tags($product->description), 150, '...') }}
+                        <button type="button" onclick="switchTab('description')" class="text-brand-400 hover:underline font-bold ms-1 text-xs outline-none">قراءة المزيد</button>
+                    </div>
+                    @endif
+                </div>
+
+                <!-- Product Variations Swatches & Action Bar -->
+                <div class="space-y-5">
+                    @if($product->variants->count() > 0)
+                    <div class="space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <label class="font-bold text-white text-xs flex items-center gap-1.5">
+                                <i class="fa-solid fa-sliders text-brand-400"></i> التشكيلة والخيارات المتاحة:
+                            </label>
+                            <span id="selected-variant-name" class="text-[11px] text-brand-400 font-bold">اختر الخيار</span>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2.5" id="variants-swatch-container">
+                            @foreach ($product->variants as $index => $variant)
+                            @php
+                            $variantLabel = '';
+                            $isColor = false;
+                            $colorHex = '#38bdf8';
+                            $colorMap = [
+                            'أحمر' => '#ef4444', 'red' => '#ef4444',
+                            'أسود' => '#0f172a', 'black' => '#0f172a',
+                            'أزرق' => '#3b82f6', 'blue' => '#3b82f6',
+                            'أبيض' => '#ffffff', 'white' => '#ffffff',
+                            'أخضر' => '#22c55e', 'green' => '#22c55e',
+                            'رمادي' => '#64748b', 'grey' => '#64748b', 'gray' => '#64748b',
+                            'وردي' => '#ec4899', 'pink' => '#ec4899',
+                            'أصفر' => '#eab308', 'yellow' => '#eab308',
+                            'بني' => '#78350f', 'brown' => '#78350f',
+                            'برتقالي' => '#f97316', 'orange' => '#f97316',
+                            'بنفسجي' => '#a855f7', 'purple' => '#a855f7',
+                            'ذهبي' => '#eab308', 'gold' => '#eab308',
+                            'فضي' => '#94a3b8', 'silver' => '#94a3b8',
+                            ];
+
+                            $attrNames = [];
+                            foreach ($variant->attributeValues as $val) {
+                            $attrName = strtolower(trim($val->attribute->name ?? ''));
+                            $valText = trim($val->value);
+                            $attrNames[] = $valText;
+
+                            if (in_array($attrName, ['لون', 'اللون', 'color', 'colors'])) {
+                            $isColor = true;
+                            $colorHex = $colorMap[mb_strtolower($valText)] ?? (preg_match('/^#[0-9a-f]{3,6}$/i', $valText) ? $valText : '#38bdf8');
+                            }
+                            }
+                            $variantLabel = count($attrNames) > 0 ? implode(' / ', $attrNames) : 'خيار ' . ($index + 1);
+                            $variantImg = $variant->image ? asset('storage/' . $variant->image) : null;
+                            @endphp
+
+                            @if($isColor)
+                            <!-- CIRCULAR COLOR DOT SWATCH -->
+                            <button type="button"
+                                class="swatch-btn group relative w-9 h-9 rounded-full p-0.5 border-2 border-slate-700 hover:border-brand-400 transition-all duration-200 flex items-center justify-center cursor-pointer select-none focus:outline-none"
+                                data-id="{{ $variant->id }}"
+                                data-price="{{ $variant->price }}"
+                                data-image="{{ $variantImg }}"
+                                data-label="{{ $variantLabel }}"
+                                title="{{ $variantLabel }} ({{ $variant->price }} ₪)"
+                                onclick="selectSwatch(this)">
+                                <span class="w-full h-full rounded-full shadow-inner flex items-center justify-center transition-transform group-hover:scale-105" style="background-color: {{ $colorHex }}; border: {{ strtolower($colorHex) === '#ffffff' ? '1px solid #cbd5e1' : 'none' }};">
+                                    <i class="fa-solid fa-check text-[10px] text-white drop-shadow check-icon hidden"></i>
+                                </span>
+                            </button>
+                            @else
+                            <!-- OUTLINED PILL BUTTON SWATCH -->
+                            <button type="button"
+                                class="swatch-btn px-4 py-2 rounded-xl border border-slate-700/80 bg-slate-950/80 text-slate-300 text-xs font-bold hover:border-brand-500/80 hover:bg-slate-900 transition-all duration-200 cursor-pointer select-none flex items-center gap-2 focus:outline-none"
+                                data-id="{{ $variant->id }}"
+                                data-price="{{ $variant->price }}"
+                                data-image="{{ $variantImg }}"
+                                data-label="{{ $variantLabel }}"
+                                onclick="selectSwatch(this)">
+                                @if($variantImg)
+                                <img src="{{ $variantImg }}" class="w-4 h-4 rounded-full object-cover shrink-0" />
+                                @endif
+                                <span>{{ $variantLabel }}</span>
+                                <span class="text-[11px] text-emerald-400 font-extrabold me-1">({{ $variant->price }} ₪)</span>
+                            </button>
+                            @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+
+                    <!-- Action Form & Wishlist Integration -->
+                    <form action="{{ route('customer.cart.add') }}" method="POST" id="add-to-cart-form" class="space-y-4">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="variant_id" id="selected-variant-id" value="">
+
+                        <div class="flex items-center gap-3">
+                            <!-- Quantity Selector -->
+                            <div class="flex items-center bg-slate-950 border border-slate-800 rounded-full px-3 py-2 shrink-0">
+                                <button type="button" onclick="adjustQty(-1)" class="text-slate-400 hover:text-white px-2 font-bold text-base select-none">-</button>
+                                <input type="number" id="product-qty" name="qty" value="1" min="1" max="{{ $product->stock > 0 ? $product->stock : 999 }}" class="w-10 bg-transparent text-white font-bold text-center outline-none text-xs" />
+                                <button type="button" onclick="adjustQty(1)" class="text-slate-400 hover:text-white px-2 font-bold text-base select-none">+</button>
+                            </div>
+
+                            <!-- Primary Add to Cart Button -->
+                            <button type="submit" class="flex-1 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-black py-3.5 px-6 rounded-full shadow-lg shadow-brand-600/30 transition text-xs sm:text-sm flex items-center justify-center gap-2 group">
+                                <i class="fa-solid fa-cart-plus text-base group-hover:scale-110 transition-transform"></i>
+                                <span>إضافة إلى سلة المشتريات</span>
+                            </button>
+
+                            <!-- Integrated Wishlist Button -->
+                            @php
+                            $isWishlisted = Auth::check() ? Auth::user()->wishlistProducts->contains($product->id) : false;
+                            @endphp
+                            <button type="button" onclick="toggleWishlist({{ $product->id }}, this)"
+                                id="wishlist-btn-{{ $product->id }}"
+                                title="{{ $isWishlisted ? 'إزالة من قائمة الرغبات' : 'إضافة إلى قائمة الرغبات' }}"
+                                class="w-12 h-12 rounded-full border border-slate-700/80 hover:border-brand-500 bg-slate-950/80 hover:bg-slate-900 text-slate-300 hover:text-accent-coral flex items-center justify-center transition shrink-0 group cursor-pointer shadow-md">
+                                <i class="{{ $isWishlisted ? 'fa-solid text-accent-coral' : 'fa-regular group-hover:scale-110' }} fa-heart text-lg transition-transform duration-200"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCT INFORMATION TABS SECTION -->
+        <section id="product-tabs-section" class="glass-card rounded-3xl p-6 sm:p-8 space-y-6 bg-slate-900/70 border border-slate-800" data-aos="fade-up">
+            <!-- Tabs Navigation Header -->
+            <div class="flex items-center gap-2 border-b border-slate-800 pb-4 overflow-x-auto no-scrollbar">
+                <button type="button" onclick="switchTab('description')" id="tab-btn-description"
+                    class="tab-nav-btn px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition flex items-center gap-2.5 shrink-0 bg-brand-600 text-white shadow-lg shadow-brand-600/30">
+                    <i class="fa-solid fa-file-lines text-sm"></i>
+                    <span>الوصف</span>
+                </button>
+
+                <button type="button" onclick="switchTab('specs')" id="tab-btn-specs"
+                    class="tab-nav-btn px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition flex items-center gap-2.5 shrink-0 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-800">
+                    <i class="fa-solid fa-list-check text-sm"></i>
+                    <span>المواصفات</span>
+                </button>
+
+                <button type="button" onclick="switchTab('reviews')" id="tab-btn-reviews"
+                    class="tab-nav-btn px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition flex items-center gap-2.5 shrink-0 bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-800">
+                    <i class="fa-solid fa-comments text-sm"></i>
+                    <span>آراء العملاء</span>
+                    <span class="bg-slate-900 text-brand-400 text-[11px] font-black px-2 py-0.5 rounded-full border border-slate-700">
+                        {{ $product->comments->count() }}
+                    </span>
+                </button>
+            </div>
+
+            <!-- TAB 1: DESCRIPTION PANE -->
+            <div id="tab-pane-description" class="tab-pane space-y-4">
+                <h4 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-align-right text-brand-400"></i> تفاصيل وصف المنتج
+                </h4>
+                <div class="text-slate-300 text-xs sm:text-sm leading-relaxed whitespace-pre-line bg-slate-950/60 p-5 rounded-2xl border border-slate-800/80">
+                    {{ $product->description ?? 'لا يوجد وصف تفصيلي متوفر لهذا المنتج حالياً.' }}
+                </div>
+            </div>
+
+            <!-- TAB 2: SPECIFICATIONS PANE -->
+            <div id="tab-pane-specs" class="tab-pane hidden space-y-4">
+                <h4 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-table-list text-brand-400"></i> مواصفات المنتج والبيانات التقنية
+                </h4>
+                <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950/60">
+                    <table class="w-full text-xs text-right text-slate-300">
+                        <tbody class="divide-y divide-slate-800">
+                            <tr class="hover:bg-slate-900/50 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-400 w-1/3 bg-slate-900/40">اسم المنتج</td>
+                                <td class="py-3.5 px-5 font-bold text-white">{{ $product->name }}</td>
+                            </tr>
+                            @if($product->subcategory)
+                            <tr class="hover:bg-slate-900/50 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-400 bg-slate-900/40">القسم / الفئة</td>
+                                <td class="py-3.5 px-5 font-bold text-brand-400">{{ $product->subcategory->name }}</td>
+                            </tr>
+                            @endif
+                            @if($product->store)
+                            <tr class="hover:bg-slate-900/50 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-400 bg-slate-900/40">المتجر / التاجر</td>
+                                <td class="py-3.5 px-5 font-bold text-white">{{ $product->store->name }} ({{ $product->store->user->name ?? '' }})</td>
+                            </tr>
+                            @endif
+                            <tr class="hover:bg-slate-900/50 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-400 bg-slate-900/40">الحالة والمخزون</td>
+                                <td class="py-3.5 px-5 font-bold text-emerald-400">
+                                    {{ $product->stock > 0 ? 'متوفر في المخزون (' . $product->stock . ' قطعة)' : 'غير متوفر' }}
+                                </td>
+                            </tr>
+                            @if($product->discount > 0)
+                            <tr class="hover:bg-slate-900/50 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-400 bg-slate-900/40">خصم العرض</td>
+                                <td class="py-3.5 px-5 font-bold text-rose-400">{{ $product->discount }}% خصم لفترة محدودة</td>
+                            </tr>
+                            @endif
+                            <tr class="hover:bg-slate-900/50 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-400 bg-slate-900/40">تاريخ الإضافة</td>
+                                <td class="py-3.5 px-5 font-bold text-slate-300">{{ $product->created_at?->format('Y-m-d') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: REVIEWS PANE -->
+            <div id="tab-pane-reviews" class="tab-pane hidden space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <h4 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-brand-400"></i> آراء العملاء وتقييماتهم
+                    </h4>
+                    <span class="text-xs text-slate-400 font-semibold">{{ $product->comments->count() }} تعليق</span>
+                </div>
+
+                <div class="space-y-3 max-h-96 overflow-y-auto pr-1">
+                    @forelse($product->comments as $comment)
+                    <div class="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-white text-xs sm:text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-circle-user text-brand-400"></i> {{ $comment->user->name }}
+                            </span>
+                            @if($comment->rating)
+                            <div class="flex items-center gap-1 text-accent-gold text-xs">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span style="color: {{ $i <= $comment->rating->rate ? '#ffb703' : '#334155' }}">&#9733;</span>
+                                    @endfor
+                            </div>
+                            @endif
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed">{{ $comment->comment }}</p>
+                    </div>
+                    @empty
+                    <div class="py-8 text-center text-slate-500 text-xs">لا توجد تعليقات سابقة لهذا المنتج. كن أول من يضيف رأيه!</div>
+                    @endforelse
+                </div>
+
+                <form action="{{ route('customer.products.comments.store', $product->id) }}" method="POST" class="pt-4 border-t border-slate-800 space-y-3">
+                    @csrf
+                    <textarea name="comment" required placeholder="أضف تجربتك أو تعليقك حول هذا المنتج..." rows="3"
+                        class="w-full bg-slate-950 border border-slate-800 text-white rounded-2xl p-4 text-xs outline-none focus:border-brand-500 resize-none"></textarea>
+                    <button type="submit" class="bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs px-6 py-3 rounded-full transition shadow-lg shadow-brand-600/30">
+                        إرسال التعليق
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- RELEVANT PRODUCTS SECTION -->
+        <section class="space-y-6" data-aos="fade-up">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <h3 class="text-2xl font-black text-white">منتجات ذات صلة</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach ($relevantProducts as $relProduct)
+                @php
+                $relImage = $relProduct->images()->where('is_main', true)->first();
+                @endphp
+                <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group transition-all duration-300">
+                    <div class="relative aspect-square overflow-hidden bg-slate-900/80">
+                        <a href="{{ route('customer.product.show', $relProduct->id) }}" class="block w-full h-full">
+                            <img src="{{ $relImage ? asset('storage/' . $relImage->image_path) : asset('images/no-image.png') }}"
+                                alt="{{ $relProduct->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+                        </a>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h4 class="font-bold text-white text-sm truncate hover:text-brand-400 transition">
+                                <a href="{{ route('customer.product.show', $relProduct->id) }}">{{ $relProduct->name }}</a>
+                            </h4>
+                            @php
+                            $relAvgRate = round($relProduct->ratings ? ($relProduct->ratings->avg('rate') ?? 5.0) : 5.0, 1);
+                            $relFullStars = floor($relAvgRate);
+                            $relHasHalf = ($relAvgRate - $relFullStars) >= 0.5;
+                            @endphp
+                            <a href="{{ route('customer.product.show', $relProduct->id) }}#reviews" title="عرض التقييمات والمراجعات" class="inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-accent-gold transition mt-1">
+                                <div class="flex items-center gap-0.5 text-accent-gold text-[11px]">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <=$relFullStars)
+                                        <i class="fa-solid fa-star text-accent-gold"></i>
+                                        @elseif ($i == $relFullStars + 1 && $relHasHalf)
+                                        <i class="fa-solid fa-star-half-stroke text-accent-gold"></i>
+                                        @else
+                                        <i class="fa-regular fa-star text-slate-600"></i>
+                                        @endif
+                                        @endfor
+                                </div>
+                                <span class="font-bold text-slate-300 text-[11px]">({{ number_format($relAvgRate, 1) }})</span>
+                            </a>
+                            @if($relProduct->store)
+                            <div class="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                                <span>البائع:</span>
+                                <a href="{{ route('customer.stores.show', $relProduct->store->id) }}" class="text-brand-400 font-semibold hover:underline">
+                                    {{ $relProduct->store->name }}
+                                </a>
+                            </div>
+                            @endif
+                            <p class="text-emerald-400 font-extrabold text-sm mt-1">{{ $relProduct->price }} ₪</p>
+                        </div>
+                        <a href="{{ route('customer.product.show', $relProduct->id) }}" class="w-full text-center bg-slate-800 hover:bg-brand-600 text-slate-200 hover:text-white font-bold py-2.5 rounded-full text-xs transition">
+                            عرض التفاصيل
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 text-xs mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© {{ date('Y') }} جميع الحقوق محفوظة - مرساة Store</p>
+        </div>
+    </footer>
+
+    <!-- CART DRAWER -->
+    <div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden transition-opacity duration-300 opacity-0">
+        <div id="cart-drawer" class="fixed inset-y-0 left-0 w-full sm:w-96 bg-slate-900 border-r border-slate-800 shadow-2xl flex flex-col justify-between transform -translate-x-full transition-transform duration-300 ease-in-out">
+            <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950">
+                <h3 class="font-bold text-white text-base flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping text-brand-500"></i> سلة المشتريات
+                </h3>
+                <button id="close-cart-btn" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 flex-1 overflow-y-auto space-y-4">
+                @php $hasItems = false; @endphp
+                @foreach ($carts as $cart)
+                @foreach ($cart->items as $item)
+                @php $hasItems = true; @endphp
+                <div class="flex items-center gap-3 p-3 bg-slate-800/60 rounded-2xl border border-slate-700/60">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-white text-xs truncate">{{ $item->name }}</h4>
+                        <div class="text-emerald-400 font-extrabold text-xs mt-1">{{ number_format($item->price, 2) }} ₪</div>
+                    </div>
+                </div>
+                @endforeach
+                @endforeach
+                @if(!$hasItems)
+                <div class="py-16 text-center text-slate-400 text-xs">السلة فارغة حالياً</div>
+                @endif
             </div>
         </div>
     </div>
 
-
-    <script src="{{asset('assets2/js/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets2/js/glightbox.min.js')}}"></script>
-    <script src="{{asset('assets2/js/main.js')}}"></script>
-    <script src="{{asset('assets2/js/jsmain.js')}}"></script>
-    <script src="{{asset('assets2/js/js/tiny-slider.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>AOS.init();</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-
-
     <script>
-        const buyButtons = document.querySelectorAll('.buy-now-btn');
-
-        buyButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const variantId = this.dataset.variantId;
-                const qtyInput = this.closest('.variant-card')?.querySelector('.quantity-input');
-                const qty = parseInt(qtyInput?.value || 1);
-
-                if (!qty || qty < 1) {
-                    alert('الرجاء تحديد كمية صحيحة.');
-                    return;
-                }
-
-                const checkoutUrl = this.dataset.checkoutUrl;
-                console.log("Checkout URL:", checkoutUrl);
-
-                window.location.href = `${checkoutUrl}?variant_id=${variantId}&qty=${qty}`;
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true
             });
+
+            document.querySelectorAll('#rating-form label').forEach(label => {
+                label.addEventListener('click', function() {
+                    const input = document.getElementById(this.getAttribute('for'));
+                    if (input) {
+                        input.checked = true;
+                        document.getElementById('rating-form').submit();
+                    }
+                });
+            });
+
+            // Cart & User Controls
+            const cartDrawerOverlay = document.getElementById('cart-drawer-overlay');
+            const cartDrawer = document.getElementById('cart-drawer');
+            const openCartBtn = document.getElementById('open-cart-btn');
+            const closeCartBtn = document.getElementById('close-cart-btn');
+
+            if (openCartBtn) openCartBtn.addEventListener('click', () => {
+                cartDrawerOverlay.classList.remove('hidden');
+                setTimeout(() => {
+                    cartDrawerOverlay.classList.remove('opacity-0');
+                    cartDrawer.classList.remove('-translate-x-full');
+                }, 10);
+            });
+
+            if (closeCartBtn) closeCartBtn.addEventListener('click', () => {
+                cartDrawerOverlay.classList.add('opacity-0');
+                cartDrawer.classList.add('-translate-x-full');
+                setTimeout(() => cartDrawerOverlay.classList.add('hidden'), 300);
+            });
+
+            // Auto select first variant swatch if available
+            const firstSwatch = document.querySelector('.swatch-btn');
+            if (firstSwatch) {
+                selectSwatch(firstSwatch);
+            }
+
+            // Check URL hash for direct tab navigation e.g. #reviews
+            if (window.location.hash === '#reviews') {
+                switchTab('reviews');
+            }
         });
 
-        function updateFavCount() {
-            const favItems = JSON.parse(localStorage.getItem('favorites')) || [];
-            document.getElementById('fav-count').textContent = favItems.length || 0;
-        }
-
-        function updateAllCounts() {
-            updateCartCount();
-            updateFavCount();
-        }
-
-        document.addEventListener('DOMContentLoaded', updateAllCounts);
-
-        function changeImage(img) {
-            document.querySelector('.main-img').src = img.src;
-        }
-
-        function showSellerDetails() {
-            const box = document.getElementById('seller-extra-info');
-            box.style.display = box.style.display === 'none' ? 'block' : 'none';
-        }
-
-        const variants = @json($product->variants);
-
-        function selectVariant(card) {
-            // إزالة التحديد من باقي البطاقات
-            document.querySelectorAll('.variant-card').forEach(c => {
-                c.classList.remove('border-primary');
-                c.querySelector('.quantity-selector').style.display = 'none';
-            });
-
-            // تمييز البطاقة الحالية
-            card.classList.add('border-primary');
-
-            // إظهار selector الكمية
-            const qtySelector = card.querySelector('.quantity-selector');
-            qtySelector.style.display = 'block';
-
-            // جلب الـ Variant المختار
-            const variantId = parseInt(card.getAttribute('data-id'));
-            const variant = variants.find(v => v.id === variantId);
-
-            const qtyInput = qtySelector.querySelector('.quantity-input');
-
-            // تحديث قيمة الـ input لتكون صحيحة عند أي تغيير
-            qtyInput.addEventListener('input', function () {
-                let qty = parseInt(this.value);
-                if (qty < 1) qty = 1;
-                if (qty > variant.quantity) qty = variant.quantity;
-                this.value = qty;
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const userIcon = document.getElementById('userIcon');
-            const dropdown = document.getElementById('userDropdown');
-
-            if (!userIcon || !dropdown) {
-                console.warn('userIcon or userDropdown element not found. تأكد من وجود العنصرين ومعرفاتهما id="userIcon" و id="userDropdown".');
-                return;
-            }
-
-            // تأكد أن الـ dropdown طفل مباشر للـ body حتى لا يتأثر بـ overflow/transform من والدين آخرين
-            if (dropdown.parentElement !== document.body) {
-                document.body.appendChild(dropdown);
-            }
-
-            // إعدادات أولية
-            dropdown.style.position = 'absolute';
-            dropdown.style.display = 'none';
-            dropdown.style.zIndex = 9999;
-
-            function positionDropdown() {
-                // نظهر مؤقتاً مخفياً لقياس الأبعاد بدون فلاش
-                dropdown.style.display = 'block';
-                dropdown.style.visibility = 'hidden';
-                dropdown.classList.add('open'); // يضيف أي ستايل عرض لو حاطه
-                const iconRect = userIcon.getBoundingClientRect();
-                const ddRect = dropdown.getBoundingClientRect();
-                const gap = 8; // مسافة بين الأيقونة والقائمة
-
-                // محاذاة يمين القائمة مع يمين الأيقونة (مناسب للـ RTL)
-                let left = window.scrollX + iconRect.right - ddRect.width;
-                let top = window.scrollY + iconRect.bottom + gap;
-
-                const margin = 8;
-                if (left < margin) left = margin;
-                if (left + ddRect.width > window.innerWidth - margin) left = window.innerWidth - ddRect.width - margin;
-
-                // إذا ما فيه مساحة تحت، اعرض فوق الأيقونة
-                if (top + ddRect.height > window.scrollY + window.innerHeight - margin) {
-                    top = window.scrollY + iconRect.top - ddRect.height - gap;
+        function adjustQty(amount) {
+            const qtyInput = document.getElementById('product-qty');
+            if (qtyInput) {
+                let current = parseInt(qtyInput.value) || 1;
+                let min = parseInt(qtyInput.min) || 1;
+                let max = parseInt(qtyInput.max) || 999;
+                let updated = current + amount;
+                if (updated >= min && updated <= max) {
+                    qtyInput.value = updated;
                 }
+            }
+        }
 
-                dropdown.style.left = Math.round(left) + 'px';
-                dropdown.style.top = Math.round(top) + 'px';
-
-                // أظهر بشكل نهائي
-                dropdown.style.visibility = 'visible';
+        function selectSwatch(btn) {
+            if (!btn) return;
+            const container = document.getElementById('variants-swatch-container');
+            if (container) {
+                container.querySelectorAll('.swatch-btn').forEach(b => {
+                    b.classList.remove('border-brand-500', 'ring-4', 'ring-brand-500/30', 'ring-2', 'ring-brand-500/40', 'bg-brand-500/15', 'text-brand-400', 'scale-105');
+                    b.classList.add('border-slate-700/80');
+                    const checkIcon = b.querySelector('.check-icon');
+                    if (checkIcon) checkIcon.classList.add('hidden');
+                });
             }
 
-            function openDropdown() {
-                positionDropdown();
-                dropdown.classList.add('open');
-                userIcon.setAttribute('aria-expanded', 'true');
-                dropdown.setAttribute('aria-hidden', 'false');
-
-                window.addEventListener('resize', positionDropdown);
-                window.addEventListener('scroll', positionDropdown, true);
+            const isColor = btn.classList.contains('w-9');
+            if (isColor) {
+                btn.classList.remove('border-slate-700/80', 'border-slate-700');
+                btn.classList.add('border-brand-500', 'ring-4', 'ring-brand-500/30', 'scale-105');
+                const checkIcon = btn.querySelector('.check-icon');
+                if (checkIcon) checkIcon.classList.remove('hidden');
+            } else {
+                btn.classList.remove('border-slate-700/80');
+                btn.classList.add('border-brand-500', 'ring-2', 'ring-brand-500/40', 'bg-brand-500/15', 'text-brand-400');
             }
 
-            function closeDropdown() {
-                dropdown.classList.remove('open');
-                dropdown.style.display = 'none';
-                userIcon.setAttribute('aria-expanded', 'false');
-                dropdown.setAttribute('aria-hidden', 'true');
+            const variantId = btn.getAttribute('data-id');
+            const price = btn.getAttribute('data-price');
+            const image = btn.getAttribute('data-image');
+            const label = btn.getAttribute('data-label');
 
-                window.removeEventListener('resize', positionDropdown);
-                window.removeEventListener('scroll', positionDropdown, true);
+            const hiddenInput = document.getElementById('selected-variant-id');
+            if (hiddenInput) hiddenInput.value = variantId;
+
+            const nameDisplay = document.getElementById('selected-variant-name');
+            if (nameDisplay && label) nameDisplay.textContent = label;
+
+            const priceDisplay = document.getElementById('display-price');
+            if (priceDisplay && price) {
+                priceDisplay.innerHTML = `${parseFloat(price).toFixed(2)} <span class="text-base font-bold">₪</span>`;
             }
 
-            userIcon.addEventListener('click', function (e) {
-                e.stopPropagation();
-                if (dropdown.classList.contains('open')) closeDropdown();
-                else openDropdown();
+            if (image) {
+                const mainImg = document.getElementById('main-product-img');
+                if (mainImg) mainImg.src = image;
+            }
+        }
+
+        function switchTab(tabName) {
+            const tabsSection = document.getElementById('product-tabs-section');
+            if (!tabsSection) return;
+
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+
+            document.querySelectorAll('.tab-nav-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white', 'shadow-lg', 'shadow-brand-600/30');
+                btn.classList.add('bg-slate-800/80', 'text-slate-300');
             });
 
-            // غلق عند النقر خارج القائمة أو عند الضغط على Esc
-            document.addEventListener('click', function (e) {
-                if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
-                    closeDropdown();
+            const targetPane = document.getElementById(`tab-pane-${tabName}`);
+            const targetBtn = document.getElementById(`tab-btn-${tabName}`);
+
+            if (targetPane) targetPane.classList.remove('hidden');
+            if (targetBtn) {
+                targetBtn.classList.remove('bg-slate-800/80', 'text-slate-300');
+                targetBtn.classList.add('bg-brand-600', 'text-white', 'shadow-lg', 'shadow-brand-600/30');
+            }
+        }
+
+        function toggleWishlist(productId, btn) {
+            $.ajax({
+                url: "{{ route('customer.wishlist.toggle') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    product_id: productId
+                },
+                success: function(response) {
+                    const icon = btn.querySelector('i');
+                    if (response.is_wishlisted) {
+                        icon.className = 'fa-solid fa-heart text-accent-coral text-lg transition-transform duration-200';
+                        btn.setAttribute('title', 'إزالة من قائمة الرغبات');
+                    } else {
+                        icon.className = 'fa-regular fa-heart text-lg group-hover:scale-110 transition-transform duration-200';
+                        btn.setAttribute('title', 'إضافة إلى قائمة الرغبات');
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        alert('يرجى تسجيل الدخول أولاً لإضافة المنتجات إلى قائمة الرغبات');
+                    } else {
+                        console.error('Wishlist error:', xhr);
+                    }
                 }
             });
+        }
 
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') closeDropdown();
-            });
-
-        });
-
+        function changeProductImage(element) {
+            const mainImg = document.getElementById('main-product-img');
+            if (mainImg && element) {
+                mainImg.src = element.src;
+            }
+        }
     </script>
-
-
-    @auth
-        <div id="userDropdown" class="user-dropdown" role="menu" aria-hidden="true">
-            <div class="user-header d-flex align-items-center px-3 py-2 mb-2">
-                <i class="fa-solid fa-user fa-lg me-2"></i>
-                <span class="username">{{ $username ?? 'Guest' }}</span>
-            </div>
-
-            <hr class="dropdown-divider" style="margin:0; border-color: rgba(255,255,255,0.1)">
-            <a class="user-item" href="{{ route('profile.show') }}">
-                <i class="fa-solid fa-user-pen"></i>&nbsp;الملف الشخصي
-            </a>
-            <a class="user-item" href="{{ route('customer.orders.show') }}">
-                <i class="fa-solid fa-box fa-lg me-2"></i>&nbsp; طلباتك
-            </a>
-            <a class="user-item" href="#">
-                <i class="fa-solid fa-gear"></i>&nbsp;الإعدادات
-            </a>
-
-            <form method="POST" action="{{ route('logout') }}" class="m-0">
-                @csrf
-                <button type="submit" class="user-item text-danger"
-                    style="border:none; background:transparent; width:100%; text-align:right;">
-                    <i class="fa-solid fa-right-from-bracket"></i>&nbsp;خروج
-                </button>
-            </form>
-        </div>
-    @endauth
-
 </body>
 
 </html>
