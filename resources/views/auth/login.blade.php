@@ -74,14 +74,14 @@
     </style>
 </head>
 
-<body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col justify-center items-center p-4 relative overflow-x-hidden selection:bg-brand-500 selection:text-white">
+<body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-brand-500 selection:text-white">
 
-    <!-- Background glow shapes -->
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- MINIMAL GLOBAL HEADER COMPONENT -->
+    <x-global-header variant="minimal" />
 
     <!-- Main Container -->
-    <div class="w-full max-w-md my-8 space-y-6 relative z-10" data-aos="fade-up">
+    <div class="flex-grow flex items-center justify-center p-4">
+        <div class="w-full max-w-md my-8 space-y-6 relative z-10" data-aos="fade-up">
 
         <!-- Logo Header -->
         <div class="text-center space-y-2">
