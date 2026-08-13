@@ -117,71 +117,8 @@
 <body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
 
     <!-- TOP ANNOUNCEMENT BAR -->
-    <div class="bg-gradient-to-r from-brand-950 via-slate-900 to-brand-950 text-xs py-2 border-b border-slate-800/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <div class="flex items-center gap-4 text-slate-300">
-                <span class="inline-flex items-center gap-1.5 text-accent-gold font-bold">
-                    <i class="fa-solid fa-shield-halved text-xs"></i>
-                    مرساة | تسوق آمن وحماية كاملة للمشترين 100%
-                </span>
-            </div>
-            <div class="flex items-center gap-5 text-slate-300">
-                <div class="flex items-center gap-1.5 cursor-pointer hover:text-white transition">
-                    <i class="fa-solid fa-globe text-brand-400"></i>
-                    <span class="font-medium">العربية (₪)</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN STICKY NAVIGATION HEADER -->
-    <header class="sticky top-0 z-50 glass-header shadow-2xl transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20 gap-4">
-
-                <!-- Logo -->
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('customer.main-page') }}" class="flex items-center gap-3 group">
-                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center p-2 shadow-lg shadow-brand-500/30 group-hover:scale-105 transition duration-300">
-                            <img src="{{ asset('img/logo.svg') }}" alt="Marsa Logo" class="w-full h-full object-contain filter brightness-200" />
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-2xl font-black gradient-text tracking-tight leading-none">
-                                مرساة
-                            </span>
-                            <span class="text-[10px] text-slate-400 font-semibold tracking-wider">MARSA STORE</span>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Cart Button & User Actions -->
-                <div class="flex items-center gap-3">
-                    <button id="open-cart-btn" class="relative flex items-center gap-2.5 bg-brand-600/20 hover:bg-brand-600/30 text-brand-400 border border-brand-500/40 px-4 py-2.5 rounded-full transition group">
-                        <i class="fa-solid fa-cart-shopping text-base group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs font-bold hidden sm:inline-block">السلة</span>
-                        <span id="cart-count-badge" class="bg-brand-500 text-white text-[11px] font-black px-2.5 py-0.5 rounded-full shadow">
-                            {{ isset($carts) ? count($carts->flatMap->items) : 0 }}
-                        </span>
-                    </button>
-
-                    @guest
-                    <button onclick="openModal()" class="bg-slate-800/90 hover:bg-slate-700 text-white text-xs font-bold px-4 py-2.5 rounded-full border border-slate-700 transition">
-                        تسجيل دخول
-                    </button>
-                    @endguest
-
-                    @auth
-                    <div class="flex items-center gap-2 p-1.5 pl-3.5 bg-slate-800/80 border border-slate-700/80 rounded-full">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-accent-orange flex items-center justify-center text-white font-black text-xs shadow">
-                            {{ mb_substr(Auth::user()->name, 0, 1) }}
-                        </div>
-                        <span class="text-xs font-bold text-slate-200 hidden md:inline-block">{{ Auth::user()->name }}</span>
-                    </div>
-                    @endauth
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- CENTRALIZED GLOBAL HEADER COMPONENT -->
+    <x-global-header variant="standard" :categories="$categories ?? collect()" :carts="$carts ?? null" :userWishlistIds="$userWishlistIds ?? []" />
 
     <!-- BREADCRUMBS -->
     <div class="bg-slate-950/60 border-b border-slate-800/80 py-3 text-xs">
@@ -469,18 +406,15 @@
                                 @endif
                             </div>
 
-                            <form action="{{ route('customer.cart.add') }}" method="POST" class="inline">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="qty" value="1">
-                                <button type="submit" title="أضف للسلة"
-                                    class="group/btn h-10 px-3 hover:px-4 rounded-full bg-brand-600 hover:bg-brand-500 text-white flex items-center justify-center gap-0 group-hover/btn:gap-2 shadow-lg shadow-brand-600/30 transition-all duration-300 ease-out hover:scale-105">
-                                    <i class="fa-solid fa-cart-plus text-sm shrink-0"></i>
-                                    <span class="max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover/btn:max-w-[100px] group-hover/btn:opacity-100 transition-all duration-300 text-xs font-bold">
-                                        أضف للسلة
-                                    </span>
-                                </button>
-                            </form>
+                            @php $userCartProductIds = $userCartProductIds ?? (Auth::check() ? \App\Models\CartItem::whereHas('cart', fn($q) => $q->where('user_id', Auth::id())->where('status', 'open'))->pluck('product_id')->toArray() : []); @endphp
+                            @php $isInCart = in_array($product->id, $userCartProductIds); @endphp
+                            <button type="button" onclick="addToCart({{ $product->id }}, 1, this)" title="{{ $isInCart ? 'في السلة' : 'أضف للسلة' }}"
+                                class="group/btn h-10 px-3 hover:px-4 rounded-full {{ $isInCart ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-brand-600 hover:bg-brand-500' }} text-white flex items-center justify-center gap-0 group-hover/btn:gap-2 shadow-lg transition-all duration-300 ease-out hover:scale-105">
+                                <i class="fa-solid {{ $isInCart ? 'fa-check' : 'fa-cart-plus' }} text-sm shrink-0"></i>
+                                <span class="max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover/btn:max-w-[100px] group-hover/btn:opacity-100 transition-all duration-300 text-xs font-bold cart-btn-text">
+                                    {{ $isInCart ? 'في السلة' : 'أضف للسلة' }}
+                                </span>
+                            </button>
                         </div>
                     </div>
                 </div>

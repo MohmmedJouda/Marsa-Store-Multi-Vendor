@@ -81,22 +81,8 @@
 
 <body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
 
-    <!-- HEADER -->
-    <header class="sticky top-0 z-50 glass-header shadow-2xl">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="{{ route('customer.main-page') }}" class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center p-2 shadow-lg">
-                        <img src="{{ asset('img/logo.svg') }}" alt="Marsa Logo" class="w-full h-full object-contain filter brightness-200" />
-                    </div>
-                    <span class="text-2xl font-black gradient-text">مرساة</span>
-                </a>
-                <a href="{{ route('customer.orders.show') }}" class="text-xs font-bold text-slate-300 hover:text-white transition flex items-center gap-2">
-                    قائمة الطلبات <i class="fa-solid fa-box"></i>
-                </a>
-            </div>
-        </div>
-    </header>
+    <!-- CENTRALIZED GLOBAL HEADER COMPONENT -->
+    <x-global-header variant="standard" :categories="$categories ?? collect()" :carts="$carts ?? null" :userWishlistIds="$userWishlistIds ?? []" />
 
     <!-- MAIN FEEDBACK CONTENT -->
     <main class="flex-grow max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8" data-aos="fade-up">

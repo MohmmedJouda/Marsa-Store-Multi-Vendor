@@ -81,22 +81,8 @@
 
 <body class="bg-[#0b192c] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
 
-    <!-- HEADER -->
-    <header class="sticky top-0 z-50 glass-header shadow-2xl">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="{{ route('customer.main-page') }}" class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center p-2 shadow-lg">
-                        <img src="{{ asset('img/logo.svg') }}" alt="Marsa Logo" class="w-full h-full object-contain filter brightness-200" />
-                    </div>
-                    <span class="text-2xl font-black gradient-text">مرساة</span>
-                </a>
-                <a href="{{ route('customer.main-page') }}" class="text-xs font-bold text-slate-300 hover:text-white transition flex items-center gap-2">
-                    متابعة التسوق <i class="fa-solid fa-arrow-left"></i>
-                </a>
-            </div>
-        </div>
-    </header>
+    <!-- CENTRALIZED GLOBAL HEADER COMPONENT -->
+    <x-global-header variant="standard" :categories="$categories ?? collect()" :carts="$carts ?? null" :userWishlistIds="$userWishlistIds ?? []" />
 
     <!-- BREADCRUMBS -->
     <div class="bg-slate-950/60 border-b border-slate-800/80 py-3 text-xs">
@@ -123,28 +109,35 @@
                 @forelse ($items as $item)
                 @php
                 $mainImg = $item->product?->images()->where('is_main', true)->first();
+                $isFav = in_array($item->product_id, $userWishlistIds ?? []);
                 @endphp
-                <div class="glass-card rounded-3xl p-5 flex flex-col sm:flex-row items-center justify-between gap-5 bg-slate-900/70 border border-slate-800 hover:border-brand-500/30 transition">
+                <div id="cart-item-row-{{ $item->id }}" class="glass-card rounded-3xl p-5 flex flex-col sm:flex-row items-center justify-between gap-5 bg-slate-900/70 border border-slate-800 hover:border-brand-500/30 transition">
                     <div class="flex items-center gap-4 w-full sm:w-auto">
                         <img src="{{ $mainImg ? asset('storage/' . $mainImg->image_path) : asset('images/no-image.png') }}"
                             alt="{{ $item->name }}" class="w-20 h-20 object-cover rounded-2xl bg-slate-950 shrink-0" />
-                        <div>
-                            <h3 class="font-bold text-white text-base hover:text-brand-400 transition">
-                                <a href="{{ route('customer.product.show', $item->product_id) }}">{{ $item->name }}</a>
-                            </h3>
-                            <div class="text-xs text-slate-400 mt-1">تاريخ الإضافة: {{ $item->created_at?->format('Y-m-d') }}</div>
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-bold text-white text-base hover:text-brand-400 transition">
+                                    <a href="{{ route('customer.product.show', $item->product_id) }}">{{ $item->name }}</a>
+                                </h3>
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                                    <i class="fa-solid fa-cart-shopping text-xs"></i> في السلة
+                                </span>
+                            </div>
+                            <div class="text-xs text-slate-400">تاريخ الإضافة: {{ $item->created_at?->format('Y-m-d') }}</div>
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800">
+                    <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800">
                         <span class="text-xl font-black text-emerald-400 me-2">{{ number_format($item->price, 2) }} ₪</span>
-                        <form action="{{ route('customer.cart.remove', $item->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="w-10 h-10 rounded-full bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white flex items-center justify-center transition" title="حذف المنتح">
-                                <i class="fa-solid fa-trash-can text-sm"></i>
-                            </button>
-                        </form>
+                        
+                        <button type="button" onclick="toggleWishlist(this, {{ $item->product_id }})" title="{{ $isFav ? 'في المفضلة' : 'أضف للمفضلة' }}" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition group">
+                            <i class="{{ $isFav ? 'fa-solid fa-heart text-rose-500' : 'fa-regular fa-heart text-slate-400' }} text-sm transition group-hover:scale-110"></i>
+                        </button>
+
+                        <button type="button" onclick="removeFromCart({{ $item->id }}, this)" class="w-10 h-10 rounded-full bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white flex items-center justify-center transition" title="حذف المنتج">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
                     </div>
                 </div>
                 @empty
