@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Order;
@@ -10,8 +11,8 @@ use App\Models\Product;
 use App\Models\Store;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -58,13 +59,16 @@ class CustomerController extends Controller
         $featuredStores = Store::with(['user', 'ratings', 'products'])->latest()->take(10)->get();
         $wishlistProducts = Auth::check() ? Auth::user()->wishlistProducts()->with(['images', 'store'])->get() : collect();
         $userWishlistIds = $wishlistProducts->pluck('id')->toArray();
+        $userCartProductIds = Auth::check() ? CartItem::whereHas('cart', function ($q) {
+            $q->where('user_id', Auth::id())->where('status', 'open');
+        })->pluck('product_id')->toArray() : [];
 
         if (Auth::check()) {
             $username = Auth::user()->name;
         } else {
             $username = 'Guest';
         }
-        return view('users.customer.main-page', compact('latest', 'carts', 'totalPrice', 'categories', 'username', 'mostOrdereds', 'products', 'featuredStores', 'userWishlistIds', 'wishlistProducts'));
+        return view('users.customer.main-page', compact('latest', 'carts', 'totalPrice', 'categories', 'username', 'mostOrdereds', 'products', 'featuredStores', 'userWishlistIds', 'userCartProductIds', 'wishlistProducts'));
     }
 
     public function guest()
@@ -343,11 +347,28 @@ class CustomerController extends Controller
         $isWishlisted = count($attached['attached']) > 0;
         $message = $isWishlisted ? 'تمت إضافة المنتج إلى قائمة الرغبات' : 'تمت إزالة المنتج من قائمة الرغبات';
 
+        $productData = null;
+        if ($isWishlisted) {
+            $p = Product::with(['images', 'store'])->find($productId);
+            if ($p) {
+                $mainImg = $p->images()->where('is_main', true)->first();
+                $productData = [
+                    'id' => $p->id,
+                    'name' => $p->name,
+                    'price' => number_format($p->price, 2),
+                    'store_name' => $p->store->name ?? 'متجر عام',
+                    'image_url' => $mainImg ? asset('storage/' . $mainImg->image_path) : asset('images/no-image.png'),
+                    'url' => route('customer.product.show', $p->id),
+                ];
+            }
+        }
+
         return response()->json([
             'status' => 'success',
             'is_wishlisted' => $isWishlisted,
             'message' => $message,
             'wishlist_count' => $user->wishlistProducts()->count(),
+            'product' => $productData,
         ]);
     }
 
@@ -358,7 +379,11 @@ class CustomerController extends Controller
         }
 
         $productId = $request->input('product_id');
-        $product = Product::find($productId);
+        if (!$productId) {
+            return response()->json(['status' => 'error', 'message' => 'المنتج غير محدد.'], 400);
+        }
+
+        $product = Product::with(['images', 'store'])->find($productId);
 
         if (!$product) {
             return response()->json(['status' => 'error', 'message' => 'المنتج غير موجود.'], 404);
@@ -366,30 +391,52 @@ class CustomerController extends Controller
 
         $user = Auth::user();
 
-        // 1. Add item to open cart
-        $cart = Cart::firstOrCreate(
-            ['user_id' => $user->id, 'status' => 'open'],
-            ['status' => 'open']
-        );
+        try {
+            DB::transaction(function () use ($user, $product) {
+                $cart = Cart::firstOrCreate(
+                    ['user_id' => $user->id, 'status' => 'open'],
+                    ['status' => 'open']
+                );
 
-        $item = CartItem::firstOrCreate(
-            ['cart_id' => $cart->id, 'product_id' => $product->id],
-            ['name' => $product->name, 'price' => $product->price, 'qty' => 0]
-        );
-        $item->increment('qty', 1);
+                $item = CartItem::firstOrCreate(
+                    ['cart_id' => $cart->id, 'product_id' => $product->id],
+                    ['qty' => 0, 'price' => (float)$product->price, 'name' => $product->name]
+                );
 
-        // 2. Remove from wishlist
-        $user->wishlistProducts()->detach($productId);
+                $item->update([
+                    'price' => (float)$product->price,
+                    'name'  => $product->name,
+                ]);
 
-        $totalCartItems = CartItem::whereHas('cart', function($q) use ($user) {
+                $item->increment('qty', 1);
+
+                $user->wishlistProducts()->detach($product->id);
+            });
+        } catch (\Exception $e) {
+            \Log::error('moveToCart Error: ' . $e->getMessage());
+            return response()->json(['status' => 'error', 'message' => 'حدث خطأ أثناء نقل المنتج إلى السلة.'], 500);
+        }
+
+        $totalCartItems = CartItem::whereHas('cart', function ($q) use ($user) {
             $q->where('user_id', $user->id)->where('status', 'open');
-        })->sum('qty');
+        })->count();
+
+        $mainImg = $product->images()->where('is_main', true)->first();
+        $productData = [
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => number_format($product->price, 2),
+            'store_name' => $product->store->name ?? 'متجر عام',
+            'image_url' => $mainImg ? asset('storage/' . $mainImg->image_path) : asset('images/no-image.png'),
+            'url' => route('customer.product.show', $product->id),
+        ];
 
         return response()->json([
             'status' => 'success',
             'message' => 'تم نقل المنتج إلى سلة المشتريات بنجاح',
             'wishlist_count' => $user->wishlistProducts()->count(),
-            'cart_count' => $totalCartItems
+            'cart_count' => $totalCartItems,
+            'product' => $productData
         ]);
     }
 }
