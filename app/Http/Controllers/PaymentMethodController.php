@@ -11,6 +11,8 @@ class PaymentMethodController extends Controller
 {
     public function storeBankTransfer(Request $request, Order $order)
     {
+        $this->authorize('pay', $order);
+
         $validated = $request->validate([
             'transaction_id' => 'nullable|string|max:255',
             'receipt' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
@@ -37,6 +39,8 @@ class PaymentMethodController extends Controller
 
     public function storePayOnDelivery(Request $request, Order $order)
     {
+        $this->authorize('pay', $order);
+
         $request->validate([
             'transaction_id' => 'nullable|string|max:255',
             'receipt' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
