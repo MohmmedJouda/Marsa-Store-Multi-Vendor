@@ -4,63 +4,22 @@ namespace App\Policies;
 
 use App\Models\ProductVariant;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ProductVariantPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     */
     public function view(User $user, ProductVariant $productVariant): bool
     {
-        return false;
+        return $user->role === 'vendor'
+            && $user->store?->id === $productVariant->product?->store_id;
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     */
     public function update(User $user, ProductVariant $productVariant): bool
     {
-        return false;
+        return $this->view($user, $productVariant);
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
     public function delete(User $user, ProductVariant $productVariant): bool
     {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, ProductVariant $productVariant): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, ProductVariant $productVariant): bool
-    {
-        return false;
+        return $this->view($user, $productVariant);
     }
 }
