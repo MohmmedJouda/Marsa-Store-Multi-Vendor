@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\order as Order;
+use App\Models\User;
+
+class OrderPolicy
+{
+    public function view(User $user, Order $order): bool
+    {
+        return $order->user_id === $user->id;
+    }
+
+    public function pay(User $user, Order $order): bool
+    {
+        return $order->user_id === $user->id
+            && in_array($order->status, ['pending', 'payment_pending'], true);
+    }
+
+    public function cancel(User $user, Order $order): bool
+    {
+        return $order->user_id === $user->id
+            && !in_array($order->status, ['delivered', 'refunded', 'cancelled'], true);
+    }
+
+    public function refund(User $user, Order $order): bool
+    {
+        return $order->user_id === $user->id
+            && $order->status === 'delivered';
+    }
+}
