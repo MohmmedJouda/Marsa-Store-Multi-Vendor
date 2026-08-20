@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\order;
+use App\Models\order as Order;
 use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\Category;
@@ -38,145 +38,74 @@ class vendorController extends Controller
         }
 
         $storeId = $store->id;
-
-        // Statistics
         $totalProducts = Product::where('store_id', $storeId)->count();
         $activeProducts = Product::where('store_id', $storeId)->where('status', 'active')->count();
         $trashedProducts = Product::onlyTrashed()->where('store_id', $storeId)->count();
-
-        // Orders query
-        $ordersQuery = order::whereHas('items.product', function ($query) use ($storeId) {
+        $ordersQuery = Order::whereHas('items.product', function ($query) use ($storeId) {
             $query->where('store_id', $storeId);
         });
-
         $totalOrders = (clone $ordersQuery)->count();
         $pendingOrders = (clone $ordersQuery)->whereIn('status', ['pending', 'processing', 'قيد الانتظار', 'قيد التجهيز'])->count();
         $completedOrders = (clone $ordersQuery)->whereIn('status', ['delivered', 'completed', 'مكتمل'])->count();
-
-        // Revenue calculation
         $totalRevenue = OrderItem::whereHas('product', function ($query) use ($storeId) {
             $query->where('store_id', $storeId);
         })->sum(DB::raw('price * quantity'));
-
-        // Recent orders
-        $recentOrders = (clone $ordersQuery)
-            ->with(['user', 'items.product', 'payment'])
-            ->latest()
-            ->take(6)
-            ->get();
-
-        // Top selling products
-        $topProducts = Product::where('store_id', $storeId)
-            ->with(['mainImage', 'subcategory'])
-            ->withCount('orderItems')
-            ->orderBy('order_items_count', 'desc')
-            ->take(5)
-            ->get();
-
+        $recentOrders = (clone $ordersQuery)->with(['user', 'items.product', 'payment'])->latest()->take(6)->get();
+        $topProducts = Product::where('store_id', $storeId)->with(['mainImage', 'subcategory'])->withCount('orderItems')->orderBy('order_items_count', 'desc')->take(5)->get();
         $categoriesCount = Category::count();
         $averageRating = round($store->ratings()->avg('rate') ?? 5.0, 1);
-
-        // 7-day sales statistics calculation for ApexChart
         $salesLabels = [];
         $salesData = [];
         for ($i = 6; $i >= 0; $i--) {
             $date = \Carbon\Carbon::now()->subDays($i);
             $salesLabels[] = $date->format('d/m');
-            
             $dayRevenue = OrderItem::whereHas('product', function ($query) use ($storeId) {
                 $query->where('store_id', $storeId);
             })->whereHas('order', function ($query) use ($date) {
                 $query->whereDate('created_at', $date->format('Y-m-d'));
             })->sum(DB::raw('price * quantity'));
-            
             $salesData[] = (float) round($dayRevenue, 2);
         }
-
-        return view('users.vendor.dashboard', compact(
-            'store',
-            'totalProducts',
-            'activeProducts',
-            'trashedProducts',
-            'totalOrders',
-            'pendingOrders',
-            'completedOrders',
-            'totalRevenue',
-            'recentOrders',
-            'topProducts',
-            'categoriesCount',
-            'averageRating',
-            'salesLabels',
-            'salesData'
-        ));
+        return view('users.vendor.dashboard', compact('store', 'totalProducts', 'activeProducts', 'trashedProducts', 'totalOrders', 'pendingOrders', 'completedOrders', 'totalRevenue', 'recentOrders', 'topProducts', 'categoriesCount', 'averageRating', 'salesLabels', 'salesData'));
     }
 
-    public function index(){
-
-    $storeId = Auth::user()->store->id; // افتراض أن التاجر مرتبط بمتجر واحد
-
-    $orders = Order::whereHas('items.product', function($query) use ($storeId) {
-        $query->where('store_id', $storeId);
-    })
-    ->with(['items.product', 'payment'])
-    ->get();
-
-    return view('users.vendor.orders', compact('orders'));    
-
-    }
-
-
-     public function destroy($id)
+    public function index()
     {
-        $order = Order::find($id);
+        $storeId = Auth::user()->store->id;
+        $orders = Order::whereHas('items.product', function ($query) use ($storeId) {
+            $query->where('store_id', $storeId);
+        })->with(['items.product', 'payment'])->get();
+        return view('users.vendor.orders', compact('orders'));
+    }
 
-        if (!$order) {
-            return redirect()->back()->with('error', 'الطلب غير موجود.');
-        }
+    public function destroy($id)
+    {
+        $storeId = Auth::user()->store?->id;
+        $order = Order::whereKey($id)
+            ->whereHas('items.product', fn ($query) => $query->where('store_id', $storeId))
+            ->firstOrFail();
 
         $order->delete();
-
         return redirect()->back()->with('success', 'تم حذف الطلب بنجاح.');
     }
 
     public function updateStorePhoto(Request $request)
     {
-        $request->validate([
-            'store_photo' => 'nullable|image|max:2048',
-        ]);
-
+        $request->validate(['store_photo' => 'nullable|image|max:2048']);
         $user = Auth::user();
-
-        // تحديث صورة المتجر
-        if($request->hasFile('store_photo') && $user->store){
+        if ($request->hasFile('store_photo') && $user->store) {
             $store = $user->store;
-            if($store->photo_path && Storage::disk('public')->exists($store->photo_path)){
-                Storage::disk('public')->delete($store->photo_path);
-            }
-            $store->update([
-                'logo' => $request->file('store_photo')->store('store-photos', 'public')
-            ]);
+            if ($store->photo_path && Storage::disk('public')->exists($store->photo_path)) Storage::disk('public')->delete($store->photo_path);
+            $store->update(['logo' => $request->file('store_photo')->store('store-photos', 'public')]);
         }
-
         return redirect()->back()->with('store_photo_success', 'تم تحديث صورة المتجر بنجاح!');
     }
 
-    public function updateSlogan(Request $request){
-    $request->validate([
-        'slogan' => 'nullable|string|max:255',
-    ]);
-
-    if ($request->has('slogan')) {
-        $data['slogan'] = $request->slogan;
+    public function updateSlogan(Request $request)
+    {
+        $request->validate(['slogan' => 'nullable|string|max:255']);
+        $store = auth()->user()->store;
+        $store->update(['slogan' => $request->slogan]);
+        return redirect()->back()->with('success', 'تم تحديث العبارة الدعائية بنجاح!');
     }
-
-    $store = auth()->user()->store;
-
-    $store->update([
-        'slogan' => $request->slogan
-    ]);
-
-    return redirect()->back()->with('success', 'تم تحديث العبارة الدعائية بنجاح!');
-}
-
-
 }
